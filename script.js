@@ -20,39 +20,8 @@ const products = [
       "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/atk-edge60he-5.jpg",
       "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/atk-edge60he-6.jpg"
     ],
-    specs: ["60% (61 keys)","Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches"]
-  },
-  {
-    id: "made68-ultra",
-    title: "MADE68 Ultra",
-    short: "68‑key compact; premium aluminum case; Hall‑effect / magnetic switch features",
-    price: 199,
-    layout: "68",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/4ef591ca-b818-4e2b-ae0a-14b2cc81f9f3-1000x1000-peMUQzqEYVGLpdYu48cevRgENzP3G9OX3h2PuM0n.png",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/made68-2.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/made68-3.jpg"
-    ],
-    specs: ["68 keys","Aluminum alloy case","Magnetic / Hall effect switches","Premium finish"]
-  },
-  {
-    id: "nano68-he",
-    title: "Madlions Nano68 HE",
-    short: "NAN068 Magnetic Switch Keyboard: Responsive switches, customizable RGB, low latency, and versatile functions for gamers",
-    price: 45,
-    layout: "68",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-2.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-3.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-4.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-5.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/nano68-6.jpg"
-    ],
-    specs: ["68 keys","Magnetic switches","RGB lighting","Low latency"]
-  }
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+      }
 ];
 
 /* ---------- Helpers ---------- */
