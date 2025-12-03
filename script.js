@@ -27,7 +27,26 @@ const products = [
     specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
       }
 ];
+/* function for contact dialogue*/
+// Modal logic
+document.addEventListener('DOMContentLoaded', () => {
+  const contactLink = document.getElementById('contactLink');
+  const modal = document.getElementById('contactModal');
+  const closeBtn = modal.querySelector('.modal-close');
 
+  if(contactLink && modal){
+    contactLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.setAttribute('aria-hidden','false');
+    });
+    closeBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden','true');
+    });
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.setAttribute('aria-hidden','true');
+    });
+  }
+});
 /* ---------- Helpers ---------- */
 function whatsappLink(product){
   const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
