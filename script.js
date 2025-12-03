@@ -7,11 +7,11 @@ const DISCORD_HANDLE = "Kokushibo#4764";
 const products = [
   {
     id: "atk-edge60he",
-    title: "ATK EDGE 60 HE",
+    title: "ATK EDGE60 HE ULTIMATE",
     short: "60% esports magnetic keyboard; aluminum CNC case; PBT dye‑sublimation keycaps",
     price: 229,
     layout: "60",
-    available: true,
+    available: false,
     images: [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
