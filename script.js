@@ -240,7 +240,7 @@ function renderProductDetail(product){
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
         <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
       </div>
-      <p style="margin-top:12px;color:var(--muted)">Shipping estimate: <strong>7–14 days</strong>. Import fees may apply.</p>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
     </div>
   `;
 
