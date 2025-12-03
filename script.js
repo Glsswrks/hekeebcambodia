@@ -8,7 +8,7 @@ const products = [
   {
     id: "atk-edge60he",
     title: "ATK EDGE60 HE ULTIMATE",
-    short: "60% esports magnetic keyboard; aluminum CNC case; PBT dye‑sublimation keycaps",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
     price: 229,
     layout: "60",
     available: false,
@@ -24,7 +24,7 @@ const products = [
 
      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
  ],
-    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps","Web Driver hub.atk.pro"]
       }
 ];
 
