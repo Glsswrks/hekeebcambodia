@@ -547,6 +547,74 @@ function initScrollerDots(gridSelector, options = {}) {
   };
 }
 
+/* new added */
+/* ---------- Scroller side shadows: show when overflow exists ---------- */
+function initScrollerShadows(gridSelector, containerSelector) {
+  const grid = document.querySelector(gridSelector);
+  const container = containerSelector ? document.querySelector(containerSelector) : (grid ? grid.parentElement : null);
+  if (!grid || !container) return null;
+
+  // Ensure container is positioned for absolute overlays
+  if (getComputedStyle(container).position === 'static') {
+    container.style.position = 'relative';
+  }
+
+  // Remove existing shadows if present
+  const existingLeft = container.querySelector('.scroller-shadow.left');
+  const existingRight = container.querySelector('.scroller-shadow.right');
+  existingLeft?.remove();
+  existingRight?.remove();
+
+  // Create shadow elements
+  const left = document.createElement('div');
+  left.className = 'scroller-shadow left';
+  const right = document.createElement('div');
+  right.className = 'scroller-shadow right';
+  container.appendChild(left);
+  container.appendChild(right);
+
+  // Update visibility based on scroll position
+  function updateShadows() {
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    if (maxScroll <= 0) {
+      left.classList.remove('visible');
+      right.classList.remove('visible');
+      return;
+    }
+    // show left if not at start
+    if (grid.scrollLeft > 8) left.classList.add('visible'); else left.classList.remove('visible');
+    // show right if not at end (allow small epsilon)
+    if (grid.scrollLeft < maxScroll - 8) right.classList.add('visible'); else right.classList.remove('visible');
+  }
+
+  // Throttle with requestAnimationFrame
+  let raf = null;
+  function onScroll() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      updateShadows();
+    });
+  }
+
+  grid.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // initialize
+  updateShadows();
+
+  // return API for cleanup or manual refresh
+  return {
+    destroy() {
+      grid.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      left.remove();
+      right.remove();
+    },
+    refresh() { updateShadows(); }
+  };
+}
+
 /* ---------- Page init ---------- */
 (function init(){
   const yearEl = document.getElementById('year');
