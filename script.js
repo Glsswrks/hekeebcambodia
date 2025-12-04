@@ -185,6 +185,111 @@ function renderIndexCards(list){
   });
 }
 
+/* ---------- Horizontal scroller with drag + momentum ---------- */
+function enableHorizontalScroller(selector){
+  const grid = document.querySelector(selector);
+  if(!grid) return;
+
+  // Ensure the grid uses horizontal scrolling behavior
+  grid.style.overflowX = grid.style.overflowX || 'auto';
+  grid.style.scrollBehavior = grid.style.scrollBehavior || 'smooth';
+  grid.classList.remove('dragging');
+
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let velocity = 0;
+  let momentumId = null;
+
+  function pointerDown(e){
+    // support touch and mouse
+    isDown = true;
+    grid.classList.add('dragging');
+    startX = (e.touches ? e.touches[0].clientX : e.clientX);
+    startScroll = grid.scrollLeft;
+    lastX = startX;
+    lastTime = Date.now();
+    velocity = 0;
+    // stop any running momentum
+    if(momentumId) { cancelAnimationFrame(momentumId); momentumId = null; }
+  }
+
+  function pointerMove(e){
+    if(!isDown) return;
+    const x = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = x - startX;
+    grid.scrollLeft = startScroll - dx;
+
+    // compute velocity (px per ms)
+    const now = Date.now();
+    const dt = Math.max(1, now - lastTime);
+    velocity = (x - lastX) / dt;
+    lastX = x;
+    lastTime = now;
+  }
+
+  function pointerUp(){
+    if(!isDown) return;
+    isDown = false;
+    grid.classList.remove('dragging');
+
+    // apply momentum based on last velocity
+    let momentum = velocity * 1000; // convert to px/s scale
+    const decay = 0.95; // friction per frame
+    const minMomentum = 0.5; // stop threshold
+
+    function step(){
+      // move by momentum * frameTime (approx 16ms)
+      grid.scrollLeft -= momentum * (16/1000);
+      momentum *= decay;
+      if(Math.abs(momentum) > minMomentum){
+        momentumId = requestAnimationFrame(step);
+      } else {
+        momentumId = null;
+        // optional: snap to nearest card if using scroll-snap, browser will handle it
+      }
+    }
+    if(Math.abs(momentum) > 1){
+      momentumId = requestAnimationFrame(step);
+    }
+  }
+
+  // Pointer / touch events
+  grid.addEventListener('touchstart', pointerDown, { passive: true });
+  grid.addEventListener('touchmove', pointerMove, { passive: true });
+  grid.addEventListener('touchend', pointerUp);
+  grid.addEventListener('mousedown', (e) => { e.preventDefault(); pointerDown(e); });
+  window.addEventListener('mousemove', pointerMove);
+  window.addEventListener('mouseup', pointerUp);
+
+  // Wheel support: convert vertical wheel to horizontal scroll when over grid
+  grid.addEventListener('wheel', (e) => {
+    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+      // prefer horizontal scroll by vertical wheel
+      grid.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Keyboard support: left/right arrows
+  grid.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowLeft') grid.scrollBy({ left: -260, behavior: 'smooth' });
+    if(e.key === 'ArrowRight') grid.scrollBy({ left: 260, behavior: 'smooth' });
+  });
+
+  // Make grid focusable for keyboard navigation
+  if(!grid.hasAttribute('tabindex')) grid.setAttribute('tabindex', '0');
+}
+
+/* Call this after the index grid is rendered */
+document.addEventListener('DOMContentLoaded', () => {
+  // If your renderIndexCards runs later, call enableHorizontalScroller after that call.
+  // This tries to attach immediately if the grid exists.
+  enableHorizontalScroller('#productGrid');
+});
+
 /* ---------- Carousel (shared) ---------- */
 function createCarousel(images) {
   const wrapper = document.createElement('div');
@@ -377,6 +482,7 @@ function renderProductDetail(product){
 
   if(grid){
     renderIndexCards(products);
+    enableHorizontalScroller('#productGrid');
   } else if(container){
     const id = getQueryParam('id');
     const product = products.find(p => p.id === id);
