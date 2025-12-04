@@ -103,7 +103,7 @@ function renderIndexCards(list){
   grid.innerHTML = '';
   list.forEach(p=>{
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card'; // This is what the new CSS targets.
 
     const availClass = p.available ? 'availability available' : 'availability unavailable';
     const availText = p.available ? 'Available' : 'Unavailable';
