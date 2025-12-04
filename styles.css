@@ -25,9 +25,14 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   gap: 18px;
   overflow-x: auto;
   padding-bottom: 12px;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity; /* softer snap */
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox remove scrollbar */
+  scrollbar-width: none;
+}
+
+.grid.dragging {
+  scroll-snap-type: none; /* Disable snap while dragging */
 }
 
 .grid::-webkit-scrollbar {
