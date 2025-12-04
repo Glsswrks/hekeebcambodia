@@ -62,71 +62,22 @@ const products = [
 ];
 /* function for contact dialogue*/
 // Modal logic
-document.addEventListener('DOMContentLoaded', function () {
-  const row = document.getElementById('productRow');
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
+document.addEventListener('DOMContentLoaded', () => {
+  const contactLink = document.getElementById('contactLink');
+  const modal = document.getElementById('contactModal');
+  const closeBtn = modal.querySelector('.modal-close');
 
-  if (!row) return;
-
-  // Compute scroll amount: width of one card including gap
-  function getScrollAmount() {
-    const card = row.querySelector('.product');
-    if (!card) return Math.round(row.clientWidth * 0.4);
-    const cardRect = card.getBoundingClientRect();
-    const style = window.getComputedStyle(row);
-    const gap = parseFloat(style.gap || style.columnGap || 12);
-    return Math.round(cardRect.width + gap);
-  }
-
-  function scrollByAmount(amount) {
-    row.scrollBy({ left: amount, behavior: 'smooth' });
-  }
-
-  prevBtn && prevBtn.addEventListener('click', function () {
-    const amount = getScrollAmount();
-    scrollByAmount(-amount);
-  });
-
-  nextBtn && nextBtn.addEventListener('click', function () {
-    const amount = getScrollAmount();
-    scrollByAmount(amount);
-  });
-
-  // Keyboard support: left/right arrows when the row is focused
-  row.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowLeft') {
+  if(contactLink && modal){
+    contactLink.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollByAmount(-getScrollAmount());
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      scrollByAmount(getScrollAmount());
-    }
-  });
-
-  // Optional: hide prev/next when not needed (at edges)
-  function updateButtons() {
-    const maxScrollLeft = row.scrollWidth - row.clientWidth;
-    prevBtn.disabled = row.scrollLeft <= 5;
-    nextBtn.disabled = row.scrollLeft >= maxScrollLeft - 5;
-    prevBtn.style.opacity = prevBtn.disabled ? '0.45' : '1';
-    nextBtn.style.opacity = nextBtn.disabled ? '0.45' : '1';
-  }
-
-  row.addEventListener('scroll', throttle(updateButtons, 100));
-  window.addEventListener('resize', throttle(updateButtons, 150));
-  updateButtons();
-
-  // Simple throttle helper
-  function throttle(fn, wait) {
-    let last = 0;
-    return function (...args) {
-      const now = Date.now();
-      if (now - last >= wait) {
-        last = now;
-        fn.apply(this, args);
-      }
-    };
+      modal.setAttribute('aria-hidden','false');
+    });
+    closeBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden','true');
+    });
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.setAttribute('aria-hidden','true');
+    });
   }
 });
 /* ---------- Helpers ---------- */

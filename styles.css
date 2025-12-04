@@ -188,100 +188,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   background: var(--accent);
   transform: scale(1.25);
 }
-.product-row-wrapper {
-  position: relative;
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-}
-
-/* Carousel buttons */
-.carousel-btn {
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 5;
-  transition: background 0.15s ease;
-}
-.carousel-btn:hover,
-.carousel-btn:focus {
-  background: rgba(0,0,0,0.8);
-  outline: none;
-}
-
-/* Positioning of prev/next */
-.carousel-btn.prev {
-  margin-right: 8px;
-}
-.carousel-btn.next {
-  margin-left: 8px;
-}
-
-/* The horizontal scrolling row */
-.product-row {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px 4px;
-  scroll-behavior: smooth;
-  /* allow the row to take remaining space between buttons */
-  flex: 1 1 auto;
-}
-
-/* Hide default scrollbar in modern browsers (optional) */
-.product-row::-webkit-scrollbar {
-  height: 8px;
-}
-.product-row::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.15);
-  border-radius: 4px;
-}
-
-/* Each product card: 40% width so 2.5 items are visible (2 full + half) */
-.product {
-  flex: 0 0 40%;
-  box-sizing: border-box;
-  scroll-snap-align: start;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  padding: 10px;
-  min-width: 180px; /* prevents cards from getting too small on tiny screens */
-}
-
-/* Product image styling */
-.product img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-}
-
-/* Small responsive tweak: on very small screens show 1.5 items instead */
-@media (max-width: 420px) {
-  .product {
-    flex: 0 0 66.6667%; /* ~1.5 items visible */
-  }
-  .carousel-btn {
-    width: 36px;
-    height: 36px;
-  }
-}
-
-/* Accessibility: focus outline for keyboard users */
-.product:focus-within,
-.carousel-btn:focus {
-  box-shadow: 0 0 0 3px rgba(21,156,228,0.25);
-}
 
 /* Responsive tweaks */
 @media (max-width:720px){
@@ -346,5 +252,3 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
-
-/* Product row wrapper */
