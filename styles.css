@@ -271,3 +271,28 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
+
+/* Fade edges for horizontal product row */
+.grid-wrapper {
+  position: relative;
+}
+
+.grid-fade-left,
+.grid-fade-right {
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.grid-fade-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(11,13,16,1), rgba(11,13,16,0));
+}
+
+.grid-fade-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
+}
