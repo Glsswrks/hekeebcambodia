@@ -19,37 +19,40 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .hero-image img{max-width:420px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-
-/* Card layout: image area + flexible body */
-.card{
-  background:var(--card);
-  padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.03);
-  display:flex;
-  flex-direction:column;
-  height:100%;
+/* Horizontal single-row product scroller */
+.grid {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px; /* allow space for scrollbar on some platforms */
+  scroll-snap-type: x mandatory;
+  /* hide default grid behavior */
+  grid-template-columns: none !important;
 }
 
-/* Image area: fixed aspect ratio so badge stays anchored */
-.card-image{
-  position:relative;
-  width:100%;
-  padding-top:66.66%; /* 3:2 aspect ratio */
-  overflow:hidden;
-  border-radius:8px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+/* Each card becomes a fixed-width flex item so they form a single row */
+.card {
+  flex: 0 0 260px; /* adjust width to taste (260px is a good starting point) */
+  scroll-snap-align: start;
+  height: auto; /* allow cards to size naturally */
 }
 
-/* Image fills the image area */
-.card-image img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+/* Make images scale to card width */
+.card-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Optional: visual feedback while dragging */
+.grid.dragging {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* Price badge: white text + shadow, bottom-left of image area */
