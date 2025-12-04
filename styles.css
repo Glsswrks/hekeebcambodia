@@ -134,6 +134,55 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .specs{ margin:12px 0 0; padding:0; list-style:none; color:var(--muted); }
 .back-link{ display:inline-block; margin-top:14px; color:var(--muted); text-decoration:none; }
 
+/* Fade edges for horizontal product row */
+.grid-wrapper {
+  position: relative;
+}
+
+.grid-fade-left,
+.grid-fade-right {
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.grid-fade-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(11,13,16,1), rgba(11,13,16,0));
+}
+
+.grid-fade-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  width: 38px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 28px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(0,0,0,0.65);
+}
+
+.scroll-btn.left { left: 4px; }
+.scroll-btn.right { right: 4px; }
+
 /* Carousel styles */
 .carousel {
   position: relative;
@@ -271,52 +320,3 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
-
-/* Fade edges for horizontal product row */
-.grid-wrapper {
-  position: relative;
-}
-
-.grid-fade-left,
-.grid-fade-right {
-  position: absolute;
-  top: 0;
-  width: 60px;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.grid-fade-left {
-  left: 0;
-  background: linear-gradient(to right, rgba(11,13,16,1), rgba(11,13,16,0));
-}
-
-.grid-fade-right {
-  right: 0;
-  background: linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
-}
-
-.scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.4);
-  border: none;
-  color: white;
-  width: 38px;
-  height: 60px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 28px;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-  transition: opacity 0.2s ease, background 0.2s ease;
-}
-
-.scroll-btn:hover {
-  background: rgba(0,0,0,0.65);
-}
-
-.scroll-btn.left { left: 4px; }
-.scroll-btn.right { right: 4px; }
