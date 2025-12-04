@@ -1,5 +1,5 @@
 /* ---------- Contact constants ---------- */
-const CONTACT_WHATSAPP_NUMBER = "85512345678"; // update if needed
+const CONTACT_WHATSAPP_NUMBER = "85514975307"; // update if needed
 const TELEGRAM_HANDLE = "glsswrksGG";          // update if needed
 const DISCORD_HANDLE = "Kokushibo#4764";
 
