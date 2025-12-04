@@ -12,10 +12,10 @@
     <div class="container header-inner">
       <a class="brand" href="index.html">KeebCam</a>
       <nav class="nav">
-        <a href="index.html#shop">Shop</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+  <a href="#shop">Shop</a>
+  <a href="#about">About</a>
+  <a href="#" id="contactLink">Contact</a>
+</nav>
     </div>
   </header>
 
@@ -28,9 +28,23 @@
 
   <footer class="site-footer">
     <div class="container">
-      <small>© <span id="year"></span> KeebCam.</small>
+      <small>© <span id="year"></span> Keeb Cambodia.</small>
     </div>
   </footer>
+
+/* contact dialogue*/
+<!-- Contact Modal -->
+<div id="contactModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <h2>Contact Us</h2>
+    <p>You can contact us via link down below or email us: <strong>blehbleh@gmail.com</strong></p>
+    <div class="modal-actions">
+      <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
+      <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
+    </div>
+  </div>
+</div>
 
   <script src="script.js"></script>
 </body>
