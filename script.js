@@ -113,6 +113,7 @@ const products = [
 ];
 /* function for contact dialogue*/
 // Modal logic
+/*
 document.addEventListener('DOMContentLoaded', () => {
   const contactLink = document.getElementById('contactLink');
   const modal = document.getElementById('contactModal');
@@ -130,7 +131,43 @@ document.addEventListener('DOMContentLoaded', () => {
       if(e.target === modal) modal.setAttribute('aria-hidden','true');
     });
   }
+}); */
+
+// ---------- Carousel Navigation (for product images on detail page) ----------
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.querySelector('.products-track');
+  if (!track) return;
+
+  const btnLeft = document.querySelector('.carousel-btn.left');
+  const btnRight = document.querySelector('.carousel-btn.right');
+
+  const scrollAmount = 300; // Adjust how far one click scrolls
+
+  if (btnRight) {
+    btnRight.addEventListener('click', () => {
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  }
+
+  if (btnLeft) {
+    btnLeft.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+  }
+
+  // Optional: fade arrows when at start/end
+  track.addEventListener('scroll', () => {
+    if (track.scrollLeft <= 0) {
+      btnLeft.style.opacity = '0.4';
+    } else if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+      btnRight.style.opacity = '0.4';
+    } else {
+      btnLeft.style.opacity = '1';
+      btnRight.style.opacity = '1';
+    }
+  });
 });
+
 /* ---------- Helpers ---------- */
 function whatsappLink(product){
   const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
