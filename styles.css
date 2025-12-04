@@ -435,12 +435,3 @@ body.menu-open {
         display: none; 
     }
 }
-@media (min-width: 501px) {
-    /* Hide the hamburger button on larger screens if you prefer to only use it for mobile */
-    /* If you want the hamburger button on desktop, remove this block */
-    /*
-      .menu-button {
-        display: none;
-        */
-    }
-}
