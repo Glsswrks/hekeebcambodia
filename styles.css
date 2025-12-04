@@ -304,7 +304,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 /* Mobile: smaller cards to show ~2 full + half of next */
 @media (max-width: 720px) {
   .products-track .card {
-    min-width: 160px; /* Adjust this number if needed (smaller = more visible) */
+    min-width: 110px; /* Adjust this number if needed (smaller = more visible) */
   }
   .products-track { padding: 0 10px; gap: 12px; } /* tighter on mobile */
 }
