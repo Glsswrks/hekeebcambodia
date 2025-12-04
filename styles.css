@@ -189,73 +189,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   transform: scale(1.25);
 }
 
-/* Horizontal Products Carousel */
-.products-carousel {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  padding: 12px 0;
-}
-
-.products-track {
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 0 40px; /* space for arrows */
-  scrollbar-width: none; /* Firefox */
-}
-
-.products-track::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-.products-track .card {
-  min-width: 280px;     /* adjust if you want cards smaller/larger */
-  flex: 0 0 auto;
-}
-
-/* Reuse carousel button styles but make them bigger for products */
-.products-carousel .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: #fff;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  cursor: pointer;
-  z-index: 10;
-  transition: background 0.2s ease;
-}
-
-.products-carousel .carousel-btn:hover {
-  background: rgba(0,0,0,0.7);
-}
-
-.products-carousel .carousel-btn.left { left: 10px; }
-.products-carousel .carousel-btn.right { right: 10px; }
-
-/* Optional: snap to cards when scrolling */
-.products-track {
-  scroll-snap-type: x mandatory;
-}
-
-.products-track .card {
-  scroll-snap-align: start;
-}
-
-/* Mobile: hide arrows if you prefer swipe-only (optional) */
-@media (max-width: 720px) {
-  .products-carousel .carousel-btn {
-    display: none; /* arrows hidden on mobile - swipe only */
-  }
-  .products-track { padding: 0 10px; }
-}
-
 /* Responsive tweaks */
 @media (max-width:720px){
   .carousel-slide img { max-height: 360px; }
@@ -308,6 +241,72 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   display: flex;
   gap: 12px;
   justify-content: center;
+}
+/* Horizontal Products Carousel */
+.products-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 12px 0;
+}
+
+.products-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0 40px; /* space for arrows */
+  scrollbar-width: none; /* Firefox */
+}
+
+.products-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.products-track .card {
+  min-width: 280px;     /* default for desktop */
+  flex: 0 0 auto;
+}
+
+/* Reuse carousel button styles but make them bigger for products */
+.products-carousel .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.products-carousel .carousel-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.products-carousel .carousel-btn.left { left: 10px; }
+.products-carousel .carousel-btn.right { right: 10px; }
+
+/* Optional: snap to cards when scrolling */
+.products-track {
+  scroll-snap-type: x mandatory;
+}
+
+.products-track .card {
+  scroll-snap-align: start;
+}
+
+/* Mobile: smaller cards to show ~2 full + half of next */
+@media (max-width: 720px) {
+  .products-track .card {
+    min-width: 160px; /* Adjust this number if needed (smaller = more visible) */
+  }
+  .products-track { padding: 0 10px; gap: 12px; } /* tighter on mobile */
 }
 .btn.whatsapp {
   background: #25D366;
