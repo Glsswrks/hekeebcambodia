@@ -19,7 +19,18 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .hero-image img{max-width:420px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+//.grid{display:flex;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.grid{
+  /* The three lines below are the changes for the horizontal layout */
+  display: flex; /* Change from grid to flex for horizontal layout */
+  overflow-x: auto; /* Enable horizontal scrolling/swiping */
+  scroll-snap-type: x mandatory; /* Optional: Makes it snap to cards */
+  gap:18px; /* Keep the gap between items */
+
+  /* The following two lines are NEW for padding and the shadow effect */
+  padding-bottom: 20px; /* Space for scrollbar (if visible) */
+  mask-image: linear-gradient(to right, black 85%, transparent 100%); /* Right-side fade effect */
+}
 
 /* Card layout: image area + flexible body */
 .card{
@@ -28,6 +39,11 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.03);
   display:flex;
+// added here
+flex-shrink: 0; /* Prevents cards from shrinking */
+  width: 280px; /* Fixed width for each card */
+  scroll-snap-align: start; /* Snap to the start of the card */
+
   flex-direction:column;
   height:100%;
 }
@@ -251,4 +267,41 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   background: #0088cc;
   color: #fff;
   border: none;
+}
+/* --- IN styles.css (Add to end of file) --- */
+
+/* Wrapper to contain the horizontal scroll within the page padding */
+.horizontal-scroll-wrapper {
+  /* Set width to full container size and hide overflow, ensuring the grid can scroll *outside* */
+  /* We use padding-left/right to match the container's padding, and negative margins to pull the grid out */
+  margin: 0 -28px; /* Counteract container padding */
+  padding: 0 28px; /* Re-add padding to the sides of the visible area */
+  overflow: hidden; /* Hide the scrollbar itself if you prefer, but we need the inner grid to scroll */
+}
+
+/* Since the .grid is now flex, we need to adjust how the content interacts with the wrapper's padding */
+.products.container {
+  /* Remove default left/right padding from the section container */
+  /* The padding will be managed by the .horizontal-scroll-wrapper */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Desktop sizing correction for the hero image and other container elements */
+@media (min-width: 1100px) {
+    .container {
+        /* On large screens, re-center the container, but keep the 28px buffer */
+        max-width: calc(var(--max-width) - 56px);
+        padding-left: 28px;
+        padding-right: 28px;
+        margin: 0 auto;
+    }
+    .horizontal-scroll-wrapper {
+        margin: 0 calc((100% - var(--max-width)) / 2 * -1 + 28px); /* Complex math to extend beyond container edges */
+        padding: 0; /* No need for padding here if using the negative margin trick */
+    }
+    .products.container {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
