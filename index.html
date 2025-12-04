@@ -12,9 +12,9 @@
     <div class="container header-inner">
       <a class="brand" href="#">Keeb Cambodia</a>
       <nav class="nav">
-  <a href="#shop">Shop</a>
-  <a href="#" id="contactLink">Contact</a>
-</nav>
+        <a href="#shop">Shop</a>
+        <a href="#" id="contactLink">Contact</a>
+      </nav>
     </div>
   </header>
 
@@ -36,7 +36,8 @@
       <div class="section-head">
         <h2>Available Keyboards</h2>
       </div>
-      <div id="productGrid" class="grid"></div>
+      <div id="productGrid" class="grid" aria-label="Product list"></div>
+      <!-- dots will be injected here by JS -->
     </section>
 
     <section id="about" class="container about">
@@ -44,19 +45,6 @@
       <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
     </section>
 
-<!--
-    <section id="contact" class="container contact">
-      <h3>Contact</h3>
-      <p>Message to inquire about availability or request photos and specs.</p>
-      <div class="contact-links">
-        <a id="whatsappMain" class="btn primary" href="#" target="_blank">WhatsApp</a>
-        <a id="telegramMain" class="btn" href="#" target="_blank">Telegram</a>
-        <span class="muted">Discord</span>
-        <div class="muted" id="discordMain">Kokushibo#4764</div>
-      </div>
-    </section>
-
--->
   </main>
 
   <footer class="site-footer">
@@ -65,18 +53,18 @@
     </div>
   </footer>
 
-<!-- Contact Modal -->
-<div id="contactModal" class="modal" aria-hidden="true">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close">&times;</button>
-    <h2>Contact Us</h2>
-    <p>You can contact us via link down below or email us: <strong>kazemiglsswrks@gmail.com</strong></p>
-    <div class="modal-actions">
-      <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
-      <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2>Contact Us</h2>
+      <p>You can contact us via link down below or email us: <strong>kazemiglsswrks@gmail.com</strong></p>
+      <div class="modal-actions">
+        <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
+        <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
+      </div>
     </div>
   </div>
-</div>
 
   <script src="script.js"></script>
 </body>
