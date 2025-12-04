@@ -5,7 +5,7 @@
   --accent:#7c5cff;
   --glass:rgba(255,255,255,0.03);
   --max-width:1100px;
-  --card-step:260; /* used by keyboard step in JS */
+  --card-step:260;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 *{box-sizing:border-box}
@@ -57,7 +57,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .card-image{
   position:relative;
   width:100%;
-  padding-top:66.66%; /* 3:2 aspect ratio */
+  padding-top:66.66%;
   overflow:hidden;
   border-radius:8px;
   background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
@@ -235,7 +235,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   opacity:1;
 }
 
-/* new add */
 /* Scroller side shadows — deeper variant */
 .scroller-shadow {
   position: absolute;
@@ -248,8 +247,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   opacity: 0;
   will-change: opacity, transform;
 }
-
-/* left and right positions with stronger gradients */
 .scroller-shadow.left {
   left: 0;
   background: linear-gradient(90deg,
@@ -268,16 +265,11 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
     rgba(11,13,16,0.00) 100%);
   transform: translateX(8px);
 }
-
-/* visible state */
 .scroller-shadow.visible {
   opacity: 1;
   transform: translateX(0);
 }
-
-/* ensure the scroller container is positioned for absolute overlays */
 .products { position: relative; }
-
 
 /* ---------- Arrow buttons overlay ---------- */
 .scroller-arrow {
@@ -318,26 +310,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   .scroller-shadow { width: 48px; transform: translateX(6px); }
   .scroller-shadow.left { transform: translateX(-6px); }
   .scroller-arrow { width:36px; height:36px; }
-}
-@media(max-width:800px){
-  .hero-inner{flex-direction:column-reverse;text-align:center}
-} /* end here */
-
-/* smaller shadows on narrow screens */
-@media (max-width:520px){
-  .scroller-shadow { width: 48px; transform: translateX(6px); }
-  .scroller-shadow.left { transform: translateX(-6px); }
-}
-
-/* Responsive tweaks */
-@media (max-width:720px){
-  .carousel-slide img { max-height: 360px; }
-  .carousel-btn { width:36px; height:36px; }
-}
-@media (max-width:520px){
-  .card { flex: 0 0 200px; }
-  .card-image{padding-top:70%;}
-  .price-badge { bottom: 6px; left: 6px; padding:5px 8px; font-size:0.85rem; box-shadow: 0 6px 16px rgba(2,4,6,0.55); text-shadow: 0 1px 6px rgba(0,0,0,0.65); }
 }
 @media(max-width:800px){
   .hero-inner{flex-direction:column-reverse;text-align:center}
