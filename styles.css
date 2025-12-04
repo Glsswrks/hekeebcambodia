@@ -279,7 +279,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .products { position: relative; }
 
 
-/ ---------- Arrow buttons overlay ---------- /
+/* ---------- Arrow buttons overlay ---------- */
 .scroller-arrow {
   position: absolute;
   top: 50%;
@@ -305,7 +305,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .scroller-arrow[hidden] { display: none; }
 .scroller-arrow .arrow-icon { font-size: 18px; line-height: 1; }
 
-/ Responsive arrow sizes /
+/* Responsive arrow sizes */
 @media (max-width:720px){
   .scroller-arrow { width:40px; height:40px; }
   .scroller-arrow.left { left: 6px; }
