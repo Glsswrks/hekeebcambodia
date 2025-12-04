@@ -929,7 +929,7 @@ function initScrollerShadows(gridSelector, containerSelector) {
 }
 
      
-/ ---------- Arrow buttons wiring (new) ---------- /
+/* ---------- Arrow buttons wiring (new) ---------- */
 function initScrollerArrows(gridSelector, prevSelector, nextSelector) {
   const grid = document.querySelector(gridSelector);
   const prevBtn = document.querySelector(prevSelector);
