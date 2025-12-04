@@ -1028,6 +1028,7 @@ function initScrollerArrows(gridSelector, prevSelector, nextSelector) {
   initScrollerDots('#productGrid');
   // add this line to enable side shadows
   initScrollerShadows('#productGrid', '.products');
+   initScrollerArrows('#productGrid', '#scrollerPrev', '#scrollerNext');
 } else if(container){
     const id = getQueryParam('id');
     const product = lookup.get(id) || normalized.find(p => p.id === id);
