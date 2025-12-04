@@ -185,6 +185,48 @@ function renderIndexCards(list){
   });
 }
 
+// Smooth drag scrolling for product list
+function enableDragScroll(container) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  container.addEventListener('mousedown', e => {
+    isDown = true;
+    container.classList.add('dragging');
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+    e.preventDefault();
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isDown = false;
+  });
+
+  container.addEventListener('mouseup', () => {
+    isDown = false;
+  });
+
+  container.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.2;
+    container.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch support
+  container.addEventListener('touchstart', e => {
+    startX = e.touches[0].pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+  }, { passive: true });
+
+  container.addEventListener('touchmove', e => {
+    const x = e.touches[0].pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.2;
+    container.scrollLeft = scrollLeft - walk;
+  }, { passive: true });
+}
+
 /* ---------- Carousel (shared) ---------- */
 function createCarousel(images) {
   const wrapper = document.createElement('div');
