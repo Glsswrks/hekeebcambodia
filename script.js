@@ -159,11 +159,22 @@ function enableDragScroll(container) {
   let scrollLeft;
 
   container.addEventListener("mousedown", e => {
-    isDown = true;
-    startX = e.pageX - container.offsetLeft;
-    scrollLeft = container.scrollLeft;
-    e.preventDefault();
-  });
+  isDown = true;
+  container.classList.add("dragging");
+  startX = e.pageX - container.offsetLeft;
+  scrollLeft = container.scrollLeft;
+  e.preventDefault();
+});
+
+container.addEventListener("mouseup", () => {
+  isDown = false;
+  container.classList.remove("dragging");
+});
+
+container.addEventListener("mouseleave", () => {
+  isDown = false;
+  container.classList.remove("dragging");
+});
 
   container.addEventListener("mouseup", () => (isDown = false));
   container.addEventListener("mouseleave", () => (isDown = false));
@@ -176,9 +187,14 @@ function enableDragScroll(container) {
 
   // Touch
   container.addEventListener("touchstart", e => {
-    startX = e.touches[0].pageX - container.offsetLeft;
-    scrollLeft = container.scrollLeft;
-  }, { passive: true });
+  container.classList.add("dragging");
+  startX = e.touches[0].pageX - container.offsetLeft;
+  scrollLeft = container.scrollLeft;
+}, { passive: true });
+
+container.addEventListener("touchend", () => {
+  container.classList.remove("dragging");
+});
 
   container.addEventListener("touchmove", e => {
     const x = e.touches[0].pageX - container.offsetLeft;
