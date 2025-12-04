@@ -3,80 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Keeb Cambodia Accessories</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">Keeb Cambodia</a>
-      <nav class="nav">
-  <a href="#shop">Shop</a>
-  <a href="#" id="contactLink">Contact</a>
-</nav>
-    </div>
+  <header>
+    <h1>Products</h1>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-text">
-          <h1>Choose Your Favorite Mechanical / Hall Effect Keyboard</h1>
-          <p>We build custom keyboards that match your style and performance needs. From Hall-Effect (HE) keyboards to switches, keycaps, and accessories, we focus on quality, speed, and a great typing experience—fully customized for you.</p>
-          <a href="#shop" class="btn primary">See Available Items</a>
-        </div>
-        <div class="hero-image">
-          <img src="https://raw.githubusercontent.com/Glsswrks/keebcam/main/images/615afbe3bda6a3d9f1fb4f83_Wooting-60HE.png" alt="Mechanical keyboard">
-        </div>
+    <!-- Product row container -->
+    <section class="product-row-wrapper">
+      <button class="carousel-btn prev" aria-label="Previous products" type="button">‹</button>
+
+      <div class="product-row" id="productRow" tabindex="0" aria-label="Product list">
+        <!-- Example product cards (repeat or generate dynamically) -->
+        <article class="product">
+          <img src="images/product1.jpg" alt="Product 1" loading="lazy" />
+          <h3>Product 1</h3>
+          <p class="price">$10</p>
+        </article>
+
+        <article class="product">
+          <img src="images/product2.jpg" alt="Product 2" loading="lazy" />
+          <h3>Product 2</h3>
+          <p class="price">$12</p>
+        </article>
+
+        <article class="product">
+          <img src="images/product3.jpg" alt="Product 3" loading="lazy" />
+          <h3>Product 3</h3>
+          <p class="price">$15</p>
+        </article>
+
+        <!-- Add more product <article class="product"> elements as needed -->
       </div>
-    </section>
 
-    <section id="shop" class="products container">
-      <div class="section-head">
-        <h2>Available Keyboards</h2>
-      </div>
-      <div id="productGrid" class="grid"></div>
+      <button class="carousel-btn next" aria-label="Next products" type="button">›</button>
     </section>
-
-    <section id="about" class="container about">
-      <h3>About KeebCam</h3>
-      <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
-    </section>
-
-<!--
-    <section id="contact" class="container contact">
-      <h3>Contact</h3>
-      <p>Message to inquire about availability or request photos and specs.</p>
-      <div class="contact-links">
-        <a id="whatsappMain" class="btn primary" href="#" target="_blank">WhatsApp</a>
-        <a id="telegramMain" class="btn" href="#" target="_blank">Telegram</a>
-        <span class="muted">Discord</span>
-        <div class="muted" id="discordMain">Kokushibo#4764</div>
-      </div>
-    </section>
-
--->
   </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> Thanks for supporting our small business.</small>
-    </div>
-  </footer>
-
-<!-- Contact Modal -->
-<div id="contactModal" class="modal" aria-hidden="true">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close">&times;</button>
-    <h2>Contact Us</h2>
-    <p>You can contact us via link down below or email us: <strong>kazemiglsswrks@gmail.com</strong></p>
-    <div class="modal-actions">
-      <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
-      <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
-    </div>
-  </div>
-</div>
 
   <script src="script.js"></script>
 </body>
