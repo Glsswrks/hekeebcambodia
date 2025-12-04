@@ -27,6 +27,53 @@ const products = [
       "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
       "Champion Preset", "Cherry Profile Keycaps"
     ]
+  },
+  {
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+    ],
+    specs: [
+      "60% (61 keys)", "Full Aluminum CNC case", "PBT dye-sublimation keycaps",
+      "Hot-swap / magnetic switches", "8K Hz Polling rate", "0.08ms Ultra Low Latency",
+      "256k scanning-rate", "Precision 0.001mm", "Super stable RT", "32K N-Key Scanning-rate",
+      "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
+      "Champion Preset", "Cherry Profile Keycaps"
+    ]
+  },
+  
+  {
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+    ],
+    specs: [
+      "60% (61 keys)", "Full Aluminum CNC case", "PBT dye-sublimation keycaps",
+      "Hot-swap / magnetic switches", "8K Hz Polling rate", "0.08ms Ultra Low Latency",
+      "256k scanning-rate", "Precision 0.001mm", "Super stable RT", "32K N-Key Scanning-rate",
+      "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
+      "Champion Preset", "Cherry Profile Keycaps"
+    ]
   }
 ];
 
