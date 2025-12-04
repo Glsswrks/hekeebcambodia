@@ -438,111 +438,215 @@ function enableHorizontalScroller(selector){
 }
 
 /* ---------- Scroller dots: create and sync with horizontal grid ---------- */
+/* ---------- Scroller dots: cycling active dot with last-page mapping ---------- */
 function initScrollerDots(gridSelector, options = {}) {
   const grid = document.querySelector(gridSelector);
   if (!grid) return null;
 
+  // Options and defaults
+  const maxDots = typeof options.maxDots === 'number' ? Math.max(1, options.maxDots) : 3;
+  const auto = options.auto !== false; // default true
+  const interval = typeof options.interval === 'number' ? options.interval : 3000;
   const dotContainerId = options.dotContainerId || 'scrollerDotsContainer';
   const dotClass = options.dotClass || 'scroller-dot';
   const activeClass = options.activeClass || 'active';
 
+  // Remove existing container if present
   let existing = document.getElementById(dotContainerId);
   if (existing) existing.remove();
 
+  // Create container and append after grid
   const container = document.createElement('div');
   container.id = dotContainerId;
   container.className = 'scroller-dots';
   grid.parentNode.insertBefore(container, grid.nextSibling);
 
-  const cards = Array.from(grid.querySelectorAll('.card'));
+  // Collect cards
+  let cards = Array.from(grid.querySelectorAll('.card'));
   if (!cards.length) return null;
 
-  const dots = cards.map((card, i) => {
-    const d = document.createElement('div');
-    d.className = dotClass;
-    d.dataset.index = i;
-    container.appendChild(d);
-    d.addEventListener('click', () => {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      grid.focus();
-    });
-    return d;
-  });
-
-  const ioOptions = {
-    root: grid,
-    rootMargin: '0px',
-    threshold: [0.5]
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const idx = cards.indexOf(entry.target);
-      if (idx === -1) return;
-      if (entry.intersectionRatio >= 0.5) {
-        dots.forEach((dot, i) => dot.classList.toggle(activeClass, i === idx));
-      }
-    });
-  }, ioOptions);
-
-  cards.forEach(c => observer.observe(c));
-
-  let rafId = null;
-  function onScroll() {
-    if (rafId) return;
-    rafId = requestAnimationFrame(() => {
-      rafId = null;
-      const gridRect = grid.getBoundingClientRect();
-      const gridCenter = gridRect.left + gridRect.width / 2;
-      let closestIndex = 0;
-      let closestDist = Infinity;
-      cards.forEach((card, i) => {
-        const r = card.getBoundingClientRect();
-        const cardCenter = r.left + r.width / 2;
-        const dist = Math.abs(cardCenter - gridCenter);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestIndex = i;
-        }
-      });
-      dots.forEach((dot, i) => dot.classList.toggle(activeClass, i === closestIndex));
-    });
+  // Compute visible count and metrics
+  function computeVisibleCount() {
+    if (!cards.length) return { visible: 1, cardWidth: 0, gap: 0 };
+    const cardRect = cards[0].getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(grid).gap || 18);
+    const cardWidth = cardRect.width + gap;
+    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
+    return { visible, cardWidth, gap };
   }
 
+  // Compute pages and pageSize (use 2-card pages when >3 products if desired)
+  function computePagesWithMetrics() {
+    const { visible, cardWidth, gap } = computeVisibleCount();
+    // If more than 3 products, prefer pageSize = 2 (but not larger than visible)
+    const useTwoCardPages = cards.length > 3;
+    const pageSize = useTwoCardPages ? Math.max(1, Math.min(2, visible)) : visible;
+    const pages = Math.max(1, Math.ceil(cards.length / pageSize));
+    return { pages, pageSize, visible, cardWidth, gap };
+  }
+
+  // Map page -> dot index with cycling and last-page special case
+  function pageToDotIndex(pageIndex, pages) {
+    if (pages <= maxDots) return pageIndex; // direct mapping if pages <= dots
+    if (pageIndex === pages - 1) return maxDots - 1; // last page maps to last dot
+    return pageIndex % maxDots; // cycle otherwise
+  }
+
+  // Build dots based on pages (max maxDots)
+  function buildDots() {
+    container.innerHTML = '';
+    cards = Array.from(grid.querySelectorAll('.card'));
+    const { pages } = computePagesWithMetrics();
+
+    // Determine number of dots to render (never more than maxDots)
+    const dotCount = Math.min(maxDots, pages);
+    const dots = [];
+    for (let i = 0; i < dotCount; i++) {
+      const d = document.createElement('div');
+      d.className = dotClass;
+      d.dataset.dotIndex = i;
+      container.appendChild(d);
+      d.addEventListener('click', () => {
+        // On click, scroll to the first page that maps to this dot index.
+        const targetPage = findFirstPageForDot(i, pages);
+        if (targetPage != null) {
+          scrollToPage(targetPage);
+          grid.focus();
+          resetAutoAdvance();
+        }
+      });
+      dots.push(d);
+    }
+    return { dots, pages };
+  }
+
+  // Find the first page index that maps to a given dot index
+  function findFirstPageForDot(dotIndex, pages) {
+    for (let p = 0; p < pages; p++) {
+      if (pageToDotIndex(p, pages) === dotIndex) return p;
+    }
+    return 0;
+  }
+
+  // Scroll to page index (0-based)
+  function scrollToPage(pageIndex) {
+    const { pageSize, cardWidth } = computePagesWithMetrics();
+    const step = pageSize * (cardWidth || 0);
+    const target = Math.round(pageIndex * step);
+    grid.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  // Determine current page index based on scrollLeft
+  function currentPageIndex() {
+    const { pageSize, cardWidth } = computePagesWithMetrics();
+    const step = pageSize * (cardWidth || 1);
+    const idx = Math.round((grid.scrollLeft || 0) / (step || 1));
+    const { pages } = computePagesWithMetrics();
+    return Math.min(Math.max(0, idx), pages - 1);
+  }
+
+  // Update active dot using page->dot mapping
+  function updateActiveDot() {
+    const page = currentPageIndex();
+    const { pages } = computePagesWithMetrics();
+    const dotIndex = pageToDotIndex(page, pages);
+    dots.forEach((dot, i) => dot.classList.toggle(activeClass, i === dotIndex));
+  }
+
+  // Build initial dots
+  let { dots, pages } = buildDots();
+
+  // Scroll handler (throttled via rAF)
+  let raf = null;
+  function onScroll() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      updateActiveDot();
+    });
+  }
   grid.addEventListener('scroll', onScroll, { passive: true });
 
+  // Auto-advance logic (looping)
+  let autoId = null;
+  let paused = false;
+
+  function startAutoAdvance() {
+    if (!auto || autoId) return;
+    autoId = setInterval(() => {
+      if (paused) return;
+      const { pages } = computePagesWithMetrics();
+      const cur = currentPageIndex();
+      const next = (cur + 1) % pages;
+      scrollToPage(next);
+    }, interval);
+  }
+
+  function stopAutoAdvance() {
+    if (autoId) { clearInterval(autoId); autoId = null; }
+  }
+
+  function resetAutoAdvance() {
+    stopAutoAdvance();
+    setTimeout(() => startAutoAdvance(), interval);
+  }
+
+  // Pause/resume on user interaction
+  function onPointerDownPause() { paused = true; stopAutoAdvance(); }
+  function onPointerUpResume() { paused = false; resetAutoAdvance(); }
+
+  grid.addEventListener('pointerdown', onPointerDownPause, { passive: true });
+  window.addEventListener('pointerup', onPointerUpResume, { passive: true });
+  grid.addEventListener('mouseenter', () => { paused = true; }, { passive: true });
+  grid.addEventListener('mouseleave', () => { paused = false; resetAutoAdvance(); }, { passive: true });
+  grid.addEventListener('focusin', () => { paused = true; }, { passive: true });
+  grid.addEventListener('focusout', () => { paused = false; resetAutoAdvance(); }, { passive: true });
+
+  // Keyboard navigation pauses auto-advance
   grid.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      const active = container.querySelector(`.${dotClass}.${activeClass}`);
-      const idx = active ? Number(active.dataset.index) : 0;
-      const target = Math.max(0, idx - 1);
-      cards[target].scrollIntoView({ behavior: 'smooth', inline: 'start' });
-    } else if (e.key === 'ArrowRight') {
-      const active = container.querySelector(`.${dotClass}.${activeClass}`);
-      const idx = active ? Number(active.dataset.index) : 0;
-      const target = Math.min(cards.length - 1, idx + 1);
-      cards[target].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      paused = true;
+      resetAutoAdvance();
     }
   });
 
-  if (!grid.hasAttribute('tabindex')) grid.setAttribute('tabindex', '0');
+  // Rebuild dots on resize or when cards change
+  let resizeId = null;
+  function onResize() {
+    if (resizeId) cancelAnimationFrame(resizeId);
+    resizeId = requestAnimationFrame(() => {
+      resizeId = null;
+      const built = buildDots();
+      dots = built.dots;
+      pages = built.pages;
+      updateActiveDot();
+    });
+  }
+  window.addEventListener('resize', onResize);
 
-  onScroll();
+  // Initialize and start auto-advance
+  updateActiveDot();
+  startAutoAdvance();
 
+  // Return API
   return {
     destroy() {
-      observer.disconnect();
+      stopAutoAdvance();
       grid.removeEventListener('scroll', onScroll);
+      grid.removeEventListener('pointerdown', onPointerDownPause);
+      window.removeEventListener('pointerup', onPointerUpResume);
+      grid.removeEventListener('mouseenter', () => { paused = true; });
+      grid.removeEventListener('mouseleave', () => { paused = false; resetAutoAdvance(); });
+      grid.removeEventListener('focusin', () => { paused = true; });
+      grid.removeEventListener('focusout', () => { paused = false; resetAutoAdvance(); });
+      window.removeEventListener('resize', onResize);
       container.remove();
     },
     refresh() {
-      const newCards = Array.from(grid.querySelectorAll('.card'));
-      if (newCards.length !== cards.length) {
-        this.destroy();
-        initScrollerDots(gridSelector, options);
-      } else {
-        onScroll();
-      }
+      const built = buildDots();
+      dots = built.dots;
+      pages = built.pages;
+      updateActiveDot();
     }
   };
 }
