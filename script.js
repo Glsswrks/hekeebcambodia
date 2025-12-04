@@ -464,6 +464,106 @@ function enableHorizontalScroller(selector){
     isDown = false;
     try { grid.releasePointerCapture(pointerId); } catch(_) {}
     pointerId = null;
+/ ---------- Horizontal scroller with robust pointer handling (fast + slow swipes) ---------- /
+function enableHorizontalScroller(selector){
+  const grid = document.querySelector(selector);
+  if(!grid) return;
+
+  // Ensure basic styles
+  grid.style.overflowX = grid.style.overflowX || 'auto';
+  grid.style.scrollBehavior = grid.style.scrollBehavior || 'smooth';
+  grid.classList.remove('dragging');
+
+  // State
+  let isDown = false;
+  let pointerId = null;
+  let startX = 0;
+  let startScroll = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let velocity = 0;
+  let momentumId = null;
+
+  // Keep a short sample buffer for velocity (more robust than single delta)
+  const samples = [];
+  const maxSamples = 6;
+
+  function pushSample(x, t){
+    samples.push({x, t});
+    if(samples.length > maxSamples) samples.shift();
+  }
+  function computeVelocityFromSamples(){
+    if(samples.length < 2) return 0;
+    const first = samples[0];
+    const last = samples[samples.length - 1];
+    const dx = last.x - first.x;
+    const dt = Math.max(1, last.t - first.t);
+    return dx / dt; // px per ms
+  }
+
+  // Metrics helper: approximate card/page width for snapping
+  function getMetrics() {
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    if (!cards.length) return { cardWidth: grid.clientWidth, pageSize: 1 };
+    const gap = parseFloat(getComputedStyle(grid).gap || 18);
+    const cardRect = cards[0].getBoundingClientRect();
+    const cardWidth = cardRect.width + gap;
+    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
+    const pageSize = visible;
+    return { cardWidth, pageSize, visible, gap };
+  }
+
+  // Stop any running momentum
+  function stopMomentum(){
+    if(momentumId){ cancelAnimationFrame(momentumId); momentumId = null; }
+  }
+
+  // Pointer down: capture pointer and prepare
+  function onPointerDown(e){
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+
+    // prevent native fling/scroll while dragging horizontally
+    e.preventDefault();
+
+    isDown = true;
+    pointerId = e.pointerId;
+    try { grid.setPointerCapture(pointerId); } catch(_) {}
+
+    grid.classList.add('dragging');
+
+    startX = e.clientX;
+    startScroll = grid.scrollLeft;
+    lastX = startX;
+    lastTime = performance.now();
+    velocity = 0;
+    samples.length = 0;
+    pushSample(lastX, lastTime);
+
+    stopMomentum();
+  }
+
+  // Pointer move: update scroll and velocity
+  function onPointerMove(e){
+    if(!isDown || e.pointerId !== pointerId) return;
+    e.preventDefault();
+
+    const x = e.clientX;
+    const dx = x - startX;
+    grid.scrollLeft = startScroll - dx;
+
+    const now = performance.now();
+    pushSample(x, now);
+    velocity = computeVelocityFromSamples(); // px per ms
+    lastX = x;
+    lastTime = now;
+  }
+
+  // Snap to nearest page or apply momentum on release
+  function onPointerUp(e){
+    if(!isDown || e.pointerId !== pointerId) return;
+    isDown = false;
+    try { grid.releasePointerCapture(pointerId); } catch(_) {}
+    pointerId = null;
     grid.classList.remove('dragging');
 
     const now = performance.now();
@@ -545,8 +645,8 @@ function enableHorizontalScroller(selector){
   // Make grid focusable
   if(!grid.hasAttribute('tabindex')) grid.setAttribute('tabindex', '0');
 }
+     
 
-/* ---------- Scroller dots: create and sync with horizontal grid ---------- */
 /* ---------- Scroller dots: cycling active dot with last-page mapping ---------- */
 function initScrollerDots(gridSelector, options = {}) {
   const grid = document.querySelector(gridSelector);
@@ -825,6 +925,83 @@ function initScrollerShadows(gridSelector, containerSelector) {
       right.remove();
     },
     refresh() { updateShadows(); }
+  };
+}
+
+     
+/ ---------- Arrow buttons wiring (new) ---------- /
+function initScrollerArrows(gridSelector, prevSelector, nextSelector) {
+  const grid = document.querySelector(gridSelector);
+  const prevBtn = document.querySelector(prevSelector);
+  const nextBtn = document.querySelector(nextSelector);
+  if (!grid || !prevBtn || !nextBtn) return null;
+
+  // Show/hide arrows based on overflow
+  function updateVisibility() {
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    if (maxScroll <= 0) {
+      prevBtn.hidden = true;
+      nextBtn.hidden = true;
+      return;
+    }
+    // show arrows; hide left if at start, hide right if at end
+    prevBtn.hidden = grid.scrollLeft <= 4;
+    nextBtn.hidden = grid.scrollLeft >= (maxScroll - 4);
+  }
+
+  // Compute page step (visible cards)
+  function getPageStep() {
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    if (!cards.length) return grid.clientWidth;
+    const gap = parseFloat(getComputedStyle(grid).gap || 18);
+    const cardRect = cards[0].getBoundingClientRect();
+    const cardWidth = cardRect.width + gap;
+    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
+    return visible * cardWidth;
+  }
+
+  // Click handlers
+  function onPrev() {
+    const step = getPageStep();
+    grid.scrollBy({ left: -step, behavior: 'smooth' });
+  }
+  function onNext() {
+    const step = getPageStep();
+    grid.scrollBy({ left: step, behavior: 'smooth' });
+  }
+
+  // Pause auto-advance while interacting
+  let userInteracting = false;
+  function pauseInteraction() { userInteracting = true; }
+  function resumeInteraction() { userInteracting = false; }
+
+  prevBtn.addEventListener('click', () => { pauseInteraction(); onPrev(); setTimeout(resumeInteraction, 600); });
+  nextBtn.addEventListener('click', () => { pauseInteraction(); onNext(); setTimeout(resumeInteraction, 600); });
+
+  // Update visibility on scroll/resize/content changes
+  let raf = null;
+  function onScroll() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      updateVisibility();
+    });
+  }
+  grid.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // Initial state
+  updateVisibility();
+
+  // Return API
+  return {
+    destroy() {
+      prevBtn.removeEventListener('click', onPrev);
+      nextBtn.removeEventListener('click', onNext);
+      grid.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    },
+    refresh() { updateVisibility(); }
   };
 }
 
