@@ -275,6 +275,14 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 @media(max-width:800px){
   .hero-inner{flex-direction:column-reverse;text-align:center}
 }
+@media (max-width: 600px) {
+  .card {
+    min-width: 200px;
+  }
+  .grid {
+    padding-left: 10px;
+  }
+}
 
 /* Modal base */
 .modal {
