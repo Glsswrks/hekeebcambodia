@@ -418,7 +418,12 @@ function renderProductDetail(product){
   const container = document.getElementById('productContainer');
 
   if(grid){
-    renderIndexCards(products);
+   // renderIndexCards(products);
+
+renderIndexCards(products);
+const grid = document.getElementById('productGrid');
+enableDragScroll(grid);
+
   } else if(container){
     const id = getQueryParam('id');
     const product = products.find(p => p.id === id);
