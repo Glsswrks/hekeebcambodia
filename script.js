@@ -1,6 +1,6 @@
 /* ---------- Contact constants ---------- */
-const CONTACT_WHATSAPP_NUMBER = "85514975307";
-const TELEGRAM_HANDLE = "glsswrksGG";
+const CONTACT_WHATSAPP_NUMBER = "85514975307"; // update if needed
+const TELEGRAM_HANDLE = "glsswrksGG";          // update if needed
 const DISCORD_HANDLE = "Kokushibo#4764";
 
 /* ---------- Centralized product data (shared across pages) ---------- */
@@ -15,117 +15,144 @@ const products = [
     images: [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg"
-    ],
-    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps"]
-  },
-  {
-    id: "meelgeek-made68",
-    title: "MEELGEEK MADE68 PRO",
-    short: "The MADE68 Pro goes beyond a simple keyboard. It's a truly modular experience.",
-    price: 140,
-    layout: "68",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+ ],
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+      },
+{
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
     available: false,
     images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68/1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68/2.jpg"
-    ],
-    specs: ["68% (68 keys)","Modular design","Wireless option"]
-  }
-  // Add more product objects here with unique ids
-];
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
 
-/* ---------- Helpers ---------- */
-function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
-function normalizePhone(num){ return String(num || '').replace(/\D/g,''); }
-function whatsappLink(product){
-  const base = `https://wa.me/${normalizePhone(CONTACT_WHATSAPP_NUMBER)}`;
-  const title = product && product.title ? product.title : 'your product';
-  const text = encodeURIComponent(`Hi, I'm interested in ${title}. Is it available?`);
-  return `${base}?text=${text}`;
-}
-function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
-function productLink(id){
-  const url = new URL('products.html', window.location.href);
-  url.searchParams.set('id', id);
-  return url.toString();
-}
-function escapeHtml(str){
-  if(!str) return '';
-  return String(str).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
-function escapeAttr(str){ return escapeHtml(str); }
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
 
-/* Dedupe helper */
-function dedupeProducts(list){
-  const map = new Map();
-  const out = [];
-  list.forEach((p) => {
-    if(!p || !p.id) return;
-    if(!map.has(p.id)){
-      map.set(p.id, p);
-      out.push(p);
-    } else {
-      let idx = 2;
-      let newId = `${p.id}-${idx}`;
-      while(map.has(newId)){
-        idx++;
-        newId = `${p.id}-${idx}`;
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+ ],
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+      },
+{
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+ ],
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+      },
+{
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+ ],
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+      },
+{
+    id: "atk-edge60he",
+    title: "ATK EDGE60 HE ULTIMATE",
+    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+    price: 229,
+    layout: "60",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
+
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
+
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
+ ],
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
       }
-      const copy = Object.assign({}, p, { id: newId });
-      map.set(newId, copy);
-      out.push(copy);
-    }
-  });
-  const lookup = new Map(out.map(p => [p.id, p]));
-  return { list: out, lookup };
-}
-
-/* ---------- Modal logic (contact) ---------- */
+];
+/* function for contact dialogue*/
+// Modal logic
 document.addEventListener('DOMContentLoaded', () => {
   const contactLink = document.getElementById('contactLink');
   const modal = document.getElementById('contactModal');
-  if(contactLink && modal){
-    const closeBtn = modal.querySelector('.modal-close');
+  const closeBtn = modal.querySelector('.modal-close');
 
+  if(contactLink && modal){
     contactLink.addEventListener('click', (e) => {
       e.preventDefault();
       modal.setAttribute('aria-hidden','false');
-      closeBtn?.focus();
     });
-
-    if(closeBtn){
-      closeBtn.addEventListener('click', () => {
-        modal.setAttribute('aria-hidden','true');
-        contactLink.focus();
-      });
-    }
-
+    closeBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden','true');
+    });
     modal.addEventListener('click', (e) => {
-      if(e.target === modal) {
-        modal.setAttribute('aria-hidden','true');
-        contactLink.focus();
-      }
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false'){
-        modal.setAttribute('aria-hidden','true');
-        contactLink.focus();
-      }
+      if(e.target === modal) modal.setAttribute('aria-hidden','true');
     });
   }
 });
+/* ---------- Helpers ---------- */
+function whatsappLink(product){
+  const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
+  const text = encodeURIComponent(`Hi, I'm interested in ${product.title}. Is it available?`);
+  return `${base}?text=${text}`;
+}
+function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
+function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
+
+/* Robust product link for GitHub Pages subpath */
+function productLink(id){
+  const { origin, pathname } = window.location;
+  const baseDir = pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+  return `${origin}${baseDir}/products.html?id=${encodeURIComponent(id)}`;
+}
 
 /* ---------- Index page: render product cards ---------- */
 function renderIndexCards(list){
   const grid = document.getElementById('productGrid');
   if(!grid) return;
   grid.innerHTML = '';
-
-  const { list: normalized } = dedupeProducts(list);
-
-  normalized.forEach(p=>{
+  list.forEach(p=>{
     const card = document.createElement('div');
     card.className = 'card';
 
@@ -133,22 +160,21 @@ function renderIndexCards(list){
     const availText = p.available ? 'Available' : 'Unavailable';
     const href = productLink(p.id);
     const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
-    const firstSpec = Array.isArray(p.specs) && p.specs.length ? p.specs[0] : '';
 
     card.innerHTML = `
       <div class="card-image">
-        <a class="card-link" href="${href}" aria-label="View ${escapeHtml(p.title || 'product')}">
-          <img src="${escapeAttr(cover)}" alt="${escapeAttr(p.title || 'Product')}" loading="lazy">
+        <a class="card-link" href="${href}" aria-label="View ${p.title}">
+          <img src="${cover}" alt="${p.title}">
         </a>
-        <span class="price-badge">$${Number(p.price || 0)}</span>
+        <span class="price-badge">$${p.price}</span>
       </div>
       <div class="card-body">
         <h4 class="card-title">
-          <a class="card-title-link" href="${href}">${escapeHtml(p.title || '')}</a>
+          <a class="card-title-link" href="${href}">${p.title}</a>
         </h4>
-        <p class="muted card-desc">${escapeHtml(p.short || '')}</p>
+        <p class="muted card-desc">${p.short}</p>
         <div class="card-footer">
-          <div class="specs-inline muted">${escapeHtml(p.layout || '')} • ${escapeHtml(firstSpec)}</div>
+          <div class="specs-inline muted">${p.layout} • ${p.specs[0] || ''}</div>
           <div class="availability-wrap">
             <span class="${availClass}">${availText}</span>
           </div>
@@ -208,7 +234,7 @@ function createCarousel(images) {
   let startX = 0;
 
   function update() {
-    const width = wrapper.clientWidth || wrapper.getBoundingClientRect().width || 1;
+    const width = wrapper.clientWidth || wrapper.getBoundingClientRect().width;
     currentTranslate = -index * width;
     track.style.transform = `translateX(${currentTranslate}px)`;
     const allDots = dots.querySelectorAll('.carousel-dot');
@@ -248,7 +274,7 @@ function createCarousel(images) {
     isDragging = false;
     track.style.transition = '';
     const dx = (e.changedTouches && e.changedTouches[0]) ? (e.changedTouches[0].clientX - startX) : 0;
-    const width = wrapper.clientWidth || 1;
+    const width = wrapper.clientWidth;
     if (dx > width * 0.2) index = Math.max(0, index - 1);
     else if (dx < -width * 0.2) index = Math.min(slidesCount - 1, index + 1);
     update();
@@ -272,7 +298,7 @@ function createCarousel(images) {
     mouseDown = false;
     track.style.transition = '';
     const dx = e.clientX - mouseStartX;
-    const width = wrapper.clientWidth || 1;
+    const width = wrapper.clientWidth;
     if (dx > width * 0.2) index = Math.max(0, index - 1);
     else if (dx < -width * 0.2) index = Math.min(slidesCount - 1, index + 1);
     update();
@@ -295,290 +321,65 @@ function createCarousel(images) {
   return wrapper;
 }
 
-/* ---------- Horizontal scroller with robust pointer handling (fast + slow swipes) ---------- */
-function enableHorizontalScroller(selector){
-  const grid = document.querySelector(selector);
-  if(!grid) return;
+/* ---------- Product page: render detail ---------- */
+function renderProductDetail(product){
+  const container = document.getElementById('productContainer');
+  if(!container) return;
 
-  // Ensure basic styles
-  grid.style.overflowX = grid.style.overflowX || 'auto';
-  grid.style.scrollBehavior = grid.style.scrollBehavior || 'smooth';
-  grid.classList.remove('dragging');
-
-  // State
-  let isDown = false;
-  let pointerId = null;
-  let startX = 0;
-  let startScroll = 0;
-  let lastX = 0;
-  let lastTime = 0;
-  let velocity = 0;
-  let momentumId = null;
-
-  // Keep a short sample buffer for velocity (more robust than single delta)
-  const samples = [];
-  const maxSamples = 6;
-
-  function pushSample(x, t){
-    samples.push({x, t});
-    if(samples.length > maxSamples) samples.shift();
-  }
-  function computeVelocityFromSamples(){
-    if(samples.length < 2) return 0;
-    const first = samples[0];
-    const last = samples[samples.length - 1];
-    const dx = last.x - first.x;
-    const dt = Math.max(1, last.t - first.t);
-    return dx / dt; // px per ms
+  if(!product){
+    container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
+    return;
   }
 
-  // Metrics helper: approximate card/page width for snapping
-  function getMetrics() {
-    const cards = Array.from(grid.querySelectorAll('.card'));
-    if (!cards.length) return { cardWidth: grid.clientWidth, pageSize: 1 };
-    const gap = parseFloat(getComputedStyle(grid).gap || 18);
-    const cardRect = cards[0].getBoundingClientRect();
-    const cardWidth = cardRect.width + gap;
-    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
-    const pageSize = visible;
-    return { cardWidth, pageSize, visible, gap };
-  }
+  container.innerHTML = `
+    <div class="product-image"></div>
+    <div class="product-info">
+      <h1>${product.title}</h1>
+      <p class="muted">${product.short}</p>
+      <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
+      <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
+        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
+      </div>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
+    </div>
+  `;
 
-  // Stop any running momentum
-  function stopMomentum(){
-    if(momentumId){ cancelAnimationFrame(momentumId); momentumId = null; }
-  }
+  const imageContainer = container.querySelector('.product-image');
+  const images = Array.isArray(product.images) && product.images.length ? product.images : [];
+  const carousel = createCarousel(images);
+  imageContainer.appendChild(carousel);
 
-  // Pointer down: capture pointer and prepare
-  function onPointerDown(e){
-    if(e.pointerType === 'mouse' && e.button !== 0) return;
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  const telegramBtn = document.getElementById('telegramBtn');
+  if(whatsappBtn) whatsappBtn.href = whatsappLink(product);
+  if(telegramBtn) telegramBtn.href = telegramLink();
 
-    // prevent native fling/scroll while dragging horizontally
-    e.preventDefault();
-
-    isDown = true;
-    pointerId = e.pointerId;
-    try { grid.setPointerCapture(pointerId); } catch(_) {}
-
-    grid.classList.add('dragging');
-
-    startX = e.clientX;
-    startScroll = grid.scrollLeft;
-    lastX = startX;
-    lastTime = performance.now();
-    velocity = 0;
-    samples.length = 0;
-    pushSample(lastX, lastTime);
-
-    stopMomentum();
-  }
-
-  // Pointer move: update scroll and velocity
-  function onPointerMove(e){
-    if(!isDown || e.pointerId !== pointerId) return;
-    e.preventDefault();
-
-    const x = e.clientX;
-    const dx = x - startX;
-    grid.scrollLeft = startScroll - dx;
-
-    const now = performance.now();
-    pushSample(x, now);
-    velocity = computeVelocityFromSamples(); // px per ms
-    lastX = x;
-    lastTime = now;
-  }
-
-  // Snap to nearest page or apply momentum on release
-  function onPointerUp(e){
-    if(!isDown || e.pointerId !== pointerId) return;
-    isDown = false;
-    try { grid.releasePointerCapture(pointerId); } catch(_) {}
-    pointerId = null;
-    grid.classList.remove('dragging');
-
-    const now = performance.now();
-    pushSample(e.clientX, now);
-    const v = computeVelocityFromSamples(); // px per ms
-    const velocityPxPerS = v * 1000; // px/s
-
-    const { cardWidth, pageSize } = getMetrics();
-    const step = (cardWidth || grid.clientWidth) * pageSize;
-
-    // Momentum threshold: if fast enough, apply momentum
-    const momentumThreshold = 350; // px/s (tweakable)
-    if(Math.abs(velocityPxPerS) > momentumThreshold){
-      // momentum animation using exponential decay
-      let momentum = velocityPxPerS; // px/s
-      const decay = 0.92;
-      const frame = () => {
-        const delta = 16/1000;
-        grid.scrollLeft -= momentum * delta;
-        momentum *= decay;
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        if(Math.abs(momentum) > 10 && grid.scrollLeft > -1 && grid.scrollLeft < maxScroll + 1){
-          momentumId = requestAnimationFrame(frame);
-        } else {
-          momentumId = null;
-          snapToNearest(step);
-        }
-      };
-      momentumId = requestAnimationFrame(frame);
-      return;
-    }
-
-    // For slower drags, decide by distance moved relative to card width
-    const dragDx = lastX - startX;
-    const dragThreshold = (cardWidth || grid.clientWidth) * 0.18; // 18% threshold
-    if (Math.abs(dragDx) > dragThreshold) {
-      const dir = dragDx < 0 ? 1 : -1; // negative dx means moved left -> next page
-      const currentIndex = Math.round((grid.scrollLeft || 0) / (step || 1));
-      const target = Math.max(0, currentIndex + dir);
-      grid.scrollTo({ left: Math.round(target * step), behavior: 'smooth' });
-    } else {
-      snapToNearest(step);
-    }
-  }
-
-  // Snap helper: snap to nearest page boundary
-  function snapToNearest(step){
-    if(!step || step <= 0){
-      grid.scrollTo({ left: Math.round(grid.scrollLeft), behavior: 'smooth' });
-      return;
-    }
-    const idx = Math.round((grid.scrollLeft || 0) / step);
-    const maxIdx = Math.max(0, Math.ceil((grid.scrollWidth - grid.clientWidth) / step));
-    const target = Math.min(maxIdx, Math.max(0, idx));
-    grid.scrollTo({ left: Math.round(target * step), behavior: 'smooth' });
-  }
-
-  // Attach pointer listeners on grid
-  grid.addEventListener('pointerdown', onPointerDown);
-  grid.addEventListener('pointermove', onPointerMove);
-  grid.addEventListener('pointerup', onPointerUp);
-  grid.addEventListener('pointercancel', onPointerUp);
-
-  // Wheel support: convert vertical wheel to horizontal scroll when over grid
-  grid.addEventListener('wheel', (e) => {
-    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-      grid.scrollLeft += e.deltaY;
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  // Keyboard support: left/right arrows (step equals CSS var or fallback)
-  const stepSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-step') || '260', 10) || 260;
-  grid.addEventListener('keydown', (e) => {
-    if(e.key === 'ArrowLeft') grid.scrollBy({ left: -stepSize, behavior: 'smooth' });
-    if(e.key === 'ArrowRight') grid.scrollBy({ left: stepSize, behavior: 'smooth' });
-  });
-
-  // Make grid focusable
-  if(!grid.hasAttribute('tabindex')) grid.setAttribute('tabindex', '0');
+  carousel.focus();
 }
 
-/* ---------- Scroller dots: cycling active dot with last-page mapping ---------- */
-function initScrollerDots(gridSelector, options = {}) {
-  const grid = document.querySelector(gridSelector);
-  if (!grid) return null;
+/* ---------- Page init ---------- */
+(function init(){
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
 
-  const maxDots = typeof options.maxDots === 'number' ? Math.max(1, options.maxDots) : 3;
-  const auto = options.auto !== false;
-  const interval = typeof options.interval === 'number' ? options.interval : 3000;
-  const dotContainerId = options.dotContainerId || 'scrollerDotsContainer';
-  const dotClass = options.dotClass || 'scroller-dot';
-  const activeClass = options.activeClass || 'active';
+  const whatsappMain = document.getElementById('whatsappMain');
+  const telegramMain = document.getElementById('telegramMain');
+  const discordMain = document.getElementById('discordMain');
+  if(whatsappMain) whatsappMain.href = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
+  if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
+  if(discordMain) discordMain.textContent = DISCORD_HANDLE;
 
-  let existing = document.getElementById(dotContainerId);
-  if (existing) existing.remove();
+  const grid = document.getElementById('productGrid');
+  const container = document.getElementById('productContainer');
 
-  const container = document.createElement('div');
-  container.id = dotContainerId;
-  container.className = 'scroller-dots';
-  grid.parentNode.insertBefore(container, grid.nextSibling);
-
-  let cards = Array.from(grid.querySelectorAll('.card'));
-  if (!cards.length) return null;
-
-  function computeVisibleCount() {
-    if (!cards.length) return { visible: 1, cardWidth: 0, gap: 0 };
-    const cardRect = cards[0].getBoundingClientRect();
-    const gap = parseFloat(getComputedStyle(grid).gap || 18);
-    const cardWidth = cardRect.width + gap;
-    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
-    return { visible, cardWidth, gap };
+  if(grid){
+    renderIndexCards(products);
+  } else if(container){
+    const id = getQueryParam('id');
+    const product = products.find(p => p.id === id);
+    renderProductDetail(product);
   }
-
-  function computePagesWithMetrics() {
-    const { visible, cardWidth, gap } = computeVisibleCount();
-    const useTwoCardPages = cards.length > 3;
-    const pageSize = useTwoCardPages ? Math.max(1, Math.min(2, visible)) : visible;
-    const pages = Math.max(1, Math.ceil(cards.length / pageSize));
-    return { pages, pageSize, visible, cardWidth, gap };
-  }
-
-  function pageToDotIndex(pageIndex, pages) {
-    if (pages <= maxDots) return pageIndex;
-    if (pageIndex === pages - 1) return maxDots - 1;
-    return pageIndex % maxDots;
-  }
-
-  function buildDots() {
-    container.innerHTML = '';
-    cards = Array.from(grid.querySelectorAll('.card'));
-    const { pages } = computePagesWithMetrics();
-    const dotCount = Math.min(maxDots, pages);
-    const dots = [];
-    for (let i = 0; i < dotCount; i++) {
-      const d = document.createElement('div');
-      d.className = dotClass;
-      d.dataset.dotIndex = i;
-      container.appendChild(d);
-      d.addEventListener('click', () => {
-        const targetPage = findFirstPageForDot(i, pages);
-        if (targetPage != null) {
-          scrollToPage(targetPage);
-          grid.focus();
-          resetAutoAdvance();
-        }
-      });
-      dots.push(d);
-    }
-    // hide container if only one page
-    container.style.display = (pages <= 1) ? 'none' : '';
-    return { dots, pages };
-  }
-
-  function findFirstPageForDot(dotIndex, pages) {
-    for (let p = 0; p < pages; p++) {
-      if (pageToDotIndex(p, pages) === dotIndex) return p;
-    }
-    return 0;
-  }
-
-  function scrollToPage(pageIndex) {
-    const { pageSize, cardWidth } = computePagesWithMetrics();
-    const step = pageSize * (cardWidth || 0);
-    const target = Math.round(pageIndex * step);
-    grid.scrollTo({ left: target, behavior: 'smooth' });
-  }
-
-  function currentPageIndex() {
-    const { pageSize, cardWidth } = computePagesWithMetrics();
-    const step = pageSize * (cardWidth || 1);
-    const idx = Math.round((grid.scrollLeft || 0) / (step || 1));
-    const { pages } = computePagesWithMetrics();
-    return Math.min(Math.max(0, idx), pages - 1);
-  }
-
-  function updateActiveDot() {
-    const page = currentPageIndex();
-    const { pages } = computePagesWithMetrics();
-    const dotIndex = pageToDotIndex(page, pages);
-    dots.forEach((dot, i) => dot.classList.toggle(activeClass, i === dotIndex));
-  }
-
-  let { dots, pages } = buildDots();
-
-  let raf = null;
-   
+})();
