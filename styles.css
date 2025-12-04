@@ -236,29 +236,37 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 }
 
 /* new add */
-/* Scroller side shadows */
+/* Scroller side shadows — deeper variant */
 .scroller-shadow {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 56px;
+  width: 64px;
   pointer-events: none;
-  z-index: 30;
+  z-index: 40;
   transition: opacity 220ms ease, transform 220ms ease;
   opacity: 0;
   will-change: opacity, transform;
 }
 
-/* left and right positions */
+/* left and right positions with stronger gradients */
 .scroller-shadow.left {
   left: 0;
-  background: linear-gradient(90deg, rgba(11,13,16,0.85) 0%, rgba(11,13,16,0.45) 40%, rgba(11,13,16,0.00) 100%);
-  transform: translateX(-6px);
+  background: linear-gradient(90deg,
+    rgba(11,13,16,0.95) 0%,
+    rgba(11,13,16,0.75) 25%,
+    rgba(11,13,16,0.45) 55%,
+    rgba(11,13,16,0.00) 100%);
+  transform: translateX(-8px);
 }
 .scroller-shadow.right {
   right: 0;
-  background: linear-gradient(270deg, rgba(11,13,16,0.85) 0%, rgba(11,13,16,0.45) 40%, rgba(11,13,16,0.00) 100%);
-  transform: translateX(6px);
+  background: linear-gradient(270deg,
+    rgba(11,13,16,0.95) 0%,
+    rgba(11,13,16,0.75) 25%,
+    rgba(11,13,16,0.45) 55%,
+    rgba(11,13,16,0.00) 100%);
+  transform: translateX(8px);
 }
 
 /* visible state */
@@ -272,7 +280,8 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 
 /* smaller shadows on narrow screens */
 @media (max-width:520px){
-  .scroller-shadow { width: 40px; }
+  .scroller-shadow { width: 48px; transform: translateX(6px); }
+  .scroller-shadow.left { transform: translateX(-6px); }
 }
 
 /* Responsive tweaks */
