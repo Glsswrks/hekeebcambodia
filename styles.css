@@ -296,3 +296,27 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   right: 0;
   background: linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
 }
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  width: 38px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 28px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(0,0,0,0.65);
+}
+
+.scroll-btn.left { left: 4px; }
+.scroll-btn.right { right: 4px; }
