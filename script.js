@@ -364,16 +364,19 @@ function renderProductDetail(product){
   try { carousel.focus(); } catch(e){}
 }
 
-/* ---------- Horizontal scroller with pointer events + safe momentum ---------- */
+/ ---------- Horizontal scroller with robust pointer handling (fast + slow swipes) ---------- /
 function enableHorizontalScroller(selector){
   const grid = document.querySelector(selector);
   if(!grid) return;
 
+  // Ensure basic styles
   grid.style.overflowX = grid.style.overflowX || 'auto';
   grid.style.scrollBehavior = grid.style.scrollBehavior || 'smooth';
   grid.classList.remove('dragging');
 
-  let isPointerDown = false;
+  // State
+  let isDown = false;
+  let pointerId = null;
   let startX = 0;
   let startScroll = 0;
   let lastX = 0;
@@ -381,64 +384,150 @@ function enableHorizontalScroller(selector){
   let velocity = 0;
   let momentumId = null;
 
+  // Keep a short sample buffer for velocity (more robust than single delta)
+  const samples = [];
+  const maxSamples = 6;
+
+  function pushSample(x, t){
+    samples.push({x, t});
+    if(samples.length > maxSamples) samples.shift();
+  }
+  function computeVelocityFromSamples(){
+    if(samples.length < 2) return 0;
+    const first = samples[0];
+    const last = samples[samples.length - 1];
+    const dx = last.x - first.x;
+    const dt = Math.max(1, last.t - first.t);
+    return dx / dt; // px per ms
+  }
+
+  // Metrics helper: approximate card/page width for snapping
+  function getMetrics() {
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    if (!cards.length) return { cardWidth: grid.clientWidth, pageSize: 1 };
+    const gap = parseFloat(getComputedStyle(grid).gap || 18);
+    const cardRect = cards[0].getBoundingClientRect();
+    const cardWidth = cardRect.width + gap;
+    const visible = Math.max(1, Math.floor((grid.clientWidth + gap) / cardWidth));
+    const pageSize = visible;
+    return { cardWidth, pageSize, visible, gap };
+  }
+
+  // Stop any running momentum
+  function stopMomentum(){
+    if(momentumId){ cancelAnimationFrame(momentumId); momentumId = null; }
+  }
+
+  // Pointer down: capture pointer and prepare
   function onPointerDown(e){
     if(e.pointerType === 'mouse' && e.button !== 0) return;
-    isPointerDown = true;
-    try { grid.setPointerCapture?.(e.pointerId); } catch(_) {}
+
+    // prevent native fling/scroll while dragging horizontally
+    e.preventDefault();
+
+    isDown = true;
+    pointerId = e.pointerId;
+    try { grid.setPointerCapture(pointerId); } catch(_) {}
+
     grid.classList.add('dragging');
 
     startX = e.clientX;
     startScroll = grid.scrollLeft;
     lastX = startX;
-    lastTime = Date.now();
+    lastTime = performance.now();
     velocity = 0;
+    samples.length = 0;
+    pushSample(lastX, lastTime);
 
-    if(momentumId) { cancelAnimationFrame(momentumId); momentumId = null; }
+    stopMomentum();
   }
 
+  // Pointer move: update scroll and velocity
   function onPointerMove(e){
-    if(!isPointerDown) return;
+    if(!isDown || e.pointerId !== pointerId) return;
+    e.preventDefault();
+
     const x = e.clientX;
     const dx = x - startX;
     grid.scrollLeft = startScroll - dx;
 
-    const now = Date.now();
-    const dt = Math.max(1, now - lastTime);
-    velocity = (x - lastX) / dt;
+    const now = performance.now();
+    pushSample(x, now);
+    velocity = computeVelocityFromSamples(); // px per ms
     lastX = x;
     lastTime = now;
   }
 
+  // Snap to nearest page or apply momentum on release
   function onPointerUp(e){
-    if(!isPointerDown) return;
-    isPointerDown = false;
-    try { grid.releasePointerCapture?.(e.pointerId); } catch(_) {}
+    if(!isDown || e.pointerId !== pointerId) return;
+    isDown = false;
+    try { grid.releasePointerCapture(pointerId); } catch(_) {}
+    pointerId = null;
     grid.classList.remove('dragging');
 
-    let momentum = velocity * 1000;
-    const decay = 0.92;
-    const minMomentum = 0.5;
+    const now = performance.now();
+    pushSample(e.clientX, now);
+    const v = computeVelocityFromSamples(); // px per ms
+    const velocityPxPerS = v * 1000; // px/s
 
-    function step(){
-      const delta = 16/1000;
-      grid.scrollLeft -= momentum * delta;
-      momentum *= decay;
-      if(Math.abs(momentum) > minMomentum){
-        momentumId = requestAnimationFrame(step);
-      } else {
-        momentumId = null;
-      }
+    const { cardWidth, pageSize } = getMetrics();
+    const step = (cardWidth || grid.clientWidth) * pageSize;
+
+    // Momentum threshold: if fast enough, apply momentum
+    const momentumThreshold = 350; // px/s (tweakable)
+    if(Math.abs(velocityPxPerS) > momentumThreshold){
+      // momentum animation using exponential decay
+      let momentum = velocityPxPerS; // px/s
+      const decay = 0.92;
+      const frame = () => {
+        const delta = 16/1000;
+        grid.scrollLeft -= momentum * delta;
+        momentum *= decay;
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        if(Math.abs(momentum) > 10 && grid.scrollLeft > -1 && grid.scrollLeft < maxScroll + 1){
+          momentumId = requestAnimationFrame(frame);
+        } else {
+          momentumId = null;
+          snapToNearest(step);
+        }
+      };
+      momentumId = requestAnimationFrame(frame);
+      return;
     }
-    if(Math.abs(momentum) > 1){
-      momentumId = requestAnimationFrame(step);
+
+    // For slower drags, decide by distance moved relative to card width
+    const dragDx = lastX - startX;
+    const dragThreshold = (cardWidth || grid.clientWidth) * 0.18; // 18% threshold
+    if (Math.abs(dragDx) > dragThreshold) {
+      const dir = dragDx < 0 ? 1 : -1; // negative dx means moved left -> next page
+      const currentIndex = Math.round((grid.scrollLeft || 0) / (step || 1));
+      const target = Math.max(0, currentIndex + dir);
+      grid.scrollTo({ left: Math.round(target * step), behavior: 'smooth' });
+    } else {
+      snapToNearest(step);
     }
   }
 
-  grid.addEventListener('pointerdown', onPointerDown, { passive: true });
-  window.addEventListener('pointermove', onPointerMove, { passive: true });
-  window.addEventListener('pointerup', onPointerUp, { passive: true });
-  window.addEventListener('pointercancel', onPointerUp, { passive: true });
+  // Snap helper: snap to nearest page boundary
+  function snapToNearest(step){
+    if(!step || step <= 0){
+      grid.scrollTo({ left: Math.round(grid.scrollLeft), behavior: 'smooth' });
+      return;
+    }
+    const idx = Math.round((grid.scrollLeft || 0) / step);
+    const maxIdx = Math.max(0, Math.ceil((grid.scrollWidth - grid.clientWidth) / step));
+    const target = Math.min(maxIdx, Math.max(0, idx));
+    grid.scrollTo({ left: Math.round(target * step), behavior: 'smooth' });
+  }
 
+  // Attach pointer listeners on grid
+  grid.addEventListener('pointerdown', onPointerDown);
+  grid.addEventListener('pointermove', onPointerMove);
+  grid.addEventListener('pointerup', onPointerUp);
+  grid.addEventListener('pointercancel', onPointerUp);
+
+  // Wheel support: convert vertical wheel to horizontal scroll when over grid
   grid.addEventListener('wheel', (e) => {
     if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
       grid.scrollLeft += e.deltaY;
@@ -446,12 +535,14 @@ function enableHorizontalScroller(selector){
     }
   }, { passive: false });
 
-  const step = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-step') || '260', 10) || 260;
+  // Keyboard support: left/right arrows (step equals CSS var or fallback)
+  const stepSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-step') || '260', 10) || 260;
   grid.addEventListener('keydown', (e) => {
-    if(e.key === 'ArrowLeft') grid.scrollBy({ left: -step, behavior: 'smooth' });
-    if(e.key === 'ArrowRight') grid.scrollBy({ left: step, behavior: 'smooth' });
+    if(e.key === 'ArrowLeft') grid.scrollBy({ left: -stepSize, behavior: 'smooth' });
+    if(e.key === 'ArrowRight') grid.scrollBy({ left: stepSize, behavior: 'smooth' });
   });
 
+  // Make grid focusable
   if(!grid.hasAttribute('tabindex')) grid.setAttribute('tabindex', '0');
 }
 
