@@ -632,12 +632,13 @@ function initScrollerShadows(gridSelector, containerSelector) {
 
   const { list: normalized, lookup } = dedupeProducts(products);
 
-  if(grid){
-    renderIndexCards(normalized);
-    // enable horizontal scroller and dots after rendering
-    enableHorizontalScroller('#productGrid');
-    initScrollerDots('#productGrid');
-  } else if(container){
+  if (grid) {
+  renderIndexCards(normalized);
+  enableHorizontalScroller('#productGrid');
+  initScrollerDots('#productGrid');
+  // add this line to enable side shadows
+  initScrollerShadows('#productGrid', '.products');
+} else if(container){
     const id = getQueryParam('id');
     const product = lookup.get(id) || normalized.find(p => p.id === id);
     renderProductDetail(product);
