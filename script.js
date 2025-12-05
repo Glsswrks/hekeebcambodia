@@ -311,7 +311,7 @@ function renderMoreProducts(currentProductId) {
   section.className = 'more-products-section';
   section.innerHTML = `
     <div class="container products-section" style="padding-top: 0;">
-      <h2 class="section-head" style="margin-top: 40px; margin-bottom: 0;">More Keyboards</h2>
+      <h2 class="section-head" style="margin-top: 40px; margin-bottom: 0;">Similar Products:</h2>
     </div>
     <div class="horizontal-scroll-wrapper">
       <div class="grid" id="moreProductGrid">
@@ -523,7 +523,7 @@ function renderProductDetail(product){
         <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
         </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
     </div>
   `;
 
