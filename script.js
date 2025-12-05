@@ -66,12 +66,12 @@ const products = [
     layout: "75",
     available: false,
     images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Dynamic_RGB_Lightbox_with_Music_Sync_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Multi-Function_Control_Knob_and_RT_Button_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/22.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_65_Hot-Swappable_Rapid_Trigger_Keyboard_1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81gDC8uMc2L.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81NdG0MIsZL.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/71HsR-bBRxL.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61fUWnxOIrL.jpg"
     ],
     specs: ["75% (82 keys)","Full Aluminum CNC","Hot‑swap mechanical switches 3/5 pins","Tri-mode connection Wired / 2.4Ghz Dongle / Bluetooth","Battery 6000 mAh","PBT double-shot gradient shine-through keycaps (south-facing)","South-facing RGB lighting, fully customizable (multiple lighting modes, full-color spectrum) ","N-Key Rollover supported","1K Polling-Rate in Wired / 2.4Ghz Dongles"]
    }
