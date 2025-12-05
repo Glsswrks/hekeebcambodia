@@ -1,4 +1,4 @@
-/* --- Modified styles.css block (White Theme) --- */
+/* --- Modified styles.css block (White Theme, Static Drop Shadow) --- */
 
 :root{
   /* INVERTED THEME COLORS */
@@ -42,9 +42,9 @@ body{
   max-width:420px;
   background: none;
   border: none;
-  /* Added transition for smooth shadow application by JS */
-  /*transition: box-shadow 0.6s ease-out; */
-  /* REMOVED: filter: drop-shadow(...) as it's now controlled by JS for dynamic black shadow */
+  /* Removed: transition: box-shadow 0.6s ease-out; */
+  /* NEW: Static drop-shadow around the PNG shape */
+  filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
 }
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
@@ -440,4 +440,3 @@ body{
   color: var(--muted);
   font-size: 0.85rem;
 }
-
