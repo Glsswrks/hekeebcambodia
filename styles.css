@@ -43,7 +43,7 @@ body{
   background: none;
   border: none;
   /* Added transition for smooth shadow application by JS */
-  //transition: box-shadow 0.6s ease-out; 
+  /*transition: box-shadow 0.6s ease-out; */
   /* REMOVED: filter: drop-shadow(...) as it's now controlled by JS for dynamic black shadow */
 }
 
