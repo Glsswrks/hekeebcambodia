@@ -95,7 +95,7 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
-/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Re-implemented) ------------------- */
+/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Refined for Soft Glow) ------------------- */
 /**
  * Uses a canvas to sample the average color from an image element.
  * @param {HTMLImageElement} img 
@@ -156,11 +156,11 @@ function applyAdaptiveShadow() {
         
         const color = getColor(img);
         
-        // Create a shadow color with a very low opacity for a soft glow (0.20)
-        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.20)`; 
+        // REFINED: Create a shadow color with a very low opacity for a soft glow (0.15)
+        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.15)`; 
         
-        // Apply a wide, soft box shadow: 0px offset, 15px blur, 50px spread, color
-        const shadowStyle = `0 15px 50px 20px ${shadowColor}`; 
+        // REFINED: Apply a wide, soft box shadow: Reduced Y-offset (10px), increased blur (60px)
+        const shadowStyle = `0 10px 60px 20px ${shadowColor}`; 
         
         // Apply the new shadow
         img.style.boxShadow = shadowStyle;
@@ -505,7 +505,7 @@ function renderProductDetail(product){
         <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
         </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
     </div>
   `;
 
