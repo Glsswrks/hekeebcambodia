@@ -62,17 +62,17 @@ const products = [
     id: "m1wv3",
     title: "MONSGEEK M1W V3 PURPLE",
     short: "Full Aluminum Mechanical Keyboard",
-    price: 70,
+    price: 65,
     layout: "75",
     available: false,
     images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/71HsR-bBRxL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/71HsR-bBRxL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81gDC8uMc2L.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81NdG0MIsZL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61fUWnxOIrL.jpg"
-      // https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg
+      // https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg
     ],
     specs: ["75% (82 keys)","Full Aluminum CNC","Hot‑swap mechanical switches 3/5 pins","Tri-mode connection Wired / 2.4Ghz Dongle / Bluetooth","Battery 6000 mAh","PBT double-shot gradient shine-through keycaps (south-facing)","South-facing RGB lighting, fully customizable (multiple lighting modes, full-color spectrum) ","N-Key Rollover supported","1K Polling-Rate in Wired / 2.4Ghz Dongles"]
    }
