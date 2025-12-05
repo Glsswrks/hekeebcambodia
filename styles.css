@@ -36,7 +36,7 @@ max-width:420px;
   filter: drop-shadow(0 0 8px white); // white shadow glow 
 }
 */
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10px;}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10;}
 .grid{
   /* The three lines below are the changes for the horizontal layout */
   display: flex; /* Change from grid to flex for horizontal layout */
@@ -51,13 +51,18 @@ max-width:420px;
 
 /* Card layout: image area + flexible body */
 .card{
-  background:var(--card);
+  /* MODIFIED: Changed background to --glass for transparent effect */
+  background:var(--glass);
   padding:12px;
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.03);
   display:flex;
   flex-direction:column;
   height:100%;
+  
+  /* ADDED: Styles for the "black glowing glass" effect */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(8px);
   
   /* ADDED from previous step */
   flex-shrink: 0; /* Prevents cards from shrinking */
@@ -264,7 +269,7 @@ max-width:420px;
 /* Horizontal scroll wrapper for the index and new 'More Items' section */
 .horizontal-scroll-wrapper {
   margin: 0 -28px; 
-  padding: 0 28px; 
+  padding: 0 28px; /* MODIFIED: Add back the original padding to create left/right space */
   overflow: hidden; 
 }
 .products.container {
@@ -280,7 +285,7 @@ max-width:420px;
     }
     .horizontal-scroll-wrapper {
         margin: 0 calc((100% - var(--max-width)) / 2 * -1 + 28px);
-        padding: 0;
+        padding: 0 28px; /* MODIFIED: Add padding for the scrollable content */
     }
     .products.container {
         padding-left: 0;
