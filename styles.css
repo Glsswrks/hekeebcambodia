@@ -47,7 +47,7 @@ body{
   filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
 }
 
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:28px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10px}
 .grid{
   /* The three lines below are the changes for the horizontal layout */
   display: flex; /* Change from grid to flex for horizontal layout */
@@ -75,7 +75,6 @@ body{
   flex-shrink: 0; /* Prevents cards from shrinking */
   width: 280px; /* Fixed width for each card */
   scroll-snap-align: start; /* Snap to the start of the card */
-  padding-left:5px;
 }
 
 /* Image area: fixed aspect ratio so badge stays anchored */
@@ -123,7 +122,7 @@ body{
 .card-body{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:4px; /* 8px original */
   margin-top:10px;
   flex: 0 0 auto; /* Ensure it doesn't grow/shrink based on content */
   height: 120px; /* Fixed height for consistent card size */
@@ -161,7 +160,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:8px;
+  gap:4px; /* 8px original */
 }
 
 /* availability text */
@@ -271,7 +270,7 @@ body{
   .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
   .price-badge { bottom: 6px; left: 6px; padding:5px 8px; font-size:0.85rem; box-shadow: 0 6px 16px rgba(0,0,0,0.25); text-shadow: 0 1px 6px rgba(0,0,0,0.45); }
   .card-image{padding-top:70%;}
-  .card{ width: 250px; } /* Updated card width for small screens */
+  .card{ width: 250px;padding-left:10;} /* Updated card width for small screens */
 }
 @media(max-width:800px){
   .hero-inner{flex-direction:column-reverse;text-align:center}
