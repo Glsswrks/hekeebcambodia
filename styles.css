@@ -322,3 +322,89 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
+/* ADDED STYLES FOR SEARCH BAR */
+.search-container {
+  padding-top: 0; 
+  padding-bottom: 20px; /* Space below search bar */
+  position: relative; /* Needed to position the results */
+}
+.search-wrap {
+  position: relative;
+  max-width: 600px; /* Limit search box width */
+  margin: 0 auto;
+}
+#searchInput {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--card);
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: box-shadow 160ms ease;
+}
+#searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.4);
+}
+.search-results {
+  position: absolute;
+  top: 100%; /* Position right below the input */
+  left: 0;
+  right: 0;
+  max-height: 400px; /* Set a maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  z-index: 50; /* Ensure it stays above other content */
+  display: none; /* Hidden by default */
+}
+.search-results.active {
+  display: block; /* Show when there are results */
+}
+
+/* Style for individual search result items (small row layout) */
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 160ms ease;
+}
+.search-result-item:last-child {
+  border-bottom: none;
+}
+.search-result-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+.search-result-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.search-result-details {
+  flex-grow: 1;
+  text-align: left;
+}
+.search-result-title {
+  font-weight: 600;
+  margin: 0;
+  font-size: 1rem;
+}
+.search-result-price {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.search-result-layout {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
