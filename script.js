@@ -90,11 +90,15 @@ function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
 function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
 
 /* Robust product link for GitHub Pages subpath */
+// ************ FIXED FUNCTION ************
 function productLink(id){
-  const { origin, pathname } = window.location;
-  const baseDir = pathname.replace(/index\.html$/, '').replace(/\/$/, '');
-  return `${origin}${baseDir}/products.html?id=${encodeURIComponent(id)}`;
+  // This uses a path relative to the current file location. 
+  // If your website is hosted on a sub-folder (like a GitHub Pages project), 
+  // you might need to adjust this path to include the sub-folder name.
+  // Assuming 'products.html' is in the same directory as 'index.html'.
+  return `products.html?id=${encodeURIComponent(id)}`;
 }
+// ****************************************
 
 /* ------------------- NEW SEARCH LOGIC ------------------- */
 function filterProducts(query) {
