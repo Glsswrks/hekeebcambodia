@@ -72,7 +72,6 @@ const products = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81NdG0MIsZL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61fUWnxOIrL.jpg"
-      // https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg
     ],
     specs: ["75% (82 keys)","Full Aluminum CNC","Hot‑swap mechanical switches 3/5 pins","Tri-mode connection Wired / 2.4Ghz Dongle / Bluetooth","Battery 6000 mAh","PBT double-shot gradient shine-through keycaps (south-facing)","South-facing RGB lighting, fully customizable (multiple lighting modes, full-color spectrum) ","N-Key Rollover supported","1K Polling-Rate in Wired / 2.4Ghz Dongles"]
    }
@@ -113,7 +112,7 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
-/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Refined for Soft Glow) ------------------- */
+/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Refined for Light Theme) ------------------- */
 /**
  * Uses a canvas to sample the average color from an image element.
  * @param {HTMLImageElement} img 
@@ -148,15 +147,17 @@ function getColor(img) {
         g = Math.floor(g / count);
         b = Math.floor(b / count);
 
-        // Ensure the shadow color is dark enough for the dark background
-        r = Math.max(r, 15);
-        g = Math.max(g, 17);
-        b = Math.max(b, 20);
+        /* NEW LOGIC: Ensure the shadow color is dark enough to contrast 
+        with the new LIGHT background. Max value is 100 for a dark shadow color.
+        */
+        r = Math.min(r, 100);
+        g = Math.min(g, 100);
+        b = Math.min(b, 100);
         
         return { r, g, b };
     } catch (e) {
-        // Fallback for CORS or image loading error (returns subtle dark grey/blue)
-        return { r: 15, g: 17, b: 20 };
+        // Fallback for CORS or image loading error (returns subtle black)
+        return { r: 0, g: 0, b: 0 };
     }
 }
 
@@ -164,18 +165,21 @@ function getColor(img) {
  * Applies a box shadow to the hero image based on its dominant color.
  */
 function applyAdaptiveShadow() {
-    const img = document.getElementById('heroImage');
+    const img = document.querySelector('.hero-image img'); // Use selector since index.html doesn't have ID
     
     if (!img) return;
     
+    // Assign ID for easier access in the setShadow logic
+    img.id = 'heroImage'; 
+
     const setShadow = () => {
         // Remove event listener to prevent duplicate execution
         img.removeEventListener('load', setShadow);
         
         const color = getColor(img);
         
-        // REFINED: Create a shadow color with a very low opacity for a soft glow (0.15)
-        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.15)`; 
+        // REFINED FOR LIGHT THEME: Use higher opacity (0.35) for a visible black glow
+        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.35)`; 
         
         // REFINED: Apply a wide, soft box shadow: Reduced Y-offset (10px), increased blur (60px)
         const shadowStyle = `0 10px 60px 20px ${shadowColor}`; 
