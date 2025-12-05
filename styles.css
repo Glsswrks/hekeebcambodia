@@ -28,6 +28,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 */
 
 .hero-image img{
+max-width:420px;
   display: block;
   margin: 0 auto; /* centers the image */
   background: none; /* ensures no background */
