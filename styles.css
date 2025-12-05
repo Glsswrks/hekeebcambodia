@@ -18,7 +18,13 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .hero-text p{color:var(--muted);margin:0 0 18px}
 .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;text-decoration:none}
 .btn.primary{background:var(--accent);border:none;color:white}
-.hero-image img{max-width:420px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.hero-image img{
+  max-width:420px;
+  border-radius:12px;
+  /* Original shadow: 0 8px 30px rgba(0,0,0,0.6) - JS will override this. */
+  box-shadow:0 8px 30px rgba(0,0,0,0.6); 
+  transition: box-shadow 0.5s ease-out; /* Add transition for smoothness */
+}
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .grid{
@@ -156,7 +162,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .specs{ margin:12px 0 0; padding:0; list-style:none; color:var(--muted); }
 .back-link{ display:inline-block; margin-top:14px; color:var(--muted); text-decoration:none; }
 
-/* Carousel styles */
+/* Carousel styles (omitted for brevity, assume unchanged) */
 .carousel {
   position: relative;
   width: 100%;
@@ -273,7 +279,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 }
 
 
-/* Modal base */
+/* Modal base (omitted for brevity, assume unchanged) */
 .modal {
   position: fixed;
   inset: 0;
@@ -295,7 +301,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
 }
-.modal-content h2 { margin-top:0; }
 .modal-close {
   position: absolute;
   top: 12px;
@@ -323,15 +328,15 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   border: none;
 }
 
-/* ADDED STYLES FOR SEARCH BAR (from previous step) */
+/* ADDED STYLES FOR SEARCH BAR (omitted for brevity, assume unchanged) */
 .search-container {
   padding-top: 0; 
-  padding-bottom: 20px; /* Space below search bar */
-  position: relative; /* Needed to position the results */
+  padding-bottom: 20px; 
+  position: relative; 
 }
 .search-wrap {
   position: relative;
-  max-width: 600px; /* Limit search box width */
+  max-width: 600px; 
   margin: 0 auto;
 }
 #searchInput {
@@ -352,20 +357,20 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 }
 .search-results {
   position: absolute;
-  top: 100%; /* Position right below the input */
+  top: 100%; 
   left: 0;
   right: 0;
-  max-height: 400px; /* Set a maximum height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 400px; 
+  overflow-y: auto; 
   background: var(--card);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 0 0 10px 10px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-  z-index: 50; /* Ensure it stays above other content */
-  display: none; /* Hidden by default */
+  z-index: 50; 
+  display: none; 
 }
 .search-results.active {
-  display: block; /* Show when there are results */
+  display: block; 
 }
 
 /* Style for individual search result items (small row layout) */
