@@ -95,6 +95,82 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
+/* ------------------- NEW: ADAPTIVE SHADOW LOGIC ------------------- */
+/**
+ * Uses a canvas to sample the average color from an image element.
+ * @param {HTMLImageElement} img 
+ * @returns {{r: number, g: number, b: number}}
+ */
+function getColor(img) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Sample the image by scaling it down to 10x10 for quick averaging
+    const size = 10;
+    canvas.width = size;
+    canvas.height = size;
+    
+    try {
+        ctx.drawImage(img, 0, 0, size, size);
+        const data = ctx.getImageData(0, 0, size, size).data;
+        
+        let r = 0, g = 0, b = 0;
+        let count = 0;
+        
+        // Sum all color components
+        for (let i = 0; i < data.length; i += 4) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+        }
+        
+        // Calculate the average color
+        r = Math.floor(r / count);
+        g = Math.floor(g / count);
+        b = Math.floor(b / count);
+        
+        return { r, g, b };
+    } catch (e) {
+        // Fallback for CORS or image loading error (returns dark grey/black)
+        return { r: 15, g: 17, b: 20 };
+    }
+}
+
+/**
+ * Applies a box shadow to the hero image based on its dominant color.
+ */
+function applyAdaptiveShadow() {
+    const img = document.getElementById('heroImage');
+    
+    if (!img) return;
+    
+    const setShadow = () => {
+        // Remove event listener to prevent duplicate execution
+        img.removeEventListener('load', setShadow);
+        
+        const color = getColor(img);
+        
+        // Create a shadow color with 35% opacity
+        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.35)`;
+        
+        // Apply a box shadow: 0px offset, 12px blur, 40px spread, color
+        const shadowStyle = `0 12px 40px 12px ${shadowColor}`;
+        
+        // Apply the new shadow
+        img.style.boxShadow = shadowStyle;
+    };
+    
+    // Wait for the image to load, or apply immediately if it's already complete (from cache)
+    if (img.complete && img.naturalHeight !== 0) {
+        setShadow();
+    } else {
+        img.addEventListener('load', setShadow);
+    }
+}
+/* ------------------- END: ADAPTIVE SHADOW LOGIC ------------------- */
+
+
 /* ------------------- SEARCH LOGIC (from previous step) ------------------- */
 function filterProducts(query) {
   if (!query) return [];
@@ -169,7 +245,7 @@ function setupSearch() {
 /* ------------------- END SEARCH LOGIC ------------------- */
 
 
-/* ---------- NEW: Reusable card creator for 'More Items' section ---------- */
+/* ---------- Reusable card creator for 'More Items' section ---------- */
 function createCard(p){
   const card = document.createElement('div');
   card.className = 'card';
@@ -201,7 +277,7 @@ function createCard(p){
   return card;
 }
 
-/* ---------- NEW: Render the horizontal list of other products ---------- */
+/* ---------- Render the horizontal list of other products ---------- */
 function renderMoreProducts(currentProductId) {
   // Get all products except the current one
   const relevantProducts = products.filter(p => p.id !== currentProductId);
@@ -228,14 +304,14 @@ function renderMoreProducts(currentProductId) {
   return section;
 }
 
-/* ---------- Index page: render product cards (uses updated productLink) ---------- */
+/* ---------- Index page: render product cards ---------- */
 function renderIndexCards(list){
   const grid = document.getElementById('productGrid');
   if(!grid) return;
   grid.innerHTML = '';
   list.forEach(p=>{
     const card = document.createElement('div');
-    card.className = 'card'; // This is what the new CSS targets.
+    card.className = 'card'; 
 
     const availClass = p.available ? 'availability available' : 'availability unavailable';
     const availText = p.available ? 'Available' : 'Unavailable';
@@ -266,7 +342,7 @@ function renderIndexCards(list){
   });
 }
 
-/* ---------- Carousel (shared) (function body omitted for brevity) ---------- */
+/* ---------- Carousel (shared) ---------- */
 function createCarousel(images) {
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
@@ -403,7 +479,7 @@ function createCarousel(images) {
 }
 
 
-/* ---------- Product page: render detail (UPDATED) ---------- */
+/* ---------- Product page: render detail ---------- */
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
   if(!container) return;
@@ -465,7 +541,6 @@ function renderProductDetail(product){
   const discordMain = document.getElementById('discordMain');
   if(whatsappMain) whatsappMain.href = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
-  // Discord main link kept here, but discordMain element should be removed from index.html if you don't want it anywhere.
 
   const grid = document.getElementById('productGrid');
   const container = document.getElementById('productContainer');
@@ -480,5 +555,8 @@ function renderProductDetail(product){
   
   // Initialize the search functionality
   setupSearch();
+
+  // NEW: Initialize adaptive shadow on the hero image (only runs on index.html)
+  applyAdaptiveShadow();
 
 })();
