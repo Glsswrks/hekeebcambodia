@@ -112,90 +112,11 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
-/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Refined for Light Theme) ------------------- */
-/**
- * Uses a canvas to sample the average color from an image element.
- * @param {HTMLImageElement} img 
- * @returns {{r: number, g: number, b: number}}
- */
-function getColor(img) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Sample the image by scaling it down to 10x10 for quick averaging
-    const size = 10;
-    canvas.width = size;
-    canvas.height = size;
-    
-    try {
-        ctx.drawImage(img, 0, 0, size, size);
-        const data = ctx.getImageData(0, 0, size, size).data;
-        
-        let r = 0, g = 0, b = 0;
-        let count = 0;
-        
-        // Sum all color components
-        for (let i = 0; i < data.length; i += 4) {
-            r += data[i];
-            g += data[i + 1];
-            b += data[i + 2];
-            count++;
-        }
-        
-        // Calculate the average color
-        r = Math.floor(r / count);
-        g = Math.floor(g / count);
-        b = Math.floor(b / count);
-
-        /* NEW LOGIC: Ensure the shadow color is dark enough to contrast 
-        with the new LIGHT background. Max value is 100 for a dark shadow color.
-        */
-        r = Math.min(r, 100);
-        g = Math.min(g, 100);
-        b = Math.min(b, 100);
-        
-        return { r, g, b };
-    } catch (e) {
-        // Fallback for CORS or image loading error (returns subtle black)
-        return { r: 0, g: 0, b: 0 };
-    }
-}
-
-/**
- * Applies a box shadow to the hero image based on its dominant color.
- */
-function applyAdaptiveShadow() {
-    const img = document.querySelector('.hero-image img'); // Use selector since index.html doesn't have ID
-    
-    if (!img) return;
-    
-    // Assign ID for easier access in the setShadow logic
-    img.id = 'heroImage'; 
-
-    const setShadow = () => {
-        // Remove event listener to prevent duplicate execution
-        img.removeEventListener('load', setShadow);
-        
-        const color = getColor(img);
-        
-        // REFINED FOR LIGHT THEME: Use higher opacity (0.35) for a visible black glow
-        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.35)`; 
-        
-        // REFINED: Apply a wide, soft box shadow: Reduced Y-offset (10px), increased blur (60px)
-        const shadowStyle = `0 10px 60px 20px ${shadowColor}`; 
-        
-        // Apply the new shadow
-        img.style.boxShadow = shadowStyle;
-    };
-    
-    // Wait for the image to load, or apply immediately if it's already complete (from cache)
-    if (img.complete && img.naturalHeight !== 0) {
-        setShadow();
-    } else {
-        img.addEventListener('load', setShadow);
-    }
-}
-/* ------------------- END: ADAPTIVE SHADOW LOGIC ------------------- */
+/* ------------------- REMOVED: ADAPTIVE SHADOW LOGIC ------------------- 
+   The following functions were removed and replaced with a static CSS drop-shadow:
+   - getColor()
+   - applyAdaptiveShadow()
+------------------------------------------------------------------------- */
 
 
 /* ------------------- SEARCH LOGIC (from previous step) ------------------- */
@@ -582,7 +503,5 @@ function renderProductDetail(product){
   // Initialize the search functionality
   setupSearch();
 
-  // RE-ADDED: Initialize adaptive shadow on the hero image (only runs on index.html)
-  applyAdaptiveShadow();
-
+  // REMOVED: applyAdaptiveShadow();
 })();
