@@ -47,7 +47,7 @@ body{
   filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
 }
 
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:28px}
 .grid{
   /* The three lines below are the changes for the horizontal layout */
   display: flex; /* Change from grid to flex for horizontal layout */
