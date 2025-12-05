@@ -36,7 +36,7 @@ max-width:420px;
   filter: drop-shadow(0 0 8px white); // white shadow glow 
 }
 */
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10;}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10px;}
 .grid{
   /* The three lines below are the changes for the horizontal layout */
   display: flex; /* Change from grid to flex for horizontal layout */
