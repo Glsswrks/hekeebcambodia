@@ -44,7 +44,7 @@ body{
   border: none;
   /* Removed: transition: box-shadow 0.6s ease-out; */
   /* NEW: Static drop-shadow around the PNG shape */
-  filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
 }
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
