@@ -21,9 +21,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .hero-image img{
   max-width:420px;
   border-radius:12px;
-  /* Original shadow: 0 8px 30px rgba(0,0,0,0.6) - JS will override this. */
-  box-shadow:0 8px 30px rgba(0,0,0,0.6); 
-  transition: box-shadow 0.5s ease-out; /* Add transition for smoothness */
+  /* box-shadow and transition removed for transparent image */
 }
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
