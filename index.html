@@ -8,15 +8,23 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
+<header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#">Keeb Cambodia</a>
       <nav class="nav">
-  <a href="#shop">Shop</a>
-  <a href="#" id="contactLink">Contact</a>
-</nav>
+        <a href="#shop">Shop</a>
+        <a href="#" id="contactLink">Contact</a>
+      </nav>
     </div>
-  </header>
+    <div class="container search-container">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search for keyboards, layouts, or specs...">
+        <div id="searchResults" class="search-results" aria-live="polite">
+          </div>
+      </div>
+    </div>
+    </header>
+
 
   <main>
     <section class="hero">
