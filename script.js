@@ -96,6 +96,80 @@ function productLink(id){
   return `${origin}${baseDir}/products.html?id=${encodeURIComponent(id)}`;
 }
 
+/* ------------------- NEW SEARCH LOGIC ------------------- */
+function filterProducts(query) {
+  if (!query) return [];
+  const lowerCaseQuery = query.toLowerCase();
+  return products.filter(p => 
+    p.title.toLowerCase().includes(lowerCaseQuery) ||
+    p.short.toLowerCase().includes(lowerCaseQuery) ||
+    p.layout.toLowerCase().includes(lowerCaseQuery) ||
+    p.specs.some(spec => spec.toLowerCase().includes(lowerCaseQuery))
+  );
+}
+
+function renderSearchResults(results) {
+  const resultsBox = document.getElementById('searchResults');
+  if (!resultsBox) return;
+
+  resultsBox.innerHTML = '';
+
+  if (results.length === 0) {
+    resultsBox.classList.remove('active');
+    return;
+  }
+  
+  results.forEach(p => {
+    const item = document.createElement('a');
+    item.className = 'search-result-item';
+    item.href = productLink(p.id);
+    item.ariaLabel = `View ${p.title}`;
+    
+    const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
+
+    item.innerHTML = `
+      <img src="${cover}" alt="${p.title}" class="search-result-img">
+      <div class="search-result-details">
+        <div class="search-result-title">${p.title}</div>
+        <div class="search-result-layout">${p.layout} Layout</div>
+      </div>
+      <div class="search-result-price">$${p.price}</div>
+    `;
+    resultsBox.appendChild(item);
+  });
+  
+  resultsBox.classList.add('active');
+}
+
+function setupSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const resultsBox = document.getElementById('searchResults');
+  
+  if (!searchInput || !resultsBox) return;
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim();
+    const results = filterProducts(query);
+    renderSearchResults(results);
+  });
+
+  // Hide results when clicking outside the input/results box
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+      resultsBox.classList.remove('active');
+    }
+  });
+  
+  // Show results again if the input is focused and has content
+  searchInput.addEventListener('focus', () => {
+    if(searchInput.value.trim().length > 0 && resultsBox.childElementCount > 0){
+      resultsBox.classList.add('active');
+    }
+  });
+}
+/* ------------------- END NEW SEARCH LOGIC ------------------- */
+
+
 /* ---------- Index page: render product cards ---------- */
 function renderIndexCards(list){
   const grid = document.getElementById('productGrid');
@@ -331,4 +405,8 @@ function renderProductDetail(product){
     const product = products.find(p => p.id === id);
     renderProductDetail(product);
   }
+  
+  // Initialize the new search functionality
+  setupSearch();
+
 })();
