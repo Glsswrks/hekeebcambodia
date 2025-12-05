@@ -355,10 +355,22 @@ body{
 
 /* ADDED STYLES FOR SEARCH BAR - Adjusted for light theme */
 .search-container {
+  /* Inherits 'container' class (padding: 28px) in index.html */
   padding-top: 0; 
   padding-bottom: 20px; 
   position: relative; 
 }
+
+/* NEW FIX: This ensures the search container extends to the full screen width on smaller screens */
+@media (max-width: 1100px) { /* Apply on smaller screens where .container adds padding */
+    .search-container {
+        /* Pushes the container to the edge of the screen */
+        margin: 0 -28px; 
+        /* Adds the padding back *inside* so the content is aligned */
+        padding: 0 28px 20px 28px; 
+    }
+}
+
 .search-wrap {
   position: relative;
   max-width: 600px; 
