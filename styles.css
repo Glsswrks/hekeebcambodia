@@ -245,7 +245,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   .hero-inner{flex-direction:column-reverse;text-align:center}
 }
 
-/* ADDED from previous step for horizontal scroll wrapper */
+/* Horizontal scroll wrapper for the index and new 'More Items' section */
 .horizontal-scroll-wrapper {
   margin: 0 -28px; 
   padding: 0 28px; 
@@ -322,7 +322,8 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
-/* ADDED STYLES FOR SEARCH BAR */
+
+/* ADDED STYLES FOR SEARCH BAR (from previous step) */
 .search-container {
   padding-top: 0; 
   padding-bottom: 20px; /* Space below search bar */
