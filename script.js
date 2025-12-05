@@ -89,18 +89,13 @@ function whatsappLink(product){
 function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
 function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
 
-/* Robust product link for GitHub Pages subpath */
-// ************ FIXED FUNCTION ************
+/* Robust product link for GitHub Pages subpath (FIXED) */
 function productLink(id){
-  // This uses a path relative to the current file location. 
-  // If your website is hosted on a sub-folder (like a GitHub Pages project), 
-  // you might need to adjust this path to include the sub-folder name.
-  // Assuming 'products.html' is in the same directory as 'index.html'.
+  // Using a path relative to the current file location (products.html)
   return `products.html?id=${encodeURIComponent(id)}`;
 }
-// ****************************************
 
-/* ------------------- NEW SEARCH LOGIC ------------------- */
+/* ------------------- SEARCH LOGIC (from previous step) ------------------- */
 function filterProducts(query) {
   if (!query) return [];
   const lowerCaseQuery = query.toLowerCase();
@@ -171,10 +166,69 @@ function setupSearch() {
     }
   });
 }
-/* ------------------- END NEW SEARCH LOGIC ------------------- */
+/* ------------------- END SEARCH LOGIC ------------------- */
 
 
-/* ---------- Index page: render product cards ---------- */
+/* ---------- NEW: Reusable card creator for 'More Items' section ---------- */
+function createCard(p){
+  const card = document.createElement('div');
+  card.className = 'card';
+  const availClass = p.available ? 'availability available' : 'availability unavailable';
+  const availText = p.available ? 'Available' : 'Unavailable';
+  const href = productLink(p.id);
+  const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
+
+  card.innerHTML = `
+    <div class="card-image">
+      <a class="card-link" href="${href}" aria-label="View ${p.title}">
+        <img src="${cover}" alt="${p.title}">
+      </a>
+      <span class="price-badge">$${p.price}</span>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a class="card-title-link" href="${href}">${p.title}</a>
+      </h4>
+      <p class="muted card-desc">${p.short}</p>
+      <div class="card-footer">
+        <div class="specs-inline muted">${p.layout} • ${p.specs[0] || ''}</div>
+        <div class="availability-wrap">
+          <span class="${availClass}">${availText}</span>
+        </div>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+/* ---------- NEW: Render the horizontal list of other products ---------- */
+function renderMoreProducts(currentProductId) {
+  // Get all products except the current one
+  const relevantProducts = products.filter(p => p.id !== currentProductId);
+  
+  if (relevantProducts.length === 0) return null;
+
+  const section = document.createElement('section');
+  section.className = 'more-products-section';
+  section.innerHTML = `
+    <div class="container products-section" style="padding-top: 0;">
+      <h2 class="section-head" style="margin-top: 40px; margin-bottom: 0;">More Keyboards</h2>
+    </div>
+    <div class="horizontal-scroll-wrapper">
+      <div class="grid" id="moreProductGrid">
+        </div>
+    </div>
+  `;
+  
+  const grid = section.querySelector('#moreProductGrid');
+  relevantProducts.forEach(p => {
+    grid.appendChild(createCard(p));
+  });
+
+  return section;
+}
+
+/* ---------- Index page: render product cards (uses updated productLink) ---------- */
 function renderIndexCards(list){
   const grid = document.getElementById('productGrid');
   if(!grid) return;
@@ -212,7 +266,7 @@ function renderIndexCards(list){
   });
 }
 
-/* ---------- Carousel (shared) ---------- */
+/* ---------- Carousel (shared) (function body omitted for brevity) ---------- */
 function createCarousel(images) {
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
@@ -348,7 +402,8 @@ function createCarousel(images) {
   return wrapper;
 }
 
-/* ---------- Product page: render detail ---------- */
+
+/* ---------- Product page: render detail (UPDATED) ---------- */
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
   if(!container) return;
@@ -368,8 +423,7 @@ function renderProductDetail(product){
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
-        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
-      </div>
+        </div>
       <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
     </div>
   `;
@@ -385,6 +439,20 @@ function renderProductDetail(product){
   if(telegramBtn) telegramBtn.href = telegramLink();
 
   carousel.focus();
+
+  // NEW: Inject the "More Keyboards" section
+  const moreProductsSection = renderMoreProducts(product.id);
+  if (moreProductsSection) {
+    const mainElement = document.querySelector('.product-page');
+    const backLinkContainer = mainElement.querySelector('div[style*="margin-top:28px;"]');
+    
+    // Insert the new section before the "back to shop" link container
+    if (backLinkContainer) {
+        mainElement.insertBefore(moreProductsSection, backLinkContainer);
+    } else {
+        mainElement.appendChild(moreProductsSection);
+    }
+  }
 }
 
 /* ---------- Page init ---------- */
@@ -397,7 +465,7 @@ function renderProductDetail(product){
   const discordMain = document.getElementById('discordMain');
   if(whatsappMain) whatsappMain.href = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
-  if(discordMain) discordMain.textContent = DISCORD_HANDLE;
+  // Discord main link kept here, but discordMain element should be removed from index.html if you don't want it anywhere.
 
   const grid = document.getElementById('productGrid');
   const container = document.getElementById('productContainer');
@@ -410,7 +478,7 @@ function renderProductDetail(product){
     renderProductDetail(product);
   }
   
-  // Initialize the new search functionality
+  // Initialize the search functionality
   setupSearch();
 
 })();
