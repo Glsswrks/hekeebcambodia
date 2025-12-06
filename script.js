@@ -152,44 +152,29 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
-// NEW: Constants for display limits (2 rows * columns)
+// Constants for display limits for the index page
 const MOBILE_COLUMNS = 2;
 const DESKTOP_COLUMNS = 4;
 const INITIAL_MOBILE_LIMIT = MOBILE_COLUMNS * 2; // 4 items
 const INITIAL_DESKTOP_LIMIT = DESKTOP_COLUMNS * 2; // 8 items
 
 function getInitialLimit() {
-  // Mobile breakpoint used in styles.css is 600px
   return window.innerWidth < 600 ? INITIAL_MOBILE_LIMIT : INITIAL_DESKTOP_LIMIT;
 }
 
-
-/* ---------- Index page: render product cards ---------- */
-// Takes product list, grid element ID, more button container ID, and category name
-function renderIndexCards(list, gridId, moreContainerId, categoryName){
-  const grid = document.getElementById(gridId);
-  const loadMoreContainer = document.getElementById(moreContainerId);
-  if(!grid || !loadMoreContainer) return;
-
-  const limit = getInitialLimit();
-  
-  grid.innerHTML = '';
-  loadMoreContainer.innerHTML = ''; // Clear the button container
-
-  // Determine the list to render (limited view)
-  const productsToRender = list.slice(0, limit);
-
-  productsToRender.forEach(p=>{
+/**
+ * Reusable function to create the HTML structure for a single product card.
+ * @param {Object} p - The product object.
+ * @returns {HTMLElement} The created card div element.
+ */
+function createProductCard(p) {
     const card = document.createElement('div');
     card.className = 'card';
 
     const availClass = p.available ? 'availability available' : 'availability unavailable';
     const availText = p.available ? 'Available' : 'Unavailable';
     const href = productLink(p.id);
-    // Safely get the first image
     const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
-    
-    // Check availability for in-stock class
     const priceBadgeClass = p.available ? 'price-badge in-stock' : 'price-badge'; 
 
     card.innerHTML = `
@@ -212,7 +197,27 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName){
         </div>
       </div>
     `;
-    grid.appendChild(card);
+    return card;
+}
+
+
+/* ---------- Index page: render product cards (LIMITED VIEW) ---------- */
+// Renders a LIMITED list of products for the index page
+function renderIndexCards(list, gridId, moreContainerId, categoryName){
+  const grid = document.getElementById(gridId);
+  const loadMoreContainer = document.getElementById(moreContainerId);
+  if(!grid || !loadMoreContainer) return;
+
+  const limit = getInitialLimit();
+  
+  grid.innerHTML = '';
+  loadMoreContainer.innerHTML = ''; 
+
+  // Determine the list to render (limited view)
+  const productsToRender = list.slice(0, limit);
+
+  productsToRender.forEach(p=>{
+    grid.appendChild(createProductCard(p));
   });
   
   // Create "More items" button if products remain
@@ -220,31 +225,27 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName){
     const loadMoreLink = document.createElement('a');
     loadMoreLink.className = 'btn primary';
     loadMoreLink.textContent = 'More items';
-    // Set the link to navigate to a page showing all items in this category
-    // We'll use products.html and pass the category as a query parameter for demonstration
-    loadMoreLink.href = `products.html?category=${categoryName}`; 
+    // Link to the dedicated category page
+    loadMoreLink.href = `category.html?category=${categoryName}`; 
     loadMoreContainer.appendChild(loadMoreLink);
   }
 }
 
-// Function to handle filtering for a specific category
-function filterProducts(query, categoryList, gridId, moreContainerId, categoryName) {
+// Function to handle filtering for a specific category on the INDEX page
+function filterIndexProducts(query, categoryList, gridId, moreContainerId, categoryName) {
     const normalizedQuery = query.toLowerCase().trim();
     const filteredList = categoryList.filter(p =>
         p.title.toLowerCase().includes(normalizedQuery) ||
         p.short.toLowerCase().includes(normalizedQuery) ||
         p.id.toLowerCase().includes(normalizedQuery)
     );
-    // When filtering, we always use the initial limit
+    // When filtering on index, we still use the initial limit
     renderIndexCards(filteredList, gridId, moreContainerId, categoryName);
 }
 
-
-// NEW: Function to initialize each product section
+// Function to initialize each product section on the index page
 function initProductSection(categoryName) {
     const productsList = productData[categoryName];
-
-    // FIX HERE: Map the plural category name to the singular HTML ID prefix
     let prefix = categoryName;
     if (categoryName === 'keyboards') prefix = 'keyboard';
     if (categoryName === 'mice') prefix = 'mouse';
@@ -260,28 +261,87 @@ function initProductSection(categoryName) {
 
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            filterProducts(e.target.value, productsList, gridId, moreContainerId, categoryName);
+            filterIndexProducts(e.target.value, productsList, gridId, moreContainerId, categoryName);
         });
     }
 }
 
-// NEW: Function to handle initial rendering and filtering
 function initIndexPage() {
-    // Initialize Keyboards section
     initProductSection('keyboards');
-
-    // Initialize Mice section
     initProductSection('mice');
 
-    // Handle resizing
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            // Re-render both sections to adjust the visible limit if the column count changes
             initProductSection('keyboards'); 
             initProductSection('mice');
         }, 200); 
+    });
+}
+
+
+/* ---------- Category page: render full list (NEW LOGIC) ---------- */
+
+/**
+ * Renders the product cards for the category page (full list, filtered or not).
+ * @param {Array<Object>} list - The list of products to render.
+ * @param {HTMLElement} gridElement - The grid container element.
+ */
+function renderCategoryCards(list, gridElement) {
+    gridElement.innerHTML = '';
+    if (list.length === 0) {
+        gridElement.innerHTML = '<p class="muted" style="grid-column: 1 / -1; text-align: center; margin-top: 20px;">No products found matching your search in this category.</p>';
+        return;
+    }
+    list.forEach(p => {
+        gridElement.appendChild(createProductCard(p));
+    });
+}
+
+
+// Function to set up the full category page with search
+function initCategoryPage() {
+    const categoryName = getQueryParam('category');
+    const productsList = productData[categoryName]; 
+    const container = document.getElementById('categoryContainer');
+
+    if (!container || !productsList) {
+        if (container) {
+             container.innerHTML = `<div class="container" style="padding-top: 40px;"><h1 style="color:var(--muted)">Category not found.</h1><p><a href="index.html" class="btn">← Back to shop</a></p></div>`;
+        }
+        return;
+    }
+    
+    const capitalizedName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+
+    // Clear the container and build the full page structure
+    container.innerHTML = `
+        <div class="section-head">
+            <h2 id="categoryTitle">${capitalizedName} Category</h2>
+            <input type="text" id="categorySearch" placeholder="Search all ${categoryName}..." class="search-input">
+        </div>
+        <div id="categoryGrid" class="grid"></div>
+        <div style="margin-top:28px;">
+            <a class="back-link" href="index.html">← Back to shop</a>
+        </div>
+    `;
+
+    const grid = document.getElementById('categoryGrid');
+    const searchInput = document.getElementById('categorySearch');
+    
+    // Initial render of all products
+    renderCategoryCards(productsList, grid); 
+
+    // Add filtering logic to the new search bar
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const filteredList = productsList.filter(p =>
+            p.title.toLowerCase().includes(query) ||
+            p.short.toLowerCase().includes(query) ||
+            p.id.toLowerCase().includes(query)
+        );
+        renderCategoryCards(filteredList, grid);
     });
 }
 
@@ -422,7 +482,7 @@ function createCarousel(images) {
   return wrapper;
 }
 
-/* ---------- Product page: render detail ---------- */
+/* ---------- Product page: render detail (UNCHANGED) ---------- */
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
   if(!container) return;
@@ -461,11 +521,12 @@ function renderProductDetail(product){
   carousel.focus();
 }
 
-/* ---------- Page init ---------- */
+/* ---------- Page init (UPDATED) ---------- */
 (function init(){
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Contact links initialization (for modal)
   const whatsappMain = document.getElementById('whatsappMain');
   const telegramMain = document.getElementById('telegramMain');
   const discordMain = document.getElementById('discordMain');
@@ -473,17 +534,20 @@ function renderProductDetail(product){
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
   if(discordMain) discordMain.textContent = DISCORD_HANDLE;
 
-  // We check for the presence of the main keyboard grid to know we are on the index page
-  const grid = document.getElementById('keyboardGrid'); 
-  const container = document.getElementById('productContainer');
+  // Check for the containers to determine which page we are on
+  const indexGrid = document.getElementById('keyboardGrid'); 
+  const detailContainer = document.getElementById('productContainer');
+  const categoryContainer = document.getElementById('categoryContainer'); 
 
-  if(grid){
-    // This is the index page
+  if(indexGrid){
+    // 1. This is the index page
     initIndexPage(); 
-  } else if(container){
-    // This is the product detail page (products.html)
+  } else if(categoryContainer) { 
+    // 2. This is the new category listing page (category.html)
+    initCategoryPage();
+  } else if(detailContainer){
+    // 3. This is the product detail page (products.html)
     const id = getQueryParam('id');
-    // Find product across all categories
     const product = allProducts.find(p => p.id === id); 
     renderProductDetail(product);
   }
