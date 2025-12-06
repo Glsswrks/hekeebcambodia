@@ -20,8 +20,13 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 
-/* Smaller Cards: Changed minmax from 220px to 180px */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px}
+/* Desktop Grid: 4 items per row */
+.grid{
+  display:grid;
+  /* Now set to max 4 columns, minimum size 180px */
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px
+}
 
 /* Search Input Style */
 .search-input {
@@ -55,11 +60,11 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   height:100%;
 }
 
-/* Image area: fixed aspect ratio (16:10 or 8:5 aspect ratio for smaller card) */
+/* Image area: fixed aspect ratio (8:5 aspect ratio for smaller card) */
 .card-image{
   position:relative;
   width:100%;
-  padding-top:62.5%; /* 8:5 aspect ratio (Original was 3:2 at 66.66%) */
+  padding-top:62.5%; /* 8:5 aspect ratio */
   overflow:hidden;
   border-radius:8px;
   background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
@@ -93,7 +98,7 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   text-shadow: 0 2px 8px rgba(0,0,0,0.65);
 }
 
-/* NEW: Style for available products price badge */
+/* Style for available products price badge */
 .price-badge.in-stock {
   background: rgba(46, 204, 113, 0.2); 
   border: 1px solid rgba(46, 204, 113, 0.4);
@@ -239,8 +244,11 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   .carousel-btn { width:36px; height:36px; }
 }
 @media (max-width:600px){
-  /* Smaller grid on very small screens */
-  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+  /* Mobile Grid: 2 items per row */
+  .grid{
+    grid-template-columns:repeat(auto-fit,minmax(min(100%, 160px),1fr));
+    grid-template-columns:repeat(2, 1fr); /* Enforce 2 columns */
+  }
   .search-input { margin-top: 0; }
   .section-head { flex-direction: column; align-items: flex-start; }
 }
