@@ -55,7 +55,6 @@ const productData = {
     { id: "kb8", title: "K-BOARD 8", short: "Eighth keyboard for testing limit appearance.", price: 130, layout: "60", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg"], specs: ["60% (61 keys)"] },
     { id: "kb9", title: "K-BOARD 9 (Extra)", short: "Ninth keyboard to trigger the More button.", price: 150, layout: "TKL", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png"], specs: ["TKL (87 keys)"] },
   ],
-  // NEW: Example mouse products
   mice: [
     {
       id: "mouse-vxe-r1",
@@ -221,9 +220,8 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName){
     const loadMoreLink = document.createElement('a');
     loadMoreLink.className = 'btn primary';
     loadMoreLink.textContent = 'More items';
-    // NEW: Set the link to navigate to a page showing all items in this category
-    // Assuming `products.html` handles filtering by category if needed, 
-    // but for this example, we'll just link to a generic shop page.
+    // Set the link to navigate to a page showing all items in this category
+    // We'll use products.html and pass the category as a query parameter for demonstration
     loadMoreLink.href = `products.html?category=${categoryName}`; 
     loadMoreContainer.appendChild(loadMoreLink);
   }
@@ -245,9 +243,15 @@ function filterProducts(query, categoryList, gridId, moreContainerId, categoryNa
 // NEW: Function to initialize each product section
 function initProductSection(categoryName) {
     const productsList = productData[categoryName];
-    const gridId = `${categoryName}Grid`;
-    const moreContainerId = `${categoryName}MoreContainer`;
-    const searchInputId = `${categoryName}Search`;
+
+    // FIX HERE: Map the plural category name to the singular HTML ID prefix
+    let prefix = categoryName;
+    if (categoryName === 'keyboards') prefix = 'keyboard';
+    if (categoryName === 'mice') prefix = 'mouse';
+    
+    const gridId = `${prefix}Grid`; 
+    const moreContainerId = `${prefix}MoreContainer`;
+    const searchInputId = `${prefix}Search`; 
 
     const searchInput = document.getElementById(searchInputId);
 
@@ -269,15 +273,13 @@ function initIndexPage() {
     // Initialize Mice section
     initProductSection('mice');
 
-    // NOTE: Resize handling is not strictly necessary anymore since the "limit" is 
-    // calculated on render based on viewport size, and the button is a simple link.
-    // If the window size changes, a manual refresh will correctly apply the new limit.
-    // We can skip the resize listener for simplicity, or keep a simpler version:
+    // Handle resizing
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            initProductSection('keyboards'); // Re-render to adjust limit if necessary
+            // Re-render both sections to adjust the visible limit if the column count changes
+            initProductSection('keyboards'); 
             initProductSection('mice');
         }, 200); 
     });
@@ -471,7 +473,8 @@ function renderProductDetail(product){
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
   if(discordMain) discordMain.textContent = DISCORD_HANDLE;
 
-  const grid = document.getElementById('keyboardGrid'); // Check for the presence of the main grid
+  // We check for the presence of the main keyboard grid to know we are on the index page
+  const grid = document.getElementById('keyboardGrid'); 
   const container = document.getElementById('productContainer');
 
   if(grid){
