@@ -317,3 +317,44 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   color: #fff;
   border: none;
 }
+/* --- Horizontal Scroll / Carousel Styles for Similar Products --- */
+.horizontal-scroll-wrapper {
+  /* Enables horizontal scrolling/swiping */
+  overflow-x: auto; 
+  padding-bottom: 20px; /* Gives space for the scrollbar on desktop */
+  -webkit-overflow-scrolling: touch; /* Improves scroll feel on iOS */
+  scroll-snap-type: x mandatory; /* Makes swiping 'snap' to cards */
+}
+
+/* Scrollbar styling for better look on WebKit browsers */
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+.horizontal-scroll {
+  /* Overrides the default grid to create a single row */
+  display: flex; 
+  flex-wrap: nowrap; 
+  gap: 20px; /* Space between product cards */
+  width: max-content; /* Allows the flex container to grow wider than viewport */
+}
+
+.horizontal-scroll .card {
+  /* Defines the size of each card in the scrollable row */
+  flex: 0 0 240px; 
+  max-width: 240px; 
+  scroll-snap-align: start; /* Scroll snaps to the start of the card */
+}
+
+/* Adjust size for mobile view */
+@media (max-width: 520px) {
+  .horizontal-scroll .card {
+    flex: 0 0 180px;
+    max-width: 180px;
+  }
+}
+
