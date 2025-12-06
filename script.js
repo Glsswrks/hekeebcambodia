@@ -328,39 +328,59 @@ function initCategoryPage() {
 }
 
 
-/* ---------- Product page: render detail (UPDATED) ---------- */
+/* ---------- Product page: Horizontal Scroll Logic (NEW) ---------- */
 
 /**
- * Returns a shuffled array of products, excluding the current one, limited by count.
+ * Renders all other products in a horizontal, swipeable grid.
  * @param {string} currentProductId - The ID of the product currently being viewed.
- * @param {number} count - The maximum number of similar products to return.
- * @returns {Array<Object>} A list of similar products.
  */
-function getSimilarProducts(currentProductId, count = 4) {
+function renderSimilarProductsSection(currentProductId) {
+    const similarSection = document.getElementById('similarProductsSection');
+    // Get ALL other products
     const otherProducts = allProducts.filter(p => p.id !== currentProductId);
-    
-    // Simple shuffle implementation (Fisher-Yates)
-    for (let i = otherProducts.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [otherProducts[i], otherProducts[j]] = [otherProducts[j], otherProducts[i]];
+    // Back link HTML to be inserted after the section
+    const backLinkHTML = '<div style="margin-top:28px;"><a class="back-link" href="index.html">← Back to shop</a></div>';
+
+    if (!similarSection || otherProducts.length === 0) {
+        // If no similar products, just insert the back button at the end of the main content.
+        document.querySelector('.product-page').insertAdjacentHTML('beforeend', backLinkHTML);
+        return;
     }
 
-    return otherProducts.slice(0, count);
+    // 1. Create the Section Title and Scroll Grid structure
+    similarSection.innerHTML = `
+        <div style="margin-top:40px;margin-bottom:20px;">
+            <h2 style="font-size:1.5rem;">Similar Products</h2>
+        </div>
+        <div class="horizontal-scroll-wrapper">
+            <div id="similarProductsGrid" class="grid horizontal-scroll"></div>
+        </div>
+    `;
+
+    const grid = document.getElementById('similarProductsGrid');
+    
+    // 2. Render all other products in the scrollable grid
+    otherProducts.forEach(p => {
+        grid.appendChild(createProductCard(p));
+    });
+
+    // 3. Insert the back button below the entire Similar Products section
+    similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
 
+/* ---------- Product page: render detail (UPDATED) ---------- */
+
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
-  const similarSection = document.getElementById('similarProductsSection'); // NEW
   if(!container) return;
 
   if(!product){
     container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
-    if (similarSection) similarSection.style.display = 'none'; // Hide if no product
     return;
   }
 
-  // 1. Render main product details (unchanged)
+  // 1. Render main product details (Removed Discord label)
   container.innerHTML = `
     <div class="product-image"></div>
     <div class="product-info">
@@ -371,7 +391,6 @@ function renderProductDetail(product){
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
-        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
       </div>
       <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
     </div>
@@ -389,30 +408,13 @@ function renderProductDetail(product){
 
   carousel.focus();
   
-  // 2. Render similar products (NEW)
-  if (similarSection) {
-    const similarProducts = getSimilarProducts(product.id, 4); // Get 4 random products
-
-    if (similarProducts.length > 0) {
-        // Clear and add content
-        similarSection.innerHTML = `
-            <div style="margin-top:40px;margin-bottom:20px;">
-                <h2 style="font-size:1.5rem;">Similar Products</h2>
-            </div>
-            <div id="similarProductsGrid" class="grid"></div>
-        `;
-        const grid = document.getElementById('similarProductsGrid');
-        similarProducts.forEach(p => {
-            grid.appendChild(createProductCard(p));
-        });
-    } else {
-        similarSection.style.display = 'none'; // Hide if no other products exist
-    }
-  }
+  // 2. Render all similar products in the swipeable carousel section
+  renderSimilarProductsSection(product.id);
 }
 
 /* ---------- Carousel (shared, remains the same) ---------- */
 function createCarousel(images) {
+// ... (The code for createCarousel remains the same as it is only used for product images) ...
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
   const track = document.createElement('div');
@@ -546,6 +548,7 @@ function createCarousel(images) {
 
   return wrapper;
 }
+
 
 /* ---------- Page init (UNCHANGED) ---------- */
 (function init(){
