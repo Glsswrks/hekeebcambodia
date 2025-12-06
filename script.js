@@ -29,7 +29,7 @@ const products = [
     short: "The MADE68 Pro goes beyond a simple keyboard. It's a truly modular experience, engineered with wireless freedom and MelGeek HIVE",
     price: 140,
     layout: "68",
-    available: false,
+    available: true, // Example of setting one available for testing
     images: [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_12.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg",
@@ -57,7 +57,38 @@ const products = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
     ],
     specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
-   }
+   },
+   // Adding three more for desktop testing (to hit 6 items)
+   {
+    id: "test1",
+    title: "TEST KEYBOARD 1",
+    short: "This is a fourth test product to fill up the grid on desktop mode for testing the 'More items' button.",
+    price: 100,
+    layout: "100",
+    available: true,
+    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg"],
+    specs: ["100% (104 keys)", "Plastic Case", "Membrane Switches"]
+   },
+   {
+    id: "test2",
+    title: "TEST KEYBOARD 2",
+    short: "This is a fifth test product.",
+    price: 110,
+    layout: "80",
+    available: false,
+    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg"],
+    specs: ["80% (87 keys)", "Aluminum Case", "Mechanical Switches"]
+   },
+   {
+    id: "test3",
+    title: "TEST KEYBOARD 3",
+    short: "This is a sixth test product to ensure the desktop limit is reached before the button appears.",
+    price: 120,
+    layout: "65",
+    available: true,
+    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png"],
+    specs: ["65% (68 keys)", "Plastic Case", "Magnetic Switches"]
+   },
   // Add more product objects here
 ];
 /* function for contact dialogue*/
@@ -89,19 +120,40 @@ function whatsappLink(product){
 function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
 function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
 
-/* Robust product link for GitHub Pages subpath */
+/* Simplified product link */
 function productLink(id){
-  const { origin, pathname } = window.location;
-  const baseDir = pathname.replace(/index\.html$/, '').replace(/\/$/, '');
-  return `${origin}${baseDir}/products.html?id=${encodeURIComponent(id)}`;
+  return `products.html?id=${encodeURIComponent(id)}`;
+}
+
+// NEW: Constants and variable for Load More logic
+const MOBILE_LIMIT = 3;
+const DESKTOP_LIMIT = 6;
+let currentProductLimit = 0;
+
+function getInitialLimit() {
+  // Mobile breakpoint used in styles.css is 600px
+  return window.innerWidth < 600 ? MOBILE_LIMIT : DESKTOP_LIMIT;
+}
+
+function updateProductLimit() {
+  const isMobile = window.innerWidth < 600;
+  // Use the limit as the step size (3 or 6)
+  currentProductLimit += (isMobile ? MOBILE_LIMIT : DESKTOP_LIMIT);
 }
 
 /* ---------- Index page: render product cards ---------- */
-function renderIndexCards(list){
+function renderIndexCards(list, limit = list.length){
   const grid = document.getElementById('productGrid');
-  if(!grid) return;
+  const loadMoreContainer = document.getElementById('loadMoreContainer');
+  if(!grid || !loadMoreContainer) return;
+
   grid.innerHTML = '';
-  list.forEach(p=>{
+  loadMoreContainer.innerHTML = ''; // Clear the button container
+
+  // Determine the list to render (limited view)
+  const productsToRender = list.slice(0, limit);
+
+  productsToRender.forEach(p=>{
     const card = document.createElement('div');
     card.className = 'card';
 
@@ -109,13 +161,16 @@ function renderIndexCards(list){
     const availText = p.available ? 'Available' : 'Unavailable';
     const href = productLink(p.id);
     const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
+    
+    // Check availability for in-stock class
+    const priceBadgeClass = p.available ? 'price-badge in-stock' : 'price-badge'; 
 
     card.innerHTML = `
       <div class="card-image">
         <a class="card-link" href="${href}" aria-label="View ${p.title}">
           <img src="${cover}" alt="${p.title}">
         </a>
-        <span class="price-badge">$${p.price}</span>
+        <span class="${priceBadgeClass}">$${p.price}</span>
       </div>
       <div class="card-body">
         <h4 class="card-title">
@@ -132,7 +187,80 @@ function renderIndexCards(list){
     `;
     grid.appendChild(card);
   });
+  
+  // Create "More items" button if products remain
+  if (list.length > limit) {
+    const loadMoreBtn = document.createElement('button');
+    loadMoreBtn.className = 'btn primary';
+    loadMoreBtn.textContent = 'More items';
+    loadMoreBtn.id = 'loadMoreBtn';
+    
+    // Attach event listener
+    loadMoreBtn.addEventListener('click', () => {
+        updateProductLimit();
+        // Re-render the cards with the new, higher limit
+        renderIndexCards(list, currentProductLimit);
+    });
+
+    loadMoreContainer.appendChild(loadMoreBtn);
+  }
 }
+
+// NEW: Function to handle initial rendering and filtering
+function initIndexPage() {
+    // Start with the correct limit based on screen size
+    currentProductLimit = getInitialLimit(); 
+    
+    // Get all initial products (or filtered list if search is present)
+    let filteredProducts = products;
+    
+    const searchInput = document.getElementById('productSearch');
+    if (searchInput) {
+        // Initial filter in case the page was navigated back to with a query (not implemented, but robust)
+        const initialQuery = searchInput.value;
+        if (initialQuery) {
+             const normalizedQuery = initialQuery.toLowerCase().trim();
+             filteredProducts = products.filter(p =>
+                p.title.toLowerCase().includes(normalizedQuery) ||
+                p.short.toLowerCase().includes(normalizedQuery) ||
+                p.id.toLowerCase().includes(normalizedQuery)
+             );
+        }
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const newFilteredList = products.filter(p =>
+                p.title.toLowerCase().includes(query) ||
+                p.short.toLowerCase().includes(query) ||
+                p.id.toLowerCase().includes(query)
+            );
+            // Reset limit when filtering changes
+            currentProductLimit = getInitialLimit(); 
+            renderIndexCards(newFilteredList, currentProductLimit);
+        });
+    }
+
+    // Initial render
+    renderIndexCards(filteredProducts, currentProductLimit); 
+
+    // Handle resizing (e.g., rotating mobile from portrait to landscape)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const newLimit = getInitialLimit();
+            // Only reset the view if the limit mode has actually changed
+            if (currentProductLimit < newLimit || currentProductLimit > newLimit) {
+                 currentProductLimit = newLimit;
+                 // Re-render based on the original (or current search) products
+                 const currentSearchQuery = searchInput ? searchInput.value : '';
+                 const productsToDisplay = currentSearchQuery ? products.filter(p => p.title.toLowerCase().includes(currentSearchQuery.toLowerCase())) : products;
+                 renderIndexCards(productsToDisplay, currentProductLimit);
+            }
+        }, 200); // Debounce resize event
+    });
+}
+
 
 /* ---------- Carousel (shared) ---------- */
 function createCarousel(images) {
@@ -325,7 +453,8 @@ function renderProductDetail(product){
   const container = document.getElementById('productContainer');
 
   if(grid){
-    renderIndexCards(products);
+    // Use the new index page initialization function
+    initIndexPage(); 
   } else if(container){
     const id = getQueryParam('id');
     const product = products.find(p => p.id === id);
