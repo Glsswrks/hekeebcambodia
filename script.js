@@ -202,7 +202,6 @@ function createProductCard(p) {
 
 
 /* ---------- Index page: render product cards (LIMITED VIEW) ---------- */
-// Renders a LIMITED list of products for the index page
 function renderIndexCards(list, gridId, moreContainerId, categoryName){
   const grid = document.getElementById(gridId);
   const loadMoreContainer = document.getElementById(moreContainerId);
@@ -213,25 +212,21 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName){
   grid.innerHTML = '';
   loadMoreContainer.innerHTML = ''; 
 
-  // Determine the list to render (limited view)
   const productsToRender = list.slice(0, limit);
 
   productsToRender.forEach(p=>{
     grid.appendChild(createProductCard(p));
   });
   
-  // Create "More items" button if products remain
   if (list.length > limit) {
     const loadMoreLink = document.createElement('a');
     loadMoreLink.className = 'btn primary';
     loadMoreLink.textContent = 'More items';
-    // Link to the dedicated category page
     loadMoreLink.href = `category.html?category=${categoryName}`; 
     loadMoreContainer.appendChild(loadMoreLink);
   }
 }
 
-// Function to handle filtering for a specific category on the INDEX page
 function filterIndexProducts(query, categoryList, gridId, moreContainerId, categoryName) {
     const normalizedQuery = query.toLowerCase().trim();
     const filteredList = categoryList.filter(p =>
@@ -239,11 +234,9 @@ function filterIndexProducts(query, categoryList, gridId, moreContainerId, categ
         p.short.toLowerCase().includes(normalizedQuery) ||
         p.id.toLowerCase().includes(normalizedQuery)
     );
-    // When filtering on index, we still use the initial limit
     renderIndexCards(filteredList, gridId, moreContainerId, categoryName);
 }
 
-// Function to initialize each product section on the index page
 function initProductSection(categoryName) {
     const productsList = productData[categoryName];
     let prefix = categoryName;
@@ -256,7 +249,6 @@ function initProductSection(categoryName) {
 
     const searchInput = document.getElementById(searchInputId);
 
-    // Initial render
     renderIndexCards(productsList, gridId, moreContainerId, categoryName); 
 
     if (searchInput) {
@@ -281,13 +273,7 @@ function initIndexPage() {
 }
 
 
-/* ---------- Category page: render full list (NEW LOGIC) ---------- */
-
-/**
- * Renders the product cards for the category page (full list, filtered or not).
- * @param {Array<Object>} list - The list of products to render.
- * @param {HTMLElement} gridElement - The grid container element.
- */
+/* ---------- Category page: render full list (UNCHANGED) ---------- */
 function renderCategoryCards(list, gridElement) {
     gridElement.innerHTML = '';
     if (list.length === 0) {
@@ -300,7 +286,6 @@ function renderCategoryCards(list, gridElement) {
 }
 
 
-// Function to set up the full category page with search
 function initCategoryPage() {
     const categoryName = getQueryParam('category');
     const productsList = productData[categoryName]; 
@@ -315,7 +300,6 @@ function initCategoryPage() {
     
     const capitalizedName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
-    // Clear the container and build the full page structure
     container.innerHTML = `
         <div class="section-head">
             <h2 id="categoryTitle">${capitalizedName} Category</h2>
@@ -330,10 +314,8 @@ function initCategoryPage() {
     const grid = document.getElementById('categoryGrid');
     const searchInput = document.getElementById('categorySearch');
     
-    // Initial render of all products
     renderCategoryCards(productsList, grid); 
 
-    // Add filtering logic to the new search bar
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
         const filteredList = productsList.filter(p =>
@@ -345,6 +327,89 @@ function initCategoryPage() {
     });
 }
 
+
+/* ---------- Product page: render detail (UPDATED) ---------- */
+
+/**
+ * Returns a shuffled array of products, excluding the current one, limited by count.
+ * @param {string} currentProductId - The ID of the product currently being viewed.
+ * @param {number} count - The maximum number of similar products to return.
+ * @returns {Array<Object>} A list of similar products.
+ */
+function getSimilarProducts(currentProductId, count = 4) {
+    const otherProducts = allProducts.filter(p => p.id !== currentProductId);
+    
+    // Simple shuffle implementation (Fisher-Yates)
+    for (let i = otherProducts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [otherProducts[i], otherProducts[j]] = [otherProducts[j], otherProducts[i]];
+    }
+
+    return otherProducts.slice(0, count);
+}
+
+
+function renderProductDetail(product){
+  const container = document.getElementById('productContainer');
+  const similarSection = document.getElementById('similarProductsSection'); // NEW
+  if(!container) return;
+
+  if(!product){
+    container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
+    if (similarSection) similarSection.style.display = 'none'; // Hide if no product
+    return;
+  }
+
+  // 1. Render main product details (unchanged)
+  container.innerHTML = `
+    <div class="product-image"></div>
+    <div class="product-info">
+      <h1>${product.title}</h1>
+      <p class="muted">${product.short}</p>
+      <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
+      <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
+        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
+      </div>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
+    </div>
+  `;
+
+  const imageContainer = container.querySelector('.product-image');
+  const images = Array.isArray(product.images) && product.images.length ? product.images : [];
+  const carousel = createCarousel(images);
+  imageContainer.appendChild(carousel);
+
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  const telegramBtn = document.getElementById('telegramBtn');
+  if(whatsappBtn) whatsappBtn.href = whatsappLink(product);
+  if(telegramBtn) telegramBtn.href = telegramLink();
+
+  carousel.focus();
+  
+  // 2. Render similar products (NEW)
+  if (similarSection) {
+    const similarProducts = getSimilarProducts(product.id, 4); // Get 4 random products
+
+    if (similarProducts.length > 0) {
+        // Clear and add content
+        similarSection.innerHTML = `
+            <div style="margin-top:40px;margin-bottom:20px;">
+                <h2 style="font-size:1.5rem;">Similar Products</h2>
+            </div>
+            <div id="similarProductsGrid" class="grid"></div>
+        `;
+        const grid = document.getElementById('similarProductsGrid');
+        similarProducts.forEach(p => {
+            grid.appendChild(createProductCard(p));
+        });
+    } else {
+        similarSection.style.display = 'none'; // Hide if no other products exist
+    }
+  }
+}
 
 /* ---------- Carousel (shared, remains the same) ---------- */
 function createCarousel(images) {
@@ -482,46 +547,7 @@ function createCarousel(images) {
   return wrapper;
 }
 
-/* ---------- Product page: render detail (UNCHANGED) ---------- */
-function renderProductDetail(product){
-  const container = document.getElementById('productContainer');
-  if(!container) return;
-
-  if(!product){
-    container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
-    return;
-  }
-
-  container.innerHTML = `
-    <div class="product-image"></div>
-    <div class="product-info">
-      <h1>${product.title}</h1>
-      <p class="muted">${product.short}</p>
-      <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
-      <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
-        <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
-        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
-      </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
-    </div>
-  `;
-
-  const imageContainer = container.querySelector('.product-image');
-  const images = Array.isArray(product.images) && product.images.length ? product.images : [];
-  const carousel = createCarousel(images);
-  imageContainer.appendChild(carousel);
-
-  const whatsappBtn = document.getElementById('whatsappBtn');
-  const telegramBtn = document.getElementById('telegramBtn');
-  if(whatsappBtn) whatsappBtn.href = whatsappLink(product);
-  if(telegramBtn) telegramBtn.href = telegramLink();
-
-  carousel.focus();
-}
-
-/* ---------- Page init (UPDATED) ---------- */
+/* ---------- Page init (UNCHANGED) ---------- */
 (function init(){
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
