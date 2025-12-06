@@ -57,24 +57,6 @@ const products = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
     ],
     specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
-   },
-   {
-    id: "m1wv3",
-    title: "MONSGEEK M1W V3 PURPLE",
-    short: "Full Aluminum Mechanical Keyboard",
-    price: 65,
-    layout: "75",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/71HsR-bBRxL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81gDC8uMc2L.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81NdG0MIsZL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61fUWnxOIrL.jpg"
-      // https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg
-    ],
-    specs: ["75% (82 keys)","Full Aluminum CNC","Hot‑swap mechanical switches 3/5 pins","Tri-mode connection Wired / 2.4Ghz Dongle / Bluetooth","Battery 6000 mAh","PBT double-shot gradient shine-through keycaps (south-facing)","South-facing RGB lighting, fully customizable (multiple lighting modes, full-color spectrum) ","N-Key Rollover supported","1K Polling-Rate in Wired / 2.4Ghz Dongles"]
    }
   // Add more product objects here
 ];
@@ -107,224 +89,11 @@ function whatsappLink(product){
 function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
 function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
 
-/* Robust product link for GitHub Pages subpath (FIXED) */
+/* Robust product link for GitHub Pages subpath */
 function productLink(id){
-  // Using a path relative to the current file location (products.html)
-  return `products.html?id=${encodeURIComponent(id)}`;
-}
-
-/* ------------------- NEW: ADAPTIVE SHADOW LOGIC (Refined for Soft Glow) ------------------- */
-/**
- * Uses a canvas to sample the average color from an image element.
- * @param {HTMLImageElement} img 
- * @returns {{r: number, g: number, b: number}}
- */
-function getColor(img) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Sample the image by scaling it down to 10x10 for quick averaging
-    const size = 10;
-    canvas.width = size;
-    canvas.height = size;
-    
-    try {
-        ctx.drawImage(img, 0, 0, size, size);
-        const data = ctx.getImageData(0, 0, size, size).data;
-        
-        let r = 0, g = 0, b = 0;
-        let count = 0;
-        
-        // Sum all color components
-        for (let i = 0; i < data.length; i += 4) {
-            r += data[i];
-            g += data[i + 1];
-            b += data[i + 2];
-            count++;
-        }
-        
-        // Calculate the average color
-        r = Math.floor(r / count);
-        g = Math.floor(g / count);
-        b = Math.floor(b / count);
-
-        // Ensure the shadow color is dark enough for the dark background
-        r = Math.max(r, 15);
-        g = Math.max(g, 17);
-        b = Math.max(b, 20);
-        
-        return { r, g, b };
-    } catch (e) {
-        // Fallback for CORS or image loading error (returns subtle dark grey/blue)
-        return { r: 15, g: 17, b: 20 };
-    }
-}
-
-/**
- * Applies a box shadow to the hero image based on its dominant color.
- */
-function applyAdaptiveShadow() {
-    const img = document.getElementById('heroImage');
-    
-    if (!img) return;
-    
-    const setShadow = () => {
-        // Remove event listener to prevent duplicate execution
-        img.removeEventListener('load', setShadow);
-        
-        const color = getColor(img);
-        
-        // REFINED: Create a shadow color with a very low opacity for a soft glow (0.15)
-        const shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.15)`; 
-        
-        // REFINED: Apply a wide, soft box shadow: Reduced Y-offset (10px), increased blur (60px)
-        const shadowStyle = `0 10px 60px 20px ${shadowColor}`; 
-        
-        // Apply the new shadow
-        img.style.boxShadow = shadowStyle;
-    };
-    
-    // Wait for the image to load, or apply immediately if it's already complete (from cache)
-    if (img.complete && img.naturalHeight !== 0) {
-        setShadow();
-    } else {
-        img.addEventListener('load', setShadow);
-    }
-}
-/* ------------------- END: ADAPTIVE SHADOW LOGIC ------------------- */
-
-
-/* ------------------- SEARCH LOGIC (from previous step) ------------------- */
-function filterProducts(query) {
-  if (!query) return [];
-  const lowerCaseQuery = query.toLowerCase();
-  return products.filter(p => 
-    p.title.toLowerCase().includes(lowerCaseQuery) ||
-    p.short.toLowerCase().includes(lowerCaseQuery) ||
-    p.layout.toLowerCase().includes(lowerCaseQuery) ||
-    p.specs.some(spec => spec.toLowerCase().includes(lowerCaseQuery))
-  );
-}
-
-function renderSearchResults(results) {
-  const resultsBox = document.getElementById('searchResults');
-  if (!resultsBox) return;
-
-  resultsBox.innerHTML = '';
-
-  if (results.length === 0) {
-    resultsBox.classList.remove('active');
-    return;
-  }
-  
-  results.forEach(p => {
-    const item = document.createElement('a');
-    item.className = 'search-result-item';
-    item.href = productLink(p.id);
-    item.ariaLabel = `View ${p.title}`;
-    
-    const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
-
-    item.innerHTML = `
-      <img src="${cover}" alt="${p.title}" class="search-result-img">
-      <div class="search-result-details">
-        <div class="search-result-title">${p.title}</div>
-        <div class="search-result-layout">${p.layout} Layout</div>
-      </div>
-      <div class="search-result-price">$${p.price}</div>
-    `;
-    resultsBox.appendChild(item);
-  });
-  
-  resultsBox.classList.add('active');
-}
-
-function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  const resultsBox = document.getElementById('searchResults');
-  
-  if (!searchInput || !resultsBox) return;
-
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.trim();
-    const results = filterProducts(query);
-    renderSearchResults(results);
-  });
-
-  // Hide results when clicking outside the input/results box
-  document.addEventListener('click', (e) => {
-    if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
-      resultsBox.classList.remove('active');
-    }
-  });
-  
-  // Show results again if the input is focused and has content
-  searchInput.addEventListener('focus', () => {
-    if(searchInput.value.trim().length > 0 && resultsBox.childElementCount > 0){
-      resultsBox.classList.add('active');
-    }
-  });
-}
-/* ------------------- END SEARCH LOGIC ------------------- */
-
-
-/* ---------- Reusable card creator for 'More Items' section ---------- */
-function createCard(p){
-  const card = document.createElement('div');
-  card.className = 'card';
-  const availClass = p.available ? 'availability available' : 'availability unavailable';
-  const availText = p.available ? 'Available' : 'Unavailable';
-  const href = productLink(p.id);
-  const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
-
-  card.innerHTML = `
-    <div class="card-image">
-      <a class="card-link" href="${href}" aria-label="View ${p.title}">
-        <img src="${cover}" alt="${p.title}">
-      </a>
-      <span class="price-badge">$${p.price}</span>
-    </div>
-    <div class="card-body">
-      <h4 class="card-title">
-        <a class="card-title-link" href="${href}">${p.title}</a>
-      </h4>
-      <p class="muted card-desc">${p.short}</p>
-      <div class="card-footer">
-        <div class="specs-inline muted">${p.layout} • ${p.specs[0] || ''}</div>
-        <div class="availability-wrap">
-          <span class="${availClass}">${availText}</span>
-        </div>
-      </div>
-    </div>
-  `;
-  return card;
-}
-
-/* ---------- Render the horizontal list of other products ---------- */
-function renderMoreProducts(currentProductId) {
-  // Get all products except the current one
-  const relevantProducts = products.filter(p => p.id !== currentProductId);
-  
-  if (relevantProducts.length === 0) return null;
-
-  const section = document.createElement('section');
-  section.className = 'more-products-section';
-  section.innerHTML = `
-    <div class="container products-section" style="padding-top: 0;">
-      <h2 class="section-head" style="margin-top: 40px; margin-bottom: 0;">Similar Products:</h2>
-    </div>
-    <div class="horizontal-scroll-wrapper">
-      <div class="grid" id="moreProductGrid">
-        </div>
-    </div>
-  `;
-  
-  const grid = section.querySelector('#moreProductGrid');
-  relevantProducts.forEach(p => {
-    grid.appendChild(createCard(p));
-  });
-
-  return section;
+  const { origin, pathname } = window.location;
+  const baseDir = pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+  return `${origin}${baseDir}/products.html?id=${encodeURIComponent(id)}`;
 }
 
 /* ---------- Index page: render product cards ---------- */
@@ -334,7 +103,7 @@ function renderIndexCards(list){
   grid.innerHTML = '';
   list.forEach(p=>{
     const card = document.createElement('div');
-    card.className = 'card'; 
+    card.className = 'card';
 
     const availClass = p.available ? 'availability available' : 'availability unavailable';
     const availText = p.available ? 'Available' : 'Unavailable';
@@ -501,7 +270,6 @@ function createCarousel(images) {
   return wrapper;
 }
 
-
 /* ---------- Product page: render detail ---------- */
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
@@ -522,8 +290,9 @@ function renderProductDetail(product){
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
         <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
-        </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
+        <div style="align-self:center;color:var(--muted)">Discord: <strong style="color:#fff">${DISCORD_HANDLE}</strong></div>
+      </div>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
     </div>
   `;
 
@@ -538,20 +307,6 @@ function renderProductDetail(product){
   if(telegramBtn) telegramBtn.href = telegramLink();
 
   carousel.focus();
-
-  // NEW: Inject the "More Keyboards" section
-  const moreProductsSection = renderMoreProducts(product.id);
-  if (moreProductsSection) {
-    const mainElement = document.querySelector('.product-page');
-    const backLinkContainer = mainElement.querySelector('div[style*="margin-top:28px;"]');
-    
-    // Insert the new section before the "back to shop" link container
-    if (backLinkContainer) {
-        mainElement.insertBefore(moreProductsSection, backLinkContainer);
-    } else {
-        mainElement.appendChild(moreProductsSection);
-    }
-  }
 }
 
 /* ---------- Page init ---------- */
@@ -561,8 +316,10 @@ function renderProductDetail(product){
 
   const whatsappMain = document.getElementById('whatsappMain');
   const telegramMain = document.getElementById('telegramMain');
+  const discordMain = document.getElementById('discordMain');
   if(whatsappMain) whatsappMain.href = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
+  if(discordMain) discordMain.textContent = DISCORD_HANDLE;
 
   const grid = document.getElementById('productGrid');
   const container = document.getElementById('productContainer');
@@ -574,11 +331,4 @@ function renderProductDetail(product){
     const product = products.find(p => p.id === id);
     renderProductDetail(product);
   }
-  
-  // Initialize the search functionality
-  setupSearch();
-
-  // RE-ADDED: Initialize adaptive shadow on the hero image (only runs on index.html)
-  // applyAdaptiveShadow();
-
 })();

@@ -1,5 +1,3 @@
-/* --- Modified styles.css block --- */
-
 :root{
   --bg:#0b0d10; --card:#0f1114; --muted:#9aa3b2; --accent:#7c5cff; --glass:rgba(255,255,255,0.03);
   --max-width:1100px;
@@ -18,56 +16,20 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .hero-text p{color:var(--muted);margin:0 0 18px}
 .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;text-decoration:none}
 .btn.primary{background:var(--accent);border:none;color:white}
+.hero-image img{max-width:420px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
 
-.hero-image img{
-  max-width:420px;
-  background: none;
-  border: none;
-  filter: drop-shadow(0 0 8px white);
-}
-
-/*
-.hero-image img{
-max-width:420px;
-  display: block;
-  margin: 0 auto; // centers the image 
-  background: none; // ensures no background 
-  border: none; // removes any border 
-  filter: drop-shadow(0 0 8px white); // white shadow glow 
-}
-*/
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-left:10;}
-.grid{
-  /* The three lines below are the changes for the horizontal layout */
-  display: flex; /* Change from grid to flex for horizontal layout */
-  overflow-x: auto; /* Enable horizontal scrolling/swiping */
-  scroll-snap-type: x mandatory; /* Optional: Makes it snap to cards */
-  gap:18px; /* Keep the gap between items */
-
-  /* The following two lines are NEW for padding and the shadow effect */
-  padding-bottom: 20px; /* Space for scrollbar (if visible) */
-  mask-image: linear-gradient(to right, black 85%, transparent 100%); /* Right-side fade effect */
-}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
 
 /* Card layout: image area + flexible body */
 .card{
-  /* MODIFIED: Changed background to --glass for transparent effect */
-  background:var(--glass);
+  background:var(--card);
   padding:12px;
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.03);
   display:flex;
   flex-direction:column;
   height:100%;
-  
-  /* ADDED: Styles for the "black glowing glass" effect */
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(8px);
-  
-  /* ADDED from previous step */
-  flex-shrink: 0; /* Prevents cards from shrinking */
-  width: 280px; /* Fixed width for each card */
-  scroll-snap-align: start; /* Snap to the start of the card */
 }
 
 /* Image area: fixed aspect ratio so badge stays anchored */
@@ -108,41 +70,17 @@ max-width:420px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.65);
 }
 
-/* Card body - MODIFIED for fixed height */
+/* Card body */
 .card-body{
   display:flex;
   flex-direction:column;
   gap:8px;
   margin-top:10px;
-  flex: 0 0 auto; /* Ensure it doesn't grow/shrink based on content */
-  height: 120px; /* Fixed height for consistent card size */
-  overflow: hidden; /* Hide anything that spills over the fixed height */
+  flex:1;
 }
-
-/* Card title - MODIFIED for truncation */
-.card-title{
-  margin:0;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* Truncate after 2 lines */
-  line-height: 1.25;
-  max-height: 2.5em; 
-}
+.card-title{margin:0}
 .card-title-link{color:inherit;text-decoration:none;font-weight:700}
-
-/* Card description - MODIFIED for truncation */
-.card-desc{
-  color:var(--muted);
-  font-size:0.9rem;
-  margin:0;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* Truncate after 3 lines */
-  line-height: 1.35;
-  max-height: 4.05em; 
-}
+.card-desc{color:var(--muted);font-size:0.9rem;margin:0}
 
 /* Footer area inside card body */
 .card-footer{
@@ -177,7 +115,7 @@ max-width:420px;
 .specs{ margin:12px 0 0; padding:0; list-style:none; color:var(--muted); }
 .back-link{ display:inline-block; margin-top:14px; color:var(--muted); text-decoration:none; }
 
-/* Carousel styles (omitted for brevity, assume unchanged) */
+/* Carousel styles */
 .carousel {
   position: relative;
   width: 100%;
@@ -260,41 +198,12 @@ max-width:420px;
   .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
   .price-badge { bottom: 6px; left: 6px; padding:5px 8px; font-size:0.85rem; box-shadow: 0 6px 16px rgba(2,4,6,0.55); text-shadow: 0 1px 6px rgba(0,0,0,0.65); }
   .card-image{padding-top:70%;}
-  .card{ width: 250px; } /* Updated card width for small screens */
 }
 @media(max-width:800px){
   .hero-inner{flex-direction:column-reverse;text-align:center}
 }
 
-/* Horizontal scroll wrapper for the index and new 'More Items' section */
-.horizontal-scroll-wrapper {
-  margin: 0 -28px; 
-  padding: 0 28px; /* MODIFIED: Add back the original padding to create left/right space */
-  overflow: hidden; 
-}
-.products.container {
-  padding-left: 0;
-  padding-right: 0;
-}
-@media (min-width: 1100px) {
-    .container {
-        max-width: calc(var(--max-width) - 56px);
-        padding-left: 28px;
-        padding-right: 28px;
-        margin: 0 auto;
-    }
-    .horizontal-scroll-wrapper {
-        margin: 0 calc((100% - var(--max-width)) / 2 * -1 + 28px);
-        padding: 0 28px; /* MODIFIED: Add padding for the scrollable content */
-    }
-    .products.container {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-
-/* Modal base (omitted for brevity, assume unchanged) */
+/* Modal base */
 .modal {
   position: fixed;
   inset: 0;
@@ -316,6 +225,7 @@ max-width:420px;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
 }
+.modal-content h2 { margin-top:0; }
 .modal-close {
   position: absolute;
   top: 12px;
@@ -341,91 +251,4 @@ max-width:420px;
   background: #0088cc;
   color: #fff;
   border: none;
-}
-
-/* ADDED STYLES FOR SEARCH BAR (omitted for brevity, assume unchanged) */
-.search-container {
-  padding-top: 0; 
-  padding-bottom: 20px; 
-  position: relative; 
-}
-.search-wrap {
-  position: relative;
-  max-width: 600px; 
-  margin: 0 auto;
-}
-#searchInput {
-  width: 100%;
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: var(--card);
-  color: #fff;
-  font-size: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  transition: box-shadow 160ms ease;
-}
-#searchInput:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.4);
-}
-.search-results {
-  position: absolute;
-  top: 100%; 
-  left: 0;
-  right: 0;
-  max-height: 400px; 
-  overflow-y: auto; 
-  background: var(--card);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-  z-index: 50; 
-  display: none; 
-}
-.search-results.active {
-  display: block; 
-}
-
-/* Style for individual search result items (small row layout) */
-.search-result-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  text-decoration: none;
-  color: inherit;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  transition: background 160ms ease;
-}
-.search-result-item:last-child {
-  border-bottom: none;
-}
-.search-result-item:hover {
-  background: rgba(255,255,255,0.05);
-}
-.search-result-img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
-}
-.search-result-details {
-  flex-grow: 1;
-  text-align: left;
-}
-.search-result-title {
-  font-weight: 600;
-  margin: 0;
-  font-size: 1rem;
-}
-.search-result-price {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-.search-result-layout {
-  color: var(--muted);
-  font-size: 0.85rem;
 }
