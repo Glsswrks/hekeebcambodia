@@ -1,98 +1,125 @@
 /* ---------- Contact constants ---------- */
-const CONTACT_WHATSAPP_NUMBER = "85514975307"; // update if needed
-const TELEGRAM_HANDLE = "glsswrksGG";          // update if needed
+const CONTACT_WHATSAPP_NUMBER = "85514975307"; 
+const TELEGRAM_HANDLE = "glsswrksGG";         
 const DISCORD_HANDLE = "Kokushibo#4764";
 
 /* ---------- Centralized product data (shared across pages) ---------- */
-const products = [
-  {
-    id: "atk-edge60he",
-    title: "ATK EDGE60 HE ULTIMATE",
-    short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
-    price: 229,
-    layout: "60",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-translucent-keycap-closeup.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
-    ],
-    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","2 Profile RT Button","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
-  },
-   {
 
-    id: "made68pro",
-    title: "MEELGEEK MADE68 PRO",
-    short: "The MADE68 Pro goes beyond a simple keyboard. It's a truly modular experience, engineered with wireless freedom and MelGeek HIVE",
-    price: 140,
-    layout: "68",
-    available: true, // Example of setting one available for testing
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_12.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_10.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_11.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_9.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_14.jpg"
-    ],
-    specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.125ms Low Latency","256k scanning-rate","Zero Dead-Zone","Electric Light-Box","Precision 0.01mm","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
-   },
-   {
+// NEW: Use categories for better organization
+const productData = {
+  keyboards: [
+    {
+      id: "atk-edge60he",
+      title: "ATK EDGE60 HE ULTIMATE",
+      short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration. This description is long to test truncation.",
+      price: 229,
+      layout: "60",
+      available: false,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg",
+      ],
+      specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps"]
+    },
+    {
+      id: "made68pro",
+      title: "MEELGEEK MADE68 PRO",
+      short: "The MADE68 Pro goes beyond a simple keyboard. It's a truly modular experience, engineered with wireless freedom and MelGeek HIVE",
+      price: 140,
+      layout: "68",
+      available: true, 
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_12.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg",
+      ],
+      specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps"]
+    },
+    {
+      id: "ace68turbo",
+      title: "MCHOSE ACE68 TURBO",
+      short: "MCHOSE Ace 68 Turbo – World's First 16K Polling Rate HE Aluminum Keyboard",
+      price: 140,
+      layout: "68",
+      available: false,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Dynamic_RGB_Lightbox_with_Music_Sync_on_Ace_68_Turbo.png",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png",
+      ],
+      specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches"]
+    },
+    // Items 4, 5, 6, 7, 8 (to test the 4 mobile limit and 8 desktop limit)
+    { id: "kb4", title: "K-BOARD 4", short: "Fourth keyboard for testing limits.", price: 90, layout: "TKL", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg"], specs: ["TKL (87 keys)"] },
+    { id: "kb5", title: "K-BOARD 5", short: "Fifth keyboard for testing limits.", price: 100, layout: "65", available: false, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg"], specs: ["65% (68 keys)"] },
+    { id: "kb6", title: "K-BOARD 6", short: "Sixth keyboard for testing limits.", price: 110, layout: "75", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png"], specs: ["75% (84 keys)"] },
+    { id: "kb7", title: "K-BOARD 7", short: "Seventh keyboard for testing limits.", price: 120, layout: "Full", available: false, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg"], specs: ["Full (104 keys)"] },
+    { id: "kb8", title: "K-BOARD 8", short: "Eighth keyboard for testing limit appearance.", price: 130, layout: "60", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg"], specs: ["60% (61 keys)"] },
+    { id: "kb9", title: "K-BOARD 9 (Extra)", short: "Ninth keyboard to trigger the More button.", price: 150, layout: "TKL", available: true, images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png"], specs: ["TKL (87 keys)"] },
+  ],
+  // NEW: Example mouse products
+  mice: [
+    {
+      id: "mouse-vxe-r1",
+      title: "VXE R1 SE Wireless Mouse",
+      short: "Ultralight 50g mouse with 3395 sensor and 1K Hz polling.",
+      price: 35,
+      layout: "50g",
+      available: true,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-white.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-black.jpg",
+      ],
+      specs: ["50g Weight", "3395 Sensor", "1000 Hz", "Wireless 2.4G/BT"]
+    },
+    {
+      id: "mouse-zaopin-z2",
+      title: "Zaopin Z2 Pro Mouse",
+      short: "Premium 4K Hz wireless gaming mouse.",
+      price: 70,
+      layout: "65g",
+      available: false,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-white.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-black.jpg",
+      ],
+      specs: ["65g Weight", "4000 Hz", "Wired/Wireless"]
+    },
+    {
+        id: "mouse-test3",
+        title: "Test Mouse 3",
+        short: "A test mouse for the list limit. Should be visible on mobile.",
+        price: 20,
+        layout: "80g",
+        available: true,
+        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-white.jpg"],
+        specs: ["80g Weight", "3395 Sensor", "1000 Hz"]
+    },
+    {
+        id: "mouse-test4",
+        title: "Test Mouse 4",
+        short: "A test mouse for the list limit. Should be visible on mobile.",
+        price: 25,
+        layout: "70g",
+        available: true,
+        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-black.jpg"],
+        specs: ["70g Weight", "3395 Sensor", "1000 Hz"]
+    },
+    {
+        id: "mouse-test5",
+        title: "Test Mouse 5 (Extra)",
+        short: "This mouse should trigger the More button on mobile.",
+        price: 30,
+        layout: "90g",
+        available: false,
+        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-white.jpg"],
+        specs: ["90g Weight", "3395 Sensor", "1000 Hz"]
+    },
+  ]
+};
 
-    id: "ace68turbo",
-    title: "MCHOSE ACE68 TURBO",
-    short: "MCHOSE Ace 68 Turbo – World's First 16K Polling Rate HE Aluminum Keyboard",
-    price: 140,
-    layout: "68",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Dynamic_RGB_Lightbox_with_Music_Sync_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Multi-Function_Control_Knob_and_RT_Button_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/22.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_65_Hot-Swappable_Rapid_Trigger_Keyboard_1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
-    ],
-    specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
-   },
-   // Adding three more for desktop testing (to hit 6 items)
-   {
-    id: "test1",
-    title: "TEST KEYBOARD 1",
-    short: "This is a fourth test product to fill up the grid on desktop mode for testing the 'More items' button.",
-    price: 100,
-    layout: "100",
-    available: true,
-    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/ATK_EDGE_60_HE_Keyboard.jpg"],
-    specs: ["100% (104 keys)", "Plastic Case", "Membrane Switches"]
-   },
-   {
-    id: "test2",
-    title: "TEST KEYBOARD 2",
-    short: "This is a fifth test product.",
-    price: 110,
-    layout: "80",
-    available: false,
-    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg"],
-    specs: ["80% (87 keys)", "Aluminum Case", "Mechanical Switches"]
-   },
-   {
-    id: "test3",
-    title: "TEST KEYBOARD 3",
-    short: "This is a sixth test product to ensure the desktop limit is reached before the button appears.",
-    price: 120,
-    layout: "65",
-    available: true,
-    images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png"],
-    specs: ["65% (68 keys)", "Plastic Case", "Magnetic Switches"]
-   },
-  // Add more product objects here
-];
+const allProducts = [...productData.keyboards, ...productData.mice]; // Combined for detail page lookup
+
 /* function for contact dialogue*/
-// Modal logic
+// Modal logic (unchanged)
 document.addEventListener('DOMContentLoaded', () => {
   const contactLink = document.getElementById('contactLink');
   const modal = document.getElementById('contactModal');
@@ -111,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
 /* ---------- Helpers ---------- */
 function whatsappLink(product){
   const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
@@ -125,28 +153,27 @@ function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
 }
 
-// NEW: Constants and variable for Load More logic
-const MOBILE_LIMIT = 3;
-const DESKTOP_LIMIT = 6;
-let currentProductLimit = 0;
+// NEW: Constants for display limits (2 rows * columns)
+const MOBILE_COLUMNS = 2;
+const DESKTOP_COLUMNS = 4;
+const INITIAL_MOBILE_LIMIT = MOBILE_COLUMNS * 2; // 4 items
+const INITIAL_DESKTOP_LIMIT = DESKTOP_COLUMNS * 2; // 8 items
 
 function getInitialLimit() {
   // Mobile breakpoint used in styles.css is 600px
-  return window.innerWidth < 600 ? MOBILE_LIMIT : DESKTOP_LIMIT;
+  return window.innerWidth < 600 ? INITIAL_MOBILE_LIMIT : INITIAL_DESKTOP_LIMIT;
 }
 
-function updateProductLimit() {
-  const isMobile = window.innerWidth < 600;
-  // Use the limit as the step size (3 or 6)
-  currentProductLimit += (isMobile ? MOBILE_LIMIT : DESKTOP_LIMIT);
-}
 
 /* ---------- Index page: render product cards ---------- */
-function renderIndexCards(list, limit = list.length){
-  const grid = document.getElementById('productGrid');
-  const loadMoreContainer = document.getElementById('loadMoreContainer');
+// Takes product list, grid element ID, more button container ID, and category name
+function renderIndexCards(list, gridId, moreContainerId, categoryName){
+  const grid = document.getElementById(gridId);
+  const loadMoreContainer = document.getElementById(moreContainerId);
   if(!grid || !loadMoreContainer) return;
 
+  const limit = getInitialLimit();
+  
   grid.innerHTML = '';
   loadMoreContainer.innerHTML = ''; // Clear the button container
 
@@ -160,6 +187,7 @@ function renderIndexCards(list, limit = list.length){
     const availClass = p.available ? 'availability available' : 'availability unavailable';
     const availText = p.available ? 'Available' : 'Unavailable';
     const href = productLink(p.id);
+    // Safely get the first image
     const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : '';
     
     // Check availability for in-stock class
@@ -190,79 +218,73 @@ function renderIndexCards(list, limit = list.length){
   
   // Create "More items" button if products remain
   if (list.length > limit) {
-    const loadMoreBtn = document.createElement('button');
-    loadMoreBtn.className = 'btn primary';
-    loadMoreBtn.textContent = 'More items';
-    loadMoreBtn.id = 'loadMoreBtn';
-    
-    // Attach event listener
-    loadMoreBtn.addEventListener('click', () => {
-        updateProductLimit();
-        // Re-render the cards with the new, higher limit
-        renderIndexCards(list, currentProductLimit);
-    });
-
-    loadMoreContainer.appendChild(loadMoreBtn);
+    const loadMoreLink = document.createElement('a');
+    loadMoreLink.className = 'btn primary';
+    loadMoreLink.textContent = 'More items';
+    // NEW: Set the link to navigate to a page showing all items in this category
+    // Assuming `products.html` handles filtering by category if needed, 
+    // but for this example, we'll just link to a generic shop page.
+    loadMoreLink.href = `products.html?category=${categoryName}`; 
+    loadMoreContainer.appendChild(loadMoreLink);
   }
+}
+
+// Function to handle filtering for a specific category
+function filterProducts(query, categoryList, gridId, moreContainerId, categoryName) {
+    const normalizedQuery = query.toLowerCase().trim();
+    const filteredList = categoryList.filter(p =>
+        p.title.toLowerCase().includes(normalizedQuery) ||
+        p.short.toLowerCase().includes(normalizedQuery) ||
+        p.id.toLowerCase().includes(normalizedQuery)
+    );
+    // When filtering, we always use the initial limit
+    renderIndexCards(filteredList, gridId, moreContainerId, categoryName);
+}
+
+
+// NEW: Function to initialize each product section
+function initProductSection(categoryName) {
+    const productsList = productData[categoryName];
+    const gridId = `${categoryName}Grid`;
+    const moreContainerId = `${categoryName}MoreContainer`;
+    const searchInputId = `${categoryName}Search`;
+
+    const searchInput = document.getElementById(searchInputId);
+
+    // Initial render
+    renderIndexCards(productsList, gridId, moreContainerId, categoryName); 
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            filterProducts(e.target.value, productsList, gridId, moreContainerId, categoryName);
+        });
+    }
 }
 
 // NEW: Function to handle initial rendering and filtering
 function initIndexPage() {
-    // Start with the correct limit based on screen size
-    currentProductLimit = getInitialLimit(); 
-    
-    // Get all initial products (or filtered list if search is present)
-    let filteredProducts = products;
-    
-    const searchInput = document.getElementById('productSearch');
-    if (searchInput) {
-        // Initial filter in case the page was navigated back to with a query (not implemented, but robust)
-        const initialQuery = searchInput.value;
-        if (initialQuery) {
-             const normalizedQuery = initialQuery.toLowerCase().trim();
-             filteredProducts = products.filter(p =>
-                p.title.toLowerCase().includes(normalizedQuery) ||
-                p.short.toLowerCase().includes(normalizedQuery) ||
-                p.id.toLowerCase().includes(normalizedQuery)
-             );
-        }
-        
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            const newFilteredList = products.filter(p =>
-                p.title.toLowerCase().includes(query) ||
-                p.short.toLowerCase().includes(query) ||
-                p.id.toLowerCase().includes(query)
-            );
-            // Reset limit when filtering changes
-            currentProductLimit = getInitialLimit(); 
-            renderIndexCards(newFilteredList, currentProductLimit);
-        });
-    }
+    // Initialize Keyboards section
+    initProductSection('keyboards');
 
-    // Initial render
-    renderIndexCards(filteredProducts, currentProductLimit); 
+    // Initialize Mice section
+    initProductSection('mice');
 
-    // Handle resizing (e.g., rotating mobile from portrait to landscape)
+    // NOTE: Resize handling is not strictly necessary anymore since the "limit" is 
+    // calculated on render based on viewport size, and the button is a simple link.
+    // If the window size changes, a manual refresh will correctly apply the new limit.
+    // We can skip the resize listener for simplicity, or keep a simpler version:
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            const newLimit = getInitialLimit();
-            // Only reset the view if the limit mode has actually changed
-            if (currentProductLimit < newLimit || currentProductLimit > newLimit) {
-                 currentProductLimit = newLimit;
-                 // Re-render based on the original (or current search) products
-                 const currentSearchQuery = searchInput ? searchInput.value : '';
-                 const productsToDisplay = currentSearchQuery ? products.filter(p => p.title.toLowerCase().includes(currentSearchQuery.toLowerCase())) : products;
-                 renderIndexCards(productsToDisplay, currentProductLimit);
-            }
-        }, 200); // Debounce resize event
+            initProductSection('keyboards'); // Re-render to adjust limit if necessary
+            initProductSection('mice');
+        }, 200); 
     });
 }
 
 
-/* ---------- Carousel (shared) ---------- */
+/* ---------- Carousel (shared, remains the same) ---------- */
 function createCarousel(images) {
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
@@ -449,15 +471,17 @@ function renderProductDetail(product){
   if(telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
   if(discordMain) discordMain.textContent = DISCORD_HANDLE;
 
-  const grid = document.getElementById('productGrid');
+  const grid = document.getElementById('keyboardGrid'); // Check for the presence of the main grid
   const container = document.getElementById('productContainer');
 
   if(grid){
-    // Use the new index page initialization function
+    // This is the index page
     initIndexPage(); 
   } else if(container){
+    // This is the product detail page (products.html)
     const id = getQueryParam('id');
-    const product = products.find(p => p.id === id);
+    // Find product across all categories
+    const product = allProducts.find(p => p.id === id); 
     renderProductDetail(product);
   }
 })();
