@@ -43,6 +43,24 @@ const productData = {
     ],
     specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.125ms Low Latency","256k scanning-rate","Zero Dead-Zone","Electric Light-Box","Precision 0.01mm","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
    },
+    {
+
+    id: "ace68esport",
+    title: "MCHOSE ACE68 E-SPORT",
+    short: "MCHOSE ACE68 E-SPORT EDITION - 0.1ms Ultra-Low Latency for Competitive Gaming",
+    price: 45,
+    layout: "65",
+    available: false,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace681",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace682",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace683",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace684",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace680",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace68driver"
+    ],
+    specs: ["65% (68 keys)","Aluminum Alloy Plate + Silicone Sandwich Pad + Silicone Gasket","8K Hz Polling rate","0.125ms Ultra Low Latency","128k scanning-rate","0 Dead-Zone","Precision 0.05mm - 3.4mm","Adaptive Dynamic Calibration 2.0","Features: Music Rhythms 2.0｜Custom GIF Effects","Function: SOCD, RS, DKS, MT, TGL, Key macros","On-Board Memory Support","South-facing RGB LED Lights","2-level Adjustable Feet"]
+   },
    {
 
     id: "ace68turbo",
