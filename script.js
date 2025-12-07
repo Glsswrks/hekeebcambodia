@@ -52,11 +52,11 @@ const productData = {
     layout: "65",
     available: false,
     images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace682.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace681.jpeg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace680.jpg",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace682.jpeg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace683.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace684.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace680.jpg"
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace681.jpg"
     ],
     specs: ["65% (68 keys)","Aluminum Alloy Plate + Silicone Sandwich Pad + Silicone Gasket","8K Hz Polling rate","0.125ms Ultra Low Latency","128k scanning-rate","0 Dead-Zone","Precision 0.05mm - 3.4mm","Adaptive Dynamic Calibration 2.0","Features: Music Rhythms 2.0｜Custom GIF Effects","Function: SOCD, RS, DKS, MT, TGL, Key macros","On-Board Memory Support","South-facing RGB LED Lights","2-level Adjustable Feet","Ice Blue Magnetic Switches, White color"]
    },
