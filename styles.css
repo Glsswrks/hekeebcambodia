@@ -280,6 +280,9 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 }
 .modal[aria-hidden="false"] { display: flex; }
 
+/* new added */
+.modal[aria-hidden="false"] { display: flex; }
+
 .modal-content {
   background: var(--card);
   padding: 24px;
@@ -307,6 +310,8 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   gap: 12px;
   justify-content: center;
 }
+
+
 .btn.whatsapp {
   background: #25D366;
   color: #fff;
@@ -316,6 +321,63 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   background: #0088cc;
   color: #fff;
   border: none;
+}
+/* NEW: Contact Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0;
+}
+.form-input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg); /* Darker background than card for input */
+  color: #e6eef8;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 160ms ease;
+  resize: vertical; /* Allow vertical resize for textarea */
+  min-height: 40px;
+  font-family: inherit;
+}
+
+textarea.form-input {
+  min-height: 100px; /* Makes the text area visually large */
+}
+
+/* NEW: Custom Scrollbar Styles for Textarea */
+textarea.form-input::-webkit-scrollbar {
+  width: 6px; /* Set the width of the vertical scrollbar */
+}
+
+textarea.form-input::-webkit-scrollbar-track {
+  background: var(--bg); /* Track background matches the body background */
+  border-radius: 3px;
+}
+
+textarea.form-input::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2); /* Thumb color (light grey transparent) */
+  border-radius: 3px;
+}
+
+textarea.form-input::-webkit-scrollbar-thumb:hover {
+  background: var(--accent); /* Accent color on hover for visual feedback */
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* NEW: Locked Button Style */
+.btn.locked {
+  background: #34495e; /* Muted background color */
+  color: #bdc3c7; /* Lighter text for locked state */
+  border: none;
+  cursor: not-allowed;
+  pointer-events: none; /* Ensure no click events are registered */
+  opacity: 0.6;
 }
 /* --- Horizontal Scroll / Carousel Styles for Similar Products --- */
 .horizontal-scroll-wrapper {
@@ -358,3 +420,102 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
   }
 }
 
+/* --- End of Horizontal Scroll / Carousel Styles --- */
+/* --- Horizontal Scroll / Carousel Styles for Similar Products --- */
+.horizontal-scroll-container {
+  /* NEW container for scroll area and buttons */
+  position: relative; 
+  padding: 0 40px; /* Space for the buttons */
+}
+
+.horizontal-scroll-wrapper {
+  /* Enables horizontal scrolling/swiping */
+  overflow-x: auto; 
+  padding-bottom: 20px; /* Gives space for the scrollbar on desktop */
+  -webkit-overflow-scrolling: touch; /* Improves scroll feel on iOS */
+  scroll-snap-type: x mandatory; /* Makes swiping 'snap' to cards */
+}
+
+/* Scrollbar styling for better look on WebKit browsers */
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+.horizontal-scroll {
+  /* Overrides the default grid to create a single row */
+  display: flex; 
+  flex-wrap: nowrap; 
+  gap: 20px; /* Space between product cards */
+  width: max-content; /* Allows the flex container to grow wider than viewport */
+}
+
+.horizontal-scroll .card {
+  /* Defines the size of each card in the scrollable row */
+  flex: 0 0 240px; 
+  max-width: 240px; 
+  scroll-snap-align: start; /* Scroll snaps to the start of the card */
+}
+
+/* NEW: Navigation buttons for similar products scroll */
+.scroll-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 10px)); /* Account for padding-bottom in wrapper */
+  background: rgba(15, 17, 20, 0.85); /* Similar to card background */
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1.2rem;
+  font-weight: 300;
+  transition: background 160ms ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.scroll-nav-btn:hover { background: var(--accent); border-color: var(--accent); }
+.scroll-nav-btn.left { left: 0; }
+.scroll-nav-btn.right { right: 0; }
+
+
+/* Adjust size for mobile view */
+@media (max-width: 520px) {
+  /* Remove buttons and container padding on mobile to prioritize swiping */
+  .horizontal-scroll-container {
+    padding: 0;
+  }
+  .scroll-nav-btn {
+    display: none;
+  }
+  .horizontal-scroll .card {
+    flex: 0 0 180px;
+    max-width: 180px;
+  }
+}
+
+/* --- New Stock Label Styles for Product Detail Page --- */
+
+.stock-label {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stock-label.out-of-stock {
+    background: #c0392b; /* Dark red background */
+    color: #fff;
+    border: 1px solid #a83227;
+}

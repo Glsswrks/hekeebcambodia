@@ -14,7 +14,7 @@ const productData = {
     short: "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
     price: 229,
     layout: "60",
-    available: false,
+    available: true,
     images: [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/2_27ffe2b5-f717-4c2f-940c-959572442aa1.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/1_f9f267de-73a2-46f0-b918-9d35850c4593.jpg",
@@ -43,23 +43,6 @@ const productData = {
     ],
     specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.125ms Low Latency","256k scanning-rate","Zero Dead-Zone","Electric Light-Box","Precision 0.01mm","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
    },
-    {
-
-    id: "ace68esport",
-    title: "MCHOSE ACE68 E-SPORT",
-    short: "MCHOSE ACE68 E-SPORT EDITION - 0.1ms Ultra-Low Latency for Competitive Gaming",
-    price: 45,
-    layout: "65",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace680.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace682.jpeg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace683.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace684.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68/ace681.jpg"
-    ],
-    specs: ["65% (68 keys)","Aluminum Alloy Plate + Silicone Sandwich Pad + Silicone Gasket","8K Hz Polling rate","0.125ms Ultra Low Latency","128k scanning-rate","0 Dead-Zone","Precision 0.05mm - 3.4mm","Adaptive Dynamic Calibration 2.0","Features: Music Rhythms 2.0｜Custom GIF Effects","Function: SOCD, RS, DKS, MT, TGL, Key macros","On-Board Memory Support","South-facing RGB LED Lights","2-level Adjustable Feet","Ice Blue Magnetic Switches, White color"]
-   },
    {
 
     id: "ace68turbo",
@@ -77,86 +60,26 @@ const productData = {
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
     ],
     specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
-   },
-   {
-    id: "m1wv3",
-    title: "MONSGEEK M1W V3 PURPLE",
-    short: "Full Aluminum Mechanical Keyboard",
-    price: 65,
-    layout: "75",
-    available: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/71HsR-bBRxL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81gDC8uMc2L.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/81NdG0MIsZL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61UTTwPtyCL.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/61fUWnxOIrL.jpg"
-      // https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/m1wv3/613vuV6lGLL.jpg
-    ],
-    specs: ["75% (82 keys)","Full Aluminum CNC","Hot‑swap mechanical switches 3/5 pins","Tri-mode connection Wired / 2.4Ghz Dongle / Bluetooth","Battery 6000 mAh","PBT double-shot gradient shine-through keycaps (south-facing)","South-facing RGB lighting, fully customizable (multiple lighting modes, full-color spectrum) ","N-Key Rollover supported","1K Polling-Rate in Wired / 2.4Ghz Dongles"]
-   },
+   }
   ],
   mice: [
     {
-      id: "mouse-vxe-r1",
-      title: "VXE R1 SE Wireless Mouse",
-      short: "Ultralight 50g mouse with 3395 sensor and 1K Hz polling.",
-      price: 35,
-      layout: "50g",
+      id: "scyroxv8",
+      title: "Scyrox V8",
+      short: "36-Gram Ultra-Lightweight Wireless Gaming Mouse with 8K Polling Rate",
+      price: 55,
+      layout: "36g",
       available: true,
       images: [
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-white.jpg",
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-black.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/20.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/30.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/40.jpg",
       ],
-      specs: ["50g Weight", "3395 Sensor", "1000 Hz", "Wireless 2.4G/BT"]
-    },
-    {
-      id: "mouse-zaopin-z2",
-      title: "Zaopin Z2 Pro Mouse",
-      short: "Premium 4K Hz wireless gaming mouse.",
-      price: 70,
-      layout: "65g",
-      available: false,
-      images: [
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-white.jpg",
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-black.jpg",
-      ],
-      specs: ["65g Weight", "4000 Hz", "Wired/Wireless"]
-    },
-    {
-        id: "mouse-test3",
-        title: "Test Mouse 3",
-        short: "A test mouse for the list limit. Should be visible on mobile.",
-        price: 20,
-        layout: "80g",
-        available: true,
-        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-white.jpg"],
-        specs: ["80g Weight", "3395 Sensor", "1000 Hz"]
-    },
-    {
-        id: "mouse-test4",
-        title: "Test Mouse 4",
-        short: "A test mouse for the list limit. Should be visible on mobile.",
-        price: 25,
-        layout: "70g",
-        available: true,
-        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/r1-se-black.jpg"],
-        specs: ["70g Weight", "3395 Sensor", "1000 Hz"]
-    },
-    {
-        id: "mouse-test5",
-        title: "Test Mouse 5 (Extra)",
-        short: "This mouse should trigger the More button on mobile.",
-        price: 30,
-        layout: "90g",
-        available: false,
-        images: ["https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mice/zaopin-z2-white.jpg"],
-        specs: ["90g Weight", "3395 Sensor", "1000 Hz"]
-    },
+      specs: ["Paw3950 Sensor", "36Gram Weight", "8K Hz Polling-Rate", "MCU Nordic-52840", "Track Speed 750IPS","30k DPI", "Acceleration 50g", "Omron Optical Switches", "Wireless / Wired", "Web-Based Driver", "Yellow Color Available"]
+    }
   ]
 };
-
 const allProducts = [...productData.keyboards, ...productData.mice]; // Combined for detail page lookup
 
 /* function for contact dialogue*/
@@ -186,9 +109,16 @@ function whatsappLink(product){
   const text = encodeURIComponent(`Hi, I'm interested in ${product.title}. Is it available?`);
   return `${base}?text=${text}`;
 }
+
+// MODIFIED: Function for Purchase link with product info
+function purchaseTelegramLink(product) {
+    // Prefix text with product details as requested
+    const text = encodeURIComponent(`Hello, I would like to purchase the ${product.title} (ID: ${product.id}). Is it still available for $${product.price}?`);
+    return `https://t.me/${TELEGRAM_HANDLE}?text=${text}`;
+}
+
 function telegramLink(){ return `https://t.me/${TELEGRAM_HANDLE}`; }
 function getQueryParam(name){ return new URLSearchParams(window.location.search).get(name); }
-
 /* Simplified product link */
 function productLink(id){
   return `products.html?id=${encodeURIComponent(id)}`;
@@ -369,8 +299,19 @@ function initCategoryPage() {
     });
 }
 
-
 /* ---------- Product page: Horizontal Scroll Logic (NEW) ---------- */
+
+// NEW: Function to handle horizontal scrolling
+function scrollSimilarProducts(direction) {
+    const grid = document.getElementById('similarProductsGrid');
+    if (!grid) return;
+
+    const cardWidth = grid.querySelector('.card')?.offsetWidth + 20; // Card width + gap
+    const scrollAmount = cardWidth * (direction === 'next' ? 1 : -1);
+    
+    // Smooth scroll behavior
+    grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
 
 /**
  * Renders all other products in a horizontal, swipeable grid.
@@ -389,13 +330,17 @@ function renderSimilarProductsSection(currentProductId) {
         return;
     }
 
-    // 1. Create the Section Title and Scroll Grid structure
+    // 1. Create the Section Title, Wrapper, and Grid structure with NEW buttons
     similarSection.innerHTML = `
         <div style="margin-top:40px;margin-bottom:20px;">
             <h2 style="font-size:1.5rem;">Similar Products</h2>
         </div>
-        <div class="horizontal-scroll-wrapper">
-            <div id="similarProductsGrid" class="grid horizontal-scroll"></div>
+        <div class="horizontal-scroll-container">
+            <button class="scroll-nav-btn left" aria-label="Previous similar product">&lt;</button>
+            <div class="horizontal-scroll-wrapper">
+                <div id="similarProductsGrid" class="grid horizontal-scroll"></div>
+            </div>
+            <button class="scroll-nav-btn right" aria-label="Next similar product">&gt;</button>
         </div>
     `;
 
@@ -406,12 +351,14 @@ function renderSimilarProductsSection(currentProductId) {
         grid.appendChild(createProductCard(p));
     });
 
-    // 3. Insert the back button below the entire Similar Products section
+    // 3. Attach event listeners to the new buttons
+    similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
+    similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
+
+
+    // 4. Insert the back button below the entire Similar Products section
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
-
-
-/* ---------- Product page: render detail (UPDATED) ---------- */
 
 function renderProductDetail(product){
   const container = document.getElementById('productContainer');
@@ -422,7 +369,18 @@ function renderProductDetail(product){
     return;
   }
 
-  // 1. Render main product details (Removed Discord label)
+  // Determine button/label to show based on product availability
+  let actionButtonHTML;
+  if (product.available) {
+      const telegramPurchaseHref = purchaseTelegramLink(product);
+      // Purchase button for AVAILABLE products
+      actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="${telegramPurchaseHref}" target="_blank" rel="noopener">Purchase via Telegram</a>`;
+  } else {
+      // NEW: Out of Stock label for UNAVAILABLE products
+      actionButtonHTML = `<span class="stock-label out-of-stock">Out of Stock</span>`;
+  }
+
+  // 1. Render main product details 
   container.innerHTML = `
     <div class="product-image"></div>
     <div class="product-info">
@@ -431,23 +389,16 @@ function renderProductDetail(product){
       <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
       <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn primary" id="whatsappBtn" href="#" target="_blank" rel="noopener">Inquire on WhatsApp</a>
-        <a class="btn" id="telegramBtn" href="#" target="_blank" rel="noopener">Inquire on Telegram</a>
+        ${actionButtonHTML}
       </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>. Delivery fees apply.</p>
+      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
     </div>
   `;
-
   const imageContainer = container.querySelector('.product-image');
   const images = Array.isArray(product.images) && product.images.length ? product.images : [];
   const carousel = createCarousel(images);
   imageContainer.appendChild(carousel);
-
-  const whatsappBtn = document.getElementById('whatsappBtn');
-  const telegramBtn = document.getElementById('telegramBtn');
-  if(whatsappBtn) whatsappBtn.href = whatsappLink(product);
-  if(telegramBtn) telegramBtn.href = telegramLink();
-
+  
   carousel.focus();
   
   // 2. Render all similar products in the swipeable carousel section
@@ -596,7 +547,6 @@ function createCarousel(images) {
 (function init(){
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
-
   // Contact links initialization (for modal)
   const whatsappMain = document.getElementById('whatsappMain');
   const telegramMain = document.getElementById('telegramMain');
