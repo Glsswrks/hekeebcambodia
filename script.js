@@ -86,8 +86,8 @@ const productData = {
       layout: "45g",
       available: false,
       images: [
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/1.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/1.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/3.jpg",
       ],
       specs: [
