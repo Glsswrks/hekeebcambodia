@@ -151,9 +151,20 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .card:hover .card-link img { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
 /* About/contact/footer */
-.about, .contact{margin:36px 0;padding:18px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+/*.about, .contact{margin:36px 0;padding:18px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
 .site-footer{padding:18px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:40px}
-.muted{color:var(--muted)}
+.muted{color:var(--muted)}*/
+/* About/contact/footer */
+.about-full-wide{margin:36px 0;} /* Full-width margin adjustment */
+
+.about-content-box, .contact{ /* Apply card-style to the inner container */
+  padding:18px;
+  background:var(--glass);
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+.site-footer{padding:18px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:40px}
 
 /* Product page layout */
 .product-page { padding: 40px 28px; max-width:1100px; margin:0 auto; }

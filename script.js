@@ -67,23 +67,112 @@ const productData = {
       id: "scyroxv8",
       title: "Scyrox V8",
       short: "36-Gram Ultra-Lightweight Wireless Gaming Mouse with 8K Polling Rate",
-      price: 55,
+      price: 60,
       layout: "36g",
-      available: true,
+      available: false,
       images: [
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/20.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/20.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/30.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/40.jpg",
       ],
       specs: ["Paw3950 Sensor", "36Gram Weight", "8K Hz Polling-Rate", "MCU Nordic-52840", "Track Speed 750IPS","30k DPI", "Acceleration 50g", "Omron Optical Switches", "Wireless / Wired", "Web-Based Driver", "Yellow Color Available"]
-    }
+    },
+    {
+      id: "atkf1pro",
+      title: "ATK Blazing Sky F1 Pro",
+      short: "45-Gram Wireless Gaming Mouse with 8K Polling Rate, PAW3950 Sensor",
+      price: 80,
+      layout: "45g",
+      available: false,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/3.jpg",
+      ],
+      specs: [
+        "PAW3950 Optical Sensor",
+        "45g ± 2g Ultralight Weight",
+        "8K Hz Wireless/Wired Polling Rate",
+        "Nordic 52840 MCU",
+        "Track Speed 750 IPS",
+        "Max DPI 36000",
+        "Acceleration 70G",
+        "Omron Optical Switches",
+        "Wireless (2.4GHz) / Wired / Bluetooth (varies by model)",
+        "Ice-feeling Coating",
+        "ATK HUB/Web Driver Supported"
+      ]
+    },
+    {
+      id: "vxer1se",
+      title: "VXE R1 SE (Dragonfly R1 SE)",
+      short: "51-Gram Lightweight Tri-Mode Wireless Gaming Mouse",
+      price: 35,
+      layout: "51g",
+      available: true,
+      images: [
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/1.png",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/2.jpg",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/3.jpg",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/4.jpg",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/5.jpg",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/6.jpg",
+       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/7.jpg",
+      ],
+      specs: [
+        "PAW3395 SE Sensor",
+        "51g Weight (R1 SE/R1)",
+        "Up to 2K Hz Polling Rate (1K Hz standard, 2K on some models)",
+        "Nordic/BEKEN Chipset",
+        "Track Speed 400 IPS",
+        "Max DPI 18000",
+        "Acceleration 40G",
+        "Huano/IceBerry Switches (Varies)",
+        "Tri-Mode: 2.4G Wireless / Bluetooth 5.3 / Wired Type-C",
+        "520mAh Battery (R1 SE+ model), 250mAh (R1 SE)",
+        "Web-Driver Customization"
+      ]
+    },
+    {
+      id: "lamzumayax",
+      title: "Lamzu Maya X 8K Wireless",
+      short: "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
+      price: 120, // Approximate price
+      layout: "47g",
+      available: true,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/4.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/5.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/6.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/7.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/8.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/9.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/11.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/12.jpg",
+      ],
+      specs: [
+        "PixArt 3950 Sensor",
+        "47g Weight",
+        "8K Hz Polling Rate (8K Dongle Included)",
+        "Nordic 52840 MCU",
+        "Track Speed 750 IPS",
+        "Max DPI 30000",
+        "Acceleration 50G",
+        "Omron Optical Switches",
+        "Symmetrical Shape (Small/Medium Hands)",
+        "Wireless (2.4GHz) / Wired (Type-C)",
+        "Web-Based Aurora Driver"
+      ]
+    },
   ]
 };
 const allProducts = [...productData.keyboards, ...productData.mice]; // Combined for detail page lookup
 
-/* function for contact dialogue*/
-// Modal logic (unchanged)
 document.addEventListener('DOMContentLoaded', () => {
   const contactLink = document.getElementById('contactLink');
   const modal = document.getElementById('contactModal');
@@ -103,14 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ---------- Helpers ---------- */
 function whatsappLink(product){
   const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g,'')}`;
   const text = encodeURIComponent(`Hi, I'm interested in ${product.title}. Is it available?`);
   return `${base}?text=${text}`;
 }
 
-// MODIFIED: Function for Purchase link with product info
 function purchaseTelegramLink(product) {
     // Prefix text with product details as requested
     const text = encodeURIComponent(`Hello, I would like to purchase the ${product.title} (ID: ${product.id}). Is it still available for $${product.price}?`);
@@ -299,9 +386,6 @@ function initCategoryPage() {
     });
 }
 
-/* ---------- Product page: Horizontal Scroll Logic (NEW) ---------- */
-
-// NEW: Function to handle horizontal scrolling
 function scrollSimilarProducts(direction) {
     const grid = document.getElementById('similarProductsGrid');
     if (!grid) return;
@@ -313,24 +397,15 @@ function scrollSimilarProducts(direction) {
     grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 }
 
-/**
- * Renders all other products in a horizontal, swipeable grid.
- * @param {string} currentProductId - The ID of the product currently being viewed.
- */
 function renderSimilarProductsSection(currentProductId) {
     const similarSection = document.getElementById('similarProductsSection');
-    // Get ALL other products
     const otherProducts = allProducts.filter(p => p.id !== currentProductId);
-    // Back link HTML to be inserted after the section
     const backLinkHTML = '<div style="margin-top:28px;"><a class="back-link" href="index.html">← Back to shop</a></div>';
 
     if (!similarSection || otherProducts.length === 0) {
-        // If no similar products, just insert the back button at the end of the main content.
         document.querySelector('.product-page').insertAdjacentHTML('beforeend', backLinkHTML);
         return;
     }
-
-    // 1. Create the Section Title, Wrapper, and Grid structure with NEW buttons
     similarSection.innerHTML = `
         <div style="margin-top:40px;margin-bottom:20px;">
             <h2 style="font-size:1.5rem;">Similar Products</h2>
@@ -345,18 +420,11 @@ function renderSimilarProductsSection(currentProductId) {
     `;
 
     const grid = document.getElementById('similarProductsGrid');
-    
-    // 2. Render all other products in the scrollable grid
     otherProducts.forEach(p => {
         grid.appendChild(createProductCard(p));
     });
-
-    // 3. Attach event listeners to the new buttons
     similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
     similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
-
-
-    // 4. Insert the back button below the entire Similar Products section
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
@@ -368,16 +436,12 @@ function renderProductDetail(product){
     container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
     return;
   }
-
-  // Determine button/label to show based on product availability
   let actionButtonHTML;
   if (product.available) {
       const telegramPurchaseHref = purchaseTelegramLink(product);
-      // Purchase button for AVAILABLE products
       actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="${telegramPurchaseHref}" target="_blank" rel="noopener">Purchase via Telegram</a>`;
   } else {
-      // NEW: Out of Stock label for UNAVAILABLE products
-      actionButtonHTML = `<span class="stock-label out-of-stock">Out of Stock</span>`;
+      actionButtonHTML = `<span class="stock-label out-of-stock">Unavailable</span>`; // out of stock or unavailable label
   }
 
   // 1. Render main product details 
@@ -400,14 +464,9 @@ function renderProductDetail(product){
   imageContainer.appendChild(carousel);
   
   carousel.focus();
-  
-  // 2. Render all similar products in the swipeable carousel section
   renderSimilarProductsSection(product.id);
 }
-
-/* ---------- Carousel (shared, remains the same) ---------- */
 function createCarousel(images) {
-// ... (The code for createCarousel remains the same as it is only used for product images) ...
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
   const track = document.createElement('div');
@@ -461,6 +520,7 @@ function createCarousel(images) {
     const allDots = dots.querySelectorAll('.carousel-dot');
     allDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
   }
+  
   function prev() { index = Math.max(0, index - 1); update(); }
   function next() { index = Math.min(slidesCount - 1, index + 1); update(); }
 
