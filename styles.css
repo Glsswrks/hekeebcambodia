@@ -14,7 +14,6 @@
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     color: #1e293b;
   }
-  
 }
 
 /* Style for the Toggle Button */
@@ -460,59 +459,12 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   max-width: 240px; 
   scroll-snap-align: start; /* Scroll snaps to the start of the card */
 }
-/* just added */
-/* ADD THIS BLOCK TO styles.css TO ENABLE SIMILAR PRODUCTS SCROLLING */
 
-.horizontal-scroll-container {
-    /* Ensures the absolute-positioned buttons are relative to this container */
-    position: relative;
-    padding: 0 40px; /* Add padding for the buttons to sit within the container */
-}
-
-.horizontal-scroll-wrapper {
-    overflow: hidden; /* Hides the part of the grid that goes off-screen */
-}
-
-.grid.horizontal-scroll {
-    /* Overrides the default CSS grid to enable horizontal scrolling */
-    display: flex; 
-    gap: 20px; /* Matches the gap used in your script.js for calculating scroll distance */
-    overflow-x: scroll; /* Enables touch swiping */
-    padding-bottom: 20px; /* Important: Adds space for the scrollbar to sit */
-}
-
-.grid.horizontal-scroll .card {
-    /* Prevents cards from wrapping and shrinking */
-    flex-shrink: 0;
-    width: 280px; /* Define a fixed/max width for the card item here */
-}
-
-/* Optional: Hide the scrollbar (as we have buttons) */
-.grid.horizontal-scroll::-webkit-scrollbar {
-    display: none;
-}
-.grid.horizontal-scroll {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-/* end just added */
-/* Adjust size for mobile view 
+/* Adjust size for mobile view */
 @media (max-width: 520px) {
   .horizontal-scroll .card {
     flex: 0 0 180px;
     max-width: 180px;
-  }
-}*/
-@media (max-width: 520px) {
-  /* Set the card width to allow approximately 2.3 cards to be visible.
-     Calculation: (100vw - Container Padding (80px) - One Card Gap (20px)) / 2.3 cards
-     This ensures the third card is partially visible.
-  */
-  .horizontal-scroll .card {
-    flex: 0 0 calc((100vw - 100px) / 2.3); 
-    max-width: none; /* Allows the calc() function to control the width */
-    min-width: 140px; /* Ensures cards don't get too small on tiny screens */
   }
 }
 
@@ -556,6 +508,47 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   scroll-snap-align: start; /* Scroll snaps to the start of the card */
 }
 
+/* NEW: Navigation buttons for similar products scroll */
+.scroll-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 10px)); /* Account for padding-bottom in wrapper */
+  background: rgba(15, 17, 20, 0.85); /* Similar to card background */
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1.2rem;
+  font-weight: 300;
+  transition: background 160ms ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.scroll-nav-btn:hover { background: var(--accent); border-color: var(--accent); }
+.scroll-nav-btn.left { left: 0; }
+.scroll-nav-btn.right { right: 0; }
+
+
+/* Adjust size for mobile view */
+@media (max-width: 520px) {
+  /* Remove buttons and container padding on mobile to prioritize swiping */
+  .horizontal-scroll-container {
+    padding: 0;
+  }
+  .scroll-nav-btn {
+    display: none;
+  }
+  .horizontal-scroll .card {
+    flex: 0 0 180px;
+    max-width: 180px;
+  }
+}
+
 /* --- New Stock Label Styles for Product Detail Page --- */
 
 .stock-label {
@@ -574,4 +567,3 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     color: #fff;
     border: 1px solid #a83227;
 }
-

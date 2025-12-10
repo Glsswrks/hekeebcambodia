@@ -407,7 +407,7 @@ function initCategoryPage() {
     });
 }
 
-/* function scrollSimilarProducts(direction) {
+function scrollSimilarProducts(direction) {
     const grid = document.getElementById('similarProductsGrid');
     if (!grid) return;
 
@@ -416,7 +416,7 @@ function initCategoryPage() {
     
     // Smooth scroll behavior
     grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-} */
+}
 
 function renderSimilarProductsSection(currentProductId) {
     const similarSection = document.getElementById('similarProductsSection');
@@ -427,7 +427,7 @@ function renderSimilarProductsSection(currentProductId) {
         document.querySelector('.product-page').insertAdjacentHTML('beforeend', backLinkHTML);
         return;
     }
-   /* similarSection.innerHTML = `
+    similarSection.innerHTML = `
         <div style="margin-top:40px;margin-bottom:20px;">
             <h2 style="font-size:1.5rem;">Similar Products</h2>
         </div>
@@ -438,24 +438,14 @@ function renderSimilarProductsSection(currentProductId) {
             </div>
             <button class="scroll-nav-btn right" aria-label="Next similar product">&gt;</button>
         </div>
-    `;*/
-
-    similarSection.innerHTML = `
-    <h2>Similar Products</h2>
-    <div class="horizontal-scroll-container">
-        <div class="horizontal-scroll-wrapper">
-            <div id="similarProductsGrid" class="grid horizontal-scroll">
-                </div>
-        </div>
-        </div>
-`;
+    `;
 
     const grid = document.getElementById('similarProductsGrid');
     otherProducts.forEach(p => {
         grid.appendChild(createProductCard(p));
     });
-   // similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
-   // similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
+    similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
+    similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
