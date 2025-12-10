@@ -174,6 +174,27 @@ const productData = {
 const allProducts = [...productData.keyboards, ...productData.mice]; // Combined for detail page lookup
 
 document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.getElementById('themeToggle');
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  // Set initial state
+if (currentTheme === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  themeToggle.querySelector('.icon').textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+  let theme = document.documentElement.getAttribute('data-theme');
+  if (theme === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+    themeToggle.querySelector('.icon').textContent = '🌙';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggle.querySelector('.icon').textContent = '☀️';
+    localStorage.setItem('theme', 'light');
+  }
+});
+
   const contactLink = document.getElementById('contactLink');
   const modal = document.getElementById('contactModal');
   const closeBtn = modal.querySelector('.modal-close');
@@ -386,7 +407,7 @@ function initCategoryPage() {
     });
 }
 
-function scrollSimilarProducts(direction) {
+/* function scrollSimilarProducts(direction) {
     const grid = document.getElementById('similarProductsGrid');
     if (!grid) return;
 
@@ -395,7 +416,7 @@ function scrollSimilarProducts(direction) {
     
     // Smooth scroll behavior
     grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-}
+} */
 
 function renderSimilarProductsSection(currentProductId) {
     const similarSection = document.getElementById('similarProductsSection');
@@ -406,7 +427,7 @@ function renderSimilarProductsSection(currentProductId) {
         document.querySelector('.product-page').insertAdjacentHTML('beforeend', backLinkHTML);
         return;
     }
-    similarSection.innerHTML = `
+   /* similarSection.innerHTML = `
         <div style="margin-top:40px;margin-bottom:20px;">
             <h2 style="font-size:1.5rem;">Similar Products</h2>
         </div>
@@ -417,14 +438,24 @@ function renderSimilarProductsSection(currentProductId) {
             </div>
             <button class="scroll-nav-btn right" aria-label="Next similar product">&gt;</button>
         </div>
-    `;
+    `;*/
+
+    similarSection.innerHTML = `
+    <h2>Similar Products</h2>
+    <div class="horizontal-scroll-container">
+        <div class="horizontal-scroll-wrapper">
+            <div id="similarProductsGrid" class="grid horizontal-scroll">
+                </div>
+        </div>
+        </div>
+`;
 
     const grid = document.getElementById('similarProductsGrid');
     otherProducts.forEach(p => {
         grid.appendChild(createProductCard(p));
     });
-    similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
-    similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
+   // similarSection.querySelector('.scroll-nav-btn.left').addEventListener('click', () => scrollSimilarProducts('prev'));
+   // similarSection.querySelector('.scroll-nav-btn.right').addEventListener('click', () => scrollSimilarProducts('next'));
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
