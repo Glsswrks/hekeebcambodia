@@ -188,10 +188,6 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .card:hover .card-link img { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
 /* About/contact/footer */
-/*.about, .contact{margin:36px 0;padding:18px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-.site-footer{padding:18px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:40px}
-.muted{color:var(--muted)}*/
-/* About/contact/footer */
 .about-full-wide{margin:36px 0;} /* Full-width margin adjustment */
 
 .about-content-box, .contact{ /* Apply card-style to the inner container */
@@ -209,146 +205,8 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .product-image { flex:1 1 420px; }
 .product-info { flex:1 1 360px; background:var(--glass); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); }
 .product-info h1{ margin:0 0 8px; }
-
-/* NEW: Style for the option name next to the H1 title */
-.product-info .option-name-display {
-    color: var(--muted);
-    font-size: 1.15rem; /* Slightly smaller than the h1 but noticeable */
-    font-weight: 500;
-    margin-left: 5px;
-}
-
 .specs{ margin:12px 0 0; padding:0; list-style:none; color:var(--muted); }
 .back-link{ display:inline-block; margin-top:14px; color:var(--muted); text-decoration:none; }
-
-/* NEW: Product Options Container Styles */
-.product-options-container {
-    flex: 1 1 100%; /* Make it full width below image/info */
-    margin-top: 28px;
-    padding: 18px;
-    background: var(--glass);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.02);
-}
-.product-options-container h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--accent);
-}
-.options-grid {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto; /* Allow horizontal scrolling if many options */
-    padding-bottom: 10px; /* Space for scrollbar */
-}
-.options-grid::-webkit-scrollbar {
-    height: 6px;
-}
-.options-grid::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.15);
-    border-radius: 3px;
-}
-
-.product-option {
-    /* Base style for the clickable option card */
-    display: block;
-    flex: 0 0 120px; /* Small-medium fixed width */
-    max-width: 120px;
-    text-decoration: none;
-    color: inherit;
-    background: var(--card);
-    border: 2px solid transparent;
-    border-radius: 10px;
-    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-    cursor: pointer;
-    overflow: hidden;
-    padding: 8px;
-}
-
-.product-option:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* NEW: Style for the active option card */
-.product-option.active-option {
-    border-color: var(--accent); /* Highlight the selected option */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-.product-option.active-option .option-title {
-    color: #fff; /* Make the active title color stand out */
-    font-weight: 600;
-}
-
-
-.option-image-wrap {
-    position: relative;
-    width: 100%;
-    padding-top: 100%; /* Square aspect ratio */
-    overflow: hidden;
-    border-radius: 6px;
-    background: var(--bg);
-}
-
-.option-image-wrap img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 160ms ease;
-}
-
-.option-text {
-    padding-top: 8px;
-    text-align: center;
-}
-
-.option-title {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--muted);
-    line-height: 1.2;
-    /* Truncate long titles */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Locked (Unavailable) State */
-.product-option.locked {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none; /* Disable all mouse events */
-    border-color: rgba(255, 255, 255, 0.05);
-}
-
-.product-option.locked .option-image-wrap::after {
-    content: 'Sold Out';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-    z-index: 2;
-}
-
-.product-option.locked:hover {
-    transform: none;
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: none;
-}
-
 
 /* Carousel styles */
 .carousel {
@@ -566,48 +424,6 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   opacity: 0.6;
 }
 /* --- Horizontal Scroll / Carousel Styles for Similar Products --- */
-.horizontal-scroll-wrapper {
-  /* Enables horizontal scrolling/swiping */
-  overflow-x: auto; 
-  padding-bottom: 20px; /* Gives space for the scrollbar on desktop */
-  -webkit-overflow-scrolling: touch; /* Improves scroll feel on iOS */
-  scroll-snap-type: x mandatory; /* Makes swiping 'snap' to cards */
-}
-
-/* Scrollbar styling for better look on WebKit browsers */
-.horizontal-scroll-wrapper::-webkit-scrollbar {
-  height: 6px;
-}
-.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
-  border-radius: 3px;
-}
-
-.horizontal-scroll {
-  /* Overrides the default grid to create a single row */
-  display: flex; 
-  flex-wrap: nowrap; 
-  gap: 20px; /* Space between product cards */
-  width: max-content; /* Allows the flex container to grow wider than viewport */
-}
-
-.horizontal-scroll .card {
-  /* Defines the size of each card in the scrollable row */
-  flex: 0 0 240px; 
-  max-width: 240px; 
-  scroll-snap-align: start; /* Scroll snaps to the start of the card */
-}
-
-/* Adjust size for mobile view */
-@media (max-width: 520px) {
-  .horizontal-scroll .card {
-    flex: 0 0 180px;
-    max-width: 180px;
-  }
-}
-
-/* --- End of Horizontal Scroll / Carousel Styles --- */
-/* --- Horizontal Scroll / Carousel Styles for Similar Products --- */
 .horizontal-scroll-container {
   /* NEW container for scroll area and buttons */
   position: relative; 
@@ -678,7 +494,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   .horizontal-scroll-container {
     padding: 0;
   }
-  .scroll-nav-btn {
+  .scroll-nav-btn.left, .scroll-nav-btn.right {
     display: none;
   }
   .horizontal-scroll .card {
@@ -704,4 +520,156 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     background: #c0392b; /* Dark red background */
     color: #fff;
     border: 1px solid #a83227;
+}
+
+/* --- Product Options Container & Grid Styles (New/Updated for Horizontal Scroll) --- */
+.product-options-container {
+    margin-top: 24px;
+    padding: 18px;
+    background: var(--glass);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.02);
+    /* Ensure it takes full width when wrapped inside the flex product-grid */
+    width: 100%; 
+}
+
+/* New container for options scroll area and buttons, similar to similar products */
+.options-scroll-container {
+    position: relative; 
+    padding: 0 40px; /* Space for the buttons */
+    margin-top: 14px;
+}
+
+.options-scroll-wrapper {
+    /* Enables horizontal scrolling/swiping */
+    overflow-x: auto; 
+    padding-bottom: 12px; /* Gives space for the scrollbar */
+    -webkit-overflow-scrolling: touch; 
+    scroll-snap-type: x mandatory; 
+}
+
+/* Scrollbar styling for options wrapper */
+.options-scroll-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+.options-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+}
+
+
+.options-grid {
+    display: flex; /* Change from grid to flex for horizontal scrolling */
+    flex-wrap: nowrap; /* Forces all items onto a single line */
+    gap: 10px;
+    width: max-content; /* Allows the flex container to grow wider than viewport */
+}
+
+/* Overwrite general scroll-nav-btn positioning for options container */
+.options-scroll-container > .scroll-nav-btn {
+    position: absolute;
+    top: 50%;
+    /* 12px padding-bottom / 2 = 6px offset for vertical center */
+    transform: translateY(calc(-50% - 6px)); 
+    z-index: 10;
+    display: flex; /* Ensure display flex for centering, as it might be overridden */
+}
+.options-scroll-container > .scroll-nav-btn.options-left {
+    left: 0; 
+}
+.options-scroll-container > .scroll-nav-btn.options-right {
+    right: 0; 
+}
+
+
+.product-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--card);
+    border: 2px solid transparent; /* Default transparent border */
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    padding: 8px;
+    /* Use button styling reset */
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+    color: inherit;
+    
+    /* Set a fixed size for each option card to enable swiping/scrolling */
+    flex: 0 0 150px; /* Desktop: 150px fixed width */
+    max-width: 150px; 
+    scroll-snap-align: start; 
+}
+
+.product-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.product-option.active-option {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.product-option.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--bg);
+}
+
+.option-image-wrap {
+    width: 100%;
+    padding-top: 100%; /* Square aspect ratio for the option image */
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    background: var(--glass);
+}
+
+.option-image-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.option-text {
+    padding: 4px 0;
+    min-height: 40px; /* Gives some vertical stability */
+}
+
+.option-title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.option-name-display {
+    color: var(--muted);
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+/* Override for small screen (Horizontal Scroll Focus) */
+@media (max-width: 520px) { 
+    .options-scroll-container {
+        padding: 0; /* Remove padding for arrows on small screens */
+    }
+    .options-scroll-container .scroll-nav-btn {
+        display: none; /* Hide arrows on mobile to encourage swiping */
+    }
+    .product-option {
+        /* On mobile, make the options a bit smaller for better fit */
+        flex: 0 0 120px;
+        max-width: 120px;
+    }
 }

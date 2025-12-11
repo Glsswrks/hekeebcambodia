@@ -471,6 +471,20 @@ function scrollSimilarProducts(direction) {
     grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 }
 
+// NEW: Function to handle scrolling for product options
+function scrollProductOptions(direction) {
+    const grid = document.getElementById('optionsGrid');
+    if (!grid) return;
+
+    // Fixed width + gap for option cards: 150px card width + 10px gap
+    const cardWidth = 160; 
+    const scrollAmount = cardWidth * (direction === 'next' ? 1 : -1);
+    
+    // Smooth scroll behavior
+    grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
+
+
 function renderSimilarProductsSection(currentProductId) {
     const similarSection = document.getElementById('similarProductsSection');
     const otherProducts = allProducts.filter(p => p.id !== currentProductId);
@@ -604,7 +618,20 @@ function renderProductDetail(product){
 
     // NEW LOGIC: Check if options exist to conditionally render the options container
     const hasOptions = product.options && product.options.length > 0;
-    const optionsPlaceholderHTML = hasOptions ? '<div class="product-options-container" id="productOptionsContainer"></div>' : '';
+    
+    // MODIFIED: Use a wrapping div for the options scrolling structure
+    const optionsPlaceholderHTML = hasOptions ? `
+        <div class="product-options-container">
+            <h3>Available Options</h3>
+            <div class="options-scroll-container">
+                <button class="scroll-nav-btn options-left" aria-label="Previous option">&lt;</button>
+                <div class="options-scroll-wrapper">
+                    <div id="optionsGrid" class="options-grid horizontal-scroll"></div>
+                </div>
+                <button class="scroll-nav-btn options-right" aria-label="Next option">&gt;</button>
+            </div>
+        </div>
+    ` : '';
 
 
     container.innerHTML = `
@@ -622,9 +649,7 @@ function renderProductDetail(product){
 
     // 2. Render Options and Initial Display
     if (hasOptions) {
-        const optionsContainer = document.getElementById('productOptionsContainer');
-        optionsContainer.innerHTML = '<h3>Available Options</h3><div class="options-grid" id="optionsGrid"></div>';
-        const optionsGrid = optionsContainer.querySelector('.options-grid');
+        const optionsGrid = document.getElementById('optionsGrid');
 
         // Logic to handle option click
         const handleOptionClick = (option) => {
@@ -644,6 +669,12 @@ function renderProductDetail(product){
              // If the only options are unavailable, render with null selection
             updateProductDisplay(null);
         }
+        
+        // NEW: Attach scroll event listeners
+        const optionsContainer = document.querySelector('.product-options-container');
+        optionsContainer.querySelector('.scroll-nav-btn.options-left').addEventListener('click', () => scrollProductOptions('prev'));
+        optionsContainer.querySelector('.scroll-nav-btn.options-right').addEventListener('click', () => scrollProductOptions('next'));
+
     } else {
         // If no options at all (hasOptions is false), render with default settings.
         updateProductDisplay(null);
