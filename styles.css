@@ -209,8 +209,146 @@ body{margin:0;background:linear-gradient(180deg,#050607 0%,#0b0d10 100%);color:#
 .product-image { flex:1 1 420px; }
 .product-info { flex:1 1 360px; background:var(--glass); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); }
 .product-info h1{ margin:0 0 8px; }
+
+/* NEW: Style for the option name next to the H1 title */
+.product-info .option-name-display {
+    color: var(--muted);
+    font-size: 1.15rem; /* Slightly smaller than the h1 but noticeable */
+    font-weight: 500;
+    margin-left: 5px;
+}
+
 .specs{ margin:12px 0 0; padding:0; list-style:none; color:var(--muted); }
 .back-link{ display:inline-block; margin-top:14px; color:var(--muted); text-decoration:none; }
+
+/* NEW: Product Options Container Styles */
+.product-options-container {
+    flex: 1 1 100%; /* Make it full width below image/info */
+    margin-top: 28px;
+    padding: 18px;
+    background: var(--glass);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.02);
+}
+.product-options-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+.options-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* Allow horizontal scrolling if many options */
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+.options-grid::-webkit-scrollbar {
+    height: 6px;
+}
+.options-grid::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+}
+
+.product-option {
+    /* Base style for the clickable option card */
+    display: block;
+    flex: 0 0 120px; /* Small-medium fixed width */
+    max-width: 120px;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.product-option:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* NEW: Style for the active option card */
+.product-option.active-option {
+    border-color: var(--accent); /* Highlight the selected option */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.product-option.active-option .option-title {
+    color: #fff; /* Make the active title color stand out */
+    font-weight: 600;
+}
+
+
+.option-image-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Square aspect ratio */
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--bg);
+}
+
+.option-image-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 160ms ease;
+}
+
+.option-text {
+    padding-top: 8px;
+    text-align: center;
+}
+
+.option-title {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    line-height: 1.2;
+    /* Truncate long titles */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Locked (Unavailable) State */
+.product-option.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* Disable all mouse events */
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.product-option.locked .option-image-wrap::after {
+    content: 'Sold Out';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+
+.product-option.locked:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+}
+
 
 /* Carousel styles */
 .carousel {

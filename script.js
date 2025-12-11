@@ -23,7 +23,9 @@ const productData = {
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg"
     ],
-    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","2 Profile RT Button","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"]
+    specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","2 Profile RT Button","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"],
+    // NEW: Options for keyboard
+    options: null
   },
    {
 
@@ -41,7 +43,8 @@ const productData = {
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_9.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_14.jpg"
     ],
-    specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.125ms Low Latency","256k scanning-rate","Zero Dead-Zone","Electric Light-Box","Precision 0.01mm","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
+    specs: ["68% (68 keys)","ABS + PC with Aluminum Alloy","ABS Double-Shot Keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.125ms Low Latency","256k scanning-rate","Zero Dead-Zone","Electric Light-Box","Precision 0.01mm","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"],
+    options: null // No options for this product
    },
    {
 
@@ -59,7 +62,8 @@ const productData = {
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_65_Hot-Swappable_Rapid_Trigger_Keyboard_1.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png"
     ],
-    specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"]
+    specs: ["65% (68 keys)","Full Aluminum CNC","Hot‑swap / magnetic switches","16K/8K Hz Polling rate","0.06ms/0.125ms Ultra Low Latency","256k scanning-rate","Zero Dead-Zone","2/4 PCB Layers","Adaptive Dynamic Calibration 2.0","Electric Light-Box","Precision 0.01mm","3 Rapid-Trigger profile support","RT Button profile switch","Multi-Function Knob","Dual Drivers Support","16M ARGB, Music Rhythm 2.0, Aura Sync Lightning","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Wired Connection","Proprietary MCR original height profile"],
+    options: null
    }
   ],
   mice: [
@@ -76,7 +80,8 @@ const productData = {
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/30.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/40.jpg",
       ],
-      specs: ["Paw3950 Sensor", "36Gram Weight", "8K Hz Polling-Rate", "MCU Nordic-52840", "Track Speed 750IPS","30k DPI", "Acceleration 50g", "Omron Optical Switches", "Wireless / Wired", "Web-Based Driver", "Yellow Color Available"]
+      specs: ["Paw3950 Sensor", "36Gram Weight", "8K Hz Polling-Rate", "MCU Nordic-52840", "Track Speed 750IPS","30k DPI", "Acceleration 50g", "Omron Optical Switches", "Wireless / Wired", "Web-Based Driver", "Yellow Color Available"],
+      options: null
     },
     {
       id: "atkf1pro",
@@ -102,7 +107,8 @@ const productData = {
         "Wireless (2.4GHz) / Wired / Bluetooth (varies by model)",
         "Ice-feeling Coating",
         "ATK HUB/Web Driver Supported"
-      ]
+      ],
+      options: null
     },
     {
       id: "vxer1se",
@@ -132,7 +138,8 @@ const productData = {
         "Tri-Mode: 2.4G Wireless / Bluetooth 5.3 / Wired Type-C",
         "520mAh Battery (R1 SE+ model), 250mAh (R1 SE)",
         "Web-Driver Customization"
-      ]
+      ],
+      options: null
     },
     {
       id: "lamzumayax",
@@ -140,7 +147,7 @@ const productData = {
       short: "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
       price: 120, // Approximate price
       layout: "47g",
-      available: true,
+      available: false,
       images: [
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/1.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/2.jpg",
@@ -167,6 +174,14 @@ const productData = {
         "Symmetrical Shape (Small/Medium Hands)",
         "Wireless (2.4GHz) / Wired (Type-C)",
         "Web-Based Aurora Driver"
+      ],
+      // NEW: Options for mouse colors/versions
+      options: [
+        { name: "Purple Shadow", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg" },
+        { name: "Light Pink", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg" },
+        { name: "Charcoal Black", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/black.jpg" },
+        { name: "White", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/white.jpg" },
+        { name: "Cloud Gray", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/cloud.jpg" },
       ]
     },
   ]
@@ -219,9 +234,14 @@ function whatsappLink(product){
   return `${base}?text=${text}`;
 }
 
-function purchaseTelegramLink(product) {
-    // Prefix text with product details as requested
-    const text = encodeURIComponent(`Hello, I would like to purchase the ${product.title} (ID: ${product.id}). Is it still available for $${product.price}?`);
+function purchaseTelegramLink(product, optionName = null) {
+    // Prefix text with product details
+    let purchaseText = `Hello, I would like to purchase the ${product.title}`;
+    if (optionName) {
+        purchaseText += ` (${optionName} option)`;
+    }
+    purchaseText += ` (ID: ${product.id}). Is it still available for $${product.price}?`;
+    const text = encodeURIComponent(purchaseText);
     return `https://t.me/${TELEGRAM_HANDLE}?text=${text}`;
 }
 
@@ -280,6 +300,39 @@ function createProductCard(p) {
     return card;
 }
 
+// MODIFIED: Function to create a product option card. Now uses a button/div and takes a click handler.
+function createOptionCard(product, option, onSelect) {
+    // Use button for clickable options, div for unclickable ones for semantics
+    const optionElement = document.createElement(option.available ? 'button' : 'div');
+    // Ensure all options have the base class for styling
+    optionElement.className = 'product-option' + (option.available ? '' : ' locked');
+    optionElement.type = 'button'; // Explicitly set type for button
+    optionElement.tabIndex = option.available ? 0 : -1;
+    optionElement.dataset.optionName = option.name; // Use for selection logic
+
+    if (option.available) {
+        // The click handler now calls the provided onSelect function
+        optionElement.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default button behavior
+            onSelect(option);
+        });
+    } else {
+        optionElement.setAttribute('aria-disabled', 'true');
+        optionElement.addEventListener('click', (e) => e.preventDefault()); // Just in case
+    }
+
+    // Inner HTML remains the same as before, no need for an <a> tag
+    optionElement.innerHTML = `
+        <div class="option-image-wrap">
+            <img src="${option.image}" alt="${product.title} - ${option.name}" loading="lazy">
+        </div>
+        <div class="option-text">
+            <h4 class="option-title">${option.name}</h4>
+        </div>
+    `;
+
+    return optionElement;
+}
 
 /* ---------- Index page: render product cards (LIMITED VIEW) ---------- */
 function renderIndexCards(list, gridId, moreContainerId, categoryName){
@@ -449,44 +502,157 @@ function renderSimilarProductsSection(currentProductId) {
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
+// MODIFIED: Product Detail Rendering Logic to handle options state
 function renderProductDetail(product){
-  const container = document.getElementById('productContainer');
-  if(!container) return;
+    const container = document.getElementById('productContainer');
+    if(!container) return;
 
-  if(!product){
-    container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
-    return;
-  }
-  let actionButtonHTML;
-  if (product.available) {
-      const telegramPurchaseHref = purchaseTelegramLink(product);
-      actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="${telegramPurchaseHref}" target="_blank" rel="noopener">Purchase via Telegram</a>`;
-  } else {
-      actionButtonHTML = `<span class="stock-label out-of-stock">Unavailable</span>`; // out of stock or unavailable label
-  }
+    if(!product){
+      container.innerHTML = '<div style="color:var(--muted)">Product not found. <a href="index.html">Back to shop</a></div>';
+      return;
+    }
 
-  // 1. Render main product details 
-  container.innerHTML = `
-    <div class="product-image"></div>
-    <div class="product-info">
-      <h1>${product.title}</h1>
-      <p class="muted">${product.short}</p>
-      <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
-      <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-        ${actionButtonHTML}
-      </div>
-      <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
-    </div>
-  `;
-  const imageContainer = container.querySelector('.product-image');
-  const images = Array.isArray(product.images) && product.images.length ? product.images : [];
-  const carousel = createCarousel(images);
-  imageContainer.appendChild(carousel);
-  
-  carousel.focus();
-  renderSimilarProductsSection(product.id);
+    // Store the original images for reference
+    const defaultImages = product.images; 
+    let selectedOption = null;
+
+    // Helper to update the DOM based on the current selection
+    function updateProductDisplay(option) {
+        selectedOption = option;
+
+        const titleEl = container.querySelector('#productTitle');
+        const purchaseBtn = container.querySelector('#purchaseBtn');
+        const imagesContainer = container.querySelector('.product-image');
+
+        // 1. Update Title (e.g., "Lamzu Maya X 8K" + " (Polaris)")
+        if (titleEl) {
+            if (selectedOption) {
+                // Use a span for the option name to apply muted color via CSS
+                titleEl.innerHTML = `${product.title} <span class="option-name-display">(${selectedOption.name})</span>`;
+            } else {
+                titleEl.innerHTML = product.title;
+            }
+        }
+
+        // 2. Update Images/Carousel
+        let newImages = defaultImages;
+        if (selectedOption && selectedOption.image) {
+            // Use the option image as the first slide, then the rest of the defaults
+            // Filter out the option image if it already exists in the default list to prevent duplicates
+            newImages = [selectedOption.image, ...defaultImages.filter(img => img !== selectedOption.image)];
+        } 
+
+        // Re-render the carousel with the new image set
+        imagesContainer.innerHTML = '';
+        const carousel = createCarousel(newImages);
+        imagesContainer.appendChild(carousel);
+        carousel.focus();
+
+        // 3. Update Purchase Link
+        if (purchaseBtn) {
+            if (product.available) {
+                const optionNameForLink = selectedOption ? selectedOption.name : null;
+                const telegramPurchaseHref = purchaseTelegramLink(product, optionNameForLink);
+                
+                purchaseBtn.href = telegramPurchaseHref;
+                
+                // Update button text based on selection
+                let buttonText = "Purchase via Telegram";
+                if (selectedOption && selectedOption.available) {
+                    buttonText = `Purchase ${selectedOption.name} via Telegram`;
+                    purchaseBtn.classList.remove('locked');
+                    purchaseBtn.disabled = false;
+                } else if (!selectedOption && product.available) {
+                     buttonText = `Purchase via Telegram`;
+                     purchaseBtn.classList.remove('locked');
+                     purchaseBtn.disabled = false;
+                } else {
+                    buttonText = `Unavailable`;
+                    purchaseBtn.classList.add('locked');
+                    purchaseBtn.disabled = true;
+                }
+                 purchaseBtn.textContent = buttonText;
+            } else {
+                 purchaseBtn.classList.add('locked');
+                 purchaseBtn.disabled = true;
+                 purchaseBtn.textContent = `Unavailable`;
+            }
+        }
+
+
+        // 4. Update active class on option cards
+        const optionsGrid = document.getElementById('optionsGrid');
+        if(optionsGrid) {
+            optionsGrid.querySelectorAll('.product-option').forEach(card => {
+                const cardName = card.dataset.optionName;
+                if (selectedOption && cardName === selectedOption.name) {
+                    card.classList.add('active-option');
+                } else {
+                    card.classList.remove('active-option');
+                }
+            });
+        }
+    }
+    
+    // Initial HTML structure render
+    let actionButtonHTML = '';
+    // The initial product.available check is now mostly handled inside updateProductDisplay
+    actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`;
+    if (!product.available) {
+        actionButtonHTML = `<span class="stock-label out-of-stock">Unavailable</span>`;
+    }
+
+    // NEW LOGIC: Check if options exist to conditionally render the options container
+    const hasOptions = product.options && product.options.length > 0;
+    const optionsPlaceholderHTML = hasOptions ? '<div class="product-options-container" id="productOptionsContainer"></div>' : '';
+
+
+    container.innerHTML = `
+        <div class="product-image"></div>
+        <div class="product-info">
+            <h1 id="productTitle">${product.title}</h1> <p class="muted">${product.short}</p>
+            <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${product.price}</div>
+            <ul class="specs">${product.specs.map(s=>`<li>• ${s}</li>`).join('')}</ul>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                ${actionButtonHTML}
+            </div>
+            <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
+        </div>
+        ${optionsPlaceholderHTML} `;
+
+    // 2. Render Options and Initial Display
+    if (hasOptions) {
+        const optionsContainer = document.getElementById('productOptionsContainer');
+        optionsContainer.innerHTML = '<h3>Available Options</h3><div class="options-grid" id="optionsGrid"></div>';
+        const optionsGrid = optionsContainer.querySelector('.options-grid');
+
+        // Logic to handle option click
+        const handleOptionClick = (option) => {
+            updateProductDisplay(option);
+        };
+
+        product.options.forEach(option => {
+            optionsGrid.appendChild(createOptionCard(product, option, handleOptionClick));
+        });
+
+        // Set the default option selection to the first available option
+        const initialOption = product.options.find(o => o.available) || product.options[0];
+        if (initialOption && initialOption.available) {
+            // Initial render state should reflect the first available selected option
+            updateProductDisplay(initialOption);
+        } else {
+             // If the only options are unavailable, render with null selection
+            updateProductDisplay(null);
+        }
+    } else {
+        // If no options at all (hasOptions is false), render with default settings.
+        updateProductDisplay(null);
+    }
+
+    // 3. Render Similar Products
+    renderSimilarProductsSection(product.id);
 }
+
 function createCarousel(images) {
   const wrapper = document.createElement('div');
   wrapper.className = 'carousel';
@@ -612,6 +778,9 @@ function createCarousel(images) {
   });
   wrapper.tabIndex = 0;
 
+  // Force update when image set changes, ensuring the carousel starts at index 0
+  index = 0;
+  slidesCount = images.length;
   update();
 
   const slideImgs = track.querySelectorAll('img');
