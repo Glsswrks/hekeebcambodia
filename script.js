@@ -25,7 +25,11 @@ const productData = {
     ],
     specs: ["60% (61 keys)","Full Aluminum CNC case","PBT dye‑sublimation keycaps","Hot‑swap / magnetic switches","8K Hz Polling rate","0.08ms Ultra Low Latency","256k scanning-rate","Precision 0.001mm","Super stable RT","32K N-Key Scanning-rate","2 Profile RT Button","Functions SOCD / DKS / RT / MT / TGL / Key remapping","Champion Preset","Cherry Profile Keycaps"],
     // NEW: Options for keyboard
-    options: null
+    // NEW: Options for mouse colors/versions
+      options: [
+        { name: "LEVIANTAN Edition", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/leviatan.jpg" },
+        { name: "WOLVES Edition", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/wolves.jpg" },
+      ]
   },
    {
 
@@ -147,7 +151,7 @@ const productData = {
       short: "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
       price: 120, // Approximate price
       layout: "47g",
-      available: false,
+      available: true,
       images: [
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/1.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/2.jpg",
@@ -177,8 +181,8 @@ const productData = {
       ],
       // NEW: Options for mouse colors/versions
       options: [
-        { name: "Purple Shadow", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg" },
-        { name: "Light Pink", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg" },
+        { name: "Purple Shadow", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg" },
+        { name: "Light Pink", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg" },
         { name: "Charcoal Black", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/black.jpg" },
         { name: "White", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/white.jpg" },
         { name: "Cloud Gray", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/cloud.jpg" },
@@ -300,7 +304,7 @@ function createProductCard(p) {
     return card;
 }
 
-// MODIFIED: Function to create a product option card. Now uses a button/div and takes a click handler.
+// MODIFIED: Function to create a product option card. Moves 'Sold out' label inside the image wrap.
 function createOptionCard(product, option, onSelect) {
     // Use button for clickable options, div for unclickable ones for semantics
     const optionElement = document.createElement(option.available ? 'button' : 'div');
@@ -321,10 +325,11 @@ function createOptionCard(product, option, onSelect) {
         optionElement.addEventListener('click', (e) => e.preventDefault()); // Just in case
     }
 
-    // Inner HTML remains the same as before, no need for an <a> tag
+    // Inner HTML is modified to place the 'Sold out' label inside the image wrap.
     optionElement.innerHTML = `
         <div class="option-image-wrap">
             <img src="${option.image}" alt="${product.title} - ${option.name}" loading="lazy">
+            ${option.available ? '' : '<span class="option-stock-label">Sold out</span>'}
         </div>
         <div class="option-text">
             <h4 class="option-title">${option.name}</h4>
@@ -460,6 +465,7 @@ function initCategoryPage() {
     });
 }
 
+// Function to handle scrolling for similar products (keep this one)
 function scrollSimilarProducts(direction) {
     const grid = document.getElementById('similarProductsGrid');
     if (!grid) return;
@@ -471,19 +477,7 @@ function scrollSimilarProducts(direction) {
     grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 }
 
-// NEW: Function to handle scrolling for product options
-function scrollProductOptions(direction) {
-    const grid = document.getElementById('optionsGrid');
-    if (!grid) return;
-
-    // Fixed width + gap for option cards: 150px card width + 10px gap
-    const cardWidth = 160; 
-    const scrollAmount = cardWidth * (direction === 'next' ? 1 : -1);
-    
-    // Smooth scroll behavior
-    grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-}
-
+// REMOVED scrollProductOptions function
 
 function renderSimilarProductsSection(currentProductId) {
     const similarSection = document.getElementById('similarProductsSection');
@@ -516,7 +510,7 @@ function renderSimilarProductsSection(currentProductId) {
     similarSection.insertAdjacentHTML('afterend', backLinkHTML);
 }
 
-// MODIFIED: Product Detail Rendering Logic to handle options state
+// MODIFIED: Product Detail Rendering Logic (Removed option scroll button elements/listeners)
 function renderProductDetail(product){
     const container = document.getElementById('productContainer');
     if(!container) return;
@@ -564,28 +558,25 @@ function renderProductDetail(product){
 
         // 3. Update Purchase Link
         if (purchaseBtn) {
-            if (product.available) {
+            // Check if the overall product is available or if a specific option is selected and available
+            const isPurchasable = product.available && (!selectedOption || selectedOption.available);
+            
+            if (isPurchasable) {
                 const optionNameForLink = selectedOption ? selectedOption.name : null;
                 const telegramPurchaseHref = purchaseTelegramLink(product, optionNameForLink);
                 
                 purchaseBtn.href = telegramPurchaseHref;
                 
                 // Update button text based on selection
-                let buttonText = "Purchase via Telegram";
+                let buttonText = `Purchase : ${product.title}`;
+                /*
                 if (selectedOption && selectedOption.available) {
-                    buttonText = `Purchase ${selectedOption.name} via Telegram`;
-                    purchaseBtn.classList.remove('locked');
-                    purchaseBtn.disabled = false;
-                } else if (!selectedOption && product.available) {
-                     buttonText = `Purchase via Telegram`;
-                     purchaseBtn.classList.remove('locked');
-                     purchaseBtn.disabled = false;
-                } else {
-                    buttonText = `Unavailable`;
-                    purchaseBtn.classList.add('locked');
-                    purchaseBtn.disabled = true;
-                }
+                    buttonText = `Purchase : ${product.title} (${selectedOption.name})`;
+                }*/
+                 purchaseBtn.classList.remove('locked');
+                 purchaseBtn.disabled = false;
                  purchaseBtn.textContent = buttonText;
+
             } else {
                  purchaseBtn.classList.add('locked');
                  purchaseBtn.disabled = true;
@@ -610,7 +601,6 @@ function renderProductDetail(product){
     
     // Initial HTML structure render
     let actionButtonHTML = '';
-    // The initial product.available check is now mostly handled inside updateProductDisplay
     actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`;
     if (!product.available) {
         actionButtonHTML = `<span class="stock-label out-of-stock">Unavailable</span>`;
@@ -619,16 +609,14 @@ function renderProductDetail(product){
     // NEW LOGIC: Check if options exist to conditionally render the options container
     const hasOptions = product.options && product.options.length > 0;
     
-    // MODIFIED: Use a wrapping div for the options scrolling structure
+    // MODIFIED: Removed the scroll-nav-btn elements
     const optionsPlaceholderHTML = hasOptions ? `
         <div class="product-options-container">
             <h3>Available Options</h3>
             <div class="options-scroll-container">
-                <button class="scroll-nav-btn options-left" aria-label="Previous option">&lt;</button>
                 <div class="options-scroll-wrapper">
                     <div id="optionsGrid" class="options-grid horizontal-scroll"></div>
                 </div>
-                <button class="scroll-nav-btn options-right" aria-label="Next option">&gt;</button>
             </div>
         </div>
     ` : '';
@@ -670,10 +658,7 @@ function renderProductDetail(product){
             updateProductDisplay(null);
         }
         
-        // NEW: Attach scroll event listeners
-        const optionsContainer = document.querySelector('.product-options-container');
-        optionsContainer.querySelector('.scroll-nav-btn.options-left').addEventListener('click', () => scrollProductOptions('prev'));
-        optionsContainer.querySelector('.scroll-nav-btn.options-right').addEventListener('click', () => scrollProductOptions('next'));
+        // Removed scroll button listeners
 
     } else {
         // If no options at all (hasOptions is false), render with default settings.

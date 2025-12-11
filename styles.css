@@ -494,7 +494,8 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   .horizontal-scroll-container {
     padding: 0;
   }
-  .scroll-nav-btn.left, .scroll-nav-btn.right {
+  .scroll-nav-btn {
+    /* Hiding the similar product buttons on mobile */
     display: none;
   }
   .horizontal-scroll .card {
@@ -522,7 +523,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     border: 1px solid #a83227;
 }
 
-/* --- Product Options Container & Grid Styles (New/Updated for Horizontal Scroll) --- */
+/* --- Product Options Container & Grid Styles (Updated for Pure Horizontal Scroll) --- */
 .product-options-container {
     margin-top: 24px;
     padding: 18px;
@@ -533,10 +534,10 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     width: 100%; 
 }
 
-/* New container for options scroll area and buttons, similar to similar products */
+/* New container for options scroll area (Removed button padding) */
 .options-scroll-container {
     position: relative; 
-    padding: 0 40px; /* Space for the buttons */
+    padding: 0; /* REMOVED 0 40px PADDING */
     margin-top: 14px;
 }
 
@@ -563,22 +564,6 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     flex-wrap: nowrap; /* Forces all items onto a single line */
     gap: 10px;
     width: max-content; /* Allows the flex container to grow wider than viewport */
-}
-
-/* Overwrite general scroll-nav-btn positioning for options container */
-.options-scroll-container > .scroll-nav-btn {
-    position: absolute;
-    top: 50%;
-    /* 12px padding-bottom / 2 = 6px offset for vertical center */
-    transform: translateY(calc(-50% - 6px)); 
-    z-index: 10;
-    display: flex; /* Ensure display flex for centering, as it might be overridden */
-}
-.options-scroll-container > .scroll-nav-btn.options-left {
-    left: 0; 
-}
-.options-scroll-container > .scroll-nav-btn.options-right {
-    right: 0; 
 }
 
 
@@ -617,7 +602,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 }
 
 .product-option.locked {
-    opacity: 0.5;
+    opacity: 1; /* Keep full opacity but dim the image */
     cursor: not-allowed;
     background: var(--bg);
 }
@@ -639,11 +624,21 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: filter 160ms ease; /* Added transition for filter */
 }
 
+/* Dim the image behind the label for unavailable options */
+.product-option.locked .option-image-wrap img {
+    filter: brightness(50%) grayscale(50%);
+}
+
+/* MODIFIED: Add flex to center content with space for new label */
 .option-text {
     padding: 4px 0;
     min-height: 40px; /* Gives some vertical stability */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .option-title {
@@ -651,6 +646,26 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     font-size: 0.9rem;
     font-weight: 600;
     line-height: 1.2;
+}
+
+/* NEW: Style for the "Sold out" label OVER the image */
+.option-stock-label {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: rgba(192, 57, 43, 0.9); /* Darker red, semi-transparent */
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10; 
+    pointer-events: none;
+    line-height: 1; /* Fix line height for better centering */
 }
 
 .option-name-display {
@@ -662,10 +677,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 /* Override for small screen (Horizontal Scroll Focus) */
 @media (max-width: 520px) { 
     .options-scroll-container {
-        padding: 0; /* Remove padding for arrows on small screens */
-    }
-    .options-scroll-container .scroll-nav-btn {
-        display: none; /* Hide arrows on mobile to encourage swiping */
+        padding: 0; /* Redundant now, but safe to keep */
     }
     .product-option {
         /* On mobile, make the options a bit smaller for better fit */
