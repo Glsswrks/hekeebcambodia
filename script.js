@@ -39,7 +39,7 @@ const productData = {
     layout: "75",
     available: true,
     images: [
-     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/IMG_20251212_143640.png", "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/1.png",
+     "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/thumbnail.png", "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/1.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/2.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/3.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/4.png",
@@ -52,8 +52,8 @@ const productData = {
     // NEW: Options for keyboard
     // NEW: Options for mouse colors/versions
       options: [
-        { name: "Rainbow (None-Backlit(", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png" },
-        { name: "Drive To Win (RGB)", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/white.png" },
+        { name: "Rainbow IP (None-Backlit(", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png" },
+        { name: "Rainbow IP (RGB)", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png" },
       ]
   },
    {
