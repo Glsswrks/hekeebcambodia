@@ -31,6 +31,33 @@ const productData = {
         { name: "WOLVES Edition", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/wolves.jpg" },
       ]
   },
+{
+    id: "atkrs7",
+    title: "ATK RS7",
+    short: "ATK RS7 eSports Hall Effect Keyboard",
+    price: 70,
+    layout: "75",
+    available: true,
+    images: [
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/1.png",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/2.png",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/3.png",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/4.png",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/5.png",
+      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/6.png",
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/7.png",
+
+"https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/8.png",
+    ],
+    specs: ["75% (81 keys)","CNC Top Case", "5 Sided Dye-Sub Keycaps","8K Hz Polling rate","0.3ms Ultra Low Latency","Precision 0.05mm-0.02mm (None-Backlit eSport Edition","RT Range 0.1~3.4mm","4 Padding Layers","ATK V1 Stabilizer","Functions SOCD / DKS / RT / MT / TGL / Key remapping"],
+    // NEW: Options for keyboard
+    // NEW: Options for mouse colors/versions
+      options: [
+        { name: "Rainbow (None-Backlit(", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png },
+        { name: "Drive To Win (RGB)", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/white.png" },
+      ]
+  },
    {
 
     id: "made68pro",
