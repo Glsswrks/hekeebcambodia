@@ -54,7 +54,7 @@ const productData = {
     // NEW: Options for keyboard
     // NEW: Options for mouse colors/versions
       options: [
-        { name: "Rainbow (None-Backlit(", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png },
+        { name: "Rainbow (None-Backlit(", available: true, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/purple.png" },
         { name: "Drive To Win (RGB)", available: false, image: "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7/white.png" },
       ]
   },
