@@ -180,6 +180,19 @@ position: relative;
   .hero-image img {
     max-width: 300px;
   }
+  /* ADD THIS PART BELOW */
+  .hero-bg-overlay {
+    background-position: center; /* Center the keyboard image */
+    opacity: 0.4; /* Slightly lower opacity so text remains readable */
+    
+    /* Adjust masks to be less aggressive on small screens */
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .hero-text {
+    text-align: center;
+    margin: 0 auto;
+  }
 }
 
 .hero-text h1, .hero-text p, .btn.primary {
