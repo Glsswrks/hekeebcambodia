@@ -171,27 +171,38 @@ position: relative;
   50% { transform: translateY(-15px); }
 }
 
-/* Responsive fix */
 @media (max-width: 800px) {
-  .hero-inner {
-    flex-direction: column-reverse;
-    text-align: center;
+  .hero {
+    /* Increase height on mobile to give the full image room to breathe */
+    min-height: 50vh; 
+    padding: 40px 0;
   }
-  .hero-image img {
-    max-width: 300px;
-  }
-  /* ADD THIS PART BELOW */
+
   .hero-bg-overlay {
-    background-position: center; /* Center the keyboard image */
-    opacity: 0.4; /* Slightly lower opacity so text remains readable */
+    /* 1. Show the full image without cropping */
+    background-size: contain; 
+    background-position: top center;
     
-    /* Adjust masks to be less aggressive on small screens */
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    /* 2. Remove the side masks so the edges aren't hidden */
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    
+    /* 3. Increase opacity since it's no longer 'behind' all the text */
+    opacity: 1; 
+    
+    /* 4. Adjust position so it doesn't overlap text too much */
+    top: 0;
+    height: 300px; /* Adjust this height based on your image aspect ratio */
   }
+
+  .hero-inner {
+    flex-direction: column; /* Stack text below the image */
+    padding-top: 320px; /* Push text down so it doesn't cover the full image */
+  }
+
   .hero-text {
     text-align: center;
-    margin: 0 auto;
+    max-width: 100%;
   }
 }
 
