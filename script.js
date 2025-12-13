@@ -162,12 +162,10 @@ const productData = {
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/2.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/3.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/4.jpg",
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/5.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/6.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/7.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/8.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/9.jpg",
-        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/10.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/11.jpg",
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/specs.jpg",
       ],
@@ -585,7 +583,7 @@ function createOptionCard(product, option, onSelect) {
             ${
               option.available
                 ? ""
-                : '<span class="option-stock-label">Sold out</span>'
+                : '<span class="option-stock-label">OUT OF STOCK</span>'
             }
         </div>
         <div class="option-text">
