@@ -1,62 +1,70 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Product — Keeb Cambodia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">Keeb Cambodia</a>
-      <nav class="nav">
-        <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
-    <span class="icon">🌙</span>
-  </button>
-  <a href="#shop">Shop</a>
-  <a href="#" id="contactLink">Contact</a>
-</nav>
-    </div>
-  </header>
-
-  <main class="product-page">
-    <div id="productContainer" class="product-grid">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Product — Keeb Cambodia</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">Keeb Cambodia</a>
+        <nav class="nav">
+          <button id="themeToggle" class="theme-btn"
+            aria-label="Toggle Dark Mode">
+            <span class="icon">🌙</span>
+          </button>
+          <a href="#shop">Shop</a>
+          <a href="#" id="contactLink">Contact</a>
+        </nav>
       </div>
-    
-    <section id="similarProductsSection" class="products container"></section>
-  </main>
+    </header>
 
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> Thanks for supporting our small business.</small>
+    <main class="product-page">
+      <div id="productContainer" class="product-grid">
+      </div>
+
+      <section id="similarProductsSection" class="products container"></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© <span id="year"></span> Thanks for supporting our small
+          business.</small>
+      </div>
+    </footer>
+
+    <div id="contactModal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <h2>Contact Us</h2>
+        <p>You can contact us via link down below or email us:
+          <strong>kazemiglsswrks@gmail.com</strong></p>
+
+        <form class="contact-form">
+          <label for="contactEmail">Email:</label>
+          <input type="email" id="contactEmail" required class="form-input">
+
+          <label for="contactMessage">Description:</label>
+          <textarea id="contactMessage" required class="form-input"></textarea>
+
+          <button type="submit" class="btn primary locked"
+            disabled>Submit</button>
+        </form>
+
+        <div class="modal-actions">
+          <a href="https://wa.me/85512345678" target="_blank"
+            class="btn whatsapp">WhatsApp</a>
+          <a href="https://t.me/glsswrksGG" target="_blank"
+            class="btn telegram">Telegram</a>
+        </div>
+      </div>
     </div>
-  </footer>
 
-<div id="contactModal" class="modal" aria-hidden="true">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close">&times;</button>
-    <h2>Contact Us</h2>
-    <p>You can contact us via link down below or email us: <strong>kazemiglsswrks@gmail.com</strong></p>
-    
-     <form class="contact-form">
-  <label for="contactEmail">Email:</label>
-  <input type="email" id="contactEmail" required class="form-input">
-  
-  <label for="contactMessage">Description:</label>
-  <textarea id="contactMessage" required class="form-input"></textarea>
-  
-  <button type="submit" class="btn primary locked" disabled>Submit</button>
-</form>
-    
-    <div class="modal-actions">
-      <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
-      <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
-    </div>
-  </div>
-</div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

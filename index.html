@@ -1,95 +1,110 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Keeb Cambodia Accessories</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">Keeb Cambodia</a>
-      <nav class="nav">
-       <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
-    <span class="icon">🌙</span>
-  </button>
-  <a href="#shop">Shop</a>
-  <a href="#" id="contactLink">Contact</a>
-</nav>
-    </div>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Keeb Cambodia Accessories</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#">Keeb Cambodia</a>
+        <nav class="nav">
+          <button id="themeToggle" class="theme-btn"
+            aria-label="Toggle Dark Mode">
+            <span class="icon">🌙</span>
+          </button>
+          <a href="#shop">Shop</a>
+          <a href="#" id="contactLink">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-text">
-          <h1>Choose Your Favorite Mechanical / Hall Effect Keyboard</h1>
-          <p>We build custom keyboards that match your style and performance needs. From Hall-Effect (HE) keyboards to switches, keycaps, and accessories, we focus on quality, speed, and a great typing experience—fully customized for you.</p>
-          <a href="#shop" class="btn primary">See Available Items</a>
+    <main>
+      <section class="hero">
+        <div class="hero-bg-overlay"></div> <div class="container hero-inner">
+          <div class="hero-text">
+            <h1>Choose Your Favorite Mechanical / Hall Effect Keyboard</h1>
+            <p>We build custom keyboards that match your style and performance
+              needs. From Hall-Effect (HE) keyboards to switches, keycaps, and
+              accessories, we focus on quality, speed, and a great typing
+              experience—fully customized for you.</p>
+            <a href="#shop" class="btn primary">See Available Items</a>
+          </div>
+          
         </div>
-        <div class="hero-image">
-          <img src="https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/614dd4777bf7b3b639bddd71_wootplaceholder.png" alt="Mechanical keyboard">
+      </section>
+
+      <section id="shop" class="products container">
+        <div class="section-head">
+          <h2>Available Keyboards</h2>
+          <input type="text" id="keyboardSearch"
+            placeholder="Search keyboards..." class="search-input">
+        </div>
+        <div id="keyboardGrid" class="grid"></div>
+        <div id="keyboardMoreContainer" class="load-more-container"></div>
+      </section>
+
+      <section id="mice" class="products container">
+        <div class="section-head">
+          <h2>Available Mice</h2>
+          <input type="text" id="mouseSearch" placeholder="Search mice..."
+            class="search-input">
+        </div>
+        <div id="mouseGrid" class="grid"></div>
+        <div id="mouseMoreContainer" class="load-more-container"></div>
+      </section>
+
+      <section id="about" class="about-full-wide">
+        <div class="container about-content-box">
+          <h3>About Keeb Cambodia</h3>
+          <p>We bring premium custom keyboards and HE keyboards at affordable
+            prices. Our products are tested for quality, priced below the
+            market, and guaranteed to meet your expectations.</p>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="container">
+          <small>© <span id="year"></span> Thanks for supporting our small
+            business.</small>
+        </div>
+      </footer>
+
+      <div id="contactModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+          <button class="modal-close" aria-label="Close">&times;</button>
+          <h2>Contact Us</h2>
+          <p>You can contact us via link down below or email us:
+            <strong>kazemiglsswrks@gmail.com</strong></p>
+
+          <form class="contact-form">
+            <label for="contactEmail">Email:</label>
+            <input type="email" id="contactEmail" required class="form-input">
+
+            <label for="contactMessage">Description:</label>
+            <textarea id="contactMessage" required
+              class="form-input"></textarea>
+
+            <button type="submit" class="btn primary locked"
+              disabled>Submit</button>
+          </form>
+
+          <div class="modal-actions">
+            <a href="https://wa.me/85512345678" target="_blank"
+              class="btn whatsapp">WhatsApp</a>
+            <a href="https://t.me/glsswrksGG" target="_blank"
+              class="btn telegram">Telegram</a>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section id="shop" class="products container">
-      <div class="section-head">
-        <h2>Available Keyboards</h2>
-        <input type="text" id="keyboardSearch" placeholder="Search keyboards..." class="search-input">
-      </div>
-      <div id="keyboardGrid" class="grid"></div>
-      <div id="keyboardMoreContainer" class="load-more-container"></div>
-    </section>
-    
-    <section id="mice" class="products container">
-      <div class="section-head">
-        <h2>Available Mice</h2>
-        <input type="text" id="mouseSearch" placeholder="Search mice..." class="search-input">
-      </div>
-      <div id="mouseGrid" class="grid"></div>
-      <div id="mouseMoreContainer" class="load-more-container"></div>
-    </section>
+      
 
-
-    <section id="about" class="about-full-wide">
-  <div class="container about-content-box">
-    <h3>About Keeb Cambodia</h3>
-    <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
-  </div>
-</section>
-
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> Thanks for supporting our small business.</small>
-    </div>
-  </footer>
-
-<div id="contactModal" class="modal" aria-hidden="true">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close">&times;</button>
-    <h2>Contact Us</h2>
-    <p>You can contact us via link down below or email us: <strong>kazemiglsswrks@gmail.com</strong></p>
-    
-    <form class="contact-form">
-  <label for="contactEmail">Email:</label>
-  <input type="email" id="contactEmail" required class="form-input">
-  
-  <label for="contactMessage">Description:</label>
-  <textarea id="contactMessage" required class="form-input"></textarea>
-  
-  <button type="submit" class="btn primary locked" disabled>Submit</button>
-</form>
-    
-    <div class="modal-actions">
-      <a href="https://wa.me/85512345678" target="_blank" class="btn whatsapp">WhatsApp</a>
-      <a href="https://t.me/glsswrksGG" target="_blank" class="btn telegram">Telegram</a>
-    </div>
-  </div>
-</div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <script src="script.js"></script>
+    </body>
+  </html>
