@@ -51,9 +51,64 @@ const productData = {
         },
         {
           name: "WOLVES Edition",
-          available: true,
+          available: false,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/wolves.jpg",
+        },
+      ],
+    },
+    {
+      id: "titan68",
+      title: "TITAN68 HE (TITAN NATION)",
+      short:
+        "TITAN68 HE Peak Performance Esports Magnetic Keyboard - TRUE 8000Hz Polling Rate",
+      price: 90,
+      layout: "65",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/4.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/5.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/6.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/7.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/8.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/9.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/11.jpg",
+      ],
+      specs: [
+        "65% (68 keys)",
+        "High-End CNC Aluminum Craftsmanship",
+        "Switches: Gateron Magnetic Jade",
+        "8K Hz Polling rate",
+        "0.125ms Ultra Low Latency",
+        "32K Full keys scan-rate",
+        "RT Range 0.001 ~ 3.4mm",
+        "Multifunction Physical Button (Short press to switch RGB Light, Long press for 3 seconds to switch to RT mode)",
+        "Adjustable Rapid-Trigeer Stablizer Algorithm",
+        "Functions: SOCD / DKS / RT / MT / TGL / Key remapping / Physical Button (Customizable) / Music Rythm / Emergency Stop",
+        "PCB Nano Waterproof Technology",
+        "Aluminum Alloy Position Plate",
+        "Standard PBT Keycaps (TITAN68HE Standard Version), Five-sided Dye-Sub (Side-Lit) For TITAN68HE PRO Version"
+      ],
+      options: [
+        {
+          name: "TITAN68HE PURPLE THEME",
+          available: true,
+          price: 90,
+          image:
+            "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/purple.png",
+        },
+        {
+          name: "TITAN68HE RED THEME",
+          available: true,
+          price: 110,
+          image:
+            "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/red.png",
         },
       ],
     },
@@ -64,7 +119,7 @@ const productData = {
         "ATK RS7 eSports Hall Effect Keyboard, Premium looking 75% keyboard with CNC Top-Case and Aluminum Position Plate",
       price: 70,
       layout: "75",
-      available: true,
+      available: false,
       isNew: false,
       lowStock: false,
       images: [
@@ -189,12 +244,14 @@ const productData = {
         {
           name: "Cyber-Yellow",
           available: true,
+          price: 75,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/cyberpunk.png",
         },
          {
           name: "Ethernal Blue",
           available: true,
+          price: 65,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/blue.png",
         },
@@ -498,99 +555,76 @@ const INITIAL_DESKTOP_LIMIT = DESKTOP_COLUMNS * 2; // 8 items
 function getInitialLimit() {
   return window.innerWidth < 600 ? INITIAL_MOBILE_LIMIT : INITIAL_DESKTOP_LIMIT;
 }
-
-/**
- * Reusable function to create the HTML structure for a single product card.
- * @param {Object} p - The product object.
- * @returns {HTMLElement} The created card div element.
- */
+/* ---------- Product cards ---------- */
 function createProductCard(p) {
   const card = document.createElement("div");
   card.className = "card";
-
-  // Logic for the badge content
   let badgeHTML = "";
   if (p.available) {
-    if (p.isNew) {
-      badgeHTML = `<span class="badge badge-new">New Arrival</span>`;
-    } else if (p.lowStock && p.available) {
-      badgeHTML = `<span class="badge badge-low">Limited Stock</span>`;
-    }
+    if (p.isNew) badgeHTML = `<span class="badge badge-new">New Arrival</span>`;
+    else if (p.lowStock) badgeHTML = `<span class="badge badge-low">Limited Stock</span>`;
   }
-
-  const availClass = p.available
-    ? "availability available"
-    : "availability unavailable";
+  const availClass = p.available ? "availability available" : "availability unavailable";
   const availText = p.available ? "Available" : "Unavailable";
   const href = productLink(p.id);
   const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
 
   card.innerHTML = `
-      <div class="card-image">
-        <a class="card-link" href="${href}">
-          <img src="${cover}" alt="${p.title}">
-        </a>
-        ${badgeHTML} <span class="${priceBadgeClass}">$${p.price}</span>
-      </div>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a class="card-title-link" href="${href}">${p.title}</a>
-        </h4>
-        <p class="muted card-desc">${p.short}</p>
-        <div class="card-footer">
-          <div class="specs-inline muted">${p.layout} • ${
-    p.specs[0] || ""
-  }</div>
-          <div class="availability-wrap">
-            <span class="${availClass}">${availText}</span>
-          </div>
+    <div class="card-image">
+      <a class="card-link" href="${href}">
+        <img src="${cover}" alt="${p.title}">
+      </a>
+      ${badgeHTML} <span class="${priceBadgeClass}">$${p.price}</span>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a class="card-title-link" href="${href}">${p.title}</a>
+      </h4>
+      <p class="muted card-desc">${p.short}</p>
+      <div class="card-footer">
+        <div class="specs-inline muted">${p.layout} • ${p.specs[0] || ""}</div>
+        <div class="availability-wrap">
+          <span class="${availClass}">${availText}</span>
         </div>
       </div>
-    `;
+    </div>
+  `;
   return card;
 }
 
-// MODIFIED: Function to create a product option card. Moves 'Sold out' label inside the image wrap.
+/* ---------- Option cards ---------- */
 function createOptionCard(product, option, onSelect) {
-  // Use button for clickable options, div for unclickable ones for semantics
+  if (!product.available) product.options.forEach((opt) => { opt.available = false; });
   const optionElement = document.createElement(
     product.available ? (option.available ? "button" : "div") : "div"
-  ); // modify this section
-  // Ensure all options have the base class for styling
-  optionElement.className =
-    "product-option" + (product.available ? (option.available ? "" : " locked") : " locked");
-  optionElement.type = "button"; // Explicitly set type for button
+  );
+  optionElement.className = "product-option" + (product.available ? (option.available ? "" : " locked") : " locked");
+  optionElement.type = "button";
   optionElement.tabIndex = option.available ? 0 : -1;
-  optionElement.dataset.optionName = option.name; // Use for selection logic
+  optionElement.dataset.optionName = option.name;
 
   if (product.available && option.available) {
-    // The click handler now calls the provided onSelect function
     optionElement.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent default button behavior
+      e.preventDefault();
       onSelect(option);
     });
   } else {
     optionElement.setAttribute("aria-disabled", "true");
-    optionElement.addEventListener("click", (e) => e.preventDefault()); // Just in case
+    optionElement.addEventListener("click", (e) => e.preventDefault());
   }
-  // Inner HTML is modified to place the 'Sold out' label inside the image wrap.
-  optionElement.innerHTML = `
-        <div class="option-image-wrap">
-            <img src="${option.image}" alt="${product.title} - ${
-    option.name
-  }" loading="lazy">
-            ${
-              option.available
-                ? ""
-                : '<span class="option-stock-label">OUT OF STOCK</span>'
-            }
-        </div>
-        <div class="option-text">
-            <h4 class="option-title">${option.name}</h4>
-        </div>
-    `;
 
+  const priceHTML = (option.price !== undefined) ? `<span class="option-price">$${option.price}</span>` : "";
+  optionElement.innerHTML = `
+    <div class="option-image-wrap">
+      <img src="${option.image}" alt="${option.name}" loading="lazy">
+      ${option.available ? "" : '<span class="option-stock-label">OUT OF STOCK</span>'}
+      ${priceHTML} 
+    </div>
+    <div class="option-text">
+      <h4 class="option-title">${option.name}</h4>
+    </div>
+  `;
   return optionElement;
 }
 
@@ -787,6 +821,7 @@ function renderSimilarProductsSection(currentProductId) {
 }
 
 // MODIFIED: Product Detail Rendering Logic (Removed option scroll button elements/listeners)
+/* ---------- Modified renderProductDetail to fix dynamic pricing ---------- */
 function renderProductDetail(product) {
   const container = document.getElementById("productContainer");
   if (!container) return;
@@ -797,71 +832,58 @@ function renderProductDetail(product) {
     return;
   }
 
-  // Store the original images for reference
   const defaultImages = product.images;
   let selectedOption = null;
 
-  // Helper to update the DOM based on the current selection
+  // FIXED: This function now handles updating the price in the UI
   function updateProductDisplay(option) {
     selectedOption = option;
 
     const titleEl = container.querySelector("#productTitle");
+    const priceEl = container.querySelector("#productPrice"); // Target price element
     const purchaseBtn = container.querySelector("#purchaseBtn");
     const imagesContainer = container.querySelector(".product-image");
 
-    // 1. Update Title (e.g., "Lamzu Maya X 8K" + " (Polaris)")
+    // 1. Update Title and Option Name
     if (titleEl) {
       if (selectedOption) {
-        // Use a span for the option name to apply muted color via CSS
         titleEl.innerHTML = `${product.title} <span class="option-name-display">(${selectedOption.name})</span>`;
       } else {
         titleEl.innerHTML = product.title;
       }
     }
 
-    // 2. Update Images/Carousel
+    // 2. FIXED: Update Price based on selected option
+    if (priceEl) {
+      const currentPrice = (selectedOption && selectedOption.price !== undefined) 
+        ? selectedOption.price 
+        : product.price;
+      priceEl.textContent = `$${currentPrice}`;
+    }
+
+    // 3. Update Images
     let newImages = defaultImages;
     if (product.available) {
-    if (selectedOption && selectedOption.image) {
-      // Use the option image as the first slide, then the rest of the defaults
-      // Filter out the option image if it already exists in the default list to prevent duplicates
-      newImages = [
-        selectedOption.image,
-        ...defaultImages.filter((img) => img !== selectedOption.image),
-      ];
+      if (selectedOption && selectedOption.image) {
+        newImages = [
+          selectedOption.image,
+          ...defaultImages.filter((img) => img !== selectedOption.image),
+        ];
+      }
     }
-  }
-
-    // Re-render the carousel with the new image set
     imagesContainer.innerHTML = "";
     const carousel = createCarousel(newImages);
     imagesContainer.appendChild(carousel);
-    carousel.focus();
 
-    // 3. Update Purchase Link
+    // 4. Update Purchase Link
     if (purchaseBtn) {
-      // Check if the overall product is available or if a specific option is selected and available
-      const isPurchasable =
-        product.available && (!selectedOption || selectedOption.available);
-
+      const isPurchasable = product.available && (!selectedOption || selectedOption.available);
       if (isPurchasable) {
         const optionNameForLink = selectedOption ? selectedOption.name : null;
-        const telegramPurchaseHref = purchaseTelegramLink(
-          product,
-          optionNameForLink
-        );
-
-        purchaseBtn.href = telegramPurchaseHref;
-
-        // Update button text based on selection
-        let buttonText = `Purchase : ${product.title}`;
-        /*
-                if (selectedOption && selectedOption.available) {
-                    buttonText = `Purchase : ${product.title} (${selectedOption.name})`;
-                }*/
+        purchaseBtn.href = purchaseTelegramLink(product, optionNameForLink);
         purchaseBtn.classList.remove("locked");
         purchaseBtn.disabled = false;
-        purchaseBtn.textContent = buttonText;
+        purchaseBtn.textContent = `Purchase via Telegram`;
       } else {
         purchaseBtn.classList.add("locked");
         purchaseBtn.disabled = true;
@@ -869,12 +891,11 @@ function renderProductDetail(product) {
       }
     }
 
-    // 4. Update active class on option cards
+    // 5. Update active class on option cards
     const optionsGrid = document.getElementById("optionsGrid");
     if (optionsGrid) {
       optionsGrid.querySelectorAll(".product-option").forEach((card) => {
-        const cardName = card.dataset.optionName;
-        if (selectedOption && cardName === selectedOption.name) {
+        if (selectedOption && card.dataset.optionName === selectedOption.name) {
           card.classList.add("active-option");
         } else {
           card.classList.remove("active-option");
@@ -883,42 +904,32 @@ function renderProductDetail(product) {
     }
   }
 
-  // Initial HTML structure render
-  let actionButtonHTML = "";
-  actionButtonHTML = `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`;
-  if (!product.available) {
-    actionButtonHTML = `<span class="stock-label out-of-stock">Unavailable</span>`;
-  }
-
-  // NEW LOGIC: Check if options exist to conditionally render the options container
+  // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
+  const actionButtonHTML = product.available 
+    ? `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`
+    : `<span class="stock-label out-of-stock">Unavailable</span>`;
 
-  // MODIFIED: Removed the scroll-nav-btn elements
   const optionsPlaceholderHTML = hasOptions
-    ? `
-        <div class="product-options-container">
+    ? `<div class="product-options-container">
             <h3>Available Options</h3>
             <div class="options-scroll-container">
                 <div class="options-scroll-wrapper">
                     <div id="optionsGrid" class="options-grid horizontal-scroll"></div>
                 </div>
             </div>
-        </div>
-    `
+        </div>`
     : "";
 
   container.innerHTML = `
         <div class="product-image"></div>
         <div class="product-info">
-            <h1 id="productTitle">${product.title}</h1> <p class="muted">${
-    product.short
-  }</p>
-            <div style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.25rem">$${
-              product.price
-            }</div>
-            <ul class="specs">${product.specs
-              .map((s) => `<li>• ${s}</li>`)
-              .join("")}</ul>
+            <h1 id="productTitle">${product.title}</h1>
+            <p class="muted">${product.short}</p>
+            <div id="productPrice" style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.5rem">
+                $${product.price}
+            </div>
+            <ul class="specs">${product.specs.map((s) => `<li>• ${s}</li>`).join("")}</ul>
             <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
                 ${actionButtonHTML}
             </div>
@@ -926,39 +937,21 @@ function renderProductDetail(product) {
         </div>
         ${optionsPlaceholderHTML} `;
 
-  // 2. Render Options and Initial Display
+  // Wire up the options grid
   if (hasOptions) {
     const optionsGrid = document.getElementById("optionsGrid");
-
-    // Logic to handle option click
-    const handleOptionClick = (option) => {
-      updateProductDisplay(option);
-    };
-
     product.options.forEach((option) => {
       optionsGrid.appendChild(
-        createOptionCard(product, option, handleOptionClick)
+        createOptionCard(product, option, (opt) => updateProductDisplay(opt))
       );
     });
 
-    // Set the default option selection to the first available option
-    const initialOption =
-      product.options.find((o) => o.available) || product.options[0];
-    if (initialOption && initialOption.available) {
-      // Initial render state should reflect the first available selected option
-      updateProductDisplay(initialOption);
-    } else {
-      // If the only options are unavailable, render with null selection
-      updateProductDisplay(null);
-    }
-
-    // Removed scroll button listeners
+    const initialOption = product.options.find((o) => o.available) || product.options[0];
+    updateProductDisplay(initialOption);
   } else {
-    // If no options at all (hasOptions is false), render with default settings.
     updateProductDisplay(null);
   }
 
-  // 3. Render Similar Products
   renderSimilarProductsSection(product.id);
 }
 

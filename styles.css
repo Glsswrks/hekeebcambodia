@@ -16,6 +16,24 @@
   --accent: #6366f1;
   --glass: rgba(0, 0, 0, 0.03);
   --hero-shadow: rgba(0, 0, 0, 0.3);
+
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15),
+      0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgb(161, 161, 161);
+    border-radius: 3px;
+  }
+
   body {
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     color: #1e293b;
@@ -90,7 +108,7 @@ body {
 }
 
 .hero {
-position: relative;
+  position: relative;
   overflow: hidden;
   padding: 80px 0;
   min-height: 70vh;
@@ -103,7 +121,8 @@ position: relative;
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 70% 50%, var(--accent), transparent 70%);
-  opacity: 0.15; /* Subltle glow behind the keyboard */
+  opacity: 0.15;
+  /* Subltle glow behind the keyboard */
   z-index: 0;
   pointer-events: none;
 }
@@ -120,31 +139,33 @@ position: relative;
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
-  
+
   /* The "Fade" Effect: Fades to transparent on the left and bottom */
   mask-image: linear-gradient(to left, black 40%, transparent 90%),
-              linear-gradient(to bottom, black 50%, transparent 100%);
+    linear-gradient(to bottom, black 50%, transparent 100%);
   -webkit-mask-image: linear-gradient(to left, black 40%, transparent 90%),
-                      linear-gradient(to bottom, black 50%, transparent 100%);
+    linear-gradient(to bottom, black 50%, transparent 100%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
-  
+
   /* Fallback fade using background overlay if mask is tricky */
-  opacity: 0.6; 
+  opacity: 0.6;
 }
 
 .hero-inner {
   /* Keep relative and z-index from previous step */
   position: relative;
-  z-index: 2; 
+  z-index: 2;
   /* Important: Set display to flex, but remove the 'justify-content: space-between' */
   display: flex;
-  align-items: center; 
+  align-items: center;
   /* Remove 'justify-content: space-between' if it was present here */
   /* Remove 'gap: 40px;' if you want the content to use the full width */
-  width: 100%; /* Ensure it spans the container */
+  width: 100%;
+  /* Ensure it spans the container */
   /* Add padding-top/bottom to container if you removed it from .hero */
-  padding: 28px; /* Use the default container padding */
+  padding: 28px;
+  /* Use the default container padding */
 }
 
 /* 3. The Magic Drop-Shadow */
@@ -154,35 +175,41 @@ position: relative;
   height: auto;
   /* drop-shadow applies to the keyboard shape, not the square box */
   filter: drop-shadow(0 20px 50px var(--hero-shadow));
-  transition: filter 0.3s ease; /* Smooth transition when switching themes */
-  animation: float 6s ease-in-out infinite; /* Adds a premium floating feel */
+  transition: filter 0.3s ease;
+  /* Smooth transition when switching themes */
+  animation: float 6s ease-in-out infinite;
+  /* Adds a premium floating feel */
 }
 
 .hero-text {
-  max-width: 600px; /* Keeps text readable and focused on the left */
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Helps text pop against image */
+  max-width: 600px;
+  /* Keeps text readable and focused on the left */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Helps text pop against image */
   text-align: left;
   margin: 0;
 }
 
 @media (max-width: 800px) {
   .hero {
-    min-height: 60vh; /* Gives the image more vertical presence */
+    min-height: 60vh;
+    /* Gives the image more vertical presence */
     display: flex;
     align-items: center;
   }
 
   .hero-bg-overlay {
     /* 1. Shift the image slightly to the left (35% instead of 50%) */
-    background-position: 35% center; 
+    background-position: 35% center;
     background-size: cover;
-    opacity: 0.7; /* Keep it bright enough to see clearly */
+    opacity: 0.7;
+    /* Keep it bright enough to see clearly */
 
     /* 2. Update mask to fade only the very edges so the full keyboard shows */
     mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
-                linear-gradient(to bottom, black 70%, transparent 100%);
+      linear-gradient(to bottom, black 70%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
-                        linear-gradient(to bottom, black 70%, transparent 100%);
+      linear-gradient(to bottom, black 70%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
   }
@@ -771,7 +798,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 }
 
 .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(112, 112, 112);
   border-radius: 3px;
 }
 
@@ -963,6 +990,21 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   background: var(--bg);
 }
 
+/* Price badge for the small option thumbnails */
+.option-price {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 3;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
 .option-image-wrap {
   width: 100%;
   padding-top: 100%;
@@ -1053,9 +1095,12 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 .availability-wrap {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Aligns both to the right edge */
-  gap: 2px; /* Small gap between badge and status */
+  align-items: flex-end;
+  /* Aligns both to the right edge */
+  gap: 2px;
+  /* Small gap between badge and status */
 }
+
 /* Position the badge over the image */
 .card-image {
   position: relative;
@@ -1066,7 +1111,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   top: 10px;
   left: 10px;
   z-index: 2;
-  
+
   /* The "good" font styles from before */
   display: inline-block;
   padding: 4px 8px;
@@ -1076,18 +1121,23 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1;
-  pointer-events: none; /* Allows clicking the image through the badge */
+  pointer-events: none;
+  /* Allows clicking the image through the badge */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
+
 .badge-new {
   /*background-color: var(--accent); /* Your purple brand color */
   background-color: rgb(135, 114, 255);
   color: #ffffff;
 }
+
 .badge-low {
-  background-color: #ff9f43; /* Bright orange for urgency */
+  background-color: #ff9f43;
+  /* Bright orange for urgency */
   color: #fff;
 }
+
 /* Reset availability-wrap so it doesn't stack anymore */
 .availability-wrap {
   display: flex;
