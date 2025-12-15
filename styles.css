@@ -1310,3 +1310,22 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 .cart-items-list::-webkit-scrollbar-thumb:hover {
   background: #937bfe; /* Slightly lighter on hover */
 }
+
+@media (max-width: 768px) {
+  .hero {
+    /* Optional: You can change the background color here if needed */
+    background-image: none !important; 
+  }
+
+  /* If you have a specific overlay div for the image */
+  .hero-bg-overlay {
+    opacity: 0 !important;
+    display: none;
+  }
+  
+  /* Ensure the text is still readable and centered on mobile */
+  .hero-inner {
+    text-align: center;
+    padding: 60px 20px;
+  }
+}
