@@ -664,7 +664,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }
-  } cartupdateUI();
+  } 
+  Cart.updateUI(); // Refresh data before showing
   }
 });
 
@@ -1054,7 +1055,7 @@ function renderProductDetail(product) {
         newBtn.classList.remove("locked");
         newBtn.classList.add("add-to-cart"); // New style class
         newBtn.disabled = false;
-        newBtn.textContent = "Add to Cart +";
+        newBtn.textContent = "Add to Cart";
         newBtn.href = "#";
         
         // Add Click Listener
@@ -1299,10 +1300,8 @@ function syncCartBadge() {
     
     if (badge) {
       badge.textContent = items.length;
-      // Show badge if items > 0, otherwise hide it
       if (items.length > 0) {
         badge.classList.remove("hidden");
-        badge.style.display = "flex"; // Force display if hidden class is stubborn
       } else {
         badge.classList.add("hidden");
         badge.style.display = "none";
