@@ -1329,3 +1329,42 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     padding: 60px 20px;
   }
 }
+
+@media (max-width: 520px) {
+  /* 1. Reduce the padding on the header container so items can hit the edges */
+  .header-inner {
+    padding: 0 10px !important;
+    gap: 5px; /* Reduce gap between Brand and Nav */
+  }
+
+  /* 2. Shrink the Brand text slightly */
+  .brand {
+    font-size: 1.1rem !important;
+    letter-spacing: -0.5px;
+  }
+
+  /* 3. Tighten the space between individual nav links/buttons */
+  .nav {
+    gap: 8px !important; /* This is the "breathing room" between buttons */
+  }
+
+  /* 4. Make links smaller so they don't wrap to a second line */
+  .nav a {
+    font-size: 0.85rem !important;
+    padding: 4px 2px;
+  }
+
+  /* 5. Compact the Theme and Cart buttons */
+  .theme-btn, .nav-item-cart {
+    margin-left: 2px !important;
+    font-size: 1rem !important;
+  }
+
+  /* 6. Fix the cart badge so it doesn't push other icons away */
+  .cart-badge {
+    top: -3px;
+    right: -5px;
+    font-size: 0.6rem;
+    padding: 0 3px;
+  }
+}
