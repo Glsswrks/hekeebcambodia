@@ -107,6 +107,7 @@ body {
   text-decoration: none
 }
 
+/*
 .hero {
   position: relative;
   overflow: hidden;
@@ -114,6 +115,18 @@ body {
   min-height: 70vh;
   display: flex;
   align-items: center;
+}
+  */
+  .hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  /* Your high-res desktop image */
+  background-image: url('https://images.unsplash.com/photo-1595225405012-98e4b2e86182?q=80&w=1920&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect for desktop */
 }
 
 /* Smooth Background Fade Effect */
@@ -135,7 +148,7 @@ body {
   height: 100%;
   z-index: 1;
   /* Replace URL with a high-res keyboard shot */
-  background-image: url('https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/1.png');
+  background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop');
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
@@ -1313,20 +1326,17 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 768px) {
   .hero {
-    /* Optional: You can change the background color here if needed */
-    background-image: none !important; 
-  }
-
-  /* If you have a specific overlay div for the image */
-  .hero-bg-overlay {
-    opacity: 0 !important;
-    display: none;
+    /* Swap to your smaller/mobile-friendly image here */
+    background-image: url('https://cdn.myikas.com/images/8248c301-8dd3-4181-a88c-d07fc039f8bf/f2622c5d-fc71-460c-b803-0f5a2eb14782/image_1080.webp'); 
+    
+    background-attachment: scroll; /* Fixed background often glitches on mobile */
+    background-position: center;
+    min-height: 50vh; /* Adjust height so it doesn't take too much room on phones */
   }
   
-  /* Ensure the text is still readable and centered on mobile */
-  .hero-inner {
-    text-align: center;
-    padding: 60px 20px;
+  /* Make sure the text is readable on mobile with a slightly darker overlay */
+  .hero::before {
+    background: rgba(0, 0, 0, 0.7); 
   }
 }
 
@@ -1345,7 +1355,7 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
 
   /* 3. Tighten the space between individual nav links/buttons */
   .nav {
-    gap: 8px !important; /* This is the "breathing room" between buttons */
+    gap: 7px !important; /* This is the "breathing room" between buttons */
   }
 
   /* 4. Make links smaller so they don't wrap to a second line */
