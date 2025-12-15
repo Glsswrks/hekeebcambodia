@@ -93,7 +93,7 @@ const productData = {
         "Functions: SOCD / DKS / RT / MT / TGL / Key remapping / Physical Button (Customizable) / Music Rythm / Emergency Stop",
         "PCB Nano Waterproof Technology",
         "Aluminum Alloy Position Plate",
-        "Standard PBT Keycaps (TITAN68HE Standard Version), Five-sided Dye-Sub (Side-Lit) For TITAN68HE PRO Version"
+        "Standard PBT Keycaps (TITAN68HE Standard Version), Five-sided Dye-Sub (Side-Lit) For TITAN68HE PRO Version",
       ],
       options: [
         {
@@ -244,24 +244,24 @@ const productData = {
         {
           name: "Cyber-Yellow",
           available: true,
-          price: 75,
+          price: 70,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/cyberpunk.png",
         },
-         {
+        {
           name: "Ethernal Blue",
           available: true,
-          price: 65,
+          price: 75,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/blue.png",
         },
-         {
+        {
           name: "Sharp Silver",
           available: false,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/black.png",
         },
-      ]
+      ],
     },
     {
       id: "ace68turbo",
@@ -474,11 +474,138 @@ const productData = {
     },
   ],
 };
+
 const allProducts = [...productData.keyboards, ...productData.mice];
+
+const Cart = {
+  key: "keeb_cart_v1",
+  
+  getItems: function() {
+    const stored = localStorage.getItem(this.key);
+    return stored ? JSON.parse(stored) : [];
+  },
+
+  addItem: function(product, option) {
+    const items = this.getItems();
+    // Create a unique cart item
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: option ? option.price || product.price : product.price, // Handle option price override
+      optionName: option ? option.name : null,
+      image: option ? option.image : (product.images[0] || ""),
+      timestamp: Date.now()
+    };
+    
+    items.push(newItem);
+    localStorage.setItem(this.key, JSON.stringify(items));
+    this.updateUI();
+    showToast(`Added ${newItem.title} to cart`);
+  },
+
+  removeItem: function(index) {
+    const items = this.getItems();
+    items.splice(index, 1);
+    localStorage.setItem(this.key, JSON.stringify(items));
+    this.updateUI();
+  },
+
+  clear: function() {
+    localStorage.removeItem(this.key);
+    this.updateUI();
+  },
+
+  getTotal: function() {
+    const items = this.getItems();
+    return items.reduce((sum, item) => sum + Number(item.price), 0);
+  },
+
+  updateUI: function() {
+    const items = this.getItems();
+    const badge = document.getElementById("cartBadge");
+    
+    // Update Badge
+    if (badge) {
+      badge.textContent = items.length;
+      if (items.length > 0) badge.classList.remove("hidden");
+      else badge.classList.add("hidden");
+    }
+
+    // Update Modal Content (if open)
+    renderCartModal(); 
+  }
+};
+
+// Helper: Toast Notification
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  
+  toast.querySelector("span").textContent = message;
+  toast.classList.add("show");
+  
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+// Helper: Render Cart Modal
+function renderCartModal() {
+  const items = Cart.getItems();
+  const listEl = document.getElementById("cartItemsList");
+  const totalEl = document.getElementById("cartTotal");
+  const emptyState = document.getElementById("cartEmptyState");
+  const cartContent = document.getElementById("cartContent");
+  
+  if (!listEl) return;
+
+  if (items.length === 0) {
+    emptyState.style.display = "block";
+    cartContent.style.display = "none";
+  } else {
+    emptyState.style.display = "none";
+    cartContent.style.display = "block";
+    
+    listEl.innerHTML = items.map((item, index) => `
+      <li class="cart-item">
+        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <div class="cart-item-info">
+          <span class="cart-item-title">${item.title}</span>
+          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
+        </div>
+        <div style="display:flex; align-items:center;">
+          <span class="cart-item-price">$${item.price}</span>
+          <button class="cart-remove-btn" onclick="Cart.removeItem(${index})" aria-label="Remove">&times;</button>
+        </div>
+      </li>
+    `).join("");
+
+    totalEl.textContent = `$${Cart.getTotal()}`;
+    
+    // Generate Checkout Link
+    const checkoutBtn = document.getElementById("checkoutTelegramBtn");
+    if (checkoutBtn) {
+      let message = "Hello, I would like to place an order:\n\n";
+      items.forEach((item, i) => {
+        message += `${i + 1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} - $${item.price}\n`;
+      });
+      message += `\nTotal: $${Cart.getTotal()}`;
+      message += "\n\nIs this available?";
+      
+      checkoutBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(message)}`;
+    }
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const currentTheme = localStorage.getItem("theme") || "dark";
+  const cartToggle = document.getElementById("cartToggle");
+  const cartModal = document.getElementById("cartModal");
+  const closeCartBtn = document.getElementById("closeCartBtn");
+  const clearCartBtn = document.getElementById("clearCartBtn");
+  const startShopBtn = document.getElementById("startShoppingBtn");
+
   // Set initial state
   if (currentTheme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
@@ -513,6 +640,31 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.addEventListener("click", (e) => {
       if (e.target === modal) modal.setAttribute("aria-hidden", "true");
     });
+    if (cartToggle && cartModal) {
+    cartToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      Cart.updateUI(); // Refresh data before showing
+      cartModal.setAttribute("aria-hidden", "false");
+    });
+
+    // Close logic
+    const closeCart = () => cartModal.setAttribute("aria-hidden", "true");
+    if(closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+    if(startShopBtn) startShopBtn.addEventListener("click", closeCart);
+    
+    cartModal.addEventListener("click", (e) => {
+      if (e.target === cartModal) closeCart();
+    });
+
+    // Clear Cart logic
+    if (clearCartBtn) {
+      clearCartBtn.addEventListener("click", () => {
+        if(confirm("Are you sure you want to empty your cart?")) {
+          Cart.clear();
+        }
+      });
+    }
+  } cartupdateUI();
   }
 });
 
@@ -562,9 +714,12 @@ function createProductCard(p) {
   let badgeHTML = "";
   if (p.available) {
     if (p.isNew) badgeHTML = `<span class="badge badge-new">New Arrival</span>`;
-    else if (p.lowStock) badgeHTML = `<span class="badge badge-low">Limited Stock</span>`;
+    else if (p.lowStock)
+      badgeHTML = `<span class="badge badge-low">Limited Stock</span>`;
   }
-  const availClass = p.available ? "availability available" : "availability unavailable";
+  const availClass = p.available
+    ? "availability available"
+    : "availability unavailable";
   const availText = p.available ? "Available" : "Unavailable";
   const href = productLink(p.id);
   const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
@@ -595,11 +750,16 @@ function createProductCard(p) {
 
 /* ---------- Option cards ---------- */
 function createOptionCard(product, option, onSelect) {
-  if (!product.available) product.options.forEach((opt) => { opt.available = false; });
+  if (!product.available)
+    product.options.forEach((opt) => {
+      opt.available = false;
+    });
   const optionElement = document.createElement(
     product.available ? (option.available ? "button" : "div") : "div"
   );
-  optionElement.className = "product-option" + (product.available ? (option.available ? "" : " locked") : " locked");
+  optionElement.className =
+    "product-option" +
+    (product.available ? (option.available ? "" : " locked") : " locked");
   optionElement.type = "button";
   optionElement.tabIndex = option.available ? 0 : -1;
   optionElement.dataset.optionName = option.name;
@@ -614,11 +774,18 @@ function createOptionCard(product, option, onSelect) {
     optionElement.addEventListener("click", (e) => e.preventDefault());
   }
 
-  const priceHTML = (option.price !== undefined) ? `<span class="option-price">$${option.price}</span>` : "";
+  const priceHTML =
+    option.price !== undefined
+      ? `<span class="option-price">$${option.price}</span>`
+      : "";
   optionElement.innerHTML = `
     <div class="option-image-wrap">
       <img src="${option.image}" alt="${option.name}" loading="lazy">
-      ${option.available ? "" : '<span class="option-stock-label">OUT OF STOCK</span>'}
+      ${
+        option.available
+          ? ""
+          : '<span class="option-stock-label">OUT OF STOCK</span>'
+      }
       ${priceHTML} 
     </div>
     <div class="option-text">
@@ -855,9 +1022,10 @@ function renderProductDetail(product) {
 
     // 2. FIXED: Update Price based on selected option
     if (priceEl) {
-      const currentPrice = (selectedOption && selectedOption.price !== undefined) 
-        ? selectedOption.price 
-        : product.price;
+      const currentPrice =
+        selectedOption && selectedOption.price !== undefined
+          ? selectedOption.price
+          : product.price;
       priceEl.textContent = `$${currentPrice}`;
     }
 
@@ -875,19 +1043,31 @@ function renderProductDetail(product) {
     const carousel = createCarousel(newImages);
     imagesContainer.appendChild(carousel);
 
-    // 4. Update Purchase Link
-    if (purchaseBtn) {
+   if (purchaseBtn) {
       const isPurchasable = product.available && (!selectedOption || selectedOption.available);
+      
+      // Remove old event listeners by cloning
+      const newBtn = purchaseBtn.cloneNode(true);
+      purchaseBtn.parentNode.replaceChild(newBtn, purchaseBtn);
+      
       if (isPurchasable) {
-        const optionNameForLink = selectedOption ? selectedOption.name : null;
-        purchaseBtn.href = purchaseTelegramLink(product, optionNameForLink);
-        purchaseBtn.classList.remove("locked");
-        purchaseBtn.disabled = false;
-        purchaseBtn.textContent = `Purchase via Telegram`;
+        newBtn.classList.remove("locked");
+        newBtn.classList.add("add-to-cart"); // New style class
+        newBtn.disabled = false;
+        newBtn.textContent = "Add to Cart +";
+        newBtn.href = "#";
+        
+        // Add Click Listener
+        newBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          Cart.addItem(product, selectedOption);
+        });
       } else {
-        purchaseBtn.classList.add("locked");
-        purchaseBtn.disabled = true;
-        purchaseBtn.textContent = `Unavailable`;
+        newBtn.classList.add("locked");
+        newBtn.classList.remove("add-to-cart");
+        newBtn.disabled = true;
+        newBtn.textContent = "Unavailable";
+        newBtn.href = "#";
       }
     }
 
@@ -906,7 +1086,7 @@ function renderProductDetail(product) {
 
   // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
-  const actionButtonHTML = product.available 
+  const actionButtonHTML = product.available
     ? `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`
     : `<span class="stock-label out-of-stock">Unavailable</span>`;
 
@@ -929,7 +1109,9 @@ function renderProductDetail(product) {
             <div id="productPrice" style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.5rem">
                 $${product.price}
             </div>
-            <ul class="specs">${product.specs.map((s) => `<li>• ${s}</li>`).join("")}</ul>
+            <ul class="specs">${product.specs
+              .map((s) => `<li>• ${s}</li>`)
+              .join("")}</ul>
             <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
                 ${actionButtonHTML}
             </div>
@@ -946,7 +1128,8 @@ function renderProductDetail(product) {
       );
     });
 
-    const initialOption = product.options.find((o) => o.available) || product.options[0];
+    const initialOption =
+      product.options.find((o) => o.available) || product.options[0];
     updateProductDisplay(initialOption);
   } else {
     updateProductDisplay(null);
@@ -1096,8 +1279,6 @@ function createCarousel(images) {
     if (e.key === "ArrowRight") next();
   });
   wrapper.tabIndex = 0;
-
-  // Force update when image set changes, ensuring the carousel starts at index 0
   index = 0;
   slidesCount = images.length;
   update();
@@ -1109,6 +1290,32 @@ function createCarousel(images) {
   });
 
   return wrapper;
+}
+
+function syncCartBadge() {
+  if (typeof Cart !== 'undefined') {
+    const items = Cart.getItems();
+    const badge = document.getElementById("cartBadge");
+    
+    if (badge) {
+      badge.textContent = items.length;
+      // Show badge if items > 0, otherwise hide it
+      if (items.length > 0) {
+        badge.classList.remove("hidden");
+        badge.style.display = "flex"; // Force display if hidden class is stubborn
+      } else {
+        badge.classList.add("hidden");
+        badge.style.display = "none";
+      }
+    }
+  }
+}
+
+// Ensure this is called when the DOM is fully loaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", syncCartBadge);
+} else {
+  syncCartBadge();
 }
 
 /* ---------- Page init (UNCHANGED) ---------- */

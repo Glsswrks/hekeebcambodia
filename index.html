@@ -14,13 +14,14 @@
       <div class="container header-inner">
         <a class="brand" href="#">Keeb Cambodia</a>
         <nav class="nav">
-          <button id="themeToggle" class="theme-btn"
-            aria-label="Toggle Dark Mode">
-            <span class="icon">🌙</span>
-          </button>
-          <a href="#shop">Shop</a>
-          <a href="#" id="contactLink">Contact</a>
-        </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
+    <span class="icon">🌙</span>
+  </button>
+  <a href="index.html#shop">Shop</a> <a href="#" id="contactLink">Contact</a>
+  <a href="#" id="cartToggle" class="nav-item-cart">
+    🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
+  </a>
+</nav>
       </div>
     </header>
 
@@ -103,7 +104,38 @@
         </div>
       </div>
 
+      <div id="cartModal" class="modal" aria-hidden="true">
+  <div class="modal-content" style="max-width: 500px;">
+    <button class="modal-close" id="closeCartBtn" aria-label="Close">&times;</button>
+    <h2>Your Cart</h2>
+    
+    <div id="cartEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
+      <p>Your cart is empty.</p>
+      <button class="btn" id="startShoppingBtn">Start Shopping</button>
+    </div>
+
+    <div id="cartContent">
+      <ul id="cartItemsList" class="cart-items-list">
+        </ul>
       
+      <div class="cart-summary">
+        <span>Total:</span>
+        <span id="cartTotal" style="color: var(--accent);">$0</span>
+      </div>
+
+      <div class="modal-actions" style="flex-direction: column;">
+        <a href="#" id="checkoutTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
+          Checkout via Telegram
+        </a>
+        <button id="clearCartBtn" class="btn" style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast-container">
+  <span>✅ Item added to cart!</span>
+</div>
 
       <script src="script.js"></script>
     </body>
