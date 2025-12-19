@@ -14,29 +14,26 @@
       <div class="container header-inner">
         <a class="brand" href="#">Keeb Cambodia</a>
         <nav class="nav">
-  <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
-    <span class="icon">🌙</span>
-  </button>
-  <a href="index.html#shop">Shop</a> <a href="#" id="contactLink">Contact</a>
-  <a href="#" id="cartToggle" class="nav-item-cart">
-    🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
-  </a>
-</nav>
+          <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <span class="icon">🌙</span>
+          </button>
+          <a href="index.html#shop">Shop</a> <a href="#" id="contactLink">Contact</a>
+          <a href="#" id="cartToggle" class="nav-item-cart">
+            🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
+          </a>
+        </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="hero-bg-overlay"></div> <div class="container hero-inner">
+        <div class="hero-bg-overlay"></div> 
+        <div class="container hero-inner">
           <div class="hero-text">
             <h1>Choose Your Favorite Mechanical / Hall Effect Keyboard</h1>
-            <p>We build custom keyboards that match your style and performance
-              needs. From Hall-Effect (HE) keyboards to switches, keycaps, and
-              accessories, we focus on quality, speed, and a great typing
-              experience—fully customized for you.</p>
+            <p>We build custom keyboards that match your style and performance needs. From Hall-Effect (HE) keyboards to switches, keycaps, and accessories, we focus on quality, speed, and a great typing experience—fully customized for you.</p>
             <a href="#shop" class="btn primary">See Available Items</a>
           </div>
-          
         </div>
       </section>
 
@@ -60,19 +57,38 @@
         <div id="mouseMoreContainer" class="load-more-container"></div>
       </section>
 
+      <!-- NEW SECTION: Keycaps -->
+      <section id="keycaps" class="products container">
+        <div class="section-head">
+          <h2>Keycaps</h2>
+          <input type="text" id="keycapSearch" placeholder="Search keycaps..."
+            class="search-input">
+        </div>
+        <div id="keycapGrid" class="grid"></div>
+        <div id="keycapMoreContainer" class="load-more-container"></div>
+      </section>
+
+      <!-- NEW SECTION: Custom Keyboard Straps -->
+      <section id="straps" class="products container">
+        <div class="section-head">
+          <h2>Custom Keyboard Straps</h2>
+          <input type="text" id="strapSearch" placeholder="Search straps..."
+            class="search-input">
+        </div>
+        <div id="strapGrid" class="grid"></div>
+        <div id="strapMoreContainer" class="load-more-container"></div>
+      </section>
+
       <section id="about" class="about-full-wide">
         <div class="container about-content-box">
           <h3>About Keeb Cambodia</h3>
-          <p>We bring premium custom keyboards and HE keyboards at affordable
-            prices. Our products are tested for quality, priced below the
-            market, and guaranteed to meet your expectations.</p>
+          <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
         </div>
       </section>
 
       <footer class="site-footer">
         <div class="container">
-          <small>© <span id="year"></span> Thanks for supporting our small
-            business.</small>
+          <small>© <span id="year"></span> Thanks for supporting our small business.</small>
         </div>
       </footer>
 
@@ -105,37 +121,36 @@
       </div>
 
       <div id="cartModal" class="modal" aria-hidden="true">
-  <div class="modal-content" style="max-width: 500px;">
-    <button class="modal-close" id="closeCartBtn" aria-label="Close">&times;</button>
-    <h2>Your Cart</h2>
-    
-    <div id="cartEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
-      <p>Your cart is empty.</p>
-      <button class="btn" id="startShoppingBtn">Start Shopping</button>
-    </div>
+        <div class="modal-content" style="max-width: 500px;">
+          <button class="modal-close" id="closeCartBtn" aria-label="Close">&times;</button>
+          <h2>Your Cart</h2>
+          
+          <div id="cartEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
+            <p>Your cart is empty.</p>
+            <button class="btn" id="startShoppingBtn">Start Shopping</button>
+          </div>
 
-    <div id="cartContent">
-      <ul id="cartItemsList" class="cart-items-list">
-        </ul>
-      
-      <div class="cart-summary">
-        <span>Total:</span>
-        <span id="cartTotal" style="color: var(--accent);">$0</span>
+          <div id="cartContent">
+            <ul id="cartItemsList" class="cart-items-list"></ul>
+            
+            <div class="cart-summary">
+              <span>Total:</span>
+              <span id="cartTotal" style="color: var(--accent);">$0</span>
+            </div>
+
+            <div class="modal-actions" style="flex-direction: column;">
+              <a href="#" id="checkoutTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
+                Checkout via Telegram
+              </a>
+              <button id="clearCartBtn" class="btn" style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="modal-actions" style="flex-direction: column;">
-        <a href="#" id="checkoutTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
-          Checkout via Telegram
-        </a>
-        <button id="clearCartBtn" class="btn" style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
+      <div id="toast" class="toast-container">
+        <span>✅ Item added to cart!</span>
       </div>
-    </div>
-  </div>
-</div>
-
-<div id="toast" class="toast-container">
-  <span>✅ Item added to cart!</span>
-</div>
 
       <script src="script.js"></script>
     </body>

@@ -305,122 +305,159 @@ const productData = {
       options: null,
     },
     {
-    id: "iqunix-ez63",
-    title: "IQUNIX EZ63 8K Magnetic HE",
-    short: "IQUNIX EZ63 8KHz Polling Rate Magnetic Switch Gaming Keyboard",
-    price: 150,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/ml001.de632f1c_4207f70c-d610-4e2e-b699-1d100cc38f3e.jpg?v=1718718976",
-      "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/l004.a6559626_1cbfda67-2cb8-4eea-9c44-21b2c20fbc77.jpg?v=1718718976",
-      "https://m.media-amazon.com/images/I/71oXr1eldGL.jpg",
-      "https://iqunix.com/cdn/shop/articles/0347.jpg?v=1724826927",
-      "https://m.media-amazon.com/images/I/61KjyMs2WxL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71ttPO02TfL._AC_SL1500_.jpg",
-    ],
-    specs: [
-      "60% Layout (64 keys with Arrow keys)",
-      "8000Hz Polling Rate (0.125ms latency)",
-      "Single Key Scan Rate: 16,000Hz",
-      "Full Key Scan Rate: 2,000Hz - 4,000Hz (Dynamic)",
-      "RT Sensitivity: 0.05mm (Industry-leading precision)",
-      "Adjustable Actuation: 0.1mm - 4.0mm (0.05mm steps)",
-      "Gateron Star Trail / Jade Pro Magnetic Switches",
-      "Full CNC Aluminum Chassis",
-      "Esports Gasket Mount Structure",
-      "Web-based Driver (No software installation required)",
-      "Double-shot PBT Keycaps",
-      "Dimensions: 307 x 124.5 x 22mm | Weight: ~1.0kg"
-    ],
-    options: [
-      { name: "Black / Star Trail Switches", available: true, image:  "https://m.media-amazon.com/images/I/5191XtHTByL.jpg" },
-      { name: "White / Magnetic Jade Pro", available: true, image: "https://iqunix.com/cdn/shop/files/20250310-095053.jpg?v=1742280303&width=1946" },
-      { name: "Pink / Pink Jade Pro", available: true, image: "https://cdn.mwave.com.au/images/400/iqunix_ez63_pink_rgb_he_mechanical_gaming_keyboard_star_trail_switch_ac81339_62101.jpg" }
-    ],
-  },
-  {
-    id: "aula-ag60-series",
-    title: "AULA AG60 HE Series",
-    short: "AULA AG60 Dual-Engine 8K Magnetic Switch Aluminum Keyboard",
-    price: 135,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1644.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1R2.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU2628.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU4939.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUD64.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU5S1.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUL44.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUSQ.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUR53.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HZ22J.jpg"
-    ],
-    specs: [
-      "60% Layout (61 keys)",
-      "8000Hz Polling Rate",
-      "0.1ms Ultra-low Latency",
-      "Industry-Leading 2304KHz Per-Key Scan Rate",
-      "256K Full Key Matrix Scan Rate",
-      "RT Precision: 0.001mm (Ultra-high resolution)",
-      "Adjustable Zero-Dead-Zone Design",
-      "Aether Magnetic Switches",
-      "Carbon Fiber Positioning Plate",
-      "CNC Anodized Aluminum Case (220-grit)",
-      "5-Layer Silent Noise Reduction System",
-      "Twin-Star Per-key RGB (130 ARGB LEDs)",
-      "Function: SOCD / DKS / RT / MT / TGL / Key Remapping",
-      "Up to 4 Profiles Quick Switch Hot-Keys"
-    ],
-    options: [
-      { name: "AG60 Max / Warm Silver", available: true, image: "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PT54.jpg", price: 135 },
-      { name: "AG60 Max / Racing Red", available: false, image: "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PKU.jpg", price: 150 }
-    ],
-  },
-  {
-    id: "cidoo-qk61-v2",
-    title: "CIDOO QK61 V2",
-    short: "CIDOO QK61 V2 Tri-Mode VIA Programmable Gasket Mechanical Keyboard",
-    price: 40,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3789.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3807.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3801.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3755.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3760.jpg?v=1728442680"
-    ],
-    specs: [
-      "60% Layout (61 keys)",
-      "Tri-Mode: 2.4G / Bluetooth 5.0 / Wired USB-C",
-      "Wired Polling Rate: 1000Hz (3ms Latency)",
-      "Scan Rate: 1000Hz (Uniform)",
-      "VIA Programmable (QMK Support)",
-      "Hot-swappable PCB (3/5-pin compatible)",
-      "CIDOO Pearl White Linear Switches (Pre-lubed)",
-      "Pre-lubed Plate-mount stabilizers",
-      "Gasket Mount with Polycarbonate (PC) Plate",
-      "3000mAh Battery Capacity",
-      "5-Layer Sound Dampening Foam",
-      "Double-shot PBT + Transparent PC Keycaps",
-      "South-facing RGB LEDs"
-    ],
-    options: [
-      { name: "White Case", available: true, image: "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680" },
-      { name: "Black Case", available: false, image: "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680" }
-    ],
-  },
+      id: "iqunix-ez63",
+      title: "IQUNIX EZ63 8K Magnetic HE",
+      short: "IQUNIX EZ63 8KHz Polling Rate Magnetic Switch Gaming Keyboard",
+      price: 150,
+      layout: "60",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/ml001.de632f1c_4207f70c-d610-4e2e-b699-1d100cc38f3e.jpg?v=1718718976",
+        "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/l004.a6559626_1cbfda67-2cb8-4eea-9c44-21b2c20fbc77.jpg?v=1718718976",
+        "https://m.media-amazon.com/images/I/71oXr1eldGL.jpg",
+        "https://iqunix.com/cdn/shop/articles/0347.jpg?v=1724826927",
+        "https://m.media-amazon.com/images/I/61KjyMs2WxL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71ttPO02TfL._AC_SL1500_.jpg",
+      ],
+      specs: [
+        "60% Layout (64 keys with Arrow keys)",
+        "8000Hz Polling Rate (0.125ms latency)",
+        "Single Key Scan Rate: 16,000Hz",
+        "Full Key Scan Rate: 2,000Hz - 4,000Hz (Dynamic)",
+        "RT Sensitivity: 0.05mm (Industry-leading precision)",
+        "Adjustable Actuation: 0.1mm - 4.0mm (0.05mm steps)",
+        "Gateron Star Trail / Jade Pro Magnetic Switches",
+        "Full CNC Aluminum Chassis",
+        "Esports Gasket Mount Structure",
+        "Web-based Driver (No software installation required)",
+        "Double-shot PBT Keycaps",
+        "Dimensions: 307 x 124.5 x 22mm | Weight: ~1.0kg",
+      ],
+      options: [
+        {
+          name: "Black / Star Trail Switches",
+          available: true,
+          image: "https://m.media-amazon.com/images/I/5191XtHTByL.jpg",
+        },
+        {
+          name: "White / Magnetic Jade Pro",
+          available: true,
+          image:
+            "https://iqunix.com/cdn/shop/files/20250310-095053.jpg?v=1742280303&width=1946",
+        },
+        {
+          name: "Pink / Pink Jade Pro",
+          available: true,
+          image:
+            "https://cdn.mwave.com.au/images/400/iqunix_ez63_pink_rgb_he_mechanical_gaming_keyboard_star_trail_switch_ac81339_62101.jpg",
+        },
+      ],
+    },
+    {
+      id: "aula-ag60-series",
+      title: "AULA AG60 HE Series",
+      short: "AULA AG60 Dual-Engine 8K Magnetic Switch Aluminum Keyboard",
+      price: 135,
+      layout: "60",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1644.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1R2.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU2628.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU4939.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUD64.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU5S1.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUL44.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUSQ.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUR53.jpg",
+        "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HZ22J.jpg",
+      ],
+      specs: [
+        "60% Layout (61 keys)",
+        "8000Hz Polling Rate",
+        "0.1ms Ultra-low Latency",
+        "Industry-Leading 2304KHz Per-Key Scan Rate",
+        "256K Full Key Matrix Scan Rate",
+        "RT Precision: 0.001mm (Ultra-high resolution)",
+        "Adjustable Zero-Dead-Zone Design",
+        "Aether Magnetic Switches",
+        "Carbon Fiber Positioning Plate",
+        "CNC Anodized Aluminum Case (220-grit)",
+        "5-Layer Silent Noise Reduction System",
+        "Twin-Star Per-key RGB (130 ARGB LEDs)",
+        "Function: SOCD / DKS / RT / MT / TGL / Key Remapping",
+        "Up to 4 Profiles Quick Switch Hot-Keys",
+      ],
+      options: [
+        {
+          name: "AG60 Max / Warm Silver",
+          available: true,
+          image:
+            "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PT54.jpg",
+          price: 135,
+        },
+        {
+          name: "AG60 Max / Racing Red",
+          available: false,
+          image:
+            "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PKU.jpg",
+          price: 150,
+        },
+      ],
+    },
+    {
+      id: "cidoo-qk61-v2",
+      title: "CIDOO QK61 V2",
+      short:
+        "CIDOO QK61 V2 Tri-Mode VIA Programmable Gasket Mechanical Keyboard",
+      price: 40,
+      layout: "60",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3789.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3807.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3801.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3755.jpg?v=1728442680",
+        "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3760.jpg?v=1728442680",
+      ],
+      specs: [
+        "60% Layout (61 keys)",
+        "Tri-Mode: 2.4G / Bluetooth 5.0 / Wired USB-C",
+        "Wired Polling Rate: 1000Hz (3ms Latency)",
+        "Scan Rate: 1000Hz (Uniform)",
+        "VIA Programmable (QMK Support)",
+        "Hot-swappable PCB (3/5-pin compatible)",
+        "CIDOO Pearl White Linear Switches (Pre-lubed)",
+        "Pre-lubed Plate-mount stabilizers",
+        "Gasket Mount with Polycarbonate (PC) Plate",
+        "3000mAh Battery Capacity",
+        "5-Layer Sound Dampening Foam",
+        "Double-shot PBT + Transparent PC Keycaps",
+        "South-facing RGB LEDs",
+      ],
+      options: [
+        {
+          name: "White Case",
+          available: true,
+          image:
+            "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680",
+        },
+        {
+          name: "Black Case",
+          available: false,
+          image:
+            "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680",
+        },
+      ],
+    },
   ],
   mice: [
     {
@@ -493,8 +530,8 @@ const productData = {
       short: "51-Gram Lightweight Tri-Mode Wireless Gaming Mouse",
       price: 35,
       layout: "51g",
-      available: true,
-      isNew: true,
+      available: false,
+      isNew: false,
       lowStock: false,
       images: [
         "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/1.png",
@@ -526,7 +563,7 @@ const productData = {
       short: "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
       price: 120, // Approximate price
       layout: "47g",
-      available: true,
+      available: false,
       isNew: false,
       lowStock: true,
       images: [
@@ -559,13 +596,13 @@ const productData = {
       options: [
         {
           name: "Purple Shadow",
-          available: true,
+          available: false,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg",
         },
         {
           name: "Light Pink",
-          available: true,
+          available: false,
           image:
             "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg",
         },
@@ -590,19 +627,310 @@ const productData = {
       ],
     },
   ],
+  straps: [
+    {
+      id: "custom--strap-1",
+      title: "Custom Keyboard Straps (Pattern 1)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587237199352011/tb_image_share_1766155661862.png?ex=6946b776&is=694565f6&hm=ed07e9d4c6c48a0ad1b4bcfe3feaf9dc8409bde26fbc906f98f5d0bad3157651&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-2",
+      title: "Custom Keyboard Straps (Pattern 2)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587237757325413/tb_image_share_1766155666334.png?ex=6946b776&is=694565f6&hm=bc954e0b562e37faef899cbc3f5075fe6c1cabd7da845877f2d341b8e6f67abe&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-3",
+      title: "Custom Keyboard Straps (Pattern 3)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587238264832151/tb_image_share_1766155674413.png?ex=6946b776&is=694565f6&hm=1d474cb25af1a5a50f1040cdf381635159466ba6767861d636fef89d2fa47441&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-4",
+      title: "Custom Keyboard Straps (Pattern 4)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587238772346929/tb_image_share_1766155686835.png?ex=6946b776&is=694565f6&hm=7d275bde287863f0c99b25d320c141342560006b5e5709e26ba141a170ec9682&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-5",
+      title: "Custom Keyboard Straps (Pattern 5)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587239648694495/tb_image_share_1766155693721.png?ex=6946b777&is=694565f7&hm=3bacb6495a1ee0de4b0b120c60d09df221422f661ad8cfec86e821bc4f73244b&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-6",
+      title: "Custom Keyboard Straps (Pattern 6)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587240068382873/tb_image_share_1766155699713.png?ex=6946b777&is=694565f7&hm=ec32c167bee41dbb02a4bd72127ebc5af69cb37f7349ae011cf6da9ccfe5c0cb&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-7",
+      title: "Custom Keyboard Straps (Pattern 7)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587240642871549/tb_image_share_1766155707730.png?ex=6946b777&is=694565f7&hm=aa3a9e740ad0f4659bf8046ca4fc876dfb4c3f6653a09ac637e2d8c0b1f1f77d&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-8",
+      title: "Custom Keyboard Straps (Pattern 8)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587241582526515/tb_image_share_1766155712688.png?ex=6946b777&is=694565f7&hm=ab5293ad8606c55589e3f0bbafa61e0c000a770d078c27413b58591b0f94add4&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-9",
+      title: "Custom Keyboard Straps (Pattern 9)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587242115207360/tb_image_share_1766155719983.png?ex=6946b777&is=694565f7&hm=667daaa969ede855c7edc9359136e63536acb7fcacb407bffce84bd315d2cfa7&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-10",
+      title: "Custom Keyboard Straps (Pattern 10)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587242660466738/tb_image_share_1766155726623.png?ex=6946b777&is=694565f7&hm=56b9089579d656e79d08f309e67245e45a21d451cc8648df15f02e4d5ae0964b&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-11",
+      title: "Custom Keyboard Straps (Pattern 11)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587248754528440/tb_image_share_1766155731689.png?ex=6946b779&is=694565f9&hm=2da1175657f461b0b71534b12c1f68b91e4b37f8b6be47989753b93d5b912f88&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+    {
+      id: "custom--strap-12",
+      title: "Custom Keyboard Straps (Pattern 12)",
+      short:
+        "Customizable keyboard straps, compatible with all types of keyboards",
+      price: 4,
+      layout: "Free Styles",
+      available: true,
+      isNew: true,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451587249522212884/tb_image_share_1766155735603.png?ex=6946b779&is=694565f9&hm=d4abd9b44f6f8df32405887b7dc751f9a2be16e37fffe541789ba1b4bc83bd9e&=&format=webp&quality=lossless&width=519&height=693",
+      ],
+      specs: [
+        "Accesories Included",
+        "Snap buttons / Press Studs, Screw Posts, D-Rings, Snap Hooks",
+      ],
+      options: null,
+    },
+  ],
+  keycaps: [
+    {
+      id: "cyberpunk-keycap",
+      title: "Custom Cyberpunk Keycap",
+      short:
+        "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Cherry Profile",
+      price: 25,
+      layout: "172-Keys",
+      available: true,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://titannation.store/cdn/shop/files/keycaps_set_PBT.jpg?v=1728900168",
+        "https://titannation.store/cdn/shop/files/172_PC.jpg?v=1727684963&width=1946",
+      ],
+      specs: [
+        "Cherry Profile",
+        "Material: PC",
+        "Support Full Keyboard Layouts",
+      ],
+      options: null,
+    },
+    {
+      id: "cyberpunk-keycap-74",
+      title: "Custom Cyberpunk Keycap (74 Keys)",
+      short:
+        "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Original Profile",
+      price: 15,
+      layout: "74-Keys",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693",
+      ],
+      specs: [
+        "Original Profile",
+        "Material: PBT",
+        "Support Full Keyboard 61/68 Layouts",
+      ],
+      options: [
+        {
+          name: "Original Cyberpunk Theme",
+          available: false,
+          image:
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693"
+        },
+        {
+          name: "Dark-Red Cyberpunk Theme",
+          available: false,
+          image:
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=6946cbac&is=69457a2c&hm=8278d98832e3debebf618bebc3395320e26b9552543c1cdb3cb71578646c0a1e&=&format=webp&quality=lossless&width=693&height=693",
+        },
+      ],
+    },
+  ],
 };
 
-const allProducts = [...productData.keyboards, ...productData.mice];
+const allProducts = [
+  ...productData.keyboards,
+  ...productData.mice,
+  ...productData.straps,
+  ...productData.keycaps,
+];
 
 const Cart = {
   key: "keeb_cart_v1",
-  
-  getItems: function() {
+
+  getItems: function () {
     const stored = localStorage.getItem(this.key);
     return stored ? JSON.parse(stored) : [];
   },
 
-  addItem: function(product, option) {
+  addItem: function (product, option) {
     const items = this.getItems();
     // Create a unique cart item
     const newItem = {
@@ -610,37 +938,37 @@ const Cart = {
       title: product.title,
       price: option ? option.price || product.price : product.price, // Handle option price override
       optionName: option ? option.name : null,
-      image: option ? option.image : (product.images[0] || ""),
-      timestamp: Date.now()
+      image: option ? option.image : product.images[0] || "",
+      timestamp: Date.now(),
     };
-    
+
     items.push(newItem);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
     showToast(`Added ${newItem.title} to cart`);
   },
 
-  removeItem: function(index) {
+  removeItem: function (index) {
     const items = this.getItems();
     items.splice(index, 1);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
   },
 
-  clear: function() {
+  clear: function () {
     localStorage.removeItem(this.key);
     this.updateUI();
   },
 
-  getTotal: function() {
+  getTotal: function () {
     const items = this.getItems();
     return items.reduce((sum, item) => sum + Number(item.price), 0);
   },
 
-  updateUI: function() {
+  updateUI: function () {
     const items = this.getItems();
     const badge = document.getElementById("cartBadge");
-    
+
     // Update Badge
     if (badge) {
       badge.textContent = items.length;
@@ -649,18 +977,18 @@ const Cart = {
     }
 
     // Update Modal Content (if open)
-    renderCartModal(); 
-  }
+    renderCartModal();
+  },
 };
 
 // Helper: Toast Notification
 function showToast(message) {
   const toast = document.getElementById("toast");
   if (!toast) return;
-  
+
   toast.querySelector("span").textContent = message;
   toast.classList.add("show");
-  
+
   setTimeout(() => {
     toast.classList.remove("show");
   }, 3000);
@@ -673,7 +1001,7 @@ function renderCartModal() {
   const totalEl = document.getElementById("cartTotal");
   const emptyState = document.getElementById("cartEmptyState");
   const cartContent = document.getElementById("cartContent");
-  
+
   if (!listEl) return;
 
   if (items.length === 0) {
@@ -682,34 +1010,48 @@ function renderCartModal() {
   } else {
     emptyState.style.display = "none";
     cartContent.style.display = "block";
-    
-    listEl.innerHTML = items.map((item, index) => `
+
+    listEl.innerHTML = items
+      .map(
+        (item, index) => `
       <li class="cart-item">
-        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <img src="${
+          item.image
+        }" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
         <div class="cart-item-info">
           <span class="cart-item-title">${item.title}</span>
-          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
+          ${
+            item.optionName
+              ? `<span class="cart-item-option">${item.optionName}</span>`
+              : ""
+          }
         </div>
         <div style="display:flex; align-items:center;">
           <span class="cart-item-price">$${item.price}</span>
           <button class="cart-remove-btn" onclick="Cart.removeItem(${index})" aria-label="Remove">&times;</button>
         </div>
       </li>
-    `).join("");
+    `
+      )
+      .join("");
 
     totalEl.textContent = `$${Cart.getTotal()}`;
-    
+
     // Generate Checkout Link
     const checkoutBtn = document.getElementById("checkoutTelegramBtn");
     if (checkoutBtn) {
       let message = "Hello, I would like to place an order:\n\n";
       items.forEach((item, i) => {
-        message += `${i + 1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} - $${item.price}\n`;
+        message += `${i + 1}. ${item.title} ${
+          item.optionName ? `(${item.optionName})` : ""
+        } - $${item.price}\n`;
       });
       message += `\nTotal: $${Cart.getTotal()}`;
       message += "\n\nIs this available?";
-      
-      checkoutBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(message)}`;
+
+      checkoutBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
+        message
+      )}`;
     }
   }
 }
@@ -758,31 +1100,31 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === modal) modal.setAttribute("aria-hidden", "true");
     });
     if (cartToggle && cartModal) {
-    cartToggle.addEventListener("click", (e) => {
-      e.preventDefault();
-      Cart.updateUI(); // Refresh data before showing
-      cartModal.setAttribute("aria-hidden", "false");
-    });
-
-    // Close logic
-    const closeCart = () => cartModal.setAttribute("aria-hidden", "true");
-    if(closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
-    if(startShopBtn) startShopBtn.addEventListener("click", closeCart);
-    
-    cartModal.addEventListener("click", (e) => {
-      if (e.target === cartModal) closeCart();
-    });
-
-    // Clear Cart logic
-    if (clearCartBtn) {
-      clearCartBtn.addEventListener("click", () => {
-        if(confirm("Are you sure you want to empty your cart?")) {
-          Cart.clear();
-        }
+      cartToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        Cart.updateUI(); // Refresh data before showing
+        cartModal.setAttribute("aria-hidden", "false");
       });
+
+      // Close logic
+      const closeCart = () => cartModal.setAttribute("aria-hidden", "true");
+      if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+      if (startShopBtn) startShopBtn.addEventListener("click", closeCart);
+
+      cartModal.addEventListener("click", (e) => {
+        if (e.target === cartModal) closeCart();
+      });
+
+      // Clear Cart logic
+      if (clearCartBtn) {
+        clearCartBtn.addEventListener("click", () => {
+          if (confirm("Are you sure you want to empty your cart?")) {
+            Cart.clear();
+          }
+        });
+      }
     }
-  } 
-  Cart.updateUI(); // Refresh data before showing
+    Cart.updateUI(); // Refresh data before showing
   }
 });
 
@@ -938,7 +1280,6 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName) {
     loadMoreContainer.appendChild(loadMoreLink);
   }
 }
-
 function filterIndexProducts(
   query,
   categoryList,
@@ -958,9 +1299,16 @@ function filterIndexProducts(
 
 function initProductSection(categoryName) {
   const productsList = productData[categoryName];
-  let prefix = categoryName;
-  if (categoryName === "keyboards") prefix = "keyboard";
-  if (categoryName === "mice") prefix = "mouse";
+  if (!productsList) return; // Guard clause if category doesn't exist
+
+  const prefixMap = {
+    keyboards: "keyboard",
+    mice: "mouse",
+    straps: "strap",
+    keycaps: "keycap",
+  };
+
+  const prefix = prefixMap[categoryName] || categoryName.slice(0, -1); // Remove 's' as fallback
 
   const gridId = `${prefix}Grid`;
   const moreContainerId = `${prefix}MoreContainer`;
@@ -986,6 +1334,8 @@ function initProductSection(categoryName) {
 function initIndexPage() {
   initProductSection("keyboards");
   initProductSection("mice");
+  initProductSection("straps");
+  initProductSection("keycaps");
 
   let resizeTimer;
   window.addEventListener("resize", () => {
@@ -993,6 +1343,8 @@ function initIndexPage() {
     resizeTimer = setTimeout(() => {
       initProductSection("keyboards");
       initProductSection("mice");
+      initProductSection("straps");
+      initProductSection("keycaps");
     }, 200);
   });
 }
@@ -1009,7 +1361,6 @@ function renderCategoryCards(list, gridElement) {
     gridElement.appendChild(createProductCard(p));
   });
 }
-
 function initCategoryPage() {
   const categoryName = getQueryParam("category");
   const productsList = productData[categoryName];
@@ -1022,12 +1373,21 @@ function initCategoryPage() {
     return;
   }
 
+  // Category title mapping
+  const categoryTitles = {
+    keyboards: "Keyboards",
+    mice: "Mice",
+    straps: "Custom Keyboard Straps",
+    keycaps: "Keycaps",
+  };
+
   const capitalizedName =
+    categoryTitles[categoryName] ||
     categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
   container.innerHTML = `
         <div class="section-head">
-            <h2 id="categoryTitle">${capitalizedName} Category</h2>
+            <h2 id="categoryTitle">${capitalizedName}</h2>
             <input type="text" id="categorySearch" placeholder="Search all ${categoryName}..." class="search-input">
         </div>
         <div id="categoryGrid" class="grid"></div>
@@ -1161,20 +1521,21 @@ function renderProductDetail(product) {
     const carousel = createCarousel(newImages);
     imagesContainer.appendChild(carousel);
 
-   if (purchaseBtn) {
-      const isPurchasable = product.available && (!selectedOption || selectedOption.available);
-      
+    if (purchaseBtn) {
+      const isPurchasable =
+        product.available && (!selectedOption || selectedOption.available);
+
       // Remove old event listeners by cloning
       const newBtn = purchaseBtn.cloneNode(true);
       purchaseBtn.parentNode.replaceChild(newBtn, purchaseBtn);
-      
+
       if (isPurchasable) {
         newBtn.classList.remove("locked");
         newBtn.classList.add("add-to-cart"); // New style class
         newBtn.disabled = false;
         newBtn.textContent = "Add to Cart";
         newBtn.href = "#";
-        
+
         // Add Click Listener
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
@@ -1411,10 +1772,10 @@ function createCarousel(images) {
 }
 
 function syncCartBadge() {
-  if (typeof Cart !== 'undefined') {
+  if (typeof Cart !== "undefined") {
     const items = Cart.getItems();
     const badge = document.getElementById("cartBadge");
-    
+
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) {
