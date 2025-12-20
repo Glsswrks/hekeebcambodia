@@ -17,7 +17,11 @@
           <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
             <span class="icon">🌙</span>
           </button>
-          <a href="index.html#shop">Shop</a> <a href="#" id="contactLink">Contact</a>
+          <a href="index.html#shop">Shop</a>
+          <a href="#" id="preorderLink">Pre-orders
+            <span id="preorderBadge" class="cart-badge hidden">0</span>
+          </a>
+          <a href="#" id="contactLink">Contact</a>
           <a href="#" id="cartToggle" class="nav-item-cart">
             🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
           </a>
@@ -143,6 +147,31 @@
                 Checkout via Telegram
               </a>
               <button id="clearCartBtn" class="btn" style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW: Pre-order Modal -->
+      <div id="preorderModal" class="modal" aria-hidden="true">
+        <div class="modal-content" style="max-width: 500px;">
+          <button class="modal-close" id="closePreorderBtn" aria-label="Close">&times;</button>
+          <h2>Your Pre-Orders</h2>
+          
+          <div id="preorderEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
+            <p>No pre-orders yet.</p>
+          </div>
+
+          <div id="preorderContent">
+            <ul id="preorderItemsList" class="cart-items-list"></ul>
+            
+            <div class="modal-actions" style="flex-direction: column;">
+              <a href="#" id="preorderTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
+                Discuss Pre-orders via Telegram
+              </a>
+              <button id="clearPreordersBtn" class="btn" style="font-size:0.9rem; padding: 8px;">
+                Clear All Pre-orders
+              </button>
             </div>
           </div>
         </div>

@@ -902,7 +902,7 @@ const productData = {
           name: "Original Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693"
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693",
         },
         {
           name: "Dark-Red Cyberpunk Theme",
@@ -953,6 +953,8 @@ const Cart = {
     items.splice(index, 1);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
+    // IMPORTANT: Re-render the modal immediately
+    renderPreorderModal(); // Add this line
   },
 
   clear: function () {
@@ -967,17 +969,70 @@ const Cart = {
 
   updateUI: function () {
     const items = this.getItems();
-    const badge = document.getElementById("cartBadge");
-
-    // Update Badge
+    const badge = document.getElementById("preorderBadge");
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
     }
 
-    // Update Modal Content (if open)
-    renderCartModal();
+    // Re-render the modal if it's open
+    if (
+      document.getElementById("preorderModal")?.getAttribute("aria-hidden") ===
+      "false"
+    ) {
+      renderPreorderModal();
+    }
+  },
+};
+
+// NEW: Pre-Order System
+const PreOrderList = {
+  key: "keeb_preorders_v1",
+
+  getItems: function () {
+    const stored = localStorage.getItem(this.key);
+    return stored ? JSON.parse(stored) : [];
+  },
+
+  addItem: function (product, option) {
+    const items = this.getItems();
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: option ? option.price || product.price : product.price,
+      optionName: option ? option.name : null,
+      image: option ? option.image : product.images[0] || "",
+      timestamp: Date.now(),
+      preorder: true,
+    };
+
+    items.push(newItem);
+    localStorage.setItem(this.key, JSON.stringify(items));
+    this.updateUI();
+    showToast(`Added ${newItem.title} to pre-order list`);
+  },
+
+  removeItem: function (index) {
+    const items = this.getItems();
+    items.splice(index, 1);
+    localStorage.setItem(this.key, JSON.stringify(items));
+    this.updateUI();
+  },
+
+  clear: function () {
+    localStorage.removeItem(this.key);
+    this.updateUI();
+  },
+
+  updateUI: function () {
+    const items = this.getItems();
+    const badge = document.getElementById("preorderBadge");
+    if (badge) {
+      badge.textContent = items.length;
+      if (items.length > 0) badge.classList.remove("hidden");
+      else badge.classList.add("hidden");
+    }
   },
 };
 
@@ -1056,6 +1111,72 @@ function renderCartModal() {
   }
 }
 
+// NEW: Helper: Render Pre-order Modal
+function renderPreorderModal() {
+  const items = PreOrderList.getItems();
+  const listEl = document.getElementById("preorderItemsList");
+  const emptyState = document.getElementById("preorderEmptyState");
+  const content = document.getElementById("preorderContent");
+
+  if (!listEl) return;
+
+  if (items.length === 0) {
+    emptyState.style.display = "block";
+    content.style.display = "none";
+  } else {
+    emptyState.style.display = "none";
+    content.style.display = "block";
+
+    listEl.innerHTML = items
+      .map(
+        (item, index) => `
+      <li class="cart-item">
+        <img src="${
+          item.image
+        }" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <div class="cart-item-info">
+          <span class="cart-item-title">${item.title}</span>
+          ${
+            item.optionName
+              ? `<span class="cart-item-option">${item.optionName}</span>`
+              : ""
+          }
+          <span class="preorder-label" style="color:#FF6B6B; font-size:0.8rem; font-weight:600;">PRE-ORDER</span>
+        </div>
+        <div style="display:flex; align-items:center;">
+          <span class="cart-item-price">$${item.price}</span>
+          <button class="cart-remove-btn" onclick="PreOrderList.removeItem(${index})" aria-label="Remove">&times;</button>
+        </div>
+      </li>
+    `
+      )
+      .join("");
+
+    // Generate Telegram message for pre-orders
+    const preorderBtn = document.getElementById("preorderTelegramBtn");
+    if (preorderBtn) {
+      let message = "Hello, I'm interested in pre-ordering these items:\n\n";
+      items.forEach((item, i) => {
+        message += `${i + 1}. ${item.title} ${
+          item.optionName ? `(${item.optionName})` : ""
+        } - $${item.price}\n`;
+      });
+      message += `\nTotal: $${items.reduce(
+        (sum, item) => sum + item.price,
+        0
+      )}`;
+      message += "\n\nCan you let me know:";
+      message += "\n• Expected wait time";
+      message += "\n• Deposit required (if any)";
+      message += "\n• Updates on arrival";
+
+      preorderBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
+        message
+      )}`;
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const currentTheme = localStorage.getItem("theme") || "dark";
@@ -1064,6 +1185,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeCartBtn = document.getElementById("closeCartBtn");
   const clearCartBtn = document.getElementById("clearCartBtn");
   const startShopBtn = document.getElementById("startShoppingBtn");
+
+  // NEW: Pre-order elements
+  const preorderLink = document.getElementById("preorderLink");
+  const preorderModal = document.getElementById("preorderModal");
+  const closePreorderBtn = document.getElementById("closePreorderBtn");
+  const clearPreordersBtn = document.getElementById("clearPreordersBtn");
 
   // Set initial state
   if (currentTheme === "light") {
@@ -1099,33 +1226,65 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.addEventListener("click", (e) => {
       if (e.target === modal) modal.setAttribute("aria-hidden", "true");
     });
-    if (cartToggle && cartModal) {
-      cartToggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        Cart.updateUI(); // Refresh data before showing
-        cartModal.setAttribute("aria-hidden", "false");
-      });
-
-      // Close logic
-      const closeCart = () => cartModal.setAttribute("aria-hidden", "true");
-      if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
-      if (startShopBtn) startShopBtn.addEventListener("click", closeCart);
-
-      cartModal.addEventListener("click", (e) => {
-        if (e.target === cartModal) closeCart();
-      });
-
-      // Clear Cart logic
-      if (clearCartBtn) {
-        clearCartBtn.addEventListener("click", () => {
-          if (confirm("Are you sure you want to empty your cart?")) {
-            Cart.clear();
-          }
-        });
-      }
-    }
-    Cart.updateUI(); // Refresh data before showing
   }
+
+  if (cartToggle && cartModal) {
+    cartToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      Cart.updateUI(); // Refresh data before showing
+      cartModal.setAttribute("aria-hidden", "false");
+    });
+
+    // Close logic
+    const closeCart = () => cartModal.setAttribute("aria-hidden", "true");
+    if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+    if (startShopBtn) startShopBtn.addEventListener("click", closeCart);
+
+    cartModal.addEventListener("click", (e) => {
+      if (e.target === cartModal) closeCart();
+    });
+
+    // Clear Cart logic
+    if (clearCartBtn) {
+      clearCartBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to empty your cart?")) {
+          Cart.clear();
+        }
+      });
+    }
+  }
+
+  // NEW: Pre-order modal logic
+  if (preorderLink && preorderModal) {
+    preorderLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      renderPreorderModal();
+      preorderModal.setAttribute("aria-hidden", "false");
+    });
+
+    if (closePreorderBtn) {
+      closePreorderBtn.addEventListener("click", () => {
+        preorderModal.setAttribute("aria-hidden", "true");
+      });
+    }
+
+    preorderModal.addEventListener("click", (e) => {
+      if (e.target === preorderModal)
+        preorderModal.setAttribute("aria-hidden", "true");
+    });
+
+    if (clearPreordersBtn) {
+      clearPreordersBtn.addEventListener("click", () => {
+        if (confirm("Clear all pre-orders?")) {
+          PreOrderList.clear();
+        }
+      });
+    }
+  }
+
+  // Initialize UI
+  Cart.updateUI();
+  PreOrderList.updateUI();
 });
 
 function whatsappLink(product) {
@@ -1465,8 +1624,8 @@ function renderSimilarProductsSection(currentProductId) {
   similarSection.insertAdjacentHTML("afterend", backLinkHTML);
 }
 
-// MODIFIED: Product Detail Rendering Logic (Removed option scroll button elements/listeners)
-/* ---------- Modified renderProductDetail to fix dynamic pricing ---------- */
+// MODIFIED: Product Detail Rendering Logic (Added Pre-order button)
+/* ---------- Modified renderProductDetail to add pre-order button ---------- */
 function renderProductDetail(product) {
   const container = document.getElementById("productContainer");
   if (!container) return;
@@ -1486,7 +1645,8 @@ function renderProductDetail(product) {
 
     const titleEl = container.querySelector("#productTitle");
     const priceEl = container.querySelector("#productPrice"); // Target price element
-    const purchaseBtn = container.querySelector("#purchaseBtn");
+    const addToCartBtn = container.querySelector("#addToCartBtn");
+    const preOrderBtn = container.querySelector("#preOrderBtn");
     const imagesContainer = container.querySelector(".product-image");
 
     // 1. Update Title and Option Name
@@ -1521,36 +1681,49 @@ function renderProductDetail(product) {
     const carousel = createCarousel(newImages);
     imagesContainer.appendChild(carousel);
 
-    if (purchaseBtn) {
+    // 4. Update Add to Cart button
+    if (addToCartBtn) {
       const isPurchasable =
         product.available && (!selectedOption || selectedOption.available);
 
-      // Remove old event listeners by cloning
-      const newBtn = purchaseBtn.cloneNode(true);
-      purchaseBtn.parentNode.replaceChild(newBtn, purchaseBtn);
-
       if (isPurchasable) {
-        newBtn.classList.remove("locked");
-        newBtn.classList.add("add-to-cart"); // New style class
-        newBtn.disabled = false;
-        newBtn.textContent = "Add to Cart";
-        newBtn.href = "#";
+        addToCartBtn.classList.remove("locked");
+        addToCartBtn.classList.add("add-to-cart");
+        addToCartBtn.disabled = false;
+        addToCartBtn.textContent = "Add to Cart";
 
-        // Add Click Listener
+        // Remove any existing listeners and add new one
+        const newBtn = addToCartBtn.cloneNode(true);
+        addToCartBtn.parentNode.replaceChild(newBtn, addToCartBtn);
+
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
           Cart.addItem(product, selectedOption);
         });
       } else {
-        newBtn.classList.add("locked");
-        newBtn.classList.remove("add-to-cart");
-        newBtn.disabled = true;
-        newBtn.textContent = "Unavailable";
-        newBtn.href = "#";
+        addToCartBtn.classList.add("locked");
+        addToCartBtn.classList.remove("add-to-cart");
+        addToCartBtn.disabled = true;
+        addToCartBtn.textContent = "Unavailable";
       }
     }
 
-    // 5. Update active class on option cards
+    // 5. Update Pre-order button (always available)
+    if (preOrderBtn) {
+      preOrderBtn.classList.remove("locked");
+      preOrderBtn.disabled = false;
+
+      // Remove any existing listeners and add new one
+      const newPreBtn = preOrderBtn.cloneNode(true);
+      preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
+
+      newPreBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        PreOrderList.addItem(product, selectedOption);
+      });
+    }
+
+    // 6. Update active class on option cards
     const optionsGrid = document.getElementById("optionsGrid");
     if (optionsGrid) {
       optionsGrid.querySelectorAll(".product-option").forEach((card) => {
@@ -1565,9 +1738,17 @@ function renderProductDetail(product) {
 
   // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
-  const actionButtonHTML = product.available
-    ? `<a class="btn primary" id="purchaseBtn" href="#" target="_blank" rel="noopener">Purchase via Telegram</a>`
-    : `<span class="stock-label out-of-stock">Unavailable</span>`;
+
+  // NEW: Create both buttons
+  let actionButtonHTML = "";
+  if (product.available) {
+    actionButtonHTML = `
+      <button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>
+      <button class="btn pre-order" id="preOrderBtn">Pre-order</button>
+    `;
+  } else {
+    actionButtonHTML = `<button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>`;
+  }
 
   const optionsPlaceholderHTML = hasOptions
     ? `<div class="product-options-container">
