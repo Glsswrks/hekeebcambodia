@@ -13,19 +13,47 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html">Keeb Cambodia</a>
-        <nav class="nav">
-          <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
-            <span class="icon">🌙</span>
-          </button>
-          <a href="index.html#shop">Shop</a>
-          <a href="#" id="preorderLink">Pre-orders
-            <span id="preorderBadge" class="cart-badge hidden">0</span>
-          </a>
-          <a href="#" id="contactLink">Contact</a>
-          <a href="#" id="cartToggle" class="nav-item-cart">
-            🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
-          </a>
-        </nav>
+       <nav class="nav">
+  <!-- Left side: Theme toggle -->
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
+    <span class="icon">🌙</span>
+  </button>
+  
+  <!-- Right side: Desktop navigation (visible on desktop) -->
+  <div class="desktop-nav">
+    <a href="index.html#shop">Shop</a>
+    <a href="#" id="preorderLink">Pre-orders
+      <span id="preorderBadge" class="cart-badge hidden">0</span>
+    </a>
+    <a href="#" id="contactLink">Contact</a>
+    <a href="#" id="cartToggle" class="nav-item-cart">
+      🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
+    </a>
+  </div>
+  
+  <!-- Right side: Hamburger button (visible on mobile) -->
+  <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle Menu">
+    <span class="hamburger-icon">☰</span>
+    <span id="cartBadgeHamburger" class="cart-badge-mobile hidden">0</span>
+  </button>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenu" class="mobile-menu-overlay" aria-hidden="true">
+  <div class="mobile-menu-content">
+    <button id="closeMobileMenu" class="mobile-menu-close" aria-label="Close Menu">&times;</button>
+    <div class="mobile-menu-items">
+      <a href="index.html#shop" class="mobile-menu-link">Shop</a>
+      <a href="#" id="preorderLinkMobile" class="mobile-menu-link">Pre-orders
+        <span id="preorderBadgeMobile" class="cart-badge hidden">0</span>
+      </a>
+      <a href="#" id="contactLinkMobile" class="mobile-menu-link">Contact</a>
+      <a href="#" id="cartToggleMobile" class="mobile-menu-link">
+        🛒 Cart <span id="cartBadgeMobile" class="cart-badge hidden">0</span>
+      </a>
+    </div>
+  </div>
+</div>
       </div>
     </header>
 

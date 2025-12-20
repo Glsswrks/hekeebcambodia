@@ -902,7 +902,7 @@ const productData = {
           name: "Original Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693",
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693"
         },
         {
           name: "Dark-Red Cyberpunk Theme",
@@ -953,8 +953,6 @@ const Cart = {
     items.splice(index, 1);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
-    // IMPORTANT: Re-render the modal immediately
-    renderPreorderModal(); // Add this line
   },
 
   clear: function () {
@@ -969,33 +967,30 @@ const Cart = {
 
   updateUI: function () {
     const items = this.getItems();
-    const badge = document.getElementById("preorderBadge");
+    const badge = document.getElementById("cartBadge");
+
+    // Update Badge
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
     }
 
-    // Re-render the modal if it's open
-    if (
-      document.getElementById("preorderModal")?.getAttribute("aria-hidden") ===
-      "false"
-    ) {
-      renderPreorderModal();
-    }
+    // Update Modal Content (if open)
+    renderCartModal();
   },
 };
 
 // NEW: Pre-Order System
 const PreOrderList = {
   key: "keeb_preorders_v1",
-
-  getItems: function () {
+  
+  getItems: function() {
     const stored = localStorage.getItem(this.key);
     return stored ? JSON.parse(stored) : [];
   },
-
-  addItem: function (product, option) {
+  
+  addItem: function(product, option) {
     const items = this.getItems();
     const newItem = {
       id: product.id,
@@ -1004,28 +999,31 @@ const PreOrderList = {
       optionName: option ? option.name : null,
       image: option ? option.image : product.images[0] || "",
       timestamp: Date.now(),
-      preorder: true,
+      preorder: true
     };
-
+    
     items.push(newItem);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
     showToast(`Added ${newItem.title} to pre-order list`);
   },
-
-  removeItem: function (index) {
+  
+  removeItem: function(index) {
     const items = this.getItems();
     items.splice(index, 1);
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
+    
+    // IMPORTANT: Re-render the modal immediately
+    renderPreorderModal();
   },
-
-  clear: function () {
+  
+  clear: function() {
     localStorage.removeItem(this.key);
     this.updateUI();
   },
-
-  updateUI: function () {
+  
+  updateUI: function() {
     const items = this.getItems();
     const badge = document.getElementById("preorderBadge");
     if (badge) {
@@ -1033,7 +1031,12 @@ const PreOrderList = {
       if (items.length > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
     }
-  },
+    
+    // Re-render the modal if it's open
+    if (document.getElementById("preorderModal")?.getAttribute("aria-hidden") === "false") {
+      renderPreorderModal();
+    }
+  }
 };
 
 // Helper: Toast Notification
@@ -1117,7 +1120,7 @@ function renderPreorderModal() {
   const listEl = document.getElementById("preorderItemsList");
   const emptyState = document.getElementById("preorderEmptyState");
   const content = document.getElementById("preorderContent");
-
+  
   if (!listEl) return;
 
   if (items.length === 0) {
@@ -1126,21 +1129,13 @@ function renderPreorderModal() {
   } else {
     emptyState.style.display = "none";
     content.style.display = "block";
-
-    listEl.innerHTML = items
-      .map(
-        (item, index) => `
+    
+    listEl.innerHTML = items.map((item, index) => `
       <li class="cart-item">
-        <img src="${
-          item.image
-        }" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
         <div class="cart-item-info">
           <span class="cart-item-title">${item.title}</span>
-          ${
-            item.optionName
-              ? `<span class="cart-item-option">${item.optionName}</span>`
-              : ""
-          }
+          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
           <span class="preorder-label" style="color:#FF6B6B; font-size:0.8rem; font-weight:600;">PRE-ORDER</span>
         </div>
         <div style="display:flex; align-items:center;">
@@ -1148,31 +1143,22 @@ function renderPreorderModal() {
           <button class="cart-remove-btn" onclick="PreOrderList.removeItem(${index})" aria-label="Remove">&times;</button>
         </div>
       </li>
-    `
-      )
-      .join("");
-
+    `).join("");
+    
     // Generate Telegram message for pre-orders
     const preorderBtn = document.getElementById("preorderTelegramBtn");
     if (preorderBtn) {
       let message = "Hello, I'm interested in pre-ordering these items:\n\n";
       items.forEach((item, i) => {
-        message += `${i + 1}. ${item.title} ${
-          item.optionName ? `(${item.optionName})` : ""
-        } - $${item.price}\n`;
+        message += `${i+1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} - $${item.price}\n`;
       });
-      message += `\nTotal: $${items.reduce(
-        (sum, item) => sum + item.price,
-        0
-      )}`;
+      message += `\nTotal: $${items.reduce((sum, item) => sum + item.price, 0)}`;
       message += "\n\nCan you let me know:";
       message += "\n• Expected wait time";
       message += "\n• Deposit required (if any)";
       message += "\n• Updates on arrival";
-
-      preorderBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
-        message
-      )}`;
+      
+      preorderBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(message)}`;
     }
   }
 }
@@ -1261,18 +1247,17 @@ document.addEventListener("DOMContentLoaded", () => {
       renderPreorderModal();
       preorderModal.setAttribute("aria-hidden", "false");
     });
-
+    
     if (closePreorderBtn) {
       closePreorderBtn.addEventListener("click", () => {
         preorderModal.setAttribute("aria-hidden", "true");
       });
     }
-
+    
     preorderModal.addEventListener("click", (e) => {
-      if (e.target === preorderModal)
-        preorderModal.setAttribute("aria-hidden", "true");
+      if (e.target === preorderModal) preorderModal.setAttribute("aria-hidden", "true");
     });
-
+    
     if (clearPreordersBtn) {
       clearPreordersBtn.addEventListener("click", () => {
         if (confirm("Clear all pre-orders?")) {
@@ -1285,6 +1270,109 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
+
+  // Hamburger Menu Functionality
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMobileMenu = document.getElementById('closeMobileMenu');
+const preorderLinkMobile = document.getElementById('preorderLinkMobile');
+const contactLinkMobile = document.getElementById('contactLinkMobile');
+const cartToggleMobile = document.getElementById('cartToggleMobile');
+
+if (hamburgerBtn && mobileMenu) {
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    mobileMenu.setAttribute('aria-hidden', 'false');
+  });
+  
+  closeMobileMenu.addEventListener('click', () => {
+    mobileMenu.setAttribute('aria-hidden', 'true');
+  });
+  
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+  
+  // Close mobile menu when clicking on links
+  const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+}
+
+// Sync cart badges between desktop and mobile
+function syncMobileBadges() {
+  const cartItems = Cart.getItems();
+  const preorderItems = PreOrderList.getItems();
+  
+  const mobileCartBadge = document.getElementById('cartBadgeMobile');
+  const mobilePreorderBadge = document.getElementById('preorderBadgeMobile');
+  
+  if (mobileCartBadge) {
+    mobileCartBadge.textContent = cartItems.length;
+    if (cartItems.length > 0) {
+      mobileCartBadge.classList.remove('hidden');
+    } else {
+      mobileCartBadge.classList.add('hidden');
+    }
+  }
+  
+  if (mobilePreorderBadge) {
+    mobilePreorderBadge.textContent = preorderItems.length;
+    if (preorderItems.length > 0) {
+      mobilePreorderBadge.classList.remove('hidden');
+    } else {
+      mobilePreorderBadge.classList.add('hidden');
+    }
+  }
+}
+
+// Update the updateUI functions to sync mobile badges
+const originalCartUpdateUI = Cart.updateUI;
+Cart.updateUI = function() {
+  originalCartUpdateUI.call(this);
+  syncMobileBadges();
+};
+
+const originalPreorderUpdateUI = PreOrderList.updateUI;
+PreOrderList.updateUI = function() {
+  originalPreorderUpdateUI.call(this);
+  syncMobileBadges();
+};
+
+// Add event listeners for mobile menu links
+if (preorderLinkMobile) {
+  preorderLinkMobile.addEventListener('click', (e) => {
+    e.preventDefault();
+    renderPreorderModal();
+    preorderModal.setAttribute('aria-hidden', 'false');
+  });
+}
+
+if (contactLinkMobile) {
+  contactLinkMobile.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.setAttribute('aria-hidden', 'false');
+  });
+}
+
+if (cartToggleMobile) {
+  cartToggleMobile.addEventListener('click', (e) => {
+    e.preventDefault();
+    Cart.updateUI();
+    cartModal.setAttribute('aria-hidden', 'false');
+  });
+}
+
+// Initial sync
+document.addEventListener('DOMContentLoaded', () => {
+  syncMobileBadges();
+});
+
 });
 
 function whatsappLink(product) {
@@ -1691,11 +1779,11 @@ function renderProductDetail(product) {
         addToCartBtn.classList.add("add-to-cart");
         addToCartBtn.disabled = false;
         addToCartBtn.textContent = "Add to Cart";
-
+        
         // Remove any existing listeners and add new one
         const newBtn = addToCartBtn.cloneNode(true);
         addToCartBtn.parentNode.replaceChild(newBtn, addToCartBtn);
-
+        
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
           Cart.addItem(product, selectedOption);
@@ -1712,11 +1800,11 @@ function renderProductDetail(product) {
     if (preOrderBtn) {
       preOrderBtn.classList.remove("locked");
       preOrderBtn.disabled = false;
-
+      
       // Remove any existing listeners and add new one
       const newPreBtn = preOrderBtn.cloneNode(true);
       preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
-
+      
       newPreBtn.addEventListener("click", (e) => {
         e.preventDefault();
         PreOrderList.addItem(product, selectedOption);
@@ -1738,9 +1826,9 @@ function renderProductDetail(product) {
 
   // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
-
+  
   // NEW: Create both buttons
-  let actionButtonHTML = "";
+  let actionButtonHTML = '';
   if (product.available) {
     actionButtonHTML = `
       <button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>
