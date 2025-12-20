@@ -14,41 +14,19 @@
       <div class="container header-inner">
         <a class="brand" href="#">Keeb Cambodia</a>
         <nav class="nav">
-  <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
-    <span class="icon">🌙</span>
-  </button>
-  
-  <!-- Desktop Navigation -->
-  <div class="desktop-nav">
-    <a href="index.html#shop">Shop</a>
-    <a href="#" id="preorderLink">Pre-orders
-      <span id="preorderBadge" class="cart-badge hidden">0</span>
-    </a>
-    <a href="#" id="contactLink">Contact</a>
-    <a href="#" id="cartToggle" class="nav-item-cart">
-      🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
-    </a>
-  </div>
-  
-  <!-- Mobile: Dropdown Menu Container -->
-  <div class="mobile-dropdown-container">
-    <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle Menu">
-      <span class="hamburger-icon">☰</span>
-      <span id="cartBadgeHamburger" class="cart-badge-mobile hidden">0</span>
-    </button>
-    
-    <div id="mobileDropdown" class="mobile-dropdown" aria-hidden="true">
-      <a href="index.html#shop" class="mobile-dropdown-link">Shop</a>
-      <a href="#" id="preorderLinkMobile" class="mobile-dropdown-link">
-        Pre-orders <span id="preorderBadgeMobile" class="cart-badge hidden">0</span>
-      </a>
-      <a href="#" id="contactLinkMobile" class="mobile-dropdown-link">Contact</a>
-      <a href="#" id="cartToggleMobile" class="mobile-dropdown-link">
-        🛒 Cart <span id="cartBadgeMobile" class="cart-badge hidden">0</span>
-      </a>
-    </div>
-  </div>
-</nav>
+          <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <span class="icon">🌙</span>
+          </button>
+          <a href="index.html#shop">Shop</a>
+         <a href="#" id="preorderLink" class="nav-item-preorder">
+    Pre-orders
+    <span id="preorderBadge" class="cart-badge hidden">0</span>
+  </a>
+          
+          <a href="#" id="cartToggle" class="nav-item-cart">
+            🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
+          </a>
+        </nav>
       </div>
     </header>
 
@@ -84,6 +62,16 @@
         <div id="mouseMoreContainer" class="load-more-container"></div>
       </section>
 
+         <!-- Mousepads Section -->
+      <section id="mousepads" class="products container">
+        <div class="section-head">
+          <h2>Mousepads</h2>
+          <input type="text" id="mousepadSearch" placeholder="Search mousepads..." class="search-input">
+        </div>
+        <div id="mousepadGrid" class="grid"></div>
+        <div id="mousepadMoreContainer" class="load-more-container"></div>
+      </section>
+
       <!-- NEW SECTION: Keycaps -->
       <section id="keycaps" class="products container">
         <div class="section-head">
@@ -106,12 +94,35 @@
         <div id="strapMoreContainer" class="load-more-container"></div>
       </section>
 
-      <section id="about" class="about-full-wide">
-        <div class="container about-content-box">
-          <h3>About Keeb Cambodia</h3>
-          <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
+    <section id="about" class="about-full-wide">
+  <div class="container about-content-box">
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>About Keeb Cambodia</h3>
+        <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
+      </div>
+      
+      <div class="about-contact">
+        <h4>Connect With Us</h4>
+        <p>For custom builds, support, or inquiries:</p>
+        <div class="contact-button-group">
+          <a href="#" id="whatsappMain" target="_blank" class="btn contact-card whatsapp">
+            <div class="contact-label">
+              <span>WhatsApp</span>
+              <small>Chat with us</small>
+            </div>
+          </a>
+          <a href="#" id="telegramMain" target="_blank" class="btn contact-card telegram">
+            <div class="contact-label">
+              <span>Telegram</span>
+              <small>@glsswrksGG</small>
+            </div>
+          </a>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       <footer class="site-footer">
         <div class="container">

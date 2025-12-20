@@ -1404,417 +1404,141 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
   display: inline-block;
   margin-top: 4px;
 }
-
-/* ===== Navigation & Header Styles ===== */
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-}
-
-.brand {
-  font-weight: 700;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Theme toggle button */
-.theme-btn {
-  background: transparent;
+.contact-methods-inline .btn {
+  background: var(--glass);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--muted);
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: background 0.2s;
+}
+
+.contact-methods-inline .btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* About Section Enhanced Design */
+.about-grid {
   display: flex;
+  gap: 40px;
   align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  flex-wrap: wrap;
 }
 
-.theme-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.05);
+.about-text {
+  flex: 1 1 300px;
 }
 
-/* Desktop navigation (visible on desktop) */
-.desktop-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.about-contact {
+  flex: 1 1 300px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.desktop-nav a {
-  color: var(--muted);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-
-.desktop-nav a:hover {
-  color: var(--accent);
-  background: rgba(124, 92, 255, 0.1);
-}
-
-/* Cart badge in desktop nav */
-.nav-item-cart {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.cart-badge {
-  position: absolute;
-  top: -5px;
-  right: -8px;
-  background: #ef4444;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 700;
-  height: 18px;
-  min-width: 18px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  border: 2px solid var(--bg);
-}
-
-.cart-badge.hidden {
-  display: none;
-}
-
-/* Hamburger button (hidden on desktop, visible on mobile) */
-.hamburger-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  display: none; /* Hidden by default */
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  position: relative;
-}
-
-.hamburger-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.05);
-}
-
-.cart-badge-mobile {
-  position: absolute;
-  top: -5px;
-  right: -8px;
-  background: #ef4444;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 700;
-  height: 18px;
-  min-width: 18px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  border: 2px solid var(--bg);
-}
-
-.cart-badge-mobile.hidden {
-  display: none;
-}
-
-/* Mobile Menu Overlay */
-.mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(2, 4, 6, 0.98);
-  z-index: 1000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-menu-overlay[aria-hidden="false"] {
-  display: flex;
-}
-
-.mobile-menu-content {
-  background: var(--card);
-  width: 90%;
-  max-width: 320px;
-  border-radius: 16px;
-  padding: 30px 25px;
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mobile-menu-close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-size: 2rem;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-menu-close:hover {
+.about-contact h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
   color: var(--accent);
 }
 
-.mobile-menu-items {
+.about-contact p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.contact-button-group {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 30px;
 }
 
-.mobile-menu-link {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 1.2rem;
-  padding: 15px 0;
+/* Contact Card Style */
+.contact-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.2s ease;
-}
-
-.mobile-menu-link:hover {
-  color: var(--accent);
-  transform: translateX(5px);
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-/* Tablet and Mobile */
-@media (max-width: 768px) {
-  .header-inner {
-    padding: 12px 16px;
-  }
-  
-  .brand {
-    font-size: 1.1rem;
-  }
-  
-  /* Hide desktop navigation on mobile */
-  .desktop-nav {
-    display: none;
-  }
-  
-  /* Show hamburger button on mobile */
-  .hamburger-btn {
-    display: flex;
-  }
-  
-  /* Adjust nav spacing for mobile */
-  .nav {
-    gap: 8px;
-  }
-  
-  /* Theme button adjustments for mobile */
-  .theme-btn {
-    padding: 6px 10px;
-    min-width: 40px;
-    min-height: 40px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-  .header-inner {
-    padding: 10px 12px;
-  }
-  
-  .brand {
-    font-size: 1rem;
-  }
-  
-  .theme-btn, .hamburger-btn {
-    padding: 6px 8px;
-    min-width: 36px;
-    min-height: 36px;
-  }
-  
-  .hamburger-btn {
-    font-size: 1.3rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 769px) {
-  .hamburger-btn {
-    display: none !important;
-  }
-  
-  .mobile-menu-overlay {
-    display: none !important;
-  }
-  
-  .desktop-nav {
-    display: flex;
-  }
-}
-
-/* ===== DROPDOWN MENU (Mobile) ===== */
-.mobile-dropdown-container {
-  position: relative;
-}
-
-.mobile-dropdown {
-  position: absolute;
-  top: 100%; /* Position below the hamburger button */
-  right: 0;
+  gap: 15px;
+  padding: 12px 16px;
+  border-radius: 10px;
   background: var(--card);
-  border-radius: 12px;
-  padding: 12px 0;
-  min-width: 200px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 1000;
-  display: none;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.mobile-dropdown[aria-hidden="false"] {
-  display: flex;
-  animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mobile-dropdown-link {
-  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
-  padding: 12px 20px;
-  font-size: 1rem;
+  color: white;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateX(5px);
+  border-color: var(--accent);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+}
+
+.contact-label {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  text-align: left;
+}
+
+.contact-label span {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.contact-label small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* Specific colors for branding */
+.contact-card.whatsapp:hover { border-color: #25D366; }
+.contact-card.telegram:hover { border-color: #0088cc; }
+
+/* Container for Pre-order link to anchor the badge */
+.nav-item-preorder {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  text-decoration: none;
+  color: var(--muted);
 }
 
-.mobile-dropdown-link:hover {
-  color: var(--accent);
-  background: rgba(124, 92, 255, 0.1);
+/* Ensure the badge for pre-orders uses the same positioning logic as the cart */
+#preorderBadge {
+  position: absolute;
+  top: -8px;      /* Moves it slightly above the text */
+  right: -12px;   /* Moves it to the right edge of the text */
+  /* These inherited from .cart-badge will now work correctly: */
+  background: #ef4444;
+  color: white;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 9px;
+  border: 2px solid var(--bg);
 }
 
-.mobile-dropdown-link .cart-badge {
-  position: static;
-  margin-left: 10px;
-}
-
-/* Close dropdown when clicking outside */
-.dropdown-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  z-index: 999;
-  display: none;
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-/* Tablet and Mobile (768px and below) */
-@media (max-width: 768px) {
-  .header-inner {
-    padding: 12px 16px;
+/* Mobile Tweak: Ensure they don't overlap on small screens */
+@media (max-width: 520px) {
+  #preorderBadge {
+    top: -5px;
+    right: -8px;
+    font-size: 0.6rem;
+    height: 14px;
+    min-width: 14px;
   }
   
-  .brand {
-    font-size: 1.1rem;
-  }
-  
-  /* Hide desktop navigation on mobile */
-  .desktop-nav {
-    display: none;
-  }
-  
-  /* Show hamburger button on mobile */
-  .hamburger-btn {
-    display: flex;
-  }
-  
-  /* Adjust nav spacing for mobile */
   .nav {
-    gap: 8px;
+    gap: 12px !important; /* Give more space between links for the badges */
   }
 }
+/* Optional: Add specific styling for mousepad category */
+.mousepad-badge {
+  background: linear-gradient(45deg, #3498db, #2ecc71);
+}
 
-/* Desktop (769px and above) */
-@media (min-width: 769px) {
-  .hamburger-btn {
-    display: none !important;
-  }
-  
-  .mobile-dropdown {
-    display: none !important;
-  }
-  
-  .desktop-nav {
-    display: flex;
-  }
-  
-  .dropdown-backdrop {
-    display: none !important;
+/* Mobile responsive adjustments for mousepad grid */
+@media (max-width: 600px) {
+  #mousepadGrid .card {
+    min-height: 280px;
   }
 }

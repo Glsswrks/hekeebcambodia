@@ -895,7 +895,7 @@ const productData = {
       specs: [
         "Original Profile",
         "Material: PBT",
-        "Support Keyboard 61/68 Layouts",
+        "Support Full Keyboard 61/68 Layouts",
       ],
       options: [
         {
@@ -912,27 +912,89 @@ const productData = {
         },
       ],
     },
-    {
-      id: "p3persona3",
-      title: "P3 Persona 3 Keycaps",
-      short:
-        "Cherry Profile PBT Dye-Sub P3 Persona 3 Themed Keycap Set",
-      price: 30,
-      layout: "130-Keys",
-      available: false,
-      isNew: false,
-      lowStock: false,
-      images: [
-        "https://media.discordapp.net/attachments/1384747917063225354/1451908595510804626/tb_image_share_1766232280458.png?ex=6947e2c0&is=69469140&hm=6ef0796898ee397e14cd05e31d7d321167cfb5249e83905323fc667a700c5744&=&format=webp&quality=lossless&width=823&height=823",
-      ],
-      specs: [
-        "Cherry Profile - Dye Sub",
-        "Material: PBT + PC",
-        "Support Full Keyboard Layouts",
-      ],
-      options: null
-    },
   ],
+  mousepads:[
+    {
+    id: "titan-gaming-gear-mousepad",
+    title: "Titan Gaming Gear XSoft Standard",
+    short: "Premium XSoft Fabric Mousepad - Standard Size (Titan Nation)",
+    price: 15,
+    layout: "450x400mm",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://media.discordapp.net/attachments/1384747917063225354/1451902967295770695/tb_image_share_1766230995951.png?ex=6947dd82&is=69468c02&hm=cec800f002cb830346ea14edafd7f9aea4d301e82941009ba133ebe660160c48&=&format=webp&quality=lossless&width=693&height=693",
+      "https://media.discordapp.net/attachments/1384747917063225354/1451964001012547716/tb_image_share_1766245554292.png?ex=6948165a&is=6946c4da&hm=1858631ec46db3c378be77bb1c35dbcddd94f5201ab636de60ffb663b227cfb3&=&format=webp&quality=lossless&width=693&height=693",
+      "https://media.discordapp.net/attachments/1384747917063225354/1451964001457275072/tb_image_share_1766245559878.png?ex=6948165a&is=6946c4da&hm=7b4f1372a1fab7b2c052ff9cfbee484f864fb0396153a9d3038b3f86873630ca&=&format=webp&quality=lossless&width=693&height=693",
+      "https://media.discordapp.net/attachments/1384747917063225354/1451964001914192096/tb_image_share_1766245564112.png?ex=6948165a&is=6946c4da&hm=87fde99c62a283f01b76e1e1b1234de180d2ba920b92c82519641ecd79bbf01d&=&format=webp&quality=lossless&width=693&height=693",
+      "https://media.discordapp.net/attachments/1384747917063225354/1451964002346471618/tb_image_share_1766245569900.png?ex=6948165a&is=6946c4da&hm=406f21197b56616235c9bdaa3eec1ee0452770ffa6c1a611319f1e138a519f78&=&format=webp&quality=lossless&width=693&height=693"
+    ],
+    specs: [
+      "Size: 450x400mm",
+      "Thickness: 5mm",
+    ],
+    options: [
+      {
+        name: "Orange Edition",
+        available: false,
+        image:
+          "https://media.discordapp.net/attachments/1384747917063225354/1451902967295770695/tb_image_share_1766230995951.png?ex=6947dd82&is=69468c02&hm=cec800f002cb830346ea14edafd7f9aea4d301e82941009ba133ebe660160c48&=&format=webp&quality=lossless&width=693&height=693",
+      },
+      {
+        name: "Black Edition",
+        available: false,
+        image:
+          "https://media.discordapp.net/attachments/1384747917063225354/1451902967715467325/tb_image_share_1766230998852.png?ex=6947dd82&is=69468c02&hm=ce142a952de8e3da9d54fa4d54b936a971e7e4dd01f6d1d9fdc717649d228b85&=&format=webp&quality=lossless&width=693&height=693",
+      },
+      {
+        name: "Red Edition",
+        available: false,
+        image: "https://media.discordapp.net/attachments/1384747917063225354/1451902966914355241/tb_image_share_1766230992724.png?ex=6947dd82&is=69468c02&hm=ce06ad1e3bae737ab456b8e076613f3c2952c737375c783ece4475fa1ed05ba6&=&format=webp&quality=lossless&width=693&height=693"
+      },
+      {
+        name: "Blue Edition",
+        available: false,
+        image:
+          "https://media.discordapp.net/attachments/1384747917063225354/1451902966507376737/tb_image_share_1766230989688.png?ex=6947dd82&is=69468c02&hm=58b2cae8119e22f9260f0dda2826900d2b3a743eb539324e979b4bc32deeb649&=&format=webp&quality=lossless&width=693&height=693",
+      }
+    ]
+  },
+  {
+    id: "clone-artisan-mousepad",
+    title: "Artisan FX (Clone)",
+    short: "Custom Artisan Mousepad Clone - 3mm Thickness",
+    price: 9,
+    layout: "450x400mm",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://media.discordapp.net/attachments/1384747917063225354/1451902451786449070/tb_image_share_1766230886978.png?ex=6947dd07&is=69468b87&hm=f150f349e6d653a4de20d8c065953420be03d25016e60669a51fe6f6f26c6707&=&format=webp&quality=lossless&width=693&height=693"
+    ],
+    specs: [
+      "Size: 450x400mm",
+      "Thickness: 3mm",
+    ],
+    options: [
+      {
+        name: "Red Edition",
+        available: false,
+        image: "https://media.discordapp.net/attachments/1384747917063225354/1451902451786449070/tb_image_share_1766230886978.png?ex=6947dd07&is=69468b87&hm=f150f349e6d653a4de20d8c065953420be03d25016e60669a51fe6f6f26c6707&=&format=webp&quality=lossless&width=693&height=693"
+      },
+       {
+        name: "Orange Edition",
+        available: false,
+        image: "https://media.discordapp.net/attachments/1384747917063225354/1451902452436697119/tb_image_share_1766230894253.png?ex=6947dd07&is=69468b87&hm=1721ff5db8ded6af5bc9b3a0c306a6af26d20ad95b465003ada635270e598ec3&=&format=webp&quality=lossless&width=693&height=693"
+      },
+       {
+        name: "Black Edition",
+        available: false,
+        image: "https://media.discordapp.net/attachments/1384747917063225354/1451902452851802354/tb_image_share_1766230881188.png?ex=6947dd07&is=69468b87&hm=30ad306b3f0793721980ff0e1f7e7d15948d2cf422f49ad8b20e80d36d30488d&=&format=webp&quality=lossless&width=693&height=693"
+      }
+    ]
+  },
+  ]
 };
 
 const allProducts = [
@@ -940,6 +1002,7 @@ const allProducts = [
   ...productData.mice,
   ...productData.straps,
   ...productData.keycaps,
+  ...productData.mousepads,
 ];
 
 const Cart = {
@@ -1216,7 +1279,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
-
+/*
   const contactLink = document.getElementById("contactLink");
   const modal = document.getElementById("contactModal");
   const closeBtn = modal.querySelector(".modal-close");
@@ -1233,6 +1296,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === modal) modal.setAttribute("aria-hidden", "true");
     });
   }
+    */
 
   if (cartToggle && cartModal) {
     cartToggle.addEventListener("click", (e) => {
@@ -1290,109 +1354,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
-
-  // Hamburger Menu Functionality
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const closeMobileMenu = document.getElementById('closeMobileMenu');
-const preorderLinkMobile = document.getElementById('preorderLinkMobile');
-const contactLinkMobile = document.getElementById('contactLinkMobile');
-const cartToggleMobile = document.getElementById('cartToggleMobile');
-
-if (hamburgerBtn && mobileMenu) {
-  hamburgerBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    mobileMenu.setAttribute('aria-hidden', 'false');
-  });
-  
-  closeMobileMenu.addEventListener('click', () => {
-    mobileMenu.setAttribute('aria-hidden', 'true');
-  });
-  
-  mobileMenu.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) {
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    }
-  });
-  
-  // Close mobile menu when clicking on links
-  const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    });
-  });
-}
-
-// Sync cart badges between desktop and mobile
-function syncMobileBadges() {
-  const cartItems = Cart.getItems();
-  const preorderItems = PreOrderList.getItems();
-  
-  const mobileCartBadge = document.getElementById('cartBadgeMobile');
-  const mobilePreorderBadge = document.getElementById('preorderBadgeMobile');
-  
-  if (mobileCartBadge) {
-    mobileCartBadge.textContent = cartItems.length;
-    if (cartItems.length > 0) {
-      mobileCartBadge.classList.remove('hidden');
-    } else {
-      mobileCartBadge.classList.add('hidden');
-    }
-  }
-  
-  if (mobilePreorderBadge) {
-    mobilePreorderBadge.textContent = preorderItems.length;
-    if (preorderItems.length > 0) {
-      mobilePreorderBadge.classList.remove('hidden');
-    } else {
-      mobilePreorderBadge.classList.add('hidden');
-    }
-  }
-}
-
-// Update the updateUI functions to sync mobile badges
-const originalCartUpdateUI = Cart.updateUI;
-Cart.updateUI = function() {
-  originalCartUpdateUI.call(this);
-  syncMobileBadges();
-};
-
-const originalPreorderUpdateUI = PreOrderList.updateUI;
-PreOrderList.updateUI = function() {
-  originalPreorderUpdateUI.call(this);
-  syncMobileBadges();
-};
-
-// Add event listeners for mobile menu links
-if (preorderLinkMobile) {
-  preorderLinkMobile.addEventListener('click', (e) => {
-    e.preventDefault();
-    renderPreorderModal();
-    preorderModal.setAttribute('aria-hidden', 'false');
-  });
-}
-
-if (contactLinkMobile) {
-  contactLinkMobile.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.setAttribute('aria-hidden', 'false');
-  });
-}
-
-if (cartToggleMobile) {
-  cartToggleMobile.addEventListener('click', (e) => {
-    e.preventDefault();
-    Cart.updateUI();
-    cartModal.setAttribute('aria-hidden', 'false');
-  });
-}
-
-// Initial sync
-document.addEventListener('DOMContentLoaded', () => {
-  syncMobileBadges();
-});
-
 });
 
 function whatsappLink(product) {
@@ -1573,6 +1534,7 @@ function initProductSection(categoryName) {
     mice: "mouse",
     straps: "strap",
     keycaps: "keycap",
+    mousepads: "mousepad",
   };
 
   const prefix = prefixMap[categoryName] || categoryName.slice(0, -1); // Remove 's' as fallback
@@ -1603,6 +1565,7 @@ function initIndexPage() {
   initProductSection("mice");
   initProductSection("straps");
   initProductSection("keycaps");
+  initProductSection("mousepads");
 
   let resizeTimer;
   window.addEventListener("resize", () => {
@@ -1612,6 +1575,7 @@ function initIndexPage() {
       initProductSection("mice");
       initProductSection("straps");
       initProductSection("keycaps");
+        initProductSection("mousepads");
     }, 200);
   });
 }
@@ -1646,6 +1610,7 @@ function initCategoryPage() {
     mice: "Mice",
     straps: "Custom Keyboard Straps",
     keycaps: "Keycaps",
+    mousepads: "Mousepads",
   };
 
   const capitalizedName =
