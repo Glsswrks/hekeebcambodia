@@ -1700,3 +1700,121 @@ textarea.form-input::-webkit-scrollbar-thumb:hover {
     display: flex;
   }
 }
+
+/* ===== DROPDOWN MENU (Mobile) ===== */
+.mobile-dropdown-container {
+  position: relative;
+}
+
+.mobile-dropdown {
+  position: absolute;
+  top: 100%; /* Position below the hamburger button */
+  right: 0;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px 0;
+  min-width: 200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.mobile-dropdown[aria-hidden="false"] {
+  display: flex;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-dropdown-link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.mobile-dropdown-link:hover {
+  color: var(--accent);
+  background: rgba(124, 92, 255, 0.1);
+}
+
+.mobile-dropdown-link .cart-badge {
+  position: static;
+  margin-left: 10px;
+}
+
+/* Close dropdown when clicking outside */
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 999;
+  display: none;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet and Mobile (768px and below) */
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 12px 16px;
+  }
+  
+  .brand {
+    font-size: 1.1rem;
+  }
+  
+  /* Hide desktop navigation on mobile */
+  .desktop-nav {
+    display: none;
+  }
+  
+  /* Show hamburger button on mobile */
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  /* Adjust nav spacing for mobile */
+  .nav {
+    gap: 8px;
+  }
+}
+
+/* Desktop (769px and above) */
+@media (min-width: 769px) {
+  .hamburger-btn {
+    display: none !important;
+  }
+  
+  .mobile-dropdown {
+    display: none !important;
+  }
+  
+  .desktop-nav {
+    display: flex;
+  }
+  
+  .dropdown-backdrop {
+    display: none !important;
+  }
+}

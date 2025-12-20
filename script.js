@@ -895,7 +895,7 @@ const productData = {
       specs: [
         "Original Profile",
         "Material: PBT",
-        "Support Full Keyboard 61/68 Layouts",
+        "Support Keyboard 61/68 Layouts",
       ],
       options: [
         {
@@ -911,6 +911,26 @@ const productData = {
             "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=6946cbac&is=69457a2c&hm=8278d98832e3debebf618bebc3395320e26b9552543c1cdb3cb71578646c0a1e&=&format=webp&quality=lossless&width=693&height=693",
         },
       ],
+    },
+    {
+      id: "p3persona3",
+      title: "P3 Persona 3 Keycaps",
+      short:
+        "Cherry Profile PBT Dye-Sub P3 Persona 3 Themed Keycap Set",
+      price: 30,
+      layout: "130-Keys",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1451908595510804626/tb_image_share_1766232280458.png?ex=6947e2c0&is=69469140&hm=6ef0796898ee397e14cd05e31d7d321167cfb5249e83905323fc667a700c5744&=&format=webp&quality=lossless&width=823&height=823",
+      ],
+      specs: [
+        "Cherry Profile - Dye Sub",
+        "Material: PBT + PC",
+        "Support Full Keyboard Layouts",
+      ],
+      options: null
     },
   ],
 };

@@ -14,12 +14,11 @@
       <div class="container header-inner">
         <a class="brand" href="#">Keeb Cambodia</a>
         <nav class="nav">
-  <!-- Left side: Theme toggle -->
   <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
     <span class="icon">🌙</span>
   </button>
   
-  <!-- Right side: Desktop navigation (visible on desktop) -->
+  <!-- Desktop Navigation -->
   <div class="desktop-nav">
     <a href="index.html#shop">Shop</a>
     <a href="#" id="preorderLink">Pre-orders
@@ -31,29 +30,25 @@
     </a>
   </div>
   
-  <!-- Right side: Hamburger button (visible on mobile) -->
-  <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle Menu">
-    <span class="hamburger-icon">☰</span>
-    <span id="cartBadgeHamburger" class="cart-badge-mobile hidden">0</span>
-  </button>
-</nav>
-
-<!-- Mobile Menu Overlay -->
-<div id="mobileMenu" class="mobile-menu-overlay" aria-hidden="true">
-  <div class="mobile-menu-content">
-    <button id="closeMobileMenu" class="mobile-menu-close" aria-label="Close Menu">&times;</button>
-    <div class="mobile-menu-items">
-      <a href="index.html#shop" class="mobile-menu-link">Shop</a>
-      <a href="#" id="preorderLinkMobile" class="mobile-menu-link">Pre-orders
-        <span id="preorderBadgeMobile" class="cart-badge hidden">0</span>
+  <!-- Mobile: Dropdown Menu Container -->
+  <div class="mobile-dropdown-container">
+    <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle Menu">
+      <span class="hamburger-icon">☰</span>
+      <span id="cartBadgeHamburger" class="cart-badge-mobile hidden">0</span>
+    </button>
+    
+    <div id="mobileDropdown" class="mobile-dropdown" aria-hidden="true">
+      <a href="index.html#shop" class="mobile-dropdown-link">Shop</a>
+      <a href="#" id="preorderLinkMobile" class="mobile-dropdown-link">
+        Pre-orders <span id="preorderBadgeMobile" class="cart-badge hidden">0</span>
       </a>
-      <a href="#" id="contactLinkMobile" class="mobile-menu-link">Contact</a>
-      <a href="#" id="cartToggleMobile" class="mobile-menu-link">
+      <a href="#" id="contactLinkMobile" class="mobile-dropdown-link">Contact</a>
+      <a href="#" id="cartToggleMobile" class="mobile-dropdown-link">
         🛒 Cart <span id="cartBadgeMobile" class="cart-badge hidden">0</span>
       </a>
     </div>
   </div>
-</div>
+</nav>
       </div>
     </header>
 
