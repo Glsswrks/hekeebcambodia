@@ -1771,44 +1771,81 @@ function scrollSimilarProducts(direction) {
   grid.scrollBy({ left: scrollAmount, behavior: "smooth" });
 }
 
-// REMOVED scrollProductOptions function
+// Helper function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
+// MODIFIED: renderSimilarProductsSection with randomization and excludes straps
 function renderSimilarProductsSection(currentProductId) {
   const similarSection = document.getElementById("similarProductsSection");
-  const otherProducts = allProducts.filter((p) => p.id !== currentProductId);
-  const backLinkHTML =
-    '<div style="margin-top:28px;"><a class="back-link" href="index.html">← Back to shop</a></div>';
+  
+  // Filter out the current product AND exclude strap products
+  const otherProducts = allProducts.filter((p) => {
+    // Exclude current product
+    if (p.id === currentProductId) return false;
+    
+    // Exclude strap products (they have ids starting with "custom--strap-")
+    if (p.id.startsWith("custom--strap-")) return false;
+    
+    return true;
+  });
+  
+  // If we have enough products (at least 4), shuffle and show 6
+  if (otherProducts.length >= 4) {
+    // Shuffle the other products array to get random order
+    const shuffledProducts = shuffleArray(otherProducts);
+    
+    // Take only a limited number (e.g., 6) to show
+    const productsToShow = shuffledProducts.slice(0, 15);
+    
+    const backLinkHTML =
+      '<div style="margin-top:28px;"><a class="back-link" href="index.html">← Back to shop</a></div>';
 
-  if (!similarSection || otherProducts.length === 0) {
+    if (!similarSection || productsToShow.length === 0) {
+      document
+        .querySelector(".product-page")
+        .insertAdjacentHTML("beforeend", backLinkHTML);
+      return;
+    }
+    
+    similarSection.innerHTML = `
+          <div style="margin-top:40px;margin-bottom:20px;">
+              <h2 style="font-size:1.5rem;">You May Also Like</h2>
+          </div>
+          <div class="horizontal-scroll-container">
+              <button class="scroll-nav-btn left" aria-label="Previous similar product">&lt;</button>
+              <div class="horizontal-scroll-wrapper">
+                  <div id="similarProductsGrid" class="grid horizontal-scroll"></div>
+              </div>
+              <button class="scroll-nav-btn right" aria-label="Next similar product">&gt;</button>
+          </div>
+      `;
+
+    const grid = document.getElementById("similarProductsGrid");
+    productsToShow.forEach((p) => {
+      grid.appendChild(createProductCard(p));
+    });
+    
+    similarSection
+      .querySelector(".scroll-nav-btn.left")
+      .addEventListener("click", () => scrollSimilarProducts("prev"));
+    similarSection
+      .querySelector(".scroll-nav-btn.right")
+      .addEventListener("click", () => scrollSimilarProducts("next"));
+      
+    similarSection.insertAdjacentHTML("afterend", backLinkHTML);
+  } else {
+    // If we don't have enough non-strap products, just show the back link
     document
       .querySelector(".product-page")
       .insertAdjacentHTML("beforeend", backLinkHTML);
-    return;
   }
-  similarSection.innerHTML = `
-        <div style="margin-top:40px;margin-bottom:20px;">
-            <h2 style="font-size:1.5rem;">Similar Products</h2>
-        </div>
-        <div class="horizontal-scroll-container">
-            <button class="scroll-nav-btn left" aria-label="Previous similar product">&lt;</button>
-            <div class="horizontal-scroll-wrapper">
-                <div id="similarProductsGrid" class="grid horizontal-scroll"></div>
-            </div>
-            <button class="scroll-nav-btn right" aria-label="Next similar product">&gt;</button>
-        </div>
-    `;
-
-  const grid = document.getElementById("similarProductsGrid");
-  otherProducts.forEach((p) => {
-    grid.appendChild(createProductCard(p));
-  });
-  similarSection
-    .querySelector(".scroll-nav-btn.left")
-    .addEventListener("click", () => scrollSimilarProducts("prev"));
-  similarSection
-    .querySelector(".scroll-nav-btn.right")
-    .addEventListener("click", () => scrollSimilarProducts("next"));
-  similarSection.insertAdjacentHTML("afterend", backLinkHTML);
 }
 
 /* ---------- Modified renderProductDetail to conditionally show pre-order button ---------- */
