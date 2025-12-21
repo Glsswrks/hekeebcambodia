@@ -128,31 +128,47 @@
     </div>
   </div>
 </div>
+ <!-- NEW: Pre-order Modal -->
+      <div id="preorderModal" class="modal" aria-hidden="true">
+        <div class="modal-content" style="max-width: 500px;">
+          <button class="modal-close" id="closePreorderBtn" aria-label="Close">&times;</button>
+          <h2>Your Pre-Orders</h2>
+          
+          <div id="preorderEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
+            <p>No pre-orders yet.</p>
+          </div>
 
-<!-- NEW: Pre-order Modal -->
-<div id="preorderModal" class="modal" aria-hidden="true">
-  <div class="modal-content" style="max-width: 500px;">
-    <button class="modal-close" id="closePreorderBtn" aria-label="Close">&times;</button>
-    <h2>Your Pre-Orders</h2>
-    
-    <div id="preorderEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
-      <p>No pre-orders yet.</p>
-    </div>
-
-    <div id="preorderContent">
-      <ul id="preorderItemsList" class="cart-items-list"></ul>
-      
-      <div class="modal-actions" style="flex-direction: column;">
-        <a href="#" id="preorderTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
-          Discuss Pre-orders via Telegram
-        </a>
-        <button id="clearPreordersBtn" class="btn" style="font-size:0.9rem; padding: 8px;">
-          Clear All Pre-orders
-        </button>
+          <div id="preorderContent">
+            <ul id="preorderItemsList" class="cart-items-list"></ul>
+            
+            <div id="preorderInfo" style="display:none; padding: 15px; margin: 15px 0; background: rgba(0,0,0,0.1); border-radius: 8px; text-align: left;">
+              <h4 style="margin-top: 0; color: var(--accent);">📋 Pre-order Information</h4>
+              <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                <strong>How pre-orders work:</strong>
+              </p>
+              <ul style="font-size: 0.85rem; padding-left: 20px; margin: 0;">
+                <li>Requires 50% deposit of the product price</li>
+                <li>Estimated arrival: 7-16 days</li>
+                <li>If product arrives damaged, we refund 50% of your payment</li>
+                <li>You'll be notified when your item is ready for pickup/delivery</li>
+                <li>Balance to be paid upon delivery</li>
+              </ul>
+            </div>
+            
+            <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+              <button id="preorderInfoBtn" class="btn" style="width:100%;">
+                Pre-order Information
+              </button>
+              <a href="#" id="preorderTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
+                Discuss Pre-orders via Telegram
+              </a>
+              <button id="clearPreordersBtn" class="btn" style="font-size:0.9rem; padding: 8px;">
+                Clear All Pre-orders
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
 <div id="toast" class="toast-container">
   <span>✅ Item added to cart!</span>

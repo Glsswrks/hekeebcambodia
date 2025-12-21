@@ -906,7 +906,7 @@ const productData = {
           name: "Original Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693"
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69481d2b&is=6946cbab&hm=be9a2d7725e4e655868a009e4e58c4ad9ef651e99111ed977e4b046dcb656c15&=&format=webp&quality=lossless&width=693&height=693"
         },
         {
           name: "Dark-Red Cyberpunk Theme",
@@ -1307,21 +1307,61 @@ function renderCartModal() {
   }
 }
 
-// NEW: Helper: Render Pre-order Modal
+
+// NEW: Helper to toggle pre-order information visibility
+function togglePreorderInfo() {
+  const infoSection = document.getElementById("preorderInfo");
+  const infoBtn = document.getElementById("preorderInfoBtn");
+  
+  if (infoSection && infoBtn) {
+    if (infoSection.style.display === "none" || infoSection.style.display === "") {
+      infoSection.style.display = "block";
+      infoBtn.innerHTML = "📋 Hide Pre-order Information";
+      infoBtn.style.background = "var(--accent)";
+      infoBtn.style.color = "white";
+    } else {
+      infoSection.style.display = "none";
+      infoBtn.innerHTML = "ℹ️ Pre-order Information";
+      infoBtn.style.background = "";
+      infoBtn.style.color = "";
+    }
+  }
+}
+
+// NEW: Helper: Render Pre-order Modal (updated with info section)
 function renderPreorderModal() {
   const items = PreOrderList.getItems();
   const listEl = document.getElementById("preorderItemsList");
   const emptyState = document.getElementById("preorderEmptyState");
   const content = document.getElementById("preorderContent");
+  const infoBtn = document.getElementById("preorderInfoBtn");
   
   if (!listEl) return;
 
   if (items.length === 0) {
     emptyState.style.display = "block";
     content.style.display = "none";
+    // Hide info button when no pre-orders
+    if (infoBtn) {
+      infoBtn.style.display = "none";
+    }
   } else {
     emptyState.style.display = "none";
     content.style.display = "block";
+    
+    // Show info button when there are pre-orders
+    if (infoBtn) {
+      infoBtn.style.display = "block";
+      // Reset info section to hidden state
+      const infoSection = document.getElementById("preorderInfo");
+      if (infoSection) {
+        infoSection.style.display = "none";
+      }
+      // Reset button text
+      infoBtn.innerHTML = "ℹ️ Pre-order Information";
+      infoBtn.style.background = "";
+      infoBtn.style.color = "";
+    }
     
     listEl.innerHTML = items.map((item, index) => `
       <li class="cart-item">
@@ -1345,11 +1385,19 @@ function renderPreorderModal() {
       items.forEach((item, i) => {
         message += `${i+1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} - $${item.price}\n`;
       });
-      message += `\nTotal: $${items.reduce((sum, item) => sum + item.price, 0)}`;
-      message += "\n\nCan you let me know:";
-      message += "\n• Expected wait time";
-      message += "\n• Deposit required (if any)";
-      message += "\n• Updates on arrival";
+      
+      // Add deposit information
+      const total = items.reduce((sum, item) => sum + item.price, 0);
+      const deposit = total * 0.5;
+      
+      message += `\nTotal: $${total}`;
+      message += `\n50% Deposit: $${deposit.toFixed(2)}`;
+      message += "\n\nI understand the pre-order terms:";
+      message += "\n• 50% deposit required";
+      message += "\n• Estimated arrival: 7-16 days";
+      message += "\n• Damaged items: 50% refund";
+      message += "\n• Balance paid upon delivery";
+      message += "\n\nI'd like to proceed with the deposit.";
       
       preorderBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(message)}`;
     }
@@ -1370,6 +1418,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const preorderModal = document.getElementById("preorderModal");
   const closePreorderBtn = document.getElementById("closePreorderBtn");
   const clearPreordersBtn = document.getElementById("clearPreordersBtn");
+  const preorderInfoBtn = document.getElementById("preorderInfoBtn");
 
   // Set initial state
   if (currentTheme === "light") {
@@ -1389,24 +1438,6 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
-/*
-  const contactLink = document.getElementById("contactLink");
-  const modal = document.getElementById("contactModal");
-  const closeBtn = modal.querySelector(".modal-close");
-
-  if (contactLink && modal) {
-    contactLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      modal.setAttribute("aria-hidden", "false");
-    });
-    closeBtn.addEventListener("click", () => {
-      modal.setAttribute("aria-hidden", "true");
-    });
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) modal.setAttribute("aria-hidden", "true");
-    });
-  }
-    */
 
   if (cartToggle && cartModal) {
     cartToggle.addEventListener("click", (e) => {
@@ -1461,6 +1492,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  
+    // NEW: Add event listener for pre-order info button
+    if (preorderInfoBtn) {
+      preorderInfoBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        togglePreorderInfo();
+      });
+    }
+
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
@@ -1473,6 +1513,8 @@ function whatsappLink(product) {
   );
   return `${base}?text=${text}`;
 }
+
+
 
 function purchaseTelegramLink(product, optionName = null) {
   // Prefix text with product details

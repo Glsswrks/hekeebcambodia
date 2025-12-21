@@ -1487,3 +1487,27 @@ body {
     min-height: 280px;
   }
 }
+
+/* NEW: Pre-order Information Button Styles */
+#preorderInfoBtn {
+  background: rgba(124, 92, 255, 0.1);
+  border: 1px solid rgba(124, 92, 255, 0.3);
+  color: var(--accent);
+  transition: all 0.2s ease;
+}
+
+#preorderInfoBtn:hover {
+  background: rgba(124, 92, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Pre-order info section styling */
+#preorderInfo {
+  border-left: 3px solid var(--accent);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
