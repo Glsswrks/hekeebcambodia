@@ -322,7 +322,7 @@ const productData = {
         "https://m.media-amazon.com/images/I/71ttPO02TfL._AC_SL1500_.jpg",
       ],
       specs: [
-        "60% Layout (64 keys with Arrow keys)",
+        "60% (64 keys)",
         "8000Hz Polling Rate (0.125ms latency)",
         "Single Key Scan Rate: 16,000Hz",
         "Full Key Scan Rate: 2,000Hz - 4,000Hz (Dynamic)",
@@ -377,7 +377,7 @@ const productData = {
         "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HZ22J.jpg",
       ],
       specs: [
-        "60% Layout (61 keys)",
+        "60% (61 keys)",
         "8000Hz Polling Rate",
         "0.1ms Ultra-low Latency",
         "Industry-Leading 2304KHz Per-Key Scan Rate",
@@ -429,7 +429,7 @@ const productData = {
         "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3760.jpg?v=1728442680",
       ],
       specs: [
-        "60% Layout (61 keys)",
+        "60% (61 keys)",
         "Tri-Mode: 2.4G / Bluetooth 5.0 / Wired USB-C",
         "Wired Polling Rate: 1000Hz (3ms Latency)",
         "Scan Rate: 1000Hz (Uniform)",
@@ -845,7 +845,7 @@ const productData = {
       price: 4,
       layout: "Free Styles",
       available: true,
-      isNew: true,
+      isNew: false,
       lowStock: false,
       images: [
         "https://media.discordapp.net/attachments/1384747917063225354/1451587249522212884/tb_image_share_1766155735603.png?ex=6946b779&is=694565f9&hm=d4abd9b44f6f8df32405887b7dc751f9a2be16e37fffe541789ba1b4bc83bd9e&=&format=webp&quality=lossless&width=519&height=693",
@@ -860,12 +860,13 @@ const productData = {
   keycaps: [
     {
       id: "cyberpunk-keycap",
-      title: "Custom Cyberpunk Keycap",
+      title: "Side-Print Cyberpunk Keycap",
       short:
         "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Cherry Profile",
       price: 25,
-      layout: "172-Keys",
-      available: true,
+      layout: "Cherry Profile",
+      available: false,
+      no_info: true,
       isNew: false,
       lowStock: false,
       images: [
@@ -876,6 +877,7 @@ const productData = {
         "Cherry Profile",
         "Material: PC",
         "Support Full Keyboard Layouts",
+        "172 Keys",
       ],
       options: null,
     },
@@ -885,7 +887,8 @@ const productData = {
       short:
         "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Original Profile",
       price: 15,
-      layout: "74-Keys",
+      layout: "Original Profile",
+       no_info: true,
       available: false,
       isNew: false,
       lowStock: false,
@@ -896,6 +899,7 @@ const productData = {
         "Original Profile",
         "Material: PBT",
         "Support Full Keyboard 61/68 Layouts",
+        "74 Keys"
       ],
       options: [
         {
@@ -912,14 +916,119 @@ const productData = {
         },
       ],
     },
+    {
+      id: "yuki-aim-keycap",
+      title: "Yuki Aim Keycap",
+      short:
+        "Yuki Aim Keycap compatible with all keyboards that using Original - Cherry Profile",
+      price: 15,
+      layout: "Cherry - Original Profile",
+      no_info: true,
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://media.discordapp.net/attachments/1384747917063225354/1452133712430104698/tb_image_share_1766285986918.png?ex=6948b468&is=694762e8&hm=58217e4dd3c08a77cf180263296c037ba02ce0aa056132c470f3f109892172eb&=&format=webp&quality=lossless&width=693&height=693",
+        "https://media.discordapp.net/attachments/1384747917063225354/1452133711943569559/tb_image_share_1766285992734.png?ex=6948b468&is=694762e8&hm=53a7981d6095e797ae5640bdc8f02abbc0cd17cab85a739767c1b44f99e6c794&=&format=webp&quality=lossless&width=693&height=693",
+        "https://media.discordapp.net/attachments/1384747917063225354/1452133712895545407/tb_image_share_1766285996468.png?ex=6948b468&is=694762e8&hm=e8050ff36a87fcfca0e696f38a34bb4430f98310eb4fca62ac2ace04d4e6c8c9&=&format=webp&quality=lossless&width=693&height=693"
+      ],
+      specs: [
+        "Cherry Original Height Profile",
+        "Material: PBT Thermal transfer",
+        "Support 61/68 Layout Keyboards",
+        "104 Keys"
+      ],
+      options: null
+    },
   ],
   mousepads:[
+    {
+    id: "pulsar-yui-edition",
+    title: "Pulsar Yui Edition Glass Mousepad (Replica)",
+    short: "Tempered Glass Mousepad - XXL Size (Aimerz Yui Edition)",
+    price: 65,
+    layout: "490x430mm",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://www.pulsar.gg/cdn/shop/files/Pulsar-Superglide-Glass-mousepad_XXL_Aimerz_Yui_main.jpg?v=1752193016"
+    ],
+    specs: [
+      "Tempered Glass Surface",
+      "Size: 490x430mm",
+      "Coating + Full Coverage Primer"
+    ],
+    options: null
+  },
+  {
+    id: "pulsar-ayane-edition",
+    title: "Pulsar Ayane Edition Glass Mousepad (Replica)",
+    short: "Tempered Glass Mousepad - XXL Size (Ayane Edition)",
+    price: 50,
+    layout: "490x430mm",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Ayane_main.jpg?v=1712547879"
+    ],
+    specs: [
+      "Tempered Glass Surface",
+      "Size: 490x430mm",
+      "Full Coverage Primer"
+    ],
+    options: null
+  },
+  {
+    id: "pulsar-aimerz-edition",
+    title: "Pulsar Aimerz Edition Glass Mousepad (Replica)",
+    short: "Tempered Glass Mousepad - XXL Size (Aimerz Edition)",
+    price: 50,
+    layout: "490x430mm",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_main.jpg?v=1701254311"
+    ],
+    specs: [
+      "Tempered Glass Surface",
+      "Size: 490x430mm",
+      "Full Coverage Primer"
+    ],
+    options: null
+  },
+  {
+    id: "pulsar-koharu-edition",
+    title: "Pulsar Koharu Edition Glass Mousepad (Replica)",
+    short: "Tempered Glass Mousepad - XXL Size (Koharu Edition)",
+    price: 50,
+    layout: "490x430mm",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Koharu_main.jpg?v=1729639565"
+    ],
+    specs: [
+      "Tempered Glass Surface",
+      "Size: 490x430mm",
+      "Full Coverage Primer"
+    ],
+    options: null
+  },
     {
     id: "titan-gaming-gear-mousepad",
     title: "Titan Gaming Gear XSoft Standard",
     short: "Premium XSoft Fabric Mousepad - Standard Size (Titan Nation)",
     price: 15,
     layout: "450x400mm",
+     no_info: true,
     available: false,
     isNew: false,
     lowStock: false,
@@ -931,8 +1040,8 @@ const productData = {
       "https://media.discordapp.net/attachments/1384747917063225354/1451964002346471618/tb_image_share_1766245569900.png?ex=6948165a&is=6946c4da&hm=406f21197b56616235c9bdaa3eec1ee0452770ffa6c1a611319f1e138a519f78&=&format=webp&quality=lossless&width=693&height=693"
     ],
     specs: [
-      "Size: 450x400mm",
       "Thickness: 5mm",
+      "Size: 450x400mm",
     ],
     options: [
       {
@@ -966,6 +1075,7 @@ const productData = {
     short: "Custom Artisan Mousepad Clone - 3mm Thickness",
     price: 9,
     layout: "450x400mm",
+    no_info: true,
     available: false,
     isNew: false,
     lowStock: false,
@@ -1412,6 +1522,10 @@ function createProductCard(p) {
   const href = productLink(p.id);
   const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
+  let no_info = `<div class="specs-inline muted">${p.layout} • ${p.specs[0] || ""}</div>`;
+  if (p.no_info !== undefined && p.no_info === true) {
+    no_info = `<div class="specs-inline muted">${p.layout}</div>`;
+  }
 
   card.innerHTML = `
     <div class="card-image">
@@ -1426,7 +1540,7 @@ function createProductCard(p) {
       </h4>
       <p class="muted card-desc">${p.short}</p>
       <div class="card-footer">
-        <div class="specs-inline muted">${p.layout} • ${p.specs[0] || ""}</div>
+        ${no_info}
         <div class="availability-wrap">
           <span class="${availClass}">${availText}</span>
         </div>
@@ -1697,8 +1811,7 @@ function renderSimilarProductsSection(currentProductId) {
   similarSection.insertAdjacentHTML("afterend", backLinkHTML);
 }
 
-// MODIFIED: Product Detail Rendering Logic (Added Pre-order button)
-/* ---------- Modified renderProductDetail to add pre-order button ---------- */
+/* ---------- Modified renderProductDetail to conditionally show pre-order button ---------- */
 function renderProductDetail(product) {
   const container = document.getElementById("productContainer");
   if (!container) return;
@@ -1712,12 +1825,11 @@ function renderProductDetail(product) {
   const defaultImages = product.images;
   let selectedOption = null;
 
-  // FIXED: This function now handles updating the price in the UI
   function updateProductDisplay(option) {
     selectedOption = option;
 
     const titleEl = container.querySelector("#productTitle");
-    const priceEl = container.querySelector("#productPrice"); // Target price element
+    const priceEl = container.querySelector("#productPrice");
     const addToCartBtn = container.querySelector("#addToCartBtn");
     const preOrderBtn = container.querySelector("#preOrderBtn");
     const imagesContainer = container.querySelector(".product-image");
@@ -1731,7 +1843,7 @@ function renderProductDetail(product) {
       }
     }
 
-    // 2. FIXED: Update Price based on selected option
+    // 2. Update Price based on selected option
     if (priceEl) {
       const currentPrice =
         selectedOption && selectedOption.price !== undefined
@@ -1781,19 +1893,27 @@ function renderProductDetail(product) {
       }
     }
 
-    // 5. Update Pre-order button (always available)
+    // 5. Update Pre-order button - ONLY SHOW FOR UNAVAILABLE PRODUCTS
     if (preOrderBtn) {
-      preOrderBtn.classList.remove("locked");
-      preOrderBtn.disabled = false;
-      
-      // Remove any existing listeners and add new one
-      const newPreBtn = preOrderBtn.cloneNode(true);
-      preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
-      
-      newPreBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        PreOrderList.addItem(product, selectedOption);
-      });
+      if (product.available) {
+        // If product is available, hide and disable pre-order button
+        preOrderBtn.style.display = "none";
+        preOrderBtn.disabled = true;
+      } else {
+        // If product is not available, show and enable pre-order button
+        preOrderBtn.style.display = "inline-block";
+        preOrderBtn.classList.remove("locked");
+        preOrderBtn.disabled = false;
+        
+        // Remove any existing listeners and add new one
+        const newPreBtn = preOrderBtn.cloneNode(true);
+        preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
+        
+        newPreBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          PreOrderList.addItem(product, selectedOption);
+        });
+      }
     }
 
     // 6. Update active class on option cards
@@ -1812,14 +1932,13 @@ function renderProductDetail(product) {
   // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
   
-  // NEW: Create both buttons
+  // MODIFIED: Show Add to Cart only for available products, Pre-order only for unavailable products
   let actionButtonHTML = '';
   if (product.available) {
-    actionButtonHTML = `
-      <button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>
-      <button class="btn pre-order" id="preOrderBtn">Pre-order</button>
-    `;
+    // Product is available - show only Add to Cart button
+    actionButtonHTML = `<button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>`;
   } else {
+    // Product is not available - show only Pre-order button
     actionButtonHTML = `<button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>`;
   }
 
