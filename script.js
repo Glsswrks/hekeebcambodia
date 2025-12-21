@@ -862,7 +862,7 @@ const productData = {
       id: "cyberpunk-keycap",
       title: "Side-Print Cyberpunk Keycap",
       short:
-        "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Cherry Profile",
+        "Cyberpunk Themed Keycap compatible with all keyboards that using Cherry Profile",
       price: 25,
       layout: "Cherry Profile",
       available: false,
@@ -893,7 +893,7 @@ const productData = {
       isNew: false,
       lowStock: false,
       images: [
-        "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=6946cbab&is=69457a2b&hm=56414554b3761dace3b938dc916b6de0bc4f0c3b26f81a8bf53c94504231d761&=&format=webp&quality=lossless&width=693&height=693",
+        "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69481d2b&is=6946cbab&hm=be9a2d7725e4e655868a009e4e58c4ad9ef651e99111ed977e4b046dcb656c15&=&format=webp&quality=lossless&width=693&height=693",
       ],
       specs: [
         "Original Profile",
@@ -912,7 +912,7 @@ const productData = {
           name: "Dark-Red Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=6946cbac&is=69457a2c&hm=8278d98832e3debebf618bebc3395320e26b9552543c1cdb3cb71578646c0a1e&=&format=webp&quality=lossless&width=693&height=693",
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=69481d2c&is=6946cbac&hm=17a91f76363c8c9dc148091d4ae9e3efbd0c4b4c05ab47fd2322849c5fc70003&=&format=webp&quality=lossless&width=693&height=693",
         },
       ],
     },
