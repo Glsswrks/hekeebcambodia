@@ -24,20 +24,32 @@ const allProducts = [
   ...keycaps,
   ...mousepads,
 ];
-
 // NEW: Function to populate pre-order option selection modal
 function populatePreorderOptions(product) {
   const optionList = document.getElementById("preorderOptionList");
   const confirmBtn = document.getElementById("confirmPreorderOptionBtn");
   
-  if (!optionList) return;
+  if (!optionList) {
+    console.error("preorderOptionList element not found!");
+    return;
+  }
   
   optionList.innerHTML = "";
   selectedPreorderOption = null;
   confirmBtn.disabled = true;
   
+  // Show product title in modal for context
+  const modalTitle = document.querySelector("#preorderOptionModal h2");
+  if (modalTitle) {
+    modalTitle.textContent = `Select Option for: ${product.title}`;
+  }
+  
   // Create option cards for the modal
   product.options.forEach((option, index) => {
+    const priceHTML = option.price !== undefined 
+      ? `<span class="option-price">$${option.price}</span>` 
+      : "";
+    
     const optionElement = document.createElement("button");
     optionElement.className = "product-option";
     optionElement.type = "button";
@@ -50,6 +62,7 @@ function populatePreorderOptions(product) {
       </div>
       <div class="option-text">
         <h4 class="option-title">${option.name}</h4>
+        ${option.price !== undefined ? `<small>$${option.price}</small>` : ''}
       </div>
     `;
     
@@ -76,6 +89,10 @@ function populatePreorderOptions(product) {
       image: product.images[0] || "",
     };
     
+    const priceHTML = product.price !== undefined 
+      ? `<span class="option-price">$${product.price}</span>` 
+      : "";
+    
     const optionElement = document.createElement("button");
     optionElement.className = "product-option active-option";
     optionElement.type = "button";
@@ -83,13 +100,18 @@ function populatePreorderOptions(product) {
     optionElement.innerHTML = `
       <div class="option-image-wrap">
         <img src="${defaultOption.image}" alt="${defaultOption.name}" loading="lazy">
+        ${priceHTML}
       </div>
       <div class="option-text">
         <h4 class="option-title">${defaultOption.name}</h4>
+        <small>$${product.price}</small>
       </div>
     `;
     
     optionElement.addEventListener("click", () => {
+      optionList.querySelectorAll(".product-option").forEach(opt => {
+        opt.classList.remove("active-option");
+      });
       optionElement.classList.add("active-option");
       selectedPreorderOption = defaultOption;
       confirmBtn.disabled = false;
@@ -442,8 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
-
-  const preorderOptionModal = document.getElementById("preorderOptionModal");
+const preorderOptionModal = document.getElementById("preorderOptionModal");
 const closePreorderOptionBtn = document.getElementById("closePreorderOptionBtn");
 const cancelPreorderOptionBtn = document.getElementById("cancelPreorderOptionBtn");
 const confirmPreorderOptionBtn = document.getElementById("confirmPreorderOptionBtn");

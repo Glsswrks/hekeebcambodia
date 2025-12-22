@@ -1548,3 +1548,100 @@ body {
 #preorderOptionList::-webkit-scrollbar-thumb:hover {
   background: #937bfe;
 }
+
+/* Pre-order option modal - fixed height with scroll */
+#preorderOptionModal .modal-content {
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#preorderOptionModal h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+#preorderOptionList {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  padding: 10px;
+  margin: 10px 0;
+  max-height: 400px;
+}
+
+#preorderOptionList .product-option {
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0;
+}
+
+#preorderOptionList .product-option.active-option {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Make modal actions stick to bottom */
+#preorderOptionModal .modal-actions {
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #preorderOptionList {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  #preorderOptionModal .modal-content {
+    max-height: 85vh;
+    max-width: 95%;
+  }
+}
+
+/* Scrollbar styling */
+#preorderOptionList::-webkit-scrollbar {
+  width: 6px;
+}
+
+#preorderOptionList::-webkit-scrollbar-track {
+  background: var(--glass);
+  border-radius: 10px;
+}
+
+#preorderOptionList::-webkit-scrollbar-thumb {
+  background: #e2e2e2;
+  border-radius: 10px;
+}
+
+#preorderOptionList::-webkit-scrollbar-thumb:hover {
+  background: #937bfe;
+}
+
+/* Enhance visual feedback for selected option in modal */
+#preorderOptionList .product-option.active-option {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), 0 4px 12px rgba(124, 92, 255, 0.3);
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+#preorderOptionList .product-option:hover:not(.active-option) {
+  border-color: rgba(124, 92, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Ensure option images are properly sized */
+#preorderOptionList .option-image-wrap {
+  height: 100px;
+}
+
+#preorderOptionList .option-image-wrap img {
+  object-fit: contain;
+  background: var(--glass);
+}

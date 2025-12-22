@@ -155,8 +155,20 @@
           </div>
         </div>
       </div>
-
-      
+<!-- NEW: Pre-order Option Selection Modal -->
+<div id="preorderOptionModal" class="modal" aria-hidden="true">
+  <div class="modal-content" style="max-width: 500px;">
+    <button class="modal-close" id="closePreorderOptionBtn" aria-label="Close">&times;</button>
+    <h2>Select an Option for Pre-order</h2>
+    
+    <div id="preorderOptionList"></div>
+    
+    <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+      <button id="confirmPreorderOptionBtn" class="btn primary" disabled>Confirm Pre-order</button>
+      <button id="cancelPreorderOptionBtn" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <div id="toast" class="toast-container">
   <span>✅ Item added to cart!</span>
