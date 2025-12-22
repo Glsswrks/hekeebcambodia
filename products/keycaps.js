@@ -34,7 +34,7 @@ export const keycaps = [
       isNew: false,
       lowStock: false,
       images: [
-        "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69481d2b&is=6946cbab&hm=be9a2d7725e4e655868a009e4e58c4ad9ef651e99111ed977e4b046dcb656c15&=&format=webp&quality=lossless&width=693&height=693",
+        "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69496eab&is=69481d2b&hm=93f8396819c7f774ebfcc5e310e78107c3e7f8d6ece52e2aea234d4cd5da789d&=&format=webp&quality=lossless&width=693&height=693",
       ],
       specs: [
         "Original Profile",
@@ -47,13 +47,13 @@ export const keycaps = [
           name: "Original Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69481d2b&is=6946cbab&hm=be9a2d7725e4e655868a009e4e58c4ad9ef651e99111ed977e4b046dcb656c15&=&format=webp&quality=lossless&width=693&height=693",
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69496eab&is=69481d2b&hm=93f8396819c7f774ebfcc5e310e78107c3e7f8d6ece52e2aea234d4cd5da789d&=&format=webp&quality=lossless&width=693&height=693",
         },
         {
           name: "Dark-Red Cyberpunk Theme",
           available: false,
           image:
-            "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=69481d2c&is=6946cbac&hm=17a91f76363c8c9dc148091d4ae9e3efbd0c4b4c05ab47fd2322849c5fc70003&=&format=webp&quality=lossless&width=693&height=693",
+            "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=69496eac&is=69481d2c&hm=5b97d9501cfc3f35967b303f8c7c42af915848c8758ac86b160067207130f95c&=&format=webp&quality=lossless&width=693&height=693",
         },
       ],
     },
