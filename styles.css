@@ -1511,3 +1511,40 @@ body {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Style for option selection modal */
+#preorderOptionList {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+#preorderOptionList .product-option {
+  flex: 0 0 140px;
+  max-width: 140px;
+  margin: 0;
+}
+
+#preorderOptionList .product-option.active-option {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Scrollbar for option list */
+#preorderOptionList::-webkit-scrollbar {
+  width: 6px;
+}
+
+#preorderOptionList::-webkit-scrollbar-track {
+  background: var(--glass);
+  border-radius: 10px;
+}
+
+#preorderOptionList::-webkit-scrollbar-thumb {
+  background: #e2e2e2;
+  border-radius: 10px;
+}
+
+#preorderOptionList::-webkit-scrollbar-thumb:hover {
+  background: #937bfe;
+}

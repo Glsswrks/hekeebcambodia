@@ -7,6 +7,9 @@ const CONTACT_WHATSAPP_NUMBER = "85514975307";
 const TELEGRAM_HANDLE = "glsswrksGG";
 const DISCORD_HANDLE = "Kokushibo#4764";
 
+let currentProductForPreorder = null;
+let selectedPreorderOption = null;
+
 const productData = {
     keyboards,
     mice,
@@ -21,6 +24,81 @@ const allProducts = [
   ...keycaps,
   ...mousepads,
 ];
+
+// NEW: Function to populate pre-order option selection modal
+function populatePreorderOptions(product) {
+  const optionList = document.getElementById("preorderOptionList");
+  const confirmBtn = document.getElementById("confirmPreorderOptionBtn");
+  
+  if (!optionList) return;
+  
+  optionList.innerHTML = "";
+  selectedPreorderOption = null;
+  confirmBtn.disabled = true;
+  
+  // Create option cards for the modal
+  product.options.forEach((option, index) => {
+    const optionElement = document.createElement("button");
+    optionElement.className = "product-option";
+    optionElement.type = "button";
+    optionElement.dataset.optionIndex = index;
+    
+    optionElement.innerHTML = `
+      <div class="option-image-wrap">
+        <img src="${option.image}" alt="${option.name}" loading="lazy">
+        ${priceHTML}
+      </div>
+      <div class="option-text">
+        <h4 class="option-title">${option.name}</h4>
+      </div>
+    `;
+    
+    optionElement.addEventListener("click", () => {
+      // Remove active class from all options
+      optionList.querySelectorAll(".product-option").forEach(opt => {
+        opt.classList.remove("active-option");
+      });
+      
+      // Add active class to selected option
+      optionElement.classList.add("active-option");
+      selectedPreorderOption = option;
+      confirmBtn.disabled = false;
+    });
+    
+    optionList.appendChild(optionElement);
+  });
+  
+  // If product doesn't have options but we still show this modal, add a default option
+  if (product.options.length === 0) {
+    const defaultOption = {
+      name: "Standard",
+      price: product.price,
+      image: product.images[0] || "",
+    };
+    
+    const optionElement = document.createElement("button");
+    optionElement.className = "product-option active-option";
+    optionElement.type = "button";
+    
+    optionElement.innerHTML = `
+      <div class="option-image-wrap">
+        <img src="${defaultOption.image}" alt="${defaultOption.name}" loading="lazy">
+      </div>
+      <div class="option-text">
+        <h4 class="option-title">${defaultOption.name}</h4>
+      </div>
+    `;
+    
+    optionElement.addEventListener("click", () => {
+      optionElement.classList.add("active-option");
+      selectedPreorderOption = defaultOption;
+      confirmBtn.disabled = false;
+    });
+    
+    optionList.appendChild(optionElement);
+    optionElement.click(); // Auto-select the only option
+  }
+}
 
 const Cart = {
   key: "keeb_cart_v1",
@@ -364,6 +442,46 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
+
+  const preorderOptionModal = document.getElementById("preorderOptionModal");
+const closePreorderOptionBtn = document.getElementById("closePreorderOptionBtn");
+const cancelPreorderOptionBtn = document.getElementById("cancelPreorderOptionBtn");
+const confirmPreorderOptionBtn = document.getElementById("confirmPreorderOptionBtn");
+
+if (preorderOptionModal) {
+  // Close modal functions
+  const closePreorderOptionModal = () => {
+    preorderOptionModal.setAttribute("aria-hidden", "true");
+    currentProductForPreorder = null;
+    selectedPreorderOption = null;
+  };
+  
+  if (closePreorderOptionBtn) {
+    closePreorderOptionBtn.addEventListener("click", closePreorderOptionModal);
+  }
+  
+  if (cancelPreorderOptionBtn) {
+    cancelPreorderOptionBtn.addEventListener("click", closePreorderOptionModal);
+  }
+  
+  // Confirm button - add to pre-orders
+  if (confirmPreorderOptionBtn) {
+    confirmPreorderOptionBtn.addEventListener("click", () => {
+      if (currentProductForPreorder && selectedPreorderOption) {
+        PreOrderList.addItem(currentProductForPreorder, selectedPreorderOption);
+        closePreorderOptionModal();
+        showToast(`Added ${currentProductForPreorder.title} (${selectedPreorderOption.name}) to pre-orders`);
+      }
+    });
+  }
+  
+  // Close modal when clicking outside
+  preorderOptionModal.addEventListener("click", (e) => {
+    if (e.target === preorderOptionModal) {
+      closePreorderOptionModal();
+    }
+  });
+}
 
   if (cartToggle && cartModal) {
     cartToggle.addEventListener("click", (e) => {
@@ -899,27 +1017,43 @@ function renderProductDetail(product) {
     }
 
     // 5. Update Pre-order button - ONLY SHOW FOR UNAVAILABLE PRODUCTS
-    if (preOrderBtn) {
-      if (product.available) {
-        // If product is available, hide and disable pre-order button
-        preOrderBtn.style.display = "none";
-        preOrderBtn.disabled = true;
+    // In the updateProductDisplay function within renderProductDetail, update the pre-order button section:
+if (preOrderBtn) {
+  if (product.available) {
+    // If product is available, hide and disable pre-order button
+    preOrderBtn.style.display = "none";
+    preOrderBtn.disabled = true;
+  } else {
+    // If product is not available, show and enable pre-order button
+    preOrderBtn.style.display = "inline-block";
+    preOrderBtn.classList.remove("locked");
+    preOrderBtn.disabled = false;
+
+    // Remove any existing listeners and add new one
+    const newPreBtn = preOrderBtn.cloneNode(true);
+    preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
+
+    newPreBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      
+      // If product has options, show option selection modal
+      if (product.options && product.options.length > 0) {
+        currentProductForPreorder = product;
+        selectedPreorderOption = null;
+        populatePreorderOptions(product);
+        
+        // Show the option selection modal
+        const preorderOptionModal = document.getElementById("preorderOptionModal");
+        if (preorderOptionModal) {
+          preorderOptionModal.setAttribute("aria-hidden", "false");
+        }
       } else {
-        // If product is not available, show and enable pre-order button
-        preOrderBtn.style.display = "inline-block";
-        preOrderBtn.classList.remove("locked");
-        preOrderBtn.disabled = false;
-
-        // Remove any existing listeners and add new one
-        const newPreBtn = preOrderBtn.cloneNode(true);
-        preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
-
-        newPreBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          PreOrderList.addItem(product, selectedOption);
-        });
+        // If no options, directly add to pre-order list
+        PreOrderList.addItem(product, selectedOption);
       }
-    }
+    });
+  }
+}
 
     // 6. Update active class on option cards
     const optionsGrid = document.getElementById("optionsGrid");
