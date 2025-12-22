@@ -214,17 +214,31 @@
           </div>
         </div>
       </div>
-<!-- NEW: Pre-order Option Selection Modal -->
+
 <div id="preorderOptionModal" class="modal" aria-hidden="true">
-  <div class="modal-content" style="max-width: 500px;">
+  <div class="modal-content selection-modal">
     <button class="modal-close" id="closePreorderOptionBtn" aria-label="Close">&times;</button>
-    <h2>Select an Option for Pre-order</h2>
     
-    <div id="preorderOptionList"></div>
+    <div class="modal-header-detailed">
+      <span class="modal-subtitle">Customize Your Order</span>
+      <h2 id="preorderModalTitle">Select an Option</h2>
+      <p class="modal-description">Choose your preferred variation. Pricing and availability may vary per selection.</p>
+    </div>
     
-    <div class="modal-actions" style="flex-direction: column; gap: 10px;">
-      <button id="confirmPreorderOptionBtn" class="btn primary" disabled>Confirm Pre-order</button>
-      <button id="cancelPreorderOptionBtn" class="btn">Cancel</button>
+    <div id="preorderOptionList" class="options-grid-modern"></div>
+    
+    <div class="modal-footer-sticky">
+      <div class="selection-summary" id="selectionSummary">
+        <span class="summary-label">Selected:</span>
+        <span class="summary-value" id="selectedOptionName">None</span>
+      </div>
+      <div class="modal-actions-row">
+        <button id="cancelPreorderOptionBtn" class="btn secondary-ghost">Cancel</button>
+        <button id="confirmPreorderOptionBtn" class="btn primary-modern" disabled>
+          <span>Confirm Pre-order</span>
+          <i class="icon-arrow-right"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -24,101 +24,52 @@ const allProducts = [
   ...keycaps,
   ...mousepads,
 ];
-// NEW: Function to populate pre-order option selection modal
+
 function populatePreorderOptions(product) {
   const optionList = document.getElementById("preorderOptionList");
   const confirmBtn = document.getElementById("confirmPreorderOptionBtn");
+  const summaryName = document.getElementById("selectedOptionName");
+  const modalTitle = document.getElementById("preorderModalTitle");
   
-  if (!optionList) {
-    console.error("preorderOptionList element not found!");
-    return;
-  }
+  if (!optionList) return;
   
   optionList.innerHTML = "";
   selectedPreorderOption = null;
   confirmBtn.disabled = true;
+  summaryName.textContent = "Please select...";
+
+  if (modalTitle) modalTitle.textContent = product.title;
   
-  // Show product title in modal for context
-  const modalTitle = document.querySelector("#preorderOptionModal h2");
-  if (modalTitle) {
-    modalTitle.textContent = `Select Option for: ${product.title}`;
-  }
-  
-  // Create option cards for the modal
   product.options.forEach((option, index) => {
-    const priceHTML = option.price !== undefined 
-      ? `<span class="option-price">$${option.price}</span>` 
-      : "";
-    
     const optionElement = document.createElement("button");
     optionElement.className = "product-option";
     optionElement.type = "button";
-    optionElement.dataset.optionIndex = index;
     
     optionElement.innerHTML = `
       <div class="option-image-wrap">
         <img src="${option.image}" alt="${option.name}" loading="lazy">
-        ${priceHTML}
+        <span class="option-price-tag">$${option.price || product.price}</span>
       </div>
       <div class="option-text">
-        <h4 class="option-title">${option.name}</h4>
-        ${option.price !== undefined ? `<small>$${option.price}</small>` : ''}
+        <h4 class="option-title" style="margin:0; font-size:0.95rem;">${option.name}</h4>
       </div>
     `;
     
     optionElement.addEventListener("click", () => {
-      // Remove active class from all options
-      optionList.querySelectorAll(".product-option").forEach(opt => {
-        opt.classList.remove("active-option");
-      });
-      
-      // Add active class to selected option
+      optionList.querySelectorAll(".product-option").forEach(opt => opt.classList.remove("active-option"));
       optionElement.classList.add("active-option");
+      
       selectedPreorderOption = option;
       confirmBtn.disabled = false;
+      summaryName.textContent = option.name;
     });
     
     optionList.appendChild(optionElement);
   });
   
-  // If product doesn't have options but we still show this modal, add a default option
-  if (product.options.length === 0) {
-    const defaultOption = {
-      name: "Standard",
-      price: product.price,
-      image: product.images[0] || "",
-    };
-    
-    const priceHTML = product.price !== undefined 
-      ? `<span class="option-price">$${product.price}</span>` 
-      : "";
-    
-    const optionElement = document.createElement("button");
-    optionElement.className = "product-option active-option";
-    optionElement.type = "button";
-    
-    optionElement.innerHTML = `
-      <div class="option-image-wrap">
-        <img src="${defaultOption.image}" alt="${defaultOption.name}" loading="lazy">
-        ${priceHTML}
-      </div>
-      <div class="option-text">
-        <h4 class="option-title">${defaultOption.name}</h4>
-        <small>$${product.price}</small>
-      </div>
-    `;
-    
-    optionElement.addEventListener("click", () => {
-      optionList.querySelectorAll(".product-option").forEach(opt => {
-        opt.classList.remove("active-option");
-      });
-      optionElement.classList.add("active-option");
-      selectedPreorderOption = defaultOption;
-      confirmBtn.disabled = false;
-    });
-    
-    optionList.appendChild(optionElement);
-    optionElement.click(); // Auto-select the only option
+  // Auto-select if only one option exists
+  if (product.options.length === 1) {
+    optionList.firstElementChild.click();
   }
 }
 

@@ -1512,136 +1512,161 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Style for option selection modal */
-#preorderOptionList {
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-#preorderOptionList .product-option {
-  flex: 0 0 140px;
-  max-width: 140px;
-  margin: 0;
-}
-
-#preorderOptionList .product-option.active-option {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent);
-}
-
-/* Scrollbar for option list */
-#preorderOptionList::-webkit-scrollbar {
-  width: 6px;
-}
-
-#preorderOptionList::-webkit-scrollbar-track {
-  background: var(--glass);
-  border-radius: 10px;
-}
-
-#preorderOptionList::-webkit-scrollbar-thumb {
-  background: #e2e2e2;
-  border-radius: 10px;
-}
-
-#preorderOptionList::-webkit-scrollbar-thumb:hover {
-  background: #937bfe;
-}
-
-/* Pre-order option modal - fixed height with scroll */
-#preorderOptionModal .modal-content {
-  max-height: 90vh;
+/* pre order options styles */
+/* Modern Selection Modal Styles */
+.selection-modal {
+  max-width: 650px !important;
+  padding: 0 !important;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-#preorderOptionModal h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
+.modal-header-detailed {
+  padding: 24px 24px 16px;
+  background: linear-gradient(to bottom, rgba(124, 92, 255, 0.05), transparent);
 }
 
-#preorderOptionList {
-  flex: 1;
-  overflow-y: auto;
+.modal-subtitle {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.options-grid-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  padding: 10px;
-  margin: 10px 0;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 0 24px 24px;
   max-height: 400px;
+  overflow-y: auto;
 }
 
-#preorderOptionList .product-option {
-  flex: 0 0 auto;
-  width: 100%;
-  margin: 0;
+/* Modern Card Design */
+.product-option {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 12px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
 }
 
-#preorderOptionList .product-option.active-option {
+.product-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.product-option.active-option {
+  background: rgba(124, 92, 255, 0.1);
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 8px 20px rgba(124, 92, 255, 0.2);
 }
 
-/* Make modal actions stick to bottom */
-#preorderOptionModal .modal-actions {
-  margin-top: auto;
-  padding-top: 15px;
+.option-image-wrap {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.option-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.option-price-tag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(11, 13, 16, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-footer-sticky {
+  padding: 20px 24px;
+  background: var(--card); /* Solid background */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5); /* Adds depth above the footer */
+  z-index: 10;
+}
+.selection-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  #preorderOptionList {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
-  }
-  
-  #preorderOptionModal .modal-content {
-    max-height: 85vh;
-    max-width: 95%;
-  }
+.summary-value {
+  color: var(--accent);
+  font-weight: 600;
 }
 
-/* Scrollbar styling */
+.primary-modern {
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  flex: 2;
+  transition: opacity 0.2s;
+}
+
+.primary-modern:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondary-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex: 1;
+}
+
+.selection-modal::before {
+  content: '';
+  position: absolute;
+  top: 90px; /* Adjust based on your header height */
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--bg), transparent);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #preorderOptionList::-webkit-scrollbar {
-  width: 6px;
+  width: 6px; /* Slimmer, modern width */
 }
 
 #preorderOptionList::-webkit-scrollbar-track {
-  background: var(--glass);
+  background: transparent; /* Makes the track invisible until hover */
   border-radius: 10px;
 }
 
 #preorderOptionList::-webkit-scrollbar-thumb {
-  background: #e2e2e2;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1); /* Subtle default state */
+  border-radius: 20px;
+  border: 1px solid transparent; /* Creates a bit of padding effect */
+  background-clip: content-box;
 }
 
 #preorderOptionList::-webkit-scrollbar-thumb:hover {
-  background: #937bfe;
-}
-
-/* Enhance visual feedback for selected option in modal */
-#preorderOptionList .product-option.active-option {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent), 0 4px 12px rgba(124, 92, 255, 0.3);
-  transform: scale(1.02);
-  transition: all 0.2s ease;
-}
-
-#preorderOptionList .product-option:hover:not(.active-option) {
-  border-color: rgba(124, 92, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-/* Ensure option images are properly sized */
-#preorderOptionList .option-image-wrap {
-  height: 100px;
-}
-
-#preorderOptionList .option-image-wrap img {
-  object-fit: contain;
-  background: var(--glass);
+  background: var(--accent); /* Matches your brand color on hover */
 }
