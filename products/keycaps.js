@@ -69,10 +69,10 @@ export const keycaps = [
       isNew: false,
       lowStock: false,
       images: [
-        "https://media.discordapp.net/attachments/1384747917063225354/1452133712430104698/tb_image_share_1766285986918.png?ex=6948b468&is=694762e8&hm=58217e4dd3c08a77cf180263296c037ba02ce0aa056132c470f3f109892172eb&=&format=webp&quality=lossless&width=693&height=693",
-        "https://media.discordapp.net/attachments/1384747917063225354/1452133711943569559/tb_image_share_1766285992734.png?ex=6948b468&is=694762e8&hm=53a7981d6095e797ae5640bdc8f02abbc0cd17cab85a739767c1b44f99e6c794&=&format=webp&quality=lossless&width=693&height=693",
-        "https://media.discordapp.net/attachments/1384747917063225354/1452133712895545407/tb_image_share_1766285996468.png?ex=6948b468&is=694762e8&hm=e8050ff36a87fcfca0e696f38a34bb4430f98310eb4fca62ac2ace04d4e6c8c9&=&format=webp&quality=lossless&width=693&height=693",
-      ],
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/refs/heads/main/images/keycaps/tb_image_share_1766285986918.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/refs/heads/main/images/keycaps/tb_image_share_1766285992734.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/refs/heads/main/images/keycaps/tb_image_share_1766285996468.jpg"
+       ],
       specs: [
         "Cherry Original Height Profile",
         "Material: PBT Thermal transfer",
