@@ -1524,8 +1524,9 @@ body {
 }
 
 .modal-header-detailed {
-  padding: 24px 24px 16px;
   background: linear-gradient(to bottom, rgba(124, 92, 255, 0.05), transparent);
+  text-align: center; /* Centers the title and description */
+  padding: 24px;
 }
 
 .modal-subtitle {
@@ -1538,30 +1539,37 @@ body {
 
 .options-grid-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  /* Keep our flexible columns */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
   gap: 16px;
-  padding: 0 24px 24px;
-  max-height: 400px;
+  padding: 20px 24px 60px;
+  max-height: 450px;
   overflow-y: auto;
+  
+  justify-content: center;  
+  justify-items: center;  
+  
+  mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
 }
 
-/* Modern Card Design */
+
 .product-option {
-  background: var(--glass);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 14px;
-  padding: 12px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto; 
 }
 
+/*
 .product-option:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+  */
+  .product-option:hover {
+  background: rgba(255, 154, 245, 0.06);
+  border-color: rgba(117, 146, 243, 0.1);
   transform: translateY(-2px);
 }
 
@@ -1605,13 +1613,15 @@ body {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5); /* Adds depth above the footer */
   z-index: 10;
 }
+
 .selection-summary {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centers the "Selected: [Name]" text */
   align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
+  margin-bottom: 10px;
 }
-
 .summary-value {
   color: var(--accent);
   font-weight: 600;
