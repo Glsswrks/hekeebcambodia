@@ -195,7 +195,7 @@ export const keyboards = [
         "NZO STORM68 HE Full Aluminum CNC Shell Hall Effect Keyboard with precision 0.005mm + 256K Scanning Rate",
       price: 75,
       layout: "68",
-      available: true,
+      available: false,
       isNew: false,
       lowStock: false,
       images: [
@@ -449,4 +449,5 @@ export const keyboards = [
         },
       ],
     },
+
   ];
