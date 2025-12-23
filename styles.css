@@ -6,7 +6,8 @@
   --glass: rgba(255, 255, 255, 0.03);
   --max-width: 1100px;
   --hero-shadow: rgba(255, 255, 255, 0.15);
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
 }
 
 :root[data-theme="light"] {
@@ -19,8 +20,7 @@
 
   .card {
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15),
-      0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -63,48 +63,50 @@
 }
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   background: linear-gradient(180deg, #050607 0%, #0b0d10 100%);
   color: #e6eef8;
-  line-height: 1.45
+  line-height: 1.45;
 }
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 28px
+  padding: 28px;
 }
 
 .site-header {
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
-  background: linear-gradient(180deg, rgba(11, 13, 16, 0.6), rgba(11, 13, 16, 0.3));
+  background: linear-gradient(180deg,
+      rgba(11, 13, 16, 0.6),
+      rgba(11, 13, 16, 0.3));
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  z-index: 40
+  z-index: 40;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .brand {
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
-  font-size: 1.15rem
+  font-size: 1.15rem;
 }
 
 .nav a {
   color: var(--muted);
   margin-right: 18px;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .hero {
@@ -120,7 +122,9 @@ body {
 .hero-bg-fade {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 70% 50%, var(--accent), transparent 70%);
+  background: radial-gradient(circle at 70% 50%,
+      var(--accent),
+      transparent 70%);
   opacity: 0.15;
   /* Subltle glow behind the keyboard */
   z-index: 0;
@@ -135,7 +139,7 @@ body {
   height: 100%;
   z-index: 1;
   /* Replace URL with a high-res keyboard shot */
-  background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop');
+  background-image: url("https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop");
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
@@ -206,9 +210,17 @@ body {
     /* Keep it bright enough to see clearly */
 
     /* 2. Update mask to fade only the very edges so the full keyboard shows */
-    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 15%,
+        black 85%,
+        transparent 100%),
       linear-gradient(to bottom, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 15%,
+        black 85%,
+        transparent 100%),
       linear-gradient(to bottom, black 70%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
@@ -228,7 +240,9 @@ body {
   }
 }
 
-.hero-text h1, .hero-text p, .btn.primary {
+.hero-text h1,
+.hero-text p,
+.btn.primary {
   animation: fadeInHero 0.8s ease forwards;
 }
 
@@ -239,13 +253,13 @@ body {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: inherit;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .btn.primary {
   background: var(--accent);
   border: none;
-  color: white
+  color: white;
 }
 
 .hero-image img {
@@ -258,7 +272,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px
+  margin-bottom: 18px;
 }
 
 /* Desktop Grid: 4 items per row */
@@ -266,7 +280,7 @@ body {
   display: grid;
   /* Now set to max 4 columns, minimum size 180px */
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 18px
+  gap: 18px;
 }
 
 /* Search Input Style */
@@ -309,7 +323,9 @@ body {
   /* 8:5 aspect ratio */
   overflow: hidden;
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.01),
+      rgba(255, 255, 255, 0));
 }
 
 /* Image fills the image area */
@@ -359,13 +375,13 @@ body {
 }
 
 .card-title {
-  margin: 0
+  margin: 0;
 }
 
 .card-title-link {
   color: inherit;
   text-decoration: none;
-  font-weight: 700
+  font-weight: 700;
 }
 
 /* Description truncation with ellipsis */
@@ -406,10 +422,9 @@ body {
   color: #ff6b6b;
 }
 
-
 .specs-inline {
   color: var(--muted);
-  font-size: 0.85rem
+  font-size: 0.85rem;
 }
 
 /* Hover effect for image */
@@ -429,7 +444,8 @@ body {
 
 /* Full-width margin adjustment */
 
-.about-content-box, .contact {
+.about-content-box,
+.contact {
   /* Apply card-style to the inner container */
   padding: 18px;
   background: var(--glass);
@@ -443,7 +459,7 @@ body {
   text-align: center;
   color: var(--muted);
   border-top: 1px solid rgba(255, 255, 255, 0.02);
-  margin-top: 40px
+  margin-top: 40px;
 }
 
 /* Product page layout */
@@ -496,12 +512,14 @@ body {
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.01),
+      rgba(255, 255, 255, 0));
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 320ms cubic-bezier(.2, .9, .2, 1);
+  transition: transform 320ms cubic-bezier(0.2, 0.9, 0.2, 1);
   will-change: transform;
 }
 
@@ -581,7 +599,7 @@ body {
 }
 
 /* Responsive tweaks */
-@media (max-width:720px) {
+@media (max-width: 720px) {
   .carousel-slide img {
     max-height: 360px;
   }
@@ -592,7 +610,7 @@ body {
   }
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
 
   /* Mobile Grid: 2 items per row */
   .grid {
@@ -620,7 +638,7 @@ body {
   }
 }
 
-@media (max-width:520px) {
+@media (max-width: 520px) {
   .price-badge {
     bottom: 6px;
     left: 6px;
@@ -631,10 +649,10 @@ body {
   }
 }
 
-@media(max-width:800px) {
+@media (max-width: 800px) {
   .hero-inner {
     flex-direction: column-reverse;
-    text-align: center
+    text-align: center;
   }
 }
 
@@ -691,9 +709,8 @@ body {
   justify-content: center;
 }
 
-
 .btn.whatsapp {
-  background: #25D366;
+  background: #25d366;
   color: #fff;
   border: none;
 }
@@ -706,18 +723,17 @@ body {
 
 /* NEW: Pre-order Button Style */
 .btn.pre-order {
-  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
   border: none;
   color: white;
   font-weight: 600;
 }
 
 .btn.pre-order:hover {
-  background: linear-gradient(45deg, #FF5252, #FF7A3D);
+  background: linear-gradient(45deg, #ff5252, #ff7a3d);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
-
 
 /* NEW: Locked Button Style */
 .btn.locked {
@@ -816,7 +832,6 @@ body {
   right: 0;
 }
 
-
 /* Adjust size for mobile view */
 @media (max-width: 520px) {
 
@@ -894,7 +909,6 @@ body {
   border-radius: 3px;
 }
 
-
 .options-grid {
   display: flex;
   /* Change from grid to flex for horizontal scrolling */
@@ -904,7 +918,6 @@ body {
   width: max-content;
   /* Allows the flex container to grow wider than viewport */
 }
-
 
 .product-option {
   display: flex;
@@ -917,7 +930,8 @@ body {
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  transition: transform 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
   padding: 8px;
   /* Use button styling reset */
   font-family: inherit;
@@ -961,7 +975,7 @@ body {
   padding: 2px 6px;
   border-radius: 4px;
   z-index: 3;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .option-image-wrap {
@@ -1139,7 +1153,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 4px;
-  border: 2px solid var(--bg); /* Matches background to create "cutout" look */
+  border: 2px solid var(--bg);
+  /* Matches background to create "cutout" look */
 }
 
 .cart-badge.hidden {
@@ -1225,7 +1240,7 @@ body {
   color: #fff;
   padding: 12px 24px;
   border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   z-index: 2000;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -1241,36 +1256,43 @@ body {
 
 /* Primary Button Change for Cart */
 .btn.add-to-cart {
-    background: #fff;
-    color: #000;
-    border: none;
-    font-weight: 600;
+  background: #fff;
+  color: #000;
+  border: none;
+  font-weight: 600;
 }
+
 .btn.add-to-cart:hover {
-    background: #e2e2e2;
+  background: #e2e2e2;
 }
 
 /* Custom Scrollbar for the Cart List */
 .cart-items-list::-webkit-scrollbar {
-  width: 6px; /* Very slim */
+  width: 6px;
+  /* Very slim */
 }
 
 .cart-items-list::-webkit-scrollbar-track {
-  background: var(--glass); /* Subtle dark track */
+  background: var(--glass);
+  /* Subtle dark track */
   border-radius: 10px;
 }
 
 .cart-items-list::-webkit-scrollbar-thumb {
-  background: #e2e2e2; /* Your purple accent color */
+  background: #e2e2e2;
+  /* Your purple accent color */
   border-radius: 10px;
-  border: 1px solid var(--card); /* Creates a little space around the thumb */
+  border: 1px solid var(--card);
+  /* Creates a little space around the thumb */
 }
 
 .cart-items-list::-webkit-scrollbar-thumb:hover {
-  background: #937bfe; /* Slightly lighter on hover */
+  background: #937bfe;
+  /* Slightly lighter on hover */
 }
 
 @media (max-width: 768px) {
+
   /* Ensure the text is still readable and centered on mobile */
   .hero-inner {
     text-align: center;
@@ -1279,10 +1301,12 @@ body {
 }
 
 @media (max-width: 520px) {
+
   /* 1. Reduce the padding on the header container so items can hit the edges */
   .header-inner {
     padding: 0 10px !important;
-    gap: 5px; /* Reduce gap between Brand and Nav */
+    gap: 5px;
+    /* Reduce gap between Brand and Nav */
   }
 
   /* 2. Shrink the Brand text slightly */
@@ -1293,7 +1317,8 @@ body {
 
   /* 3. Tighten the space between individual nav links/buttons */
   .nav {
-    gap: 7px !important; /* This is the "breathing room" between buttons */
+    gap: 7px !important;
+    /* This is the "breathing room" between buttons */
   }
 
   /* 4. Make links smaller so they don't wrap to a second line */
@@ -1303,7 +1328,8 @@ body {
   }
 
   /* 5. Compact the Theme and Cart buttons */
-  .theme-btn, .nav-item-cart {
+  .theme-btn,
+  .nav-item-cart {
     margin-left: 2px !important;
     font-size: 1rem !important;
   }
@@ -1329,11 +1355,11 @@ body {
     font-size: 0.9rem;
     padding: 8px 12px;
   }
-  
+
   .product-info .btn.pre-order {
     flex-grow: 1;
   }
-  
+
   .product-info .btn.add-to-cart {
     flex-grow: 1;
   }
@@ -1341,7 +1367,7 @@ body {
 
 /* NEW: Pre-order modal specific styles */
 .preorder-label {
-  background: linear-gradient(45deg, #FF6B6B, #baffc1);
+  background: linear-gradient(45deg, #ff6b6b, #baffc1);
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 0.7rem;
@@ -1349,6 +1375,7 @@ body {
   display: inline-block;
   margin-top: 4px;
 }
+
 .contact-methods-inline .btn {
   background: var(--glass);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1358,6 +1385,7 @@ body {
 .contact-methods-inline .btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
 /* About Section Enhanced Design */
 .about-grid {
   display: flex;
@@ -1436,8 +1464,13 @@ body {
 }
 
 /* Specific colors for branding */
-.contact-card.whatsapp:hover { border-color: #25D366; }
-.contact-card.telegram:hover { border-color: #0088cc; }
+.contact-card.whatsapp:hover {
+  border-color: #25d366;
+}
+
+.contact-card.telegram:hover {
+  border-color: #0088cc;
+}
 
 /* Container for Pre-order link to anchor the badge */
 .nav-item-preorder {
@@ -1451,8 +1484,10 @@ body {
 /* Ensure the badge for pre-orders uses the same positioning logic as the cart */
 #preorderBadge {
   position: absolute;
-  top: -8px;      /* Moves it slightly above the text */
-  right: -12px;   /* Moves it to the right edge of the text */
+  top: -8px;
+  /* Moves it slightly above the text */
+  right: -12px;
+  /* Moves it to the right edge of the text */
   /* These inherited from .cart-badge will now work correctly: */
   background: #ef4444;
   color: white;
@@ -1471,11 +1506,13 @@ body {
     height: 14px;
     min-width: 14px;
   }
-  
+
   .nav {
-    gap: 12px !important; /* Give more space between links for the badges */
+    gap: 12px !important;
+    /* Give more space between links for the badges */
   }
 }
+
 /* Optional: Add specific styling for mousepad category */
 .mousepad-badge {
   background: linear-gradient(45deg, #3498db, #2ecc71);
@@ -1508,8 +1545,15 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* pre order options styles */
@@ -1525,7 +1569,8 @@ body {
 
 .modal-header-detailed {
   background: linear-gradient(to bottom, rgba(124, 92, 255, 0.05), transparent);
-  text-align: center; /* Centers the title and description */
+  text-align: center;
+  /* Centers the title and description */
   padding: 24px;
 }
 
@@ -1540,24 +1585,31 @@ body {
 .options-grid-modern {
   display: grid;
   /* Keep our flexible columns */
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 16px;
   padding: 20px 24px 60px;
   max-height: 450px;
   overflow-y: auto;
-  
-  justify-content: center;  
-  justify-items: center;  
-  
-  mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
-}
 
+  justify-content: center;
+  justify-items: center;
+
+  mask-image: linear-gradient(to bottom,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent);
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent);
+}
 
 .product-option {
   width: 100%;
   max-width: 180px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 /*
@@ -1567,7 +1619,7 @@ body {
   transform: translateY(-2px);
 }
   */
-  .product-option:hover {
+.product-option:hover {
   background: rgba(255, 154, 245, 0.06);
   border-color: rgba(117, 146, 243, 0.1);
   transform: translateY(-2px);
@@ -1608,20 +1660,24 @@ body {
 
 .modal-footer-sticky {
   padding: 20px 24px;
-  background: var(--card); /* Solid background */
+  background: var(--card);
+  /* Solid background */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5); /* Adds depth above the footer */
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+  /* Adds depth above the footer */
   z-index: 10;
 }
 
 .selection-summary {
   display: flex;
-  justify-content: center; /* Centers the "Selected: [Name]" text */
+  justify-content: center;
+  /* Centers the "Selected: [Name]" text */
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
   margin-bottom: 10px;
 }
+
 .summary-value {
   color: var(--accent);
   font-weight: 600;
@@ -1649,9 +1705,10 @@ body {
 }
 
 .selection-modal::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 90px; /* Adjust based on your header height */
+  top: 90px;
+  /* Adjust based on your header height */
   left: 0;
   right: 0;
   height: 20px;
@@ -1662,21 +1719,246 @@ body {
 }
 
 #preorderOptionList::-webkit-scrollbar {
-  width: 6px; /* Slimmer, modern width */
+  width: 6px;
+  /* Slimmer, modern width */
 }
 
 #preorderOptionList::-webkit-scrollbar-track {
-  background: transparent; /* Makes the track invisible until hover */
+  background: transparent;
+  /* Makes the track invisible until hover */
   border-radius: 10px;
 }
 
 #preorderOptionList::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1); /* Subtle default state */
+  background: rgba(255, 255, 255, 0.1);
+  /* Subtle default state */
   border-radius: 20px;
-  border: 1px solid transparent; /* Creates a bit of padding effect */
+  border: 1px solid transparent;
+  /* Creates a bit of padding effect */
   background-clip: content-box;
 }
 
 #preorderOptionList::-webkit-scrollbar-thumb:hover {
-  background: var(--accent); /* Matches your brand color on hover */
+  background: var(--accent);
+  /* Matches your brand color on hover */
+}
+
+/* zoom image styles */
+/* Image Viewer Modal Styles */
+.image-viewer-modal .modal-content {
+  max-width: 95vw !important;
+  max-height: 95vh !important;
+  width: 95vw !important;
+  height: 95vh !important;
+  padding: 0 !important;
+  background: rgba(11, 13, 16, 0.95) !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.image-viewer-header {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.image-viewer-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.image-viewer-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 20px;
+  position: relative;
+}
+
+#zoomedImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  cursor: grab;
+}
+
+#zoomedImage:active {
+  cursor: grabbing;
+}
+
+.image-viewer-footer {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.image-viewer-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.zoom-control-btn {
+  background: rgba(124, 92, 255, 0.2);
+  border: 1px solid rgba(124, 92, 255, 0.4);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.zoom-control-btn:hover {
+  background: rgba(124, 92, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.zoom-reset-btn {
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.zoom-reset-btn:hover {
+  background: rgba(255, 107, 107, 0.4);
+}
+
+.zoom-info {
+  color: var(--muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.zoom-level {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Zoom cursor when zoomed in */
+.zoomed-in {
+  cursor: zoom-out;
+}
+
+/* Full image cursor for normal state */
+.full-image-btn {
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+.full-image-btn:hover {
+  transform: scale(1.02);
+}
+
+/* Hide carousel buttons when in full image mode */
+.image-viewer-modal .carousel-btn {
+  display: none;
+}
+
+/* Image navigation in viewer */
+.image-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.image-nav-btn.prev {
+  left: 20px;
+}
+
+.image-nav-btn.next {
+  right: 20px;
+}
+
+/* Close button specific for image viewer */
+.image-viewer-close {
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.image-viewer-close:hover {
+  background: rgba(255, 107, 107, 0.4);
+  transform: scale(1.05);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .image-viewer-modal .modal-content {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+  }
+
+  .image-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .image-nav-btn.prev {
+    left: 10px;
+  }
+
+  .image-nav-btn.next {
+    right: 10px;
+  }
+
+  .zoom-control-btn {
+    width: 36px;
+    height: 36px;
+  }
 }

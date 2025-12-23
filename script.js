@@ -1,7 +1,7 @@
-import { keyboards } from './products/keyboards.js';
-import { mice } from './products/mice.js';
-import { keycaps } from './products/keycaps.js';
-import { mousepads } from './products/mousepads.js';
+import { keyboards } from "./products/keyboards.js";
+import { mice } from "./products/mice.js";
+import { keycaps } from "./products/keycaps.js";
+import { mousepads } from "./products/mousepads.js";
 
 const CONTACT_WHATSAPP_NUMBER = "85514975307";
 const TELEGRAM_HANDLE = "glsswrksGG";
@@ -11,62 +11,308 @@ let currentProductForPreorder = null;
 let selectedPreorderOption = null;
 
 const productData = {
-    keyboards,
-    mice,
-    keycaps,
-    mousepads,
-  
+  keyboards,
+  mice,
+  keycaps,
+  mousepads,
 };
 
-const allProducts = [
-  ...keyboards,
-  ...mice,
-  ...keycaps,
-  ...mousepads,
-];
+const allProducts = [...keyboards, ...mice, ...keycaps, ...mousepads];
+
+// Image Viewer Variables
+let currentZoom = 1;
+let currentPan = { x: 0, y: 0 };
+let isDragging = false;
+let dragStart = { x: 0, y: 0 };
+let viewerImages = [];
+let currentViewerIndex = 0;
+
+// Initialize Image Viewer
+function initImageViewer() {
+  const imageViewerModal = document.getElementById("imageViewerModal");
+  const closeImageViewerBtn = document.getElementById("closeImageViewerBtn");
+  const zoomInBtn = document.getElementById("zoomInBtn");
+  const zoomOutBtn = document.getElementById("zoomOutBtn");
+  const resetZoomBtn = document.getElementById("resetZoomBtn");
+  const prevImageViewBtn = document.getElementById("prevImageViewBtn");
+  const nextImageViewBtn = document.getElementById("nextImageViewBtn");
+  const zoomedImage = document.getElementById("zoomedImage");
+  const zoomLevel = document.getElementById("zoomLevel");
+
+  if (!imageViewerModal) return;
+
+  // Close modal
+  const closeImageViewer = () => {
+    imageViewerModal.setAttribute("aria-hidden", "true");
+    resetImageViewer();
+  };
+
+  if (closeImageViewerBtn) {
+    closeImageViewerBtn.addEventListener("click", closeImageViewer);
+  }
+
+  imageViewerModal.addEventListener("click", (e) => {
+    if (e.target === imageViewerModal) {
+      closeImageViewer();
+    }
+  });
+
+  // Zoom functionality
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener("click", () => {
+      currentZoom = Math.min(currentZoom + 0.25, 3);
+      updateZoom();
+    });
+  }
+
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener("click", () => {
+      currentZoom = Math.max(currentZoom - 0.25, 0.5);
+      updateZoom();
+    });
+  }
+
+  if (resetZoomBtn) {
+    resetZoomBtn.addEventListener("click", () => {
+      currentZoom = 1;
+      currentPan = { x: 0, y: 0 };
+      updateZoom();
+    });
+  }
+
+  // Image navigation
+  if (prevImageViewBtn) {
+    prevImageViewBtn.addEventListener("click", () => {
+      if (viewerImages.length > 1) {
+        currentViewerIndex =
+          (currentViewerIndex - 1 + viewerImages.length) % viewerImages.length;
+        loadViewerImage();
+      }
+    });
+  }
+
+  if (nextImageViewBtn) {
+    nextImageViewBtn.addEventListener("click", () => {
+      if (viewerImages.length > 1) {
+        currentViewerIndex = (currentViewerIndex + 1) % viewerImages.length;
+        loadViewerImage();
+      }
+    });
+  }
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (imageViewerModal.getAttribute("aria-hidden") === "false") {
+      switch (e.key) {
+        case "Escape":
+          closeImageViewer();
+          break;
+        case "ArrowLeft":
+          if (viewerImages.length > 1) {
+            currentViewerIndex =
+              (currentViewerIndex - 1 + viewerImages.length) %
+              viewerImages.length;
+            loadViewerImage();
+          }
+          break;
+        case "ArrowRight":
+          if (viewerImages.length > 1) {
+            currentViewerIndex = (currentViewerIndex + 1) % viewerImages.length;
+            loadViewerImage();
+          }
+          break;
+        case "+":
+        case "=":
+          e.preventDefault();
+          currentZoom = Math.min(currentZoom + 0.25, 3);
+          updateZoom();
+          break;
+        case "-":
+          e.preventDefault();
+          currentZoom = Math.max(currentZoom - 0.25, 0.5);
+          updateZoom();
+          break;
+        case "0":
+          currentZoom = 1;
+          currentPan = { x: 0, y: 0 };
+          updateZoom();
+          break;
+      }
+    }
+  });
+
+  // Mouse wheel zoom
+  if (zoomedImage) {
+    zoomedImage.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.25 : 0.25;
+        currentZoom = Math.max(0.5, Math.min(currentZoom + delta, 3));
+        updateZoom();
+      },
+      { passive: false }
+    );
+
+    // Drag to pan when zoomed
+    zoomedImage.addEventListener("mousedown", (e) => {
+      if (currentZoom > 1) {
+        isDragging = true;
+        dragStart = {
+          x: e.clientX - currentPan.x,
+          y: e.clientY - currentPan.y,
+        };
+        zoomedImage.style.cursor = "grabbing";
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging && currentZoom > 1) {
+        currentPan.x = e.clientX - dragStart.x;
+        currentPan.y = e.clientY - dragStart.y;
+        updateZoom();
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      if (currentZoom > 1) {
+        zoomedImage.style.cursor = "grab";
+      }
+    });
+  }
+
+  // Update zoom display
+  function updateZoom() {
+    if (zoomedImage) {
+      zoomedImage.style.transform = `translate(${currentPan.x}px, ${currentPan.y}px) scale(${currentZoom})`;
+      if (zoomLevel) {
+        zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
+      }
+
+      // Update cursor based on zoom level
+      if (currentZoom > 1) {
+        zoomedImage.style.cursor = "grab";
+      } else {
+        zoomedImage.style.cursor = "default";
+      }
+    }
+  }
+
+  // Load image in viewer
+  function loadViewerImage() {
+    if (zoomedImage && viewerImages[currentViewerIndex]) {
+      zoomedImage.src = viewerImages[currentViewerIndex];
+      zoomedImage.alt = `Product image ${currentViewerIndex + 1}`;
+
+      // Reset zoom and pan for new image
+      currentZoom = 1;
+      currentPan = { x: 0, y: 0 };
+      updateZoom();
+    }
+  }
+
+  // Reset viewer
+  function resetImageViewer() {
+    currentZoom = 1;
+    currentPan = { x: 0, y: 0 };
+    isDragging = false;
+    if (zoomedImage) {
+      zoomedImage.style.transform = "translate(0, 0) scale(1)";
+      zoomedImage.style.cursor = "default";
+    }
+    if (zoomLevel) {
+      zoomLevel.textContent = "100%";
+    }
+  }
+}
+
+// Function to open image viewer
+function openImageViewer(images, startIndex = 0) {
+  const imageViewerModal = document.getElementById("imageViewerModal");
+  const viewerImageTitle = document.getElementById("viewerImageTitle");
+
+  if (!imageViewerModal || !viewerImageTitle) return;
+
+  viewerImages = images;
+  currentViewerIndex = startIndex;
+
+  // Update title
+  viewerImageTitle.textContent = `Product Image ${startIndex + 1} of ${
+    images.length
+  }`;
+
+  // Load first image
+  const zoomedImage = document.getElementById("zoomedImage");
+  if (zoomedImage && images[startIndex]) {
+    zoomedImage.src = images[startIndex];
+    zoomedImage.alt = `Product image ${startIndex + 1}`;
+
+    // Reset zoom and pan
+    currentZoom = 1;
+    currentPan = { x: 0, y: 0 };
+    currentZoom = 1;
+    currentPan = { x: 0, y: 0 };
+    if (zoomedImage) {
+      zoomedImage.style.transform = "translate(0, 0) scale(1)";
+    }
+
+    const zoomLevel = document.getElementById("zoomLevel");
+    if (zoomLevel) {
+      zoomLevel.textContent = "100%";
+    }
+  }
+
+  // Show modal
+  imageViewerModal.setAttribute("aria-hidden", "false");
+}
 
 function populatePreorderOptions(product) {
   const optionList = document.getElementById("preorderOptionList");
   const confirmBtn = document.getElementById("confirmPreorderOptionBtn");
   const summaryName = document.getElementById("selectedOptionName");
   const modalTitle = document.getElementById("preorderModalTitle");
-  
+
   if (!optionList) return;
-  
+
   optionList.innerHTML = "";
   selectedPreorderOption = null;
   confirmBtn.disabled = true;
   summaryName.textContent = "Please select...";
 
   if (modalTitle) modalTitle.textContent = product.title;
-  
+
   product.options.forEach((option, index) => {
     const optionElement = document.createElement("button");
     optionElement.className = "product-option";
     optionElement.type = "button";
-    
+
     optionElement.innerHTML = `
       <div class="option-image-wrap">
         <img src="${option.image}" alt="${option.name}" loading="lazy">
         <span class="option-price-tag">$${option.price || product.price}</span>
       </div>
       <div class="option-text">
-        <h4 class="option-title" style="margin:0; font-size:0.95rem;">${option.name}</h4>
+        <h4 class="option-title" style="margin:0; font-size:0.95rem;">${
+          option.name
+        }</h4>
       </div>
     `;
-    
+
     optionElement.addEventListener("click", () => {
-      optionList.querySelectorAll(".product-option").forEach(opt => opt.classList.remove("active-option"));
+      optionList
+        .querySelectorAll(".product-option")
+        .forEach((opt) => opt.classList.remove("active-option"));
       optionElement.classList.add("active-option");
-      
+
       selectedPreorderOption = option;
       confirmBtn.disabled = false;
       summaryName.textContent = option.name;
     });
-    
+
     optionList.appendChild(optionElement);
   });
-  
+
   // Auto-select if only one option exists
   if (product.options.length === 1) {
     optionList.firstElementChild.click();
@@ -415,45 +661,62 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
-const preorderOptionModal = document.getElementById("preorderOptionModal");
-const closePreorderOptionBtn = document.getElementById("closePreorderOptionBtn");
-const cancelPreorderOptionBtn = document.getElementById("cancelPreorderOptionBtn");
-const confirmPreorderOptionBtn = document.getElementById("confirmPreorderOptionBtn");
+  const preorderOptionModal = document.getElementById("preorderOptionModal");
+  const closePreorderOptionBtn = document.getElementById(
+    "closePreorderOptionBtn"
+  );
+  const cancelPreorderOptionBtn = document.getElementById(
+    "cancelPreorderOptionBtn"
+  );
+  const confirmPreorderOptionBtn = document.getElementById(
+    "confirmPreorderOptionBtn"
+  );
 
-if (preorderOptionModal) {
-  // Close modal functions
-  const closePreorderOptionModal = () => {
-    preorderOptionModal.setAttribute("aria-hidden", "true");
-    currentProductForPreorder = null;
-    selectedPreorderOption = null;
-  };
-  
-  if (closePreorderOptionBtn) {
-    closePreorderOptionBtn.addEventListener("click", closePreorderOptionModal);
-  }
-  
-  if (cancelPreorderOptionBtn) {
-    cancelPreorderOptionBtn.addEventListener("click", closePreorderOptionModal);
-  }
-  
-  // Confirm button - add to pre-orders
-  if (confirmPreorderOptionBtn) {
-    confirmPreorderOptionBtn.addEventListener("click", () => {
-      if (currentProductForPreorder && selectedPreorderOption) {
-        PreOrderList.addItem(currentProductForPreorder, selectedPreorderOption);
+  if (preorderOptionModal) {
+    // Close modal functions
+    const closePreorderOptionModal = () => {
+      preorderOptionModal.setAttribute("aria-hidden", "true");
+      currentProductForPreorder = null;
+      selectedPreorderOption = null;
+    };
+
+    if (closePreorderOptionBtn) {
+      closePreorderOptionBtn.addEventListener(
+        "click",
+        closePreorderOptionModal
+      );
+    }
+
+    if (cancelPreorderOptionBtn) {
+      cancelPreorderOptionBtn.addEventListener(
+        "click",
+        closePreorderOptionModal
+      );
+    }
+
+    // Confirm button - add to pre-orders
+    if (confirmPreorderOptionBtn) {
+      confirmPreorderOptionBtn.addEventListener("click", () => {
+        if (currentProductForPreorder && selectedPreorderOption) {
+          PreOrderList.addItem(
+            currentProductForPreorder,
+            selectedPreorderOption
+          );
+          closePreorderOptionModal();
+          showToast(
+            `Added ${currentProductForPreorder.title} (${selectedPreorderOption.name}) to pre-orders`
+          );
+        }
+      });
+    }
+
+    // Close modal when clicking outside
+    preorderOptionModal.addEventListener("click", (e) => {
+      if (e.target === preorderOptionModal) {
         closePreorderOptionModal();
-        showToast(`Added ${currentProductForPreorder.title} (${selectedPreorderOption.name}) to pre-orders`);
       }
     });
   }
-  
-  // Close modal when clicking outside
-  preorderOptionModal.addEventListener("click", (e) => {
-    if (e.target === preorderOptionModal) {
-      closePreorderOptionModal();
-    }
-  });
-}
 
   if (cartToggle && cartModal) {
     cartToggle.addEventListener("click", (e) => {
@@ -517,6 +780,7 @@ if (preorderOptionModal) {
     });
   }
 
+  initImageViewer();
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
@@ -990,42 +1254,44 @@ function renderProductDetail(product) {
 
     // 5. Update Pre-order button - ONLY SHOW FOR UNAVAILABLE PRODUCTS
     // In the updateProductDisplay function within renderProductDetail, update the pre-order button section:
-if (preOrderBtn) {
-  if (product.available) {
-    // If product is available, hide and disable pre-order button
-    preOrderBtn.style.display = "none";
-    preOrderBtn.disabled = true;
-  } else {
-    // If product is not available, show and enable pre-order button
-    preOrderBtn.style.display = "inline-block";
-    preOrderBtn.classList.remove("locked");
-    preOrderBtn.disabled = false;
-
-    // Remove any existing listeners and add new one
-    const newPreBtn = preOrderBtn.cloneNode(true);
-    preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
-
-    newPreBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      
-      // If product has options, show option selection modal
-      if (product.options && product.options.length > 0) {
-        currentProductForPreorder = product;
-        selectedPreorderOption = null;
-        populatePreorderOptions(product);
-        
-        // Show the option selection modal
-        const preorderOptionModal = document.getElementById("preorderOptionModal");
-        if (preorderOptionModal) {
-          preorderOptionModal.setAttribute("aria-hidden", "false");
-        }
+    if (preOrderBtn) {
+      if (product.available) {
+        // If product is available, hide and disable pre-order button
+        preOrderBtn.style.display = "none";
+        preOrderBtn.disabled = true;
       } else {
-        // If no options, directly add to pre-order list
-        PreOrderList.addItem(product, selectedOption);
+        // If product is not available, show and enable pre-order button
+        preOrderBtn.style.display = "inline-block";
+        preOrderBtn.classList.remove("locked");
+        preOrderBtn.disabled = false;
+
+        // Remove any existing listeners and add new one
+        const newPreBtn = preOrderBtn.cloneNode(true);
+        preOrderBtn.parentNode.replaceChild(newPreBtn, preOrderBtn);
+
+        newPreBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          // If product has options, show option selection modal
+          if (product.options && product.options.length > 0) {
+            currentProductForPreorder = product;
+            selectedPreorderOption = null;
+            populatePreorderOptions(product);
+
+            // Show the option selection modal
+            const preorderOptionModal = document.getElementById(
+              "preorderOptionModal"
+            );
+            if (preorderOptionModal) {
+              preorderOptionModal.setAttribute("aria-hidden", "false");
+            }
+          } else {
+            // If no options, directly add to pre-order list
+            PreOrderList.addItem(product, selectedOption);
+          }
+        });
       }
-    });
-  }
-}
+    }
 
     // 6. Update active class on option cards
     const optionsGrid = document.getElementById("optionsGrid");
@@ -1114,6 +1380,14 @@ function createCarousel(images) {
     img.src = src;
     img.alt = `Product image ${i + 1}`;
     img.loading = "lazy";
+    img.classList.add("full-image-btn"); // Add this class
+    img.style.cursor = "zoom-in"; // Add cursor style
+
+    // Add click event to open image viewer
+    img.addEventListener("click", () => {
+      openImageViewer(images, i);
+    });
+
     slide.appendChild(img);
     track.appendChild(slide);
   });
