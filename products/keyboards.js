@@ -104,6 +104,65 @@ export const keyboards = [
       ],
     },
     {
+      id: "atk-68rx",
+      title: "ATK 68 RX",
+      short:
+        "ATK 68 RX - Meet the Forged Carbon Limited Edition, paired with Cosmic switches. Designed for a unique feel.",
+      price: 70,
+      layout: "65",
+      available: false,
+      isNew: false,
+      lowStock: false,
+      images: [
+        "https://halleffectkeyboard.com/wp-content/uploads/2025/08/1-12.jpg",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__02.jpg?v=1764137347&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__07.jpg?v=1764137333&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__10.jpg?v=1764137293&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__04.jpg?v=1764137293&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__06.jpg?v=1764137256&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__05.jpg?v=1764137259&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__03.jpg?v=1764137253&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__08.jpg?v=1764137258&width=2000",
+      ],
+      specs: [
+        "65% (68 keys)",
+        "Aluminum Alloy Position Plate",
+        "8K Hz Polling rate",
+        "0.08ms Ultra Low Latency",
+        "256K scanning-rate",
+        "N-Roll Key 32K Hz",
+        "Precision 0.005mm",
+        "Zero Dead-Zone",
+        "Super stable RT",
+        "ATK Blazing Wind Ultra Magnetic Switches Solution",
+        "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
+        "Detachable CNC Aluminum Wrist Rest",
+        "6-Layers Flagship Padding",
+        "Adjustable Daul Stage Feet",
+        "Cherry Profile Keycaps, Frosted PC",
+      ],
+      options: [
+         {
+          name: "White (Wolf Switches)",
+          available: false,
+          image:
+            "https://www.atk.store/cdn/shop/files/0a880f505c69d7e7d07d0e5117ab8804.jpg?v=1753930212",
+        },
+        {
+          name: "Pink (Wolf Switches)",
+          available: false,
+          image:
+            "https://www.atk.store/cdn/shop/files/a41da8b0ebf45d9eef904598ea8249c9.jpg?v=1753930438",
+        },
+        {
+          name: "Black (Wolf Switches)",
+          available: false,
+          image:
+            "https://www.atk.store/cdn/shop/files/ac32e9e1554198b2e59119946fb32d1c.jpg?v=1753930438",
+        },
+      ],
+    },
+    {
       id: "atkrs7",
       title: "ATK RS-7",
       short:
