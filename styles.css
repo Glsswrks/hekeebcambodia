@@ -2408,3 +2408,112 @@ body {
     padding: 15px 10px;
   }
 }
+
+/* Additional comparison styles that might be missing */
+.compare-selection-modal {
+  max-width: 900px !important;
+  padding: 0 !important;
+}
+
+.compare-selection-header {
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid rgba(124, 92, 255, 0.1);
+}
+
+.compare-selection-title {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.compare-selection-subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.compare-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.compare-selection-footer {
+  padding: 25px 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compare-selection-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.comparison-modal {
+  max-width: 95% !important;
+  width: 95% !important;
+}
+
+.comparison-header {
+  padding: 25px 30px;
+  border-bottom: 1px solid rgba(124, 92, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comparison-title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.comparison-wrapper {
+  overflow-x: auto;
+  padding: 30px;
+}
+
+.comparison-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table th {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 200px;
+}
+
+.feature-label {
+  background: rgba(124, 92, 255, 0.05);
+  color: var(--accent);
+  font-weight: 600;
+  position: sticky;
+  left: 0;
+}
+
+.product-column-header {
+  vertical-align: top !important;
+  min-width: 250px;
+  max-width: 300px;
+  background: transparent !important;
+}

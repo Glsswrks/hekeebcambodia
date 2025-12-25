@@ -9,6 +9,8 @@ const DISCORD_HANDLE = "Kokushibo#4764";
 
 let currentProductForPreorder = null;
 let selectedPreorderOption = null;
+let currentProductForComparison = null; 
+let selectedComparisonProducts = new Set();
 
 const productData = {
   keyboards,
@@ -25,14 +27,21 @@ const ComparisonSystem = {
   
   // Open selection modal with filtered products
   openSelectionModal: function(currentProduct) {
+      console.log("openSelectionModal called with:", currentProduct);
     currentProductForComparison = currentProduct;
     selectedComparisonProducts.clear();
     
     const modal = document.getElementById('compareSelectionModal');
     const grid = document.getElementById('compareSelectionGrid');
     const selectedCount = document.getElementById('selectedCount');
+
+      console.log("Modal element:", modal);
+  console.log("Grid element:", grid);
     
-    if (!modal || !grid) return;
+    if (!modal || !grid) {
+      console.error("Modal or Grid elements not found!");
+    return;
+    }
     
     // Filter products: same category, exclude current product
     const sameCategoryProducts = allProducts.filter(product => {
@@ -832,11 +841,41 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Comparison System Event Listeners
+
+  // Comparison System Event Listeners
+  
 const compareSelectionModal = document.getElementById('compareSelectionModal');
 const cancelCompareSelection = document.getElementById('cancelCompareSelection');
 const confirmCompareSelection = document.getElementById('confirmCompareSelection');
+const compareBtn = document.getElementById('compareBtn');
+const cancelCompareSelectionBtn = document.getElementById('cancelCompareSelectionBtn');
 const closeComparisonBtn = document.getElementById('closeComparisonBtn');
 const closeComparisonEmptyBtn = document.getElementById('closeComparisonEmptyBtn');
+
+if (compareBtn) {
+  compareBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    ComparisonSystem.openSelectionModal(product); // Make sure 'product' is in scope
+  });
+}
+
+if (cancelCompareSelectionBtn) {
+  cancelCompareSelectionBtn.addEventListener('click', () => {
+    ComparisonSystem.closeSelectionModal();
+  });
+}
+
+if (closeComparisonBtn) {
+  closeComparisonBtn.addEventListener('click', () => {
+    ComparisonSystem.closeComparisonModal();
+  });
+}
+
+if (closeComparisonEmptyBtn) {
+  closeComparisonEmptyBtn.addEventListener('click', () => {
+    ComparisonSystem.closeComparisonModal();
+  });
+}
 
 // Close selection modal on cancel
 if (cancelCompareSelection) {
@@ -1410,14 +1449,18 @@ function renderProductDetail(product) {
   }
 
   // comparision feature
-  const compareBtn = container.querySelector("#compareBtn");
+const compareBtn = container.querySelector("#compareBtn");
 if (compareBtn) {
+  console.log("Compare button found");
+  
   // Remove any existing listeners and add new one
   const newCompareBtn = compareBtn.cloneNode(true);
   compareBtn.parentNode.replaceChild(newCompareBtn, compareBtn);
   
   newCompareBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    console.log("Compare button clicked for product:", product.title);
+    console.log("ComparisonSystem:", ComparisonSystem);
     ComparisonSystem.openSelectionModal(product);
   });
 }
