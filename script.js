@@ -19,253 +19,304 @@ const productData = {
 
 const allProducts = [...keyboards, ...mice, ...keycaps, ...mousepads];
 
-// Image Viewer Variables
-let currentZoom = 1;
-let currentPan = { x: 0, y: 0 };
-let isDragging = false;
-let dragStart = { x: 0, y: 0 };
-let viewerImages = [];
-let currentViewerIndex = 0;
-
-// Initialize Image Viewer
-function initImageViewer() {
-  const imageViewerModal = document.getElementById("imageViewerModal");
-  const closeImageViewerBtn = document.getElementById("closeImageViewerBtn");
-  const zoomInBtn = document.getElementById("zoomInBtn");
-  const zoomOutBtn = document.getElementById("zoomOutBtn");
-  const resetZoomBtn = document.getElementById("resetZoomBtn");
-  const prevImageViewBtn = document.getElementById("prevImageViewBtn");
-  const nextImageViewBtn = document.getElementById("nextImageViewBtn");
-  const zoomedImage = document.getElementById("zoomedImage");
-  const zoomLevel = document.getElementById("zoomLevel");
-
-  if (!imageViewerModal) return;
-
-  // Close modal
-  const closeImageViewer = () => {
-    imageViewerModal.setAttribute("aria-hidden", "true");
-    resetImageViewer();
-  };
-
-  if (closeImageViewerBtn) {
-    closeImageViewerBtn.addEventListener("click", closeImageViewer);
-  }
-
-  imageViewerModal.addEventListener("click", (e) => {
-    if (e.target === imageViewerModal) {
-      closeImageViewer();
+// Comparison System Functions
+const ComparisonSystem = {
+  maxSelection: 3,
+  
+  // Open selection modal with filtered products
+  openSelectionModal: function(currentProduct) {
+    currentProductForComparison = currentProduct;
+    selectedComparisonProducts.clear();
+    
+    const modal = document.getElementById('compareSelectionModal');
+    const grid = document.getElementById('compareSelectionGrid');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (!modal || !grid) return;
+    
+    // Filter products: same category, exclude current product
+    const sameCategoryProducts = allProducts.filter(product => {
+      // Exclude current product
+      if (product.id === currentProduct.id) return false;
+      
+      // Optional: Filter by same category if you have category data
+      // For now, compare with all products
+      return true;
+    });
+    
+    // Update selection count
+    selectedCount.textContent = '0';
+    
+    // Clear and populate grid
+    grid.innerHTML = '';
+    
+    if (sameCategoryProducts.length === 0) {
+      grid.innerHTML = '<p class="muted" style="grid-column: 1 / -1; text-align: center; padding: 40px 0;">No other products available for comparison.</p>';
+      return;
     }
-  });
-
-  // Zoom functionality
-  if (zoomInBtn) {
-    zoomInBtn.addEventListener("click", () => {
-      currentZoom = Math.min(currentZoom + 0.25, 3);
-      updateZoom();
+    
+    sameCategoryProducts.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'compare-selection-card';
+      card.dataset.productId = product.id;
+      
+      const isAvailable = product.available;
+      const statusClass = isAvailable ? 'available' : 'unavailable';
+      const statusText = isAvailable ? 'Available' : 'Out of Stock';
+      
+      card.innerHTML = `
+        <div class="compare-selection-checkbox"></div>
+        <div class="compare-selection-image">
+          <img src="${product.images[0] || ''}" alt="${product.title}" loading="lazy">
+        </div>
+        <h4 class="compare-selection-name">${product.title}</h4>
+        <div class="compare-selection-price">$${product.price}</div>
+        <div class="compare-selection-status ${statusClass}">${statusText}</div>
+      `;
+      
+      // Click handler
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.compare-selection-checkbox')) return;
+        this.toggleProductSelection(product.id, card);
+      });
+      
+      // Checkbox click handler
+      const checkbox = card.querySelector('.compare-selection-checkbox');
+      checkbox.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.toggleProductSelection(product.id, card);
+      });
+      
+      grid.appendChild(card);
     });
-  }
-
-  if (zoomOutBtn) {
-    zoomOutBtn.addEventListener("click", () => {
-      currentZoom = Math.max(currentZoom - 0.25, 0.5);
-      updateZoom();
-    });
-  }
-
-  if (resetZoomBtn) {
-    resetZoomBtn.addEventListener("click", () => {
-      currentZoom = 1;
-      currentPan = { x: 0, y: 0 };
-      updateZoom();
-    });
-  }
-
-  // Image navigation
-  if (prevImageViewBtn) {
-    prevImageViewBtn.addEventListener("click", () => {
-      if (viewerImages.length > 1) {
-        currentViewerIndex =
-          (currentViewerIndex - 1 + viewerImages.length) % viewerImages.length;
-        loadViewerImage();
+    
+    // Show modal with animation
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => modal.classList.add('modal-show'), 10);
+  },
+  
+  // Toggle product selection
+  toggleProductSelection: function(productId, cardElement) {
+    const checkbox = cardElement.querySelector('.compare-selection-checkbox');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (selectedComparisonProducts.has(productId)) {
+      // Deselect
+      selectedComparisonProducts.delete(productId);
+      cardElement.classList.remove('selected');
+      checkbox.classList.remove('selected');
+    } else {
+      // Check if reached max
+      if (selectedComparisonProducts.size >= this.maxSelection) {
+        showToast(`Maximum ${this.maxSelection} products for comparison`);
+        return;
       }
-    });
-  }
-
-  if (nextImageViewBtn) {
-    nextImageViewBtn.addEventListener("click", () => {
-      if (viewerImages.length > 1) {
-        currentViewerIndex = (currentViewerIndex + 1) % viewerImages.length;
-        loadViewerImage();
-      }
-    });
-  }
-
-  // Keyboard navigation
-  document.addEventListener("keydown", (e) => {
-    if (imageViewerModal.getAttribute("aria-hidden") === "false") {
-      switch (e.key) {
-        case "Escape":
-          closeImageViewer();
-          break;
-        case "ArrowLeft":
-          if (viewerImages.length > 1) {
-            currentViewerIndex =
-              (currentViewerIndex - 1 + viewerImages.length) %
-              viewerImages.length;
-            loadViewerImage();
-          }
-          break;
-        case "ArrowRight":
-          if (viewerImages.length > 1) {
-            currentViewerIndex = (currentViewerIndex + 1) % viewerImages.length;
-            loadViewerImage();
-          }
-          break;
-        case "+":
-        case "=":
-          e.preventDefault();
-          currentZoom = Math.min(currentZoom + 0.25, 3);
-          updateZoom();
-          break;
-        case "-":
-          e.preventDefault();
-          currentZoom = Math.max(currentZoom - 0.25, 0.5);
-          updateZoom();
-          break;
-        case "0":
-          currentZoom = 1;
-          currentPan = { x: 0, y: 0 };
-          updateZoom();
-          break;
-      }
+      
+      // Select
+      selectedComparisonProducts.add(productId);
+      cardElement.classList.add('selected');
+      checkbox.classList.add('selected');
+      
+      // Add selection animation
+      cardElement.style.animation = 'selectPulse 0.3s ease';
+      setTimeout(() => {
+        cardElement.style.animation = '';
+      }, 300);
     }
-  });
-
-  // Mouse wheel zoom
-  if (zoomedImage) {
-    zoomedImage.addEventListener(
-      "wheel",
-      (e) => {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? -0.25 : 0.25;
-        currentZoom = Math.max(0.5, Math.min(currentZoom + delta, 3));
-        updateZoom();
+    
+    // Update count
+    selectedCount.textContent = selectedComparisonProducts.size;
+  },
+  
+  // Open comparison result modal
+  openComparisonModal: function() {
+    if (!currentProductForComparison) return;
+    
+    const modal = document.getElementById('comparisonResultModal');
+    const emptyEl = document.getElementById('comparisonEmpty');
+    const tableContainer = document.getElementById('comparisonTableContainer');
+    
+    if (!modal) return;
+    
+    // Get all selected products
+    const selectedProducts = Array.from(selectedComparisonProducts)
+      .map(id => allProducts.find(p => p.id === id))
+      .filter(Boolean);
+    
+    // Include current product
+    const allProductsToCompare = [currentProductForComparison, ...selectedProducts];
+    
+    if (allProductsToCompare.length < 2) {
+      emptyEl.style.display = 'block';
+      tableContainer.style.display = 'none';
+    } else {
+      emptyEl.style.display = 'none';
+      tableContainer.style.display = 'block';
+      this.renderComparisonTable(allProductsToCompare);
+    }
+    
+    // Show modal with animation
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => modal.classList.add('modal-show'), 10);
+  },
+  
+  // Render comparison table
+  renderComparisonTable: function(products) {
+    const table = document.getElementById('comparisonTable');
+    if (!table) return;
+    
+    // Clear table
+    table.innerHTML = '';
+    
+    // Create header row
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    
+    // First cell is empty for feature labels
+    const emptyTh = document.createElement('th');
+    emptyTh.textContent = 'Features';
+    headerRow.appendChild(emptyTh);
+    
+    // Add product headers with animations
+    products.forEach((product, index) => {
+      const th = document.createElement('th');
+      th.className = 'product-column-header';
+      th.style.animation = `fadeInSlide 0.5s ease ${index * 0.1}s forwards`;
+      th.style.opacity = '0';
+      th.style.transform = 'translateY(20px)';
+      
+      th.innerHTML = `
+        <div class="product-card-comparison">
+          <div class="product-image-comparison">
+            <img src="${product.images[0] || ''}" alt="${product.title}" loading="lazy">
+          </div>
+          <h3 class="product-title-comparison">${product.title}</h3>
+          <div class="product-price-comparison">$${product.price}</div>
+          <div class="product-status-comparison ${product.available ? 'available' : 'unavailable'}">
+            ${product.available ? 'In Stock' : 'Out of Stock'}
+          </div>
+        </div>
+      `;
+      
+      headerRow.appendChild(th);
+    });
+    
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Create table body
+    const tbody = document.createElement('tbody');
+    
+    // Define comparison rows (features to compare)
+    const comparisonRows = [
+      {
+        label: 'Availability',
+        getValue: (product) => product.available ? 'In Stock' : 'Out of Stock',
+        getClass: (product) => product.available ? 'available' : 'unavailable'
       },
-      { passive: false }
-    );
-
-    // Drag to pan when zoomed
-    zoomedImage.addEventListener("mousedown", (e) => {
-      if (currentZoom > 1) {
-        isDragging = true;
-        dragStart = {
-          x: e.clientX - currentPan.x,
-          y: e.clientY - currentPan.y,
-        };
-        zoomedImage.style.cursor = "grabbing";
+      {
+        label: 'Price',
+        getValue: (product) => `$${product.price}`
+      },
+      {
+        label: 'Category',
+        getValue: (product) => {
+          if (keyboards.includes(product)) return 'Keyboard';
+          if (mice.includes(product)) return 'Mouse';
+          if (keycaps.includes(product)) return 'Keycaps';
+          if (mousepads.includes(product)) return 'Mousepad';
+          return 'Accessory';
+        }
+      },
+      {
+        label: 'Layout',
+        getValue: (product) => product.layout || 'N/A'
+      },
+      {
+        label: 'Description',
+        getValue: (product) => product.short || 'N/A'
+      },
+      {
+        label: 'Specifications',
+        getValue: (product) => {
+          if (!product.specs || product.specs.length === 0) return 'N/A';
+          
+          const list = document.createElement('ul');
+          list.className = 'specs-list-comparison';
+          
+          product.specs.forEach(spec => {
+            const li = document.createElement('li');
+            li.textContent = spec;
+            list.appendChild(li);
+          });
+          
+          return list.outerHTML;
+        },
+        isHTML: true
       }
+    ];
+    
+    // Add each comparison row with staggered animations
+    comparisonRows.forEach((row, rowIndex) => {
+      const tr = document.createElement('tr');
+      tr.style.animation = `fadeInRow 0.4s ease ${rowIndex * 0.05}s forwards`;
+      tr.style.opacity = '0';
+      
+      // Feature label cell
+      const labelCell = document.createElement('td');
+      labelCell.textContent = row.label;
+      labelCell.className = 'feature-label';
+      tr.appendChild(labelCell);
+      
+      // Product value cells
+      products.forEach((product, colIndex) => {
+        const valueCell = document.createElement('td');
+        valueCell.className = 'value-cell';
+        
+        if (row.getClass) {
+          valueCell.classList.add(row.getClass(product));
+        }
+        
+        if (row.isHTML) {
+          valueCell.innerHTML = row.getValue(product);
+        } else {
+          valueCell.textContent = row.getValue(product);
+        }
+        
+        // Add animation delay for each column
+        valueCell.style.animationDelay = `${rowIndex * 0.05 + colIndex * 0.02}s`;
+        tr.appendChild(valueCell);
+      });
+      
+      tbody.appendChild(tr);
     });
-
-    document.addEventListener("mousemove", (e) => {
-      if (isDragging && currentZoom > 1) {
-        currentPan.x = e.clientX - dragStart.x;
-        currentPan.y = e.clientY - dragStart.y;
-        updateZoom();
-      }
-    });
-
-    document.addEventListener("mouseup", () => {
-      isDragging = false;
-      if (currentZoom > 1) {
-        zoomedImage.style.cursor = "grab";
-      }
-    });
-  }
-
-  // Update zoom display
-  function updateZoom() {
-    if (zoomedImage) {
-      zoomedImage.style.transform = `translate(${currentPan.x}px, ${currentPan.y}px) scale(${currentZoom})`;
-      if (zoomLevel) {
-        zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
-      }
-
-      // Update cursor based on zoom level
-      if (currentZoom > 1) {
-        zoomedImage.style.cursor = "grab";
-      } else {
-        zoomedImage.style.cursor = "default";
-      }
+    
+    table.appendChild(tbody);
+  },
+  
+  // Close selection modal
+  closeSelectionModal: function() {
+    const modal = document.getElementById('compareSelectionModal');
+    if (modal) {
+      modal.classList.remove('modal-show');
+      setTimeout(() => {
+        modal.setAttribute('aria-hidden', 'true');
+      }, 300);
+    }
+    selectedComparisonProducts.clear();
+  },
+  
+  // Close comparison modal
+  closeComparisonModal: function() {
+    const modal = document.getElementById('comparisonResultModal');
+    if (modal) {
+      modal.classList.remove('modal-show');
+      setTimeout(() => {
+        modal.setAttribute('aria-hidden', 'true');
+      }, 300);
     }
   }
-
-  // Load image in viewer
-  function loadViewerImage() {
-    if (zoomedImage && viewerImages[currentViewerIndex]) {
-      zoomedImage.src = viewerImages[currentViewerIndex];
-      zoomedImage.alt = `Product image ${currentViewerIndex + 1}`;
-
-      // Reset zoom and pan for new image
-      currentZoom = 1;
-      currentPan = { x: 0, y: 0 };
-      updateZoom();
-    }
-  }
-
-  // Reset viewer
-  function resetImageViewer() {
-    currentZoom = 1;
-    currentPan = { x: 0, y: 0 };
-    isDragging = false;
-    if (zoomedImage) {
-      zoomedImage.style.transform = "translate(0, 0) scale(1)";
-      zoomedImage.style.cursor = "default";
-    }
-    if (zoomLevel) {
-      zoomLevel.textContent = "100%";
-    }
-  }
-}
-
-// Function to open image viewer
-function openImageViewer(images, startIndex = 0) {
-  const imageViewerModal = document.getElementById("imageViewerModal");
-  const viewerImageTitle = document.getElementById("viewerImageTitle");
-
-  if (!imageViewerModal || !viewerImageTitle) return;
-
-  viewerImages = images;
-  currentViewerIndex = startIndex;
-
-  // Update title
-  viewerImageTitle.textContent = `Product Image ${startIndex + 1} of ${
-    images.length
-  }`;
-
-  // Load first image
-  const zoomedImage = document.getElementById("zoomedImage");
-  if (zoomedImage && images[startIndex]) {
-    zoomedImage.src = images[startIndex];
-    zoomedImage.alt = `Product image ${startIndex + 1}`;
-
-    // Reset zoom and pan
-    currentZoom = 1;
-    currentPan = { x: 0, y: 0 };
-    currentZoom = 1;
-    currentPan = { x: 0, y: 0 };
-    if (zoomedImage) {
-      zoomedImage.style.transform = "translate(0, 0) scale(1)";
-    }
-
-    const zoomLevel = document.getElementById("zoomLevel");
-    if (zoomLevel) {
-      zoomLevel.textContent = "100%";
-    }
-  }
-
-  // Show modal
-  imageViewerModal.setAttribute("aria-hidden", "false");
-}
+};
 
 function populatePreorderOptions(product) {
   const optionList = document.getElementById("preorderOptionList");
@@ -780,7 +831,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  initImageViewer();
+  // Comparison System Event Listeners
+const compareSelectionModal = document.getElementById('compareSelectionModal');
+const cancelCompareSelection = document.getElementById('cancelCompareSelection');
+const confirmCompareSelection = document.getElementById('confirmCompareSelection');
+const closeComparisonBtn = document.getElementById('closeComparisonBtn');
+const closeComparisonEmptyBtn = document.getElementById('closeComparisonEmptyBtn');
+
+// Close selection modal on cancel
+if (cancelCompareSelection) {
+  cancelCompareSelection.addEventListener('click', () => {
+    ComparisonSystem.closeSelectionModal();
+  });
+}
+
+// Close selection modal when clicking outside
+if (compareSelectionModal) {
+  compareSelectionModal.addEventListener('click', (e) => {
+    if (e.target === compareSelectionModal) {
+      ComparisonSystem.closeSelectionModal();
+    }
+  });
+}
+
+// Confirm selection and show comparison
+if (confirmCompareSelection) {
+  confirmCompareSelection.addEventListener('click', () => {
+    ComparisonSystem.closeSelectionModal();
+    ComparisonSystem.openComparisonModal();
+  });
+}
+
+// Close comparison modal
+if (closeComparisonBtn) {
+  closeComparisonBtn.addEventListener('click', () => {
+    ComparisonSystem.closeComparisonModal();
+  });
+}
+
+if (closeComparisonEmptyBtn) {
+  closeComparisonEmptyBtn.addEventListener('click', () => {
+    ComparisonSystem.closeComparisonModal();
+  });
+}
+
+// Close comparison modal when clicking outside
+const comparisonResultModal = document.getElementById('comparisonResultModal');
+if (comparisonResultModal) {
+  comparisonResultModal.addEventListener('click', (e) => {
+    if (e.target === comparisonResultModal) {
+      ComparisonSystem.closeComparisonModal();
+    }
+  });
+}
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
@@ -1306,18 +1409,42 @@ function renderProductDetail(product) {
     }
   }
 
-  // Initial render setup
+  // comparision feature
+  const compareBtn = container.querySelector("#compareBtn");
+if (compareBtn) {
+  // Remove any existing listeners and add new one
+  const newCompareBtn = compareBtn.cloneNode(true);
+  compareBtn.parentNode.replaceChild(newCompareBtn, compareBtn);
+  
+  newCompareBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    ComparisonSystem.openSelectionModal(product);
+  });
+}
+
   const hasOptions = product.options && product.options.length > 0;
 
-  // MODIFIED: Show Add to Cart only for available products, Pre-order only for unavailable products
   let actionButtonHTML = "";
+  // comparison feature
   if (product.available) {
-    // Product is available - show only Add to Cart button
+  // Product is available - show Add to Cart and Compare
+  actionButtonHTML = `
+    <button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>
+    <button class="btn compare" id="compareBtn">Compare Products</button>
+  `;
+} else {
+  // Product is not available - show Pre-order and Compare
+  actionButtonHTML = `
+    <button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>
+    <button class="btn compare" id="compareBtn">Compare Products</button>
+  `;
+}
+  /*
+  if (product.available) {
     actionButtonHTML = `<button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>`;
   } else {
-    // Product is not available - show only Pre-order button
     actionButtonHTML = `<button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>`;
-  }
+  }*/
 
   const optionsPlaceholderHTML = hasOptions
     ? `<div class="product-options-container">
@@ -1380,14 +1507,6 @@ function createCarousel(images) {
     img.src = src;
     img.alt = `Product image ${i + 1}`;
     img.loading = "lazy";
-    img.classList.add("full-image-btn"); // Add this class
-    img.style.cursor = "zoom-in"; // Add cursor style
-
-    // Add click event to open image viewer
-    img.addEventListener("click", () => {
-      openImageViewer(images, i);
-    });
-
     slide.appendChild(img);
     track.appendChild(slide);
   });

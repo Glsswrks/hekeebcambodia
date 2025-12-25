@@ -14,13 +14,14 @@
       <div class="container header-inner">
         <a class="brand" href="index.html">Keeb Cambodia</a>
         <nav class="nav">
-          <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
+          <button id="themeToggle" class="theme-btn"
+            aria-label="Toggle Dark Mode">
             <span class="icon">🌙</span>
           </button>
-         <a href="#" id="preorderLink" class="nav-item-preorder">
-    Pre-orders
-    <span id="preorderBadge" class="cart-badge hidden">0</span>
-  </a>
+          <a href="#" id="preorderLink" class="nav-item-preorder">
+            Pre-orders
+            <span id="preorderBadge" class="cart-badge hidden">0</span>
+          </a>
           <a href="#" id="cartToggle" class="nav-item-cart">
             🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
           </a>
@@ -33,36 +34,39 @@
         style="padding-top: 40px;"></section>
     </main>
 
-    
     <section id="about" class="about-full-wide">
-  <div class="container about-content-box">
-    <div class="about-grid">
-      <div class="about-text">
-        <h3>About Keeb Cambodia</h3>
-        <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
-      </div>
-      
-      <div class="about-contact">
-        <h4>Connect With Us</h4>
-        <p>For custom builds, support, or inquiries:</p>
-        <div class="contact-button-group">
-          <a href="#" id="whatsappMain" target="_blank" class="btn contact-card whatsapp">
-            <div class="contact-label">
-              <span>WhatsApp</span>
-              <small>Chat with us</small>
+      <div class="container about-content-box">
+        <div class="about-grid">
+          <div class="about-text">
+            <h3>About Keeb Cambodia</h3>
+            <p>We bring premium custom keyboards and HE keyboards at affordable
+              prices. Our products are tested for quality, priced below the
+              market, and guaranteed to meet your expectations.</p>
+          </div>
+
+          <div class="about-contact">
+            <h4>Connect With Us</h4>
+            <p>For custom builds, support, or inquiries:</p>
+            <div class="contact-button-group">
+              <a href="#" id="whatsappMain" target="_blank"
+                class="btn contact-card whatsapp">
+                <div class="contact-label">
+                  <span>WhatsApp</span>
+                  <small>Chat with us</small>
+                </div>
+              </a>
+              <a href="#" id="telegramMain" target="_blank"
+                class="btn contact-card telegram">
+                <div class="contact-label">
+                  <span>Telegram</span>
+                  <small>@glsswrksGG</small>
+                </div>
+              </a>
             </div>
-          </a>
-          <a href="#" id="telegramMain" target="_blank" class="btn contact-card telegram">
-            <div class="contact-label">
-              <span>Telegram</span>
-              <small>@glsswrksGG</small>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <footer class="site-footer">
       <div class="container">
@@ -87,106 +91,121 @@
     </div>
 
     <div id="cartModal" class="modal" aria-hidden="true">
-  <div class="modal-content" style="max-width: 500px;">
-    <button class="modal-close" id="closeCartBtn" aria-label="Close">&times;</button>
-    <h2>Your Cart</h2>
-    
-    <div id="cartEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
-      <p>Your cart is empty.</p>
-      <button class="btn" id="startShoppingBtn">Start Shopping</button>
-    </div>
+      <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" id="closeCartBtn"
+          aria-label="Close">&times;</button>
+        <h2>Your Cart</h2>
 
-    <div id="cartContent">
-      <ul id="cartItemsList" class="cart-items-list">
-        </ul>
-      
-      <div class="cart-summary">
-        <span>Total:</span>
-        <span id="cartTotal" style="color: var(--accent);">$0</span>
-      </div>
+        <div id="cartEmptyState"
+          style="display:none; padding: 20px 0; color: var(--muted);">
+          <p>Your cart is empty.</p>
+          <button class="btn" id="startShoppingBtn">Start Shopping</button>
+        </div>
 
-      <div class="modal-actions" style="flex-direction: column;">
-        <a href="#" id="checkoutTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
-          Checkout via Telegram
-        </a>
-        <button id="clearCartBtn" class="btn" style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- NEW: Pre-order Modal -->
-      <div id="preorderModal" class="modal" aria-hidden="true">
-        <div class="modal-content" style="max-width: 500px;">
-          <button class="modal-close" id="closePreorderBtn" aria-label="Close">&times;</button>
-          <h2>Your Pre-Orders</h2>
-          
-          <div id="preorderEmptyState" style="display:none; padding: 20px 0; color: var(--muted);">
-            <p>No pre-orders yet.</p>
+        <div id="cartContent">
+          <ul id="cartItemsList" class="cart-items-list">
+          </ul>
+
+          <div class="cart-summary">
+            <span>Total:</span>
+            <span id="cartTotal" style="color: var(--accent);">$0</span>
           </div>
 
-          <div id="preorderContent">
-            <ul id="preorderItemsList" class="cart-items-list"></ul>
-            
-            <div id="preorderInfo" style="display:none; padding: 15px; margin: 15px 0; background: rgba(0,0,0,0.1); border-radius: 8px; text-align: left;">
-              <h4 style="margin-top: 0; color: var(--accent);">📋 Pre-order Information</h4>
-              <p style="font-size: 0.9rem; margin-bottom: 10px;">
-                <strong>How pre-orders work:</strong>
-              </p>
-              <ul style="font-size: 0.85rem; padding-left: 20px; margin: 0;">
-                <li>Requires 50% deposit of the product price</li>
-                <li>Estimated arrival: 7-16 days</li>
-                <li>If product arrives damaged, we refund 50% of your payment</li>
-                <li>You'll be notified when your item is ready for pickup/delivery</li>
-                <li>Balance to be paid upon delivery</li>
-              </ul>
-            </div>
-            
-            <div class="modal-actions" style="flex-direction: column; gap: 10px;">
-              <button id="preorderInfoBtn" class="btn" style="width:100%;">
-                Pre-order Information
-              </button>
-              <a href="#" id="preorderTelegramBtn" target="_blank" class="btn telegram" style="width:100%;">
-                Discuss Pre-orders via Telegram
-              </a>
-              <button id="clearPreordersBtn" class="btn" style="font-size:0.9rem; padding: 8px;">
-                Clear All Pre-orders
-              </button>
-            </div>
+          <div class="modal-actions" style="flex-direction: column;">
+            <a href="#" id="checkoutTelegramBtn" target="_blank"
+              class="btn telegram" style="width:100%;">
+              Checkout via Telegram
+            </a>
+            <button id="clearCartBtn" class="btn"
+              style="font-size:0.9rem; padding: 8px;">Clear Cart</button>
           </div>
         </div>
       </div>
-
-     <div id="preorderOptionModal" class="modal" aria-hidden="true">
-  <div class="modal-content selection-modal">
-    <button class="modal-close" id="closePreorderOptionBtn" aria-label="Close">&times;</button>
-    
-    <div class="modal-header-detailed">
-      <span class="modal-subtitle">Customize Your Order</span>
-      <h2 id="preorderModalTitle">Select an Option</h2>
-      <p class="modal-description">Choose your preferred variation. Pricing and availability may vary per selection.</p>
     </div>
-    
-    <div id="preorderOptionList" class="options-grid-modern"></div>
-    
-    <div class="modal-footer-sticky">
-      <div class="selection-summary" id="selectionSummary">
-        <span class="summary-label">Selected:</span>
-        <span class="summary-value" id="selectedOptionName">None</span>
-      </div>
-      <div class="modal-actions-row">
-        <button id="cancelPreorderOptionBtn" class="btn secondary-ghost">Cancel</button>
-        <button id="confirmPreorderOptionBtn" class="btn primary-modern" disabled>
-          <span>Confirm Pre-order</span>
-          <i class="icon-arrow-right"></i>
-        </button>
+    <!-- NEW: Pre-order Modal -->
+    <div id="preorderModal" class="modal" aria-hidden="true">
+      <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" id="closePreorderBtn"
+          aria-label="Close">&times;</button>
+        <h2>Your Pre-Orders</h2>
+
+        <div id="preorderEmptyState"
+          style="display:none; padding: 20px 0; color: var(--muted);">
+          <p>No pre-orders yet.</p>
+        </div>
+
+        <div id="preorderContent">
+          <ul id="preorderItemsList" class="cart-items-list"></ul>
+
+          <div id="preorderInfo"
+            style="display:none; padding: 15px; margin: 15px 0; background: rgba(0,0,0,0.1); border-radius: 8px; text-align: left;">
+            <h4 style="margin-top: 0; color: var(--accent);">📋 Pre-order
+              Information</h4>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">
+              <strong>How pre-orders work:</strong>
+            </p>
+            <ul style="font-size: 0.85rem; padding-left: 20px; margin: 0;">
+              <li>Requires 50% deposit of the product price</li>
+              <li>Estimated arrival: 7-16 days</li>
+              <li>If product arrives damaged, we refund 50% of your payment</li>
+              <li>You'll be notified when your item is ready for
+                pickup/delivery</li>
+              <li>Balance to be paid upon delivery</li>
+            </ul>
+          </div>
+
+          <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+            <button id="preorderInfoBtn" class="btn" style="width:100%;">
+              Pre-order Information
+            </button>
+            <a href="#" id="preorderTelegramBtn" target="_blank"
+              class="btn telegram" style="width:100%;">
+              Discuss Pre-orders via Telegram
+            </a>
+            <button id="clearPreordersBtn" class="btn"
+              style="font-size:0.9rem; padding: 8px;">
+              Clear All Pre-orders
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div id="toast" class="toast-container">
-  <span>✅ Item added to cart!</span>
-</div>
+    <div id="preorderOptionModal" class="modal" aria-hidden="true">
+      <div class="modal-content selection-modal">
+        <button class="modal-close" id="closePreorderOptionBtn"
+          aria-label="Close">&times;</button>
+
+        <div class="modal-header-detailed">
+          <span class="modal-subtitle">Customize Your Order</span>
+          <h2 id="preorderModalTitle">Select an Option</h2>
+          <p class="modal-description">Choose your preferred variation. Pricing
+            and availability may vary per selection.</p>
+        </div>
+
+        <div id="preorderOptionList" class="options-grid-modern"></div>
+
+        <div class="modal-footer-sticky">
+          <div class="selection-summary" id="selectionSummary">
+            <span class="summary-label">Selected:</span>
+            <span class="summary-value" id="selectedOptionName">None</span>
+          </div>
+          <div class="modal-actions-row">
+            <button id="cancelPreorderOptionBtn"
+              class="btn secondary-ghost">Cancel</button>
+            <button id="confirmPreorderOptionBtn" class="btn primary-modern"
+              disabled>
+              <span>Confirm Pre-order</span>
+              <i class="icon-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast-container">
+      <span>✅ Item added to cart!</span>
+    </div>
 
     <script type="module" src="script.js"></script>
   </body>
