@@ -1277,7 +1277,7 @@ body {
   background-clip: padding-box, border-box;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 6px 18px rgba(122, 162, 237, 0);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.17);
 }
 
 /* No-rating fallback: grey stars and hide fill */
