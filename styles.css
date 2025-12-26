@@ -38,6 +38,42 @@
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     color: #1e293b;
   }
+
+  /* Light-mode: add subtle shadows behind borders for key panels */
+  .product-info {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* Deeper lift so the border appears to pop out on light backgrounds */
+    box-shadow: 0 18px 50px rgba(12, 20, 32, 0.14), 0 6px 20px rgba(12, 20, 32, 0.09), inset 0 1px 0 rgba(255,255,255,0.6);
+    /* Maintain translucent panel feel while brighter */
+    background-color: rgba(255, 255, 255, 0.95);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  }
+
+  /* Seller rating: shallower spread but still slightly deep to pop without large bleed */
+  .seller-rating.glass {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(12, 20, 32, 0.12), 0 2px 6px rgba(12, 20, 32, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.96);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  /* Star rating: remove border/background so it blends with the seller card */
+  .seller-rating.glass .star-rating {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* Light-mode: subtle but deep shadow for Add to Cart button (do not apply to Pre-order) */
+  .btn.add-to-cart {
+    box-shadow: 0 10px 18px rgba(12,20,32,0.16), 0 3px 6px rgba(12,20,32,0.10);
+    transition: box-shadow 180ms ease, transform 120ms ease;
+  }
 }
 
 /* Style for the Toggle Button */
@@ -691,6 +727,41 @@ body {
   justify-content: center;
 }
 
+/* Image/lightbox modal */
+.image-modal .modal-content {
+  max-width: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.image-modal-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+.image-modal-close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 110;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 
 .btn.whatsapp {
   background: #25D366;
@@ -1267,17 +1338,16 @@ body {
 .seller-rating.glass {
   position: relative;
   padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  /* Two-layer background: inner translucent panel + outer gradient used as border */
-  background-image:
-    linear-gradient(rgba(134, 209, 255, 0.02), rgba(130, 107, 222, 0.02)),
-    linear-gradient(90deg, rgba(157, 92, 255, 0.45), rgba(125, 229, 156, 0.12));
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.17);
+  border-radius: 12px;
+  /* Subtle light highlight border to mimic iOS glass on dark backgrounds */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  /* Dark translucent base with a faint highlight gradient */
+  background-color: rgba(6, 10, 15, 0.42);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  background-clip: padding-box;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 8px 24px rgba(2, 4, 6, 0.6), inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
 /* No-rating fallback: grey stars and hide fill */

@@ -10,6 +10,48 @@ const DISCORD_HANDLE = "Kokushibo#4764";
 let currentProductForPreorder = null;
 let selectedPreorderOption = null;
 
+/* Image Lightbox Modal Helpers */
+function initImageModal() {
+  if (document.getElementById('imageModal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'imageModal';
+  modal.className = 'modal image-modal';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="modal-content image-modal-content">
+      <button class="modal-close image-modal-close" aria-label="Close">&times;</button>
+      <img src="" alt="Preview" class="image-modal-img">
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeImageModal();
+  });
+
+  modal.querySelector('.image-modal-close').addEventListener('click', closeImageModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeImageModal();
+  });
+}
+
+function openImageModal(src) {
+  if (!document.getElementById('imageModal')) initImageModal();
+  const m = document.getElementById('imageModal');
+  const img = m.querySelector('.image-modal-img');
+  img.src = src || '';
+  m.setAttribute('aria-hidden', 'false');
+}
+
+function closeImageModal() {
+  const m = document.getElementById('imageModal');
+  if (!m) return;
+  m.setAttribute('aria-hidden', 'true');
+  const img = m.querySelector('.image-modal-img');
+  if (img) img.src = '';
+}
+
 const productData = {
     keyboards,
     mice,
@@ -413,6 +455,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearPreordersBtn = document.getElementById("clearPreordersBtn");
   const preorderInfoBtn = document.getElementById("preorderInfoBtn");
 
+  // Initialize image modal once per page
+  initImageModal();
+
   // Set initial state
   if (currentTheme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
@@ -629,6 +674,11 @@ function createProductCard(p) {
     no_info = `<div class="specs-inline muted">${p.layout}</div>`;
   }
 
+  // For mouse products, remove weight and switch text from the inline specs
+  if (p.category === "mice") {
+    no_info = `<div class="specs-inline muted"></div>`;
+  }
+
   card.innerHTML = `
     <div class="card-image">
       <a class="card-link" href="${href}">
@@ -649,6 +699,15 @@ function createProductCard(p) {
       </div>
     </div>
   `;
+  // Attach image click to open lightbox (prevent link navigation when clicking image)
+  const cardImg = card.querySelector('.card-image img');
+  if (cardImg) {
+    cardImg.style.cursor = 'zoom-in';
+    cardImg.addEventListener('click', (e) => {
+      e.preventDefault();
+      openImageModal(cardImg.src);
+    });
+  }
   return card;
 }
 
@@ -1183,6 +1242,8 @@ function createCarousel(images) {
     img.src = src;
     img.alt = `Product image ${i + 1}`;
     img.loading = "lazy";
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openImageModal(src));
     slide.appendChild(img);
     track.appendChild(slide);
   });
