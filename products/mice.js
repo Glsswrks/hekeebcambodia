@@ -3,7 +3,7 @@ export const mice = [
     id: "VGNDragonFlyF2SE",
     title: "VGN Dragonfly F2 Series",
     short: "Lightweight Wireless Gaming Dual 8K Reporting Rate Mouse",
-    price: 35,
+    price: 40,
     layout: "50g",
     available: false,
     isNew: false,
@@ -35,7 +35,36 @@ export const mice = [
       connectivity: "Wireless (2.4GHz) / Wired",
       features: ["Custom VHub Client / Web Driver Supported", "Battery 500-800mAh", "Button Latency 0.4-0.175ms (Version Dependent)", "Fine Skin-Like Coating"],
     },
-    options: null,
+    options: [
+      {
+        name: "Pink- Pro Max",
+        available: false,
+        image:
+          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/pink.jpg",
+          price: 40
+      },
+      {
+        name: "Green - Pro Max",
+        available: false,
+        image:
+          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/green.jpg",
+          price: 40
+      },
+       {
+        name: "Black - Pro Max",
+        available: false,
+        image:
+          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/black.jpg",
+          price: 40
+      },
+       {
+        name: "White - Pro Max",
+        available: false,
+        image:
+          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/white.jpg",
+          price: 40
+      }
+    ]
   },
   {
     id: "atkf1pro",
