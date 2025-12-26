@@ -153,25 +153,25 @@ export const keyboards = [
     },
     options: [
       {
-        name: "White (Wolf Switches)",
+        name: "White / wolf Switches",
         available: false,
         image:
           "https://www.atk.store/cdn/shop/files/0a880f505c69d7e7d07d0e5117ab8804.jpg?v=1753930212",
       },
       {
-        name: "Pink (Wolf Switches)",
+        name: "Pink / Wolf Switches",
         available: false,
         image:
           "https://www.atk.store/cdn/shop/files/a41da8b0ebf45d9eef904598ea8249c9.jpg?v=1753930438",
       },
       {
-        name: "Black (Wolf Switches)",
+        name: "Black / Wolf Switches",
         available: false,
         image:
           "https://www.atk.store/cdn/shop/files/ac32e9e1554198b2e59119946fb32d1c.jpg?v=1753930438",
       },
       {
-        name: "Black - Forged Carbon Limited (Wolf Switches)",
+        name: "Black - Forged Carbon Limited / Wolf Switches",
         available: false,
         image:
           "https://www.atk.store/cdn/shop/files/20251126-142222.jpg?v=1764138160",
