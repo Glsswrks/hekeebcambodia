@@ -24,42 +24,6 @@ export const keycaps = [
     options: null,
   },
   {
-    id: "cyberpunk-keycap-74",
-    title: "Custom Cyberpunk Keycap (74 Keys)",
-    short:
-      "Custom Cyberpunk Themed Keycap compatible with all keyboards that using Original Profile",
-    price: 15,
-    layout: "Original Profile",
-    no_info: true,
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69496eab&is=69481d2b&hm=93f8396819c7f774ebfcc5e310e78107c3e7f8d6ece52e2aea234d4cd5da789d&=&format=webp&quality=lossless&width=693&height=693",
-    ],
-    category: "keycaps",
-    specs: [
-      "Original Profile",
-      "Material: PBT",
-      "Support Full Keyboard 61/68 Layouts",
-      "74 Keys",
-    ],
-    options: [
-      {
-        name: "Original Cyberpunk Theme",
-        available: false,
-        image:
-          "https://media.discordapp.net/attachments/1384747917063225354/1451608935948878058/tb_image_share_1766160794768.png?ex=69496eab&is=69481d2b&hm=93f8396819c7f774ebfcc5e310e78107c3e7f8d6ece52e2aea234d4cd5da789d&=&format=webp&quality=lossless&width=693&height=693",
-      },
-      {
-        name: "Dark-Red Cyberpunk Theme",
-        available: false,
-        image:
-          "https://media.discordapp.net/attachments/1384747917063225354/1451608936343011369/tb_image_share_1766160798018.png?ex=69496eac&is=69481d2c&hm=5b97d9501cfc3f35967b303f8c7c42af915848c8758ac86b160067207130f95c&=&format=webp&quality=lossless&width=693&height=693",
-      },
-    ],
-  },
-  {
     id: "yuki-aim-keycap",
     title: "Yuki Aim Keycap",
     short:

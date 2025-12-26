@@ -153,7 +153,7 @@ export const keyboards = [
     },
     options: [
       {
-        name: "White / wolf Switches",
+        name: "White / Wolf Switches",
         available: false,
         image:
           "https://www.atk.store/cdn/shop/files/0a880f505c69d7e7d07d0e5117ab8804.jpg?v=1753930212",
