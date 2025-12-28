@@ -15,7 +15,6 @@ export const mice = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/3.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/4.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/5.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/6.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/7.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/8.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/9.jpg",
@@ -31,9 +30,15 @@ export const mice = [
       pollingRate: "8K Hz",
       mcu: "Jiangmeng CX52860 / Nordic 52840 / Nordic 54L15",
       dpi: "50 - 42000 (Version Dependent)",
-      switches: "Honor Mechanical Micro Swicth / Omron Micro Optical Switch / Custom Kaihua Switch",
+      switches:
+        "Honor Mechanical Micro Swicth / Omron Micro Optical Switch / Custom Kaihua Switch",
       connectivity: "Wireless (2.4GHz) / Wired",
-      features: ["Custom VHub Client / Web Driver Supported", "Battery 500-800mAh", "Button Latency 0.4-0.175ms (Version Dependent)", "Fine Skin-Like Coating"],
+      features: [
+        "Custom VHub Client / Web Driver Supported",
+        "Battery 500-800mAh",
+        "Button Latency 0.4-0.175ms (Version Dependent)",
+        "Fine Skin-Like Coating",
+      ],
     },
     options: [
       {
@@ -41,30 +46,30 @@ export const mice = [
         available: false,
         image:
           "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/pink.jpg",
-          price: 40
+        price: 40,
       },
       {
         name: "Green - Pro Max",
         available: false,
         image:
           "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/green.jpg",
-          price: 40
+        price: 40,
       },
-       {
+      {
         name: "Black - Pro Max",
         available: false,
         image:
           "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/black.jpg",
-          price: 40
+        price: 40,
       },
-       {
+      {
         name: "White - Pro Max",
         available: false,
         image:
           "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/white.jpg",
-          price: 40
-      }
-    ]
+        price: 40,
+      },
+    ],
   },
   {
     id: "atkf1pro",

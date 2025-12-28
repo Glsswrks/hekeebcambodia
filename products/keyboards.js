@@ -463,7 +463,7 @@ export const keyboards = [
       features: [
         "Tri-Mode: 2.4G / Bluetooth 5.0 / Wired USB-C",
         "Wired Polling Rate: 1000Hz (3ms Latency)",
-        "Scan Rate: 1000Hz",
+        "Polling Rate: 1000Hz",
         "VIA Programmable (QMK)",
         "Hot-swappable PCB (3/5-pin)",
         "CIDOO Pearl White Linear Switches (Pre-lubed)",
