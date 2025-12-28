@@ -207,7 +207,11 @@ function renderComparisonTable() {
     </tr>
   `;
 
-  const rows = [
+  // Check if we're comparing mice products
+  const isMiceComparison = selectedProducts.length > 0 && selectedProducts[0].category === "mice";
+
+  // Define common rows for all product types
+  const commonRows = [
     {
       label: "Image",
       value: (p) => {
@@ -222,6 +226,35 @@ function renderComparisonTable() {
       value: (p) => (p.available ? "Available" : "Unavailable"),
     },
     { label: "Category", value: (p) => p.category || "—" },
+  ];
+
+  // Define rows specific to mice
+  const miceSpecificRows = [
+    { label: "Weight", value: (p) => (p.specs && p.specs.weight) || "—" },
+    {
+      label: "Polling Rate",
+      value: (p) => (p.specs && p.specs.pollingRate) || "—",
+    },
+    {
+      label: "Sensor",
+      value: (p) => (p.specs && p.specs.sensor) || "—",
+    },
+    {
+      label: "MCU",
+      value: (p) => (p.specs && p.specs.mcu) || (p.specs && p.specs.chipset) || "—",
+    },
+    {
+      label: "Switch",
+      value: (p) => (p.specs && p.specs.switches) || "—",
+    },
+    {
+      label: "Battery",
+      value: (p) => (p.specs && p.specs.battery) || "—",
+    },
+  ];
+
+  // Define rows specific to non-mice products (keyboards, etc.)
+  const keyboardSpecificRows = [
     { label: "Layout", value: (p) => p.layout || "—" },
     {
       label: "Polling Rate",
@@ -243,6 +276,10 @@ function renderComparisonTable() {
       label: "RT Range",
       value: (p) => (p.specs && p.specs.rtRange) || "—",
     },
+  ];
+
+  // Common ending rows for all product types
+  const endingRows = [
     {
       label: "Highlights",
       value: (p) => p.short || "—",
@@ -259,6 +296,11 @@ function renderComparisonTable() {
       },
     },
   ];
+
+  // Combine rows based on product type
+  const rows = isMiceComparison
+    ? [...commonRows, ...miceSpecificRows, ...endingRows]
+    : [...commonRows, ...keyboardSpecificRows, ...endingRows];
 
   compareEls.body.innerHTML = rows
     .map(
