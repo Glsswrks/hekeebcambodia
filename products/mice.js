@@ -25,6 +25,9 @@ export const mice = [
     ],
     category: "mice",
     specs: {
+      latency: "0.4ms / 0.175ms",
+      battery: "500-800mAh (Version Dependent)",
+      coating: "Fine Skin-Like Coating",
       sensor: "PAW3395 / PAW3950 / PAW3395 Extreme",
       weight: "55g ± 2g",
       pollingRate: "8K Hz",
@@ -35,9 +38,6 @@ export const mice = [
       connectivity: "Wireless (2.4GHz) / Wired",
       features: [
         "Custom VHub Client / Web Driver Supported",
-        "Battery 500-800mAh",
-        "Button Latency 0.4-0.175ms (Version Dependent)",
-        "Fine Skin-Like Coating",
       ],
     },
     options: [
@@ -91,6 +91,9 @@ export const mice = [
     ],
     category: "mice",
     specs: {
+      latency: "0.4ms",
+      battery: "200-800mAh (Version Dependent)",
+      coating: "Ice-feeling Coating",
       sensor: "PAW3950",
       weight: "45g ± 2g",
       pollingRate: "8K Hz",
@@ -100,7 +103,7 @@ export const mice = [
       acceleration: "70G",
       switches: "Omron Optical Switches",
       connectivity: "Wireless (2.4GHz) / Wired / Bluetooth",
-      features: ["Ice-feeling Coating", "ATK HUB/Web Driver Supported"],
+      features: ["ATK HUB/Web Driver Supported"],
     },
     options: null,
   },
@@ -125,6 +128,7 @@ export const mice = [
     ],
     category: "mice",
     specs: {
+      battery: "500mAh / 250mAh (Version Dependent)",
       sensor: "PAW3395 SE",
       weight: "51g",
       pollingRate: "Up to 2K Hz",
@@ -165,6 +169,9 @@ export const mice = [
     ],
     category: "mice",
     specs: {
+      latency: "0.5ms / -0.8ms (8K Hz Polling Rate)",
+      battery: "300mAh",
+      coating: "Matte Dry Grip Coating",
       sensor: "PixArt 3950",
       weight: "47g",
       pollingRate: "8K Hz",
@@ -228,6 +235,9 @@ export const mice = [
     category: "mice",
     sellerRating: 8.0,
     specs: {
+      battery: "250mAh",
+      coating: "Matte Dry Coating",
+      latency: "1.3ms - 0.4ms",
       sensor: "PAW3950",
       weight: "36g",
       pollingRate: "8K Hz",
