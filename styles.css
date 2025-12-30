@@ -2151,13 +2151,24 @@ body {
 }
 
 .btn.compare {
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+.btn.compare {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #0b0d10;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(2,4,6,0.12);
+  transition: transform 120ms ease, box-shadow 160ms ease;
+}
+
+.btn.compare:disabled,
+.btn.compare[disabled] {
+  opacity: 0.6;
+  pointer-events: none;
+  filter: none;
 }
 
 .btn.compare:hover {
-  background: var(--accent);
-  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(2,4,6,0.18);
+  color: #000;
 }
-

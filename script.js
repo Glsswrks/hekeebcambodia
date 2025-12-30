@@ -268,58 +268,65 @@ function renderComparisonTable() {
     </tr>
   `;
 
-  const rows = [
-    {
-      label: "Image",
-      value: (p) => {
-        const cover =
-          Array.isArray(p.images) && p.images.length ? p.images[0] : "";
-        return `<img src="${cover}" alt="${p.title}" class="comparison-img">`;
+  const isMouseComparison = selectedProducts.every((p) => p.category === "mice");
+
+  let rows;
+  if (isMouseComparison) {
+    rows = [
+      {
+        label: "Image",
+        value: (p) => {
+          const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+          return `<img src="${cover}" alt="${p.title}" class="comparison-img">`;
+        },
       },
-    },
-    { label: "Price", value: (p) => `$${p.price}` },
-    {
-      label: "Availability",
-      value: (p) => (p.available ? "Available" : "Unavailable"),
-    },
-    { label: "Category", value: (p) => p.category || "—" },
-    { label: "Layout", value: (p) => p.layout || "—" },
-    {
-      label: "Polling Rate",
-      value: (p) => (p.specs && p.specs.pollingRate) || "—",
-    },
-    {
-      label: "Latency",
-      value: (p) => (p.specs && p.specs.latency) || "—",
-    },
-    {
-      label: "Single Key Scan Rate",
-      value: (p) => (p.specs && p.specs.singleKeyScanRate) || "—",
-    },
-    {
-      label: "Full Key Scan Rate",
-      value: (p) => (p.specs && p.specs.fullKeyScanRate) || "—",
-    },
-    {
-      label: "RT Range",
-      value: (p) => (p.specs && p.specs.rtRange) || "—",
-    },
-    {
-      label: "Highlights",
-      value: (p) => p.short || "—",
-    },
-    {
-      label: "Features",
-      value: (p) => {
-        const feats = p.specs && Array.isArray(p.specs.features)
-          ? p.specs.features
-          : [];
-        return feats.length
-          ? `• ${feats.slice(0, 8).join("<br><br>• ")}`
-          : "—";
+      { label: "Price", value: (p) => `$${p.price}` },
+      { label: "Availability", value: (p) => (p.available ? "Available" : "Unavailable") },
+      { label: "Category", value: (p) => p.category || "—" },
+      { label: "Weight", value: (p) => (p.specs && p.specs.weight) || "—" },
+      { label: "Polling Rate", value: (p) => (p.specs && p.specs.pollingRate) || "—" },
+      { label: "Latency", value: (p) => (p.specs && p.specs.latency) || "—" },
+      { label: "Sensor", value: (p) => (p.specs && p.specs.sensor) || "—" },
+      { label: "MCU", value: (p) => (p.specs && p.specs.mcu) || "—" },
+      { label: "Switch", value: (p) => (p.specs && p.specs.switch) || "—" },
+      { label: "Acceleration", value: (p) => (p.specs && p.specs.acceleration) || "—" },
+      { label: "DPI", value: (p) => (p.specs && p.specs.dpi) || "—" },
+      { label: "Battery", value: (p) => (p.specs && p.specs.battery) || "—" },
+      { label: "Coating", value: (p) => (p.specs && p.specs.coating) || "—" },
+      { label: "Connectivity", value: (p) => (p.specs && p.specs.connectivity) || "—" },
+      { label: "Highlights", value: (p) => p.short || "—" },
+      { label: "Features", value: (p) => {
+          const feats = p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
+          return feats.length ? `• ${feats.slice(0, 8).join("<br><br>• ")}` : "—";
+        }
       },
-    },
-  ];
+    ];
+  } else {
+    rows = [
+      {
+        label: "Image",
+        value: (p) => {
+          const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+          return `<img src="${cover}" alt="${p.title}" class="comparison-img">`;
+        },
+      },
+      { label: "Price", value: (p) => `$${p.price}` },
+      { label: "Availability", value: (p) => (p.available ? "Available" : "Unavailable") },
+      { label: "Category", value: (p) => p.category || "—" },
+      { label: "Layout", value: (p) => p.layout || "—" },
+      { label: "Polling Rate", value: (p) => (p.specs && p.specs.pollingRate) || "—" },
+      { label: "Latency", value: (p) => (p.specs && p.specs.latency) || "—" },
+      { label: "Single Key Scan Rate", value: (p) => (p.specs && p.specs.singleKeyScanRate) || "—" },
+      { label: "Full Key Scan Rate", value: (p) => (p.specs && p.specs.fullKeyScanRate) || "—" },
+      { label: "RT Range", value: (p) => (p.specs && p.specs.rtRange) || "—" },
+      { label: "Highlights", value: (p) => p.short || "—" },
+      { label: "Features", value: (p) => {
+          const feats = p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
+          return feats.length ? `• ${feats.slice(0, 8).join("<br><br>• ")}` : "—";
+        }
+      },
+    ];
+  }
 
   compareEls.body.innerHTML = rows
     .map(
@@ -989,6 +996,11 @@ function getSpecsList(product) {
   if (s.dpi) list.push(`Max DPI: ${s.dpi}`);
   if (s.trackingSpeed) list.push(`Track Speed ${s.trackingSpeed}`);
   if (s.mcu) list.push(s.mcu);
+  if (s.acceleration) list.push(`Acceleration: ${s.acceleration}`);
+  if (s.switch) list.push(s.switch);
+  if (s.battery) list.push(`Battery: ${s.battery}`);
+  if (s.batter) list.push(`Battery: ${s.batter}`);
+  if (s.coating) list.push(`Coating: ${s.coating}`);
   if (s.connectivity) list.push(s.connectivity);
   if (s.features && Array.isArray(s.features)) list.push(...s.features);
   if (s.dimensions) list.push(s.dimensions);
