@@ -153,6 +153,7 @@ function setCompareCategory(category) {
       return p && p.category === activeCompareCategory;
     });
   }
+  // keep compareSelection limited to the selected category
 }
 
 function addToCompareSelection(productId) {
@@ -1156,6 +1157,24 @@ function renderIndexCards(list, gridId, moreContainerId, categoryName) {
 
   const productsToRender = list.slice(0, limit);
 
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results-card" style="grid-column: 1 / -1;">
+        <div class="no-results-illustration" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H9l-6 3V7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>The selection products currently not in stock</h3>
+        <p class="muted">Try changing filters or clear them to see more items.</p>
+        <div class="no-results-actions">
+          <a href="index.html" class="btn">Show all items</a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
   productsToRender.forEach((p) => {
     grid.appendChild(createProductCard(p));
   });
@@ -1182,7 +1201,38 @@ function filterIndexProducts(
       p.short.toLowerCase().includes(normalizedQuery) ||
       p.id.toLowerCase().includes(normalizedQuery)
   );
-  renderIndexCards(filteredList, gridId, moreContainerId, categoryName);
+  // If keyboards or mice, apply single-dropdown grouped filters if present
+  let finalList = filteredList;
+  if (categoryName === "keyboards" || categoryName === "mice") {
+    const fid = categoryName === "keyboards" ? "keyboardFilter" : "mouseFilter";
+    const fEl = document.getElementById(fid);
+    if (fEl && fEl.value) {
+      const val = fEl.value;
+      if (val.startsWith("price:")) {
+        const range = val.split(":")[1];
+        finalList = finalList.filter((p) => {
+          const price = Number(p.price) || 0;
+          if (range === "lt50") return price < 50;
+          if (range === "50-100") return price >= 50 && price <= 100;
+          if (range === "100-200") return price > 100 && price <= 200;
+          if (range === "gt200") return price > 200;
+          // mice ranges slightly different; handle common keys used in markup
+          if (range === "lt20") return price < 20;
+          if (range === "20-50") return price >= 20 && price <= 50;
+          if (range === "50-100") return price >= 50 && price <= 100;
+          if (range === "gt100") return price > 100;
+          return true;
+        });
+      } else if (val.startsWith("rating:")) {
+        const r = Number(val.split(":")[1]) || 0;
+        finalList = finalList.filter((p) => (Number(p.sellerRating) || 0) >= r);
+      } else if (val.startsWith("avail:")) {
+        const a = val.split(":")[1];
+        finalList = finalList.filter((p) => (a === "available" ? !!p.available : !p.available));
+      }
+    }
+  }
+  renderIndexCards(finalList, gridId, moreContainerId, categoryName);
 }
 
 function initProductSection(categoryName) {
@@ -1205,7 +1255,38 @@ function initProductSection(categoryName) {
 
   const searchInput = document.getElementById(searchInputId);
 
+  // Render initial set and set up filters
   renderIndexCards(productsList, gridId, moreContainerId, categoryName);
+
+  // Populate filter select if present
+  // Populate generic filter select if present (non-keyboard categories)
+  const filterId = `${prefix}Filter`;
+  const filterEl = document.getElementById(filterId);
+  if (categoryName === "keyboards" || categoryName === "mice") {
+    // Use the single grouped dropdown for keyboards and mice
+    const fid = categoryName === "keyboards" ? "keyboardFilter" : "mouseFilter";
+    const fEl = document.getElementById(fid);
+    if (fEl) {
+      fEl.addEventListener("change", () => {
+        const q = searchInput ? (searchInput.value || "") : "";
+        filterIndexProducts(q, productsList, gridId, moreContainerId, categoryName);
+      });
+    }
+  } else if (filterEl) {
+    populateFilterSelect(categoryName, filterEl);
+    filterEl.addEventListener("change", () => {
+      const q = searchInput ? searchInput.value : "";
+      const filtered = productsList.filter((p) => {
+        const matchesQuery =
+          !q || p.title.toLowerCase().includes(q.toLowerCase()) || (p.short || "").toLowerCase().includes(q.toLowerCase());
+        const filterVal = filterEl.value;
+        if (!filterVal) return matchesQuery;
+        const v = getFilterValueFromProduct(p, categoryName);
+        return matchesQuery && String(v) === String(filterVal);
+      });
+      renderIndexCards(filtered, gridId, moreContainerId, categoryName);
+    });
+  }
 
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
@@ -1218,6 +1299,51 @@ function initProductSection(categoryName) {
       );
     });
   }
+}
+
+// Helper: derive a simple filter value from a product for each category
+function getFilterValueFromProduct(product, categoryName) {
+  if (!product) return null;
+  switch (categoryName) {
+    case "keyboards":
+      return product.layout || (product.specs && product.specs.layout) || "";
+    case "mice":
+      return (product.specs && product.specs.connectivity) || product.layout || "";
+    case "keycaps":
+      return product.layout || "";
+    case "mousepads":
+      return product.layout || "";
+    default:
+      return "";
+  }
+}
+
+// Populate a select with unique values from products for a given category
+function populateFilterSelect(categoryName, selectEl) {
+  const list = productData[categoryName] || [];
+  const values = new Set();
+  list.forEach((p) => {
+    const v = getFilterValueFromProduct(p, categoryName);
+    if (v) values.add(v);
+  });
+  // clear existing (but keep first 'All' option if present)
+  const firstOption = selectEl.querySelector("option[value='']");
+  selectEl.innerHTML = "";
+  if (firstOption) selectEl.appendChild(firstOption);
+  else {
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "All";
+    selectEl.appendChild(opt);
+  }
+  Array.from(values)
+    .sort()
+    .forEach((val) => {
+      const o = document.createElement("option");
+      o.value = val;
+      o.textContent = val;
+      selectEl.appendChild(o);
+    });
 }
 
 function initIndexPage() {
@@ -1244,8 +1370,20 @@ function initIndexPage() {
 function renderCategoryCards(list, gridElement) {
   gridElement.innerHTML = "";
   if (list.length === 0) {
-    gridElement.innerHTML =
-      '<p class="muted" style="grid-column: 1 / -1; text-align: center; margin-top: 20px;">No products found matching your search in this category.</p>';
+    gridElement.innerHTML = `
+      <div class="no-results-card" style="grid-column: 1 / -1;">
+        <div class="no-results-illustration" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H9l-6 3V7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>The selection products currently not in stock</h3>
+        <p class="muted">Try changing filters or clear them to see more items.</p>
+        <div class="no-results-actions">
+          <a href="index.html" class="btn">Show all items</a>
+        </div>
+      </div>
+    `;
     return;
   }
   list.forEach((p) => {
@@ -1280,7 +1418,10 @@ function initCategoryPage() {
   container.innerHTML = `
         <div class="section-head">
             <h2 id="categoryTitle">${capitalizedName}</h2>
-            <input type="text" id="categorySearch" placeholder="Search all ${categoryName}..." class="search-input">
+        <input type="text" id="categorySearch" placeholder="Search all ${categoryName}..." class="search-input">
+        <select id="categoryFilter" class="search-input" style="margin-top:8px;">
+          <option value="">All</option>
+        </select>
         </div>
         <div id="categoryGrid" class="grid"></div>
         <div style="margin-top:28px;">
@@ -1292,17 +1433,138 @@ function initCategoryPage() {
   const searchInput = document.getElementById("categorySearch");
 
   renderCategoryCards(productsList, grid);
+  // Populate and wire category filter
+  const categoryFilter = document.getElementById("categoryFilter");
+  if (categoryFilter) {
+    if (categoryName === "keyboards") {
+      // single grouped dropdown for keyboards on category page
+      categoryFilter.innerHTML = `
+        <option value="">All filters</option>
+        <optgroup label="Price">
+          <option value="price:lt50">Under $50</option>
+          <option value="price:50-100">$50 - $100</option>
+          <option value="price:100-200">$100 - $200</option>
+          <option value="price:gt200">Over $200</option>
+        </optgroup>
+        <optgroup label="Rating">
+          <option value="rating:9">9+ / Excellent</option>
+          <option value="rating:8">8+ / Very Good</option>
+          <option value="rating:7">7+ / Good</option>
+        </optgroup>
+        <optgroup label="Availability">
+          <option value="avail:available">Available</option>
+          <option value="avail:unavailable">Unavailable</option>
+        </optgroup>
+      `;
 
-  searchInput.addEventListener("input", (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    const filteredList = productsList.filter(
-      (p) =>
-        p.title.toLowerCase().includes(query) ||
-        p.short.toLowerCase().includes(query) ||
-        p.id.toLowerCase().includes(query)
-    );
-    renderCategoryCards(filteredList, grid);
-  });
+      const applyCategoryKeyboardFilter = () => {
+        const q = searchInput ? (searchInput.value || "") : "";
+        const val = categoryFilter.value;
+        let filtered = productsList.filter((p) => {
+          const matchesQuery =
+            !q || p.title.toLowerCase().includes(q.toLowerCase()) || (p.short || "").toLowerCase().includes(q.toLowerCase());
+          return matchesQuery;
+        });
+        if (val) {
+          if (val.startsWith("price:")) {
+            const range = val.split(":")[1];
+            filtered = filtered.filter((p) => {
+              const price = Number(p.price) || 0;
+              if (range === "lt50") return price < 50;
+              if (range === "50-100") return price >= 50 && price <= 100;
+              if (range === "100-200") return price > 100 && price <= 200;
+              if (range === "gt200") return price > 200;
+              return true;
+            });
+          } else if (val.startsWith("rating:")) {
+            const r = Number(val.split(":")[1]) || 0;
+            filtered = filtered.filter((p) => (Number(p.sellerRating) || 0) >= r);
+          } else if (val.startsWith("avail:")) {
+            const a = val.split(":")[1];
+            filtered = filtered.filter((p) => (a === "available" ? !!p.available : !p.available));
+          }
+        }
+        renderCategoryCards(filtered, grid);
+      };
+
+      categoryFilter.addEventListener("change", applyCategoryKeyboardFilter);
+    } else if (categoryName === "mice") {
+      categoryFilter.innerHTML = `
+        <option value="">All filters</option>
+        <optgroup label="Price">
+          <option value="price:lt20">Under $20</option>
+          <option value="price:20-50">$20 - $50</option>
+          <option value="price:50-100">$50 - $100</option>
+          <option value="price:gt100">Over $100</option>
+        </optgroup>
+        <optgroup label="Rating">
+          <option value="rating:9">9+ / Excellent</option>
+          <option value="rating:8">8+ / Very Good</option>
+          <option value="rating:7">7+ / Good</option>
+        </optgroup>
+        <!-- Weight filter removed per request -->
+      `;
+
+      const applyCategoryMiceFilter = () => {
+        const q = searchInput ? (searchInput.value || "") : "";
+        const val = categoryFilter.value;
+        let filtered = productsList.filter((p) => {
+          const matchesQuery =
+            !q || p.title.toLowerCase().includes(q.toLowerCase()) || (p.short || "").toLowerCase().includes(q.toLowerCase());
+          return matchesQuery;
+        });
+        if (val) {
+          if (val.startsWith("price:")) {
+            const range = val.split(":")[1];
+            filtered = filtered.filter((p) => {
+              const price = Number(p.price) || 0;
+              if (range === "lt20") return price < 20;
+              if (range === "20-50") return price >= 20 && price <= 50;
+              if (range === "50-100") return price >= 50 && price <= 100;
+              if (range === "gt100") return price > 100;
+              return true;
+            });
+          } else if (val.startsWith("rating:")) {
+            const r = Number(val.split(":")[1]) || 0;
+            filtered = filtered.filter((p) => (Number(p.sellerRating) || 0) >= r);
+          }
+        }
+        renderCategoryCards(filtered, grid);
+      };
+
+      categoryFilter.addEventListener("change", applyCategoryMiceFilter);
+    } else {
+      populateFilterSelect(categoryName, categoryFilter);
+      categoryFilter.addEventListener("change", () => {
+        const q = searchInput ? searchInput.value : "";
+        const val = categoryFilter.value;
+        const filtered = productsList.filter((p) => {
+          const matchesQuery =
+            !q || p.title.toLowerCase().includes(q.toLowerCase()) || (p.short || "").toLowerCase().includes(q.toLowerCase());
+          if (!val) return matchesQuery;
+          const v = getFilterValueFromProduct(p, categoryName);
+          return matchesQuery && String(v) === String(val);
+        });
+        renderCategoryCards(filtered, grid);
+      });
+    }
+  }
+
+  // wire search input to combine with filter
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const val = categoryFilter ? categoryFilter.value : "";
+      const filteredList = productsList.filter((p) => {
+        const matchesQuery =
+          !q || p.title.toLowerCase().includes(q) || p.short.toLowerCase().includes(q) || p.id.toLowerCase().includes(q);
+        if (!val) return matchesQuery;
+        const v = getFilterValueFromProduct(p, categoryName);
+        return matchesQuery && String(v) === String(val);
+      });
+      renderCategoryCards(filteredList, grid);
+    });
+  }
 }
 
 // Function to handle scrolling for similar products (keep this one)
@@ -1851,3 +2113,107 @@ if (document.readyState === "loading") {
     renderProductDetail(product);
   }
 })();
+
+/* ---------- Custom select replacement: turn native selects into stylable dropdowns ---------- */
+function initCustomSelects() {
+  const selects = document.querySelectorAll('select.search-input');
+  selects.forEach((select) => {
+    if (select.dataset.customized) return;
+    select.dataset.customized = 'true';
+
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'custom-select';
+
+    // Move select into wrapper
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.appendChild(select);
+
+    // Create trigger button
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'custom-select__trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    const initialText = select.options[select.selectedIndex]?.text || select.options[0]?.text || '';
+    trigger.innerHTML = `<span class="custom-select__value">${initialText}</span>`;
+    wrapper.appendChild(trigger);
+
+    // Build options list
+    const options = document.createElement('ul');
+    options.className = 'custom-select__options';
+    options.setAttribute('role', 'listbox');
+    options.tabIndex = -1;
+
+    Array.from(select.options).forEach((opt) => {
+      const li = document.createElement('li');
+      li.className = 'custom-select__option' + (opt.disabled ? ' disabled' : '');
+      li.setAttribute('data-value', opt.value);
+      li.setAttribute('role', 'option');
+      li.textContent = opt.text;
+      li.tabIndex = opt.disabled ? -1 : 0;
+      li.addEventListener('click', (e) => {
+        if (opt.disabled) return;
+        select.value = opt.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        trigger.querySelector('.custom-select__value').textContent = opt.text;
+        close();
+      });
+      options.appendChild(li);
+    });
+
+    wrapper.appendChild(options);
+
+    // Hide native select visually but keep for form submission & accessibility label
+    select.style.position = 'absolute';
+    select.style.left = '-9999px';
+    select.setAttribute('aria-hidden', 'true');
+
+    function open() {
+      wrapper.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      options.focus();
+    }
+    function close() {
+      wrapper.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (wrapper.classList.contains('open')) close(); else open();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) close();
+    });
+
+    // Sync external changes to the native select
+    select.addEventListener('change', () => {
+      const opt = select.options[select.selectedIndex];
+      trigger.querySelector('.custom-select__value').textContent = opt ? opt.text : '';
+    });
+
+    // Keyboard navigation
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        open();
+        const first = options.querySelector('.custom-select__option:not(.disabled)');
+        first && first.focus();
+      }
+    });
+
+    options.addEventListener('keydown', (e) => {
+      const focused = document.activeElement;
+      if (!focused || !focused.classList.contains('custom-select__option')) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); const next = focused.nextElementSibling; if (next) next.focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); const prev = focused.previousElementSibling; if (prev) prev.focus(); else trigger.focus(); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); focused.click(); }
+      if (e.key === 'Escape') { close(); trigger.focus(); }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initCustomSelects);

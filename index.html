@@ -47,6 +47,24 @@
       <div class="section-head">
         <h2>Available Keyboards</h2>
         <input type="text" id="keyboardSearch" placeholder="Search keyboards..." class="search-input">
+        <select id="keyboardFilter" class="search-input" style="margin-top:8px;" aria-label="Filter keyboards by price, rating, and availability">
+          <option value="">All filters</option>
+          <optgroup label="Price">
+            <option value="price:lt50">Under $50</option>
+            <option value="price:50-100">$50 - $100</option>
+            <option value="price:100-200">$100 - $200</option>
+            <option value="price:gt200">Over $200</option>
+          </optgroup>
+          <optgroup label="Rating">
+            <option value="rating:9">9+ / Excellent</option>
+            <option value="rating:8">8+ / Very Good</option>
+            <option value="rating:7">7+ / Good</option>
+          </optgroup>
+          <optgroup label="Availability">
+            <option value="avail:available">Available</option>
+            <option value="avail:unavailable">Unavailable</option>
+          </optgroup>
+        </select>
       </div>
       <div id="keyboardGrid" class="grid"></div>
       <div id="keyboardMoreContainer" class="load-more-container"></div>
@@ -56,6 +74,21 @@
       <div class="section-head">
         <h2>Available Mice</h2>
         <input type="text" id="mouseSearch" placeholder="Search mice..." class="search-input">
+        <select id="mouseFilter" class="search-input" style="margin-top:8px;" aria-label="Filter mice by price, rating, and weight">
+          <option value="">All filters</option>
+          <optgroup label="Price">
+            <option value="price:lt20">Under $20</option>
+            <option value="price:20-50">$20 - $50</option>
+            <option value="price:50-100">$50 - $100</option>
+            <option value="price:gt100">Over $100</option>
+          </optgroup>
+          <optgroup label="Rating">
+            <option value="rating:9">9+ / Excellent</option>
+            <option value="rating:8">8+ / Very Good</option>
+            <option value="rating:7">7+ / Good</option>
+          </optgroup>
+          <!-- Weight filter removed per request -->
+        </select>
       </div>
       <div id="mouseGrid" class="grid"></div>
       <div id="mouseMoreContainer" class="load-more-container"></div>
@@ -66,6 +99,9 @@
       <div class="section-head">
         <h2>Mousepads</h2>
         <input type="text" id="mousepadSearch" placeholder="Search mousepads..." class="search-input">
+        <select id="mousepadFilter" class="search-input" style="margin-top:8px;" aria-label="Filter mousepads by size">
+          <option value="">All sizes</option>
+        </select>
       </div>
       <div id="mousepadGrid" class="grid"></div>
       <div id="mousepadMoreContainer" class="load-more-container"></div>
@@ -76,6 +112,9 @@
       <div class="section-head">
         <h2>Keycaps</h2>
         <input type="text" id="keycapSearch" placeholder="Search keycaps..." class="search-input">
+        <select id="keycapFilter" class="search-input" style="margin-top:8px;" aria-label="Filter keycaps by profile">
+          <option value="">All profiles</option>
+        </select>
       </div>
       <div id="keycapGrid" class="grid"></div>
       <div id="keycapMoreContainer" class="load-more-container"></div>
