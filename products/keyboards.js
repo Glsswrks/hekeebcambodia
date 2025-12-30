@@ -300,7 +300,7 @@ export const keyboards = [
     title: "MCHOSE ACE68 TURBO",
     short:
       "MCHOSE Ace 68 Turbo – World's First 16K Polling Rate HE Aluminum Keyboard",
-    price: 140,
+    price: 100,
     layout: "68",
     available: false,
     isNew: false,
@@ -338,7 +338,72 @@ export const keyboards = [
         "Proprietary MCR height profile",
       ],
     },
-    options: null,
+    options: [
+      {
+        name: "Galaxy Orange - Polaris Switches (8K)",
+        price: 100,
+        available: false,
+        image:
+        "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800"
+      },
+      {
+        name: "Cyber Black - Polaris Switches (8K)",
+        price: 100,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800"
+      },
+      {
+        name: "Nova White - Polaris Switches (8K)",
+        price: 100,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800"
+      },
+      {
+        name: "Peachy Pink - Polaris Switches (8K)",
+        price: 100,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800"
+      },
+      {
+        name: "Berry Red - Polaris Switches (8K)",
+        price: 100,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800"
+      },
+
+      // 16K Options
+      {
+        name: "Galaxy Orange - Polaris Switches (16K)",
+        price: 130,
+        available: false,
+        image:
+        "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800"
+      },
+      {
+        name: "Cyber Black - Polaris Switches (16K)",
+        price: 130,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800"
+      },
+      {
+        name: "Nova White - Polaris Switches (16K)",
+        price: 130,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800"
+      },
+      {
+        name: "Peachy Pink - Polaris Switches (16K)",
+        price: 130,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800"
+      },
+      {
+        name: "Berry Red - Polaris Switches (16K)",
+        price: 130,
+        available: false,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800"
+      },
+    ]
   },
   {
     id: "iqunix-ez63",
