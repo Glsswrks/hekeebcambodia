@@ -12,74 +12,23 @@ let selectedPreorderOption = null;
 // Track the product/option currently shown in the option preview modal
 let currentOptionPreview = null;
 
-// --- Performance: Service Worker registration & aggressive prefetch ---
-async function registerServiceWorker() {
+// Unregister any lingering service workers and clear caches from previous setup
+(async function cleanupOldServiceWorker() {
   if ('serviceWorker' in navigator) {
-    try {
-      await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
-      console.log('Service Worker registered');
-    } catch (err) {
-      console.warn('Service Worker registration failed', err);
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    for (const reg of registrations) {
+      await reg.unregister();
+      console.log('Unregistered old service worker');
     }
   }
-}
-
-function prefetchAllAssets() {
-  // Use idle time to avoid blocking initial rendering
-  const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
-  idle(async () => {
-    try {
-      const urls = new Set();
-      // Core pages and assets
-      urls.add('index.html');
-      urls.add('products.html');
-      urls.add('styles.css');
-      urls.add('script.js');
-
-      // Collect images from all products and options
-      try {
-        allProducts.forEach((p) => {
-          if (Array.isArray(p.images)) p.images.forEach((u) => urls.add(u));
-          if (Array.isArray(p.options)) p.options.forEach((o) => { if (o.image) urls.add(o.image); });
-        });
-      } catch (err) {
-        /* allProducts might not be populated yet in some contexts */
-      }
-
-      const urlList = Array.from(urls);
-
-      // Preload images by creating Image objects (browser caches them)
-      urlList.forEach((u) => {
-        if (typeof u === 'string' && /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(u)) {
-          const img = new Image();
-          img.src = u;
-        }
-      });
-
-      // Try caching other assets via Cache API (works faster when SW installed)
-      if ('caches' in window) {
-        const cache = await caches.open('keeb-prefetch-v1');
-        for (const u of urlList) {
-          // skip images for cache.add (they are preloaded above)
-          if (/\.(png|jpg|jpeg|gif|webp|svg)$/i.test(u)) continue;
-          try {
-            // Use add with fallback to fetch+put if add fails
-            await cache.add(u);
-          } catch (err) {
-            try {
-              const r = await fetch(u, { mode: 'no-cors' });
-              await cache.put(u, r.clone());
-            } catch (e) {
-              // ignore failures for some cross-origin resources
-            }
-          }
-        }
-      }
-    } catch (e) {
-      console.warn('Prefetch failed', e);
+  if ('caches' in window) {
+    const cacheNames = await caches.keys();
+    for (const name of cacheNames) {
+      await caches.delete(name);
+      console.log('Deleted cache:', name);
     }
-  });
-}
+  }
+})();
 
 /* Image Lightbox Modal Helpers */
 function initImageModal() {
@@ -223,15 +172,23 @@ function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
 function closeOptionPreviewModal() {
   const m = document.getElementById("optionPreviewModal");
   if (!m) return;
-  m.setAttribute("aria-hidden", "true");
-  // clear preview tracking
-  currentOptionPreview = null;
-  const previewPreorderBtn = m.querySelector('#preorderNowBtn');
-  if (previewPreorderBtn) {
-    previewPreorderBtn.disabled = true;
-    // keep it rendered but hidden to avoid layout shift
-    previewPreorderBtn.style.display = 'none';
-  }
+  
+  // Add closing class to trigger exit animation
+  m.classList.add('closing');
+  
+  // Wait for exit animation to finish before hiding
+  setTimeout(() => {
+    m.setAttribute("aria-hidden", "true");
+    m.classList.remove('closing');
+    
+    // clear preview tracking
+    currentOptionPreview = null;
+    const previewPreorderBtn = m.querySelector('#preorderNowBtn');
+    if (previewPreorderBtn) {
+      previewPreorderBtn.disabled = true;
+      previewPreorderBtn.style.display = 'none';
+    }
+  }, 200); // matches CSS animation duration
 }
 
 const productData = {
@@ -1074,9 +1031,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
-  // Register service worker and prefetch assets for instant navigation
-  registerServiceWorker();
-  prefetchAllAssets();
+  // Service worker and prefetching have been removed.
 });
 
 function whatsappLink(product) {
@@ -1939,7 +1894,7 @@ function renderProductDetail(product) {
 
   const optionsPlaceholderHTML = hasOptions
     ? `<div class="product-options-container">
-            <h3>Available Options</h3>
+            <h3>Available Options:</h3>
             <div class="options-scroll-container">
                 <div class="options-scroll-wrapper">
                     <div id="optionsGrid" class="options-grid horizontal-scroll"></div>
@@ -2236,7 +2191,7 @@ if (document.readyState === "loading") {
   }
 })();
 
-/* ---------- Custom select replacement: turn native selects into stylable dropdowns ---------- */
+
 function initCustomSelects() {
   const selects = document.querySelectorAll('select.search-input');
   selects.forEach((select) => {

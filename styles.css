@@ -989,6 +989,62 @@ select.search-input::-ms-expand {
 }
 
 /* Option Preview Modal for locked/unavailable options */
+
+/* Keyframe animations for the option preview modal */
+@keyframes optionPreviewBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes optionPreviewBackdropOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes optionPreviewCardIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes optionPreviewCardOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+}
+
+/* Backdrop animation */
+.option-preview-modal[aria-hidden="false"] {
+  animation: optionPreviewBackdropIn 0.25s ease-out forwards;
+}
+
+.option-preview-modal.closing {
+  animation: optionPreviewBackdropOut 0.2s ease-in forwards;
+}
+
+/* Card entrance/exit animation */
+.option-preview-modal[aria-hidden="false"] .modal-content {
+  animation: optionPreviewCardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.option-preview-modal.closing .modal-content {
+  animation: optionPreviewCardOut 0.2s ease-in forwards;
+}
+
 .option-preview-modal .modal-content {
   max-width: 360px;
   padding: 0;
@@ -1805,9 +1861,10 @@ select.search-input::-ms-expand {
 
   /* 1. Reduce the padding on the header container so items can hit the edges */
   .header-inner {
-    padding: 0 10px !important;
-    gap: 5px;
-    /* Reduce gap between Brand and Nav */
+    /* Increase vertical padding on mobile so header appears thicker */
+    padding: 12px 12px !important;
+    gap: 8px;
+    /* Slightly larger gap to keep elements readable */
   }
 
   /* 2. Shrink the Brand text slightly */
