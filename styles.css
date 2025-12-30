@@ -1110,6 +1110,20 @@ select.search-input::-ms-expand {
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
+/* Scoped: make the pre-order button inside the option preview modal
+   stretch to the modal content edges while leaving the parent's
+   padding as a small gap on both sides. */
+.option-preview-modal .option-preview-info .btn.pre-order {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  /* Reduce horizontal padding so the visual button fits nicely
+     within the parent's 20px padding while keeping a small gap */
+  padding: 12px 0;
+  border-radius: 8px;
+}
+
 
 /* NEW: Locked Button Style */
 .btn.locked {

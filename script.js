@@ -9,6 +9,77 @@ const DISCORD_HANDLE = "Kokushibo#4764";
 
 let currentProductForPreorder = null;
 let selectedPreorderOption = null;
+// Track the product/option currently shown in the option preview modal
+let currentOptionPreview = null;
+
+// --- Performance: Service Worker registration & aggressive prefetch ---
+async function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+      console.log('Service Worker registered');
+    } catch (err) {
+      console.warn('Service Worker registration failed', err);
+    }
+  }
+}
+
+function prefetchAllAssets() {
+  // Use idle time to avoid blocking initial rendering
+  const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
+  idle(async () => {
+    try {
+      const urls = new Set();
+      // Core pages and assets
+      urls.add('index.html');
+      urls.add('products.html');
+      urls.add('styles.css');
+      urls.add('script.js');
+
+      // Collect images from all products and options
+      try {
+        allProducts.forEach((p) => {
+          if (Array.isArray(p.images)) p.images.forEach((u) => urls.add(u));
+          if (Array.isArray(p.options)) p.options.forEach((o) => { if (o.image) urls.add(o.image); });
+        });
+      } catch (err) {
+        /* allProducts might not be populated yet in some contexts */
+      }
+
+      const urlList = Array.from(urls);
+
+      // Preload images by creating Image objects (browser caches them)
+      urlList.forEach((u) => {
+        if (typeof u === 'string' && /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(u)) {
+          const img = new Image();
+          img.src = u;
+        }
+      });
+
+      // Try caching other assets via Cache API (works faster when SW installed)
+      if ('caches' in window) {
+        const cache = await caches.open('keeb-prefetch-v1');
+        for (const u of urlList) {
+          // skip images for cache.add (they are preloaded above)
+          if (/\.(png|jpg|jpeg|gif|webp|svg)$/i.test(u)) continue;
+          try {
+            // Use add with fallback to fetch+put if add fails
+            await cache.add(u);
+          } catch (err) {
+            try {
+              const r = await fetch(u, { mode: 'no-cors' });
+              await cache.put(u, r.clone());
+            } catch (e) {
+              // ignore failures for some cross-origin resources
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Prefetch failed', e);
+    }
+  });
+}
 
 /* Image Lightbox Modal Helpers */
 function initImageModal() {
@@ -74,6 +145,9 @@ function initOptionPreviewModal() {
           <span class="option-preview-stock-label">OUT OF STOCK</span>
         </div>
         <p class="option-preview-status">This option is currently unavailable</p>
+        <div style="margin-top:12px;">
+          <button id="preorderNowBtn" class="btn pre-order">Pre-order</button>
+        </div>
       </div>
     </div>
   `;
@@ -85,12 +159,39 @@ function initOptionPreviewModal() {
 
   modal.querySelector(".option-preview-close").addEventListener("click", closeOptionPreviewModal);
 
+  // Pre-order button inside the preview modal
+  const preorderBtn = modal.querySelector("#preorderNowBtn");
+  if (preorderBtn) {
+    preorderBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (currentOptionPreview && currentOptionPreview.product && currentOptionPreview.option) {
+        PreOrderList.addItem(currentOptionPreview.product, currentOptionPreview.option);
+        closeOptionPreviewModal();
+        showToast(`Added ${currentOptionPreview.product.title} (${currentOptionPreview.option.name}) to pre-order list`);
+        return;
+      }
+
+      // Fallback: try to locate the parent product by matching option name
+      if (currentOptionPreview && currentOptionPreview.option) {
+        const optName = currentOptionPreview.option.name;
+        const prod = allProducts.find((p) =>
+          Array.isArray(p.options) && p.options.some((o) => o.name === optName)
+        );
+        if (prod) {
+          PreOrderList.addItem(prod, currentOptionPreview.option);
+          closeOptionPreviewModal();
+          showToast(`Added ${prod.title} (${currentOptionPreview.option.name}) to pre-order list`);
+        }
+      }
+    });
+  }
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeOptionPreviewModal();
   });
 }
 
-function openOptionPreviewModal(option, fallbackPrice = null) {
+function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
   if (!document.getElementById("optionPreviewModal")) initOptionPreviewModal();
   const m = document.getElementById("optionPreviewModal");
   const img = m.querySelector(".option-preview-img");
@@ -106,6 +207,16 @@ function openOptionPreviewModal(option, fallbackPrice = null) {
       : fallbackPrice;
   price.textContent = displayPrice !== undefined && displayPrice !== null ? `$${displayPrice}` : "";
   
+  // store current previewed product/option for the pre-order button
+  currentOptionPreview = { product: product, option: option };
+
+  // Ensure preorder button is shown and enabled
+  const previewPreorderBtn = m.querySelector('#preorderNowBtn');
+  if (previewPreorderBtn) {
+    previewPreorderBtn.disabled = false;
+    previewPreorderBtn.style.display = '';
+  }
+
   m.setAttribute("aria-hidden", "false");
 }
 
@@ -113,6 +224,14 @@ function closeOptionPreviewModal() {
   const m = document.getElementById("optionPreviewModal");
   if (!m) return;
   m.setAttribute("aria-hidden", "true");
+  // clear preview tracking
+  currentOptionPreview = null;
+  const previewPreorderBtn = m.querySelector('#preorderNowBtn');
+  if (previewPreorderBtn) {
+    previewPreorderBtn.disabled = true;
+    // keep it rendered but hidden to avoid layout shift
+    previewPreorderBtn.style.display = 'none';
+  }
 }
 
 const productData = {
@@ -955,6 +1074,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
+  // Register service worker and prefetch assets for instant navigation
+  registerServiceWorker();
+  prefetchAllAssets();
 });
 
 function whatsappLink(product) {
@@ -1119,7 +1241,7 @@ function createOptionCard(product, option, onSelect) {
     optionElement.style.cursor = "pointer";
     optionElement.addEventListener("click", (e) => {
       e.preventDefault();
-      openOptionPreviewModal(option, product.price);
+      openOptionPreviewModal(option, product.price, product);
     });
   }
 
