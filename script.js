@@ -586,21 +586,45 @@ function renderCartModal() {
     totalEl.textContent = `$${Cart.getTotal()}`;
 
     // Generate Checkout Link
-    const checkoutBtn = document.getElementById("checkoutTelegramBtn");
-    if (checkoutBtn) {
-      let message = "Hello, I would like to place an order:\n\n";
-      items.forEach((item, i) => {
-        message += `${i + 1}. ${item.title} ${
-          item.optionName ? `(${item.optionName})` : ""
-        } - $${item.price}\n`;
-      });
-      message += `\nTotal: $${Cart.getTotal()}`;
-      message += "\n\nIs this available?";
+      const checkoutTelegramBtn = document.getElementById("checkoutTelegramBtn");
+      const checkoutWhatsAppBtn = document.getElementById("checkoutWhatsAppBtn");
+      const copyOrderBtn = document.getElementById("copyOrderBtn");
+      if (checkoutTelegramBtn || checkoutWhatsAppBtn || copyOrderBtn) {
+        let message = "Hello, I would like to place an order:\n\n";
+        items.forEach((item, i) => {
+          message += `${i + 1}. ${item.title} ${
+            item.optionName ? `(${item.optionName})` : ""
+          } - $${item.price}\n`;
+        });
+        message += `\nTotal: $${Cart.getTotal()}`;
+        message += "\n\nIs this available?";
 
-      checkoutBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
-        message
-      )}`;
-    }
+        if (checkoutTelegramBtn) {
+          checkoutTelegramBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
+            message
+          )}`;
+          checkoutTelegramBtn.dataset.message = message;
+        }
+
+        if (checkoutWhatsAppBtn) {
+          const phone = CONTACT_WHATSAPP_NUMBER.replace(/\D/g, "");
+          checkoutWhatsAppBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(
+            message
+          )}`;
+          checkoutWhatsAppBtn.dataset.message = message;
+        }
+
+        if (copyOrderBtn) {
+          copyOrderBtn.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(message);
+              showToast("Order copied to clipboard");
+            } catch (err) {
+              showToast("Could not copy order");
+            }
+          });
+        }
+      }
   }
 }
 
@@ -1524,7 +1548,10 @@ function renderProductDetail(product) {
     actionButtonHTML = `<button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>`;
   }
 
-  const compareButtonHTML = `<button class="btn compare" id="compareBtn">Compare</button>`;
+  const compareButtonHTML =
+    product.category === "mice" || product.category === "keyboards"
+      ? `<button class="btn compare" id="compareBtn">Compare</button>`
+      : "";
 
   const optionsPlaceholderHTML = hasOptions
     ? `<div class="product-options-container">
