@@ -54,6 +54,67 @@ function closeImageModal() {
   if (img) img.src = "";
 }
 
+/* Option Preview Modal for unavailable/locked options */
+function initOptionPreviewModal() {
+  if (document.getElementById("optionPreviewModal")) return;
+  const modal = document.createElement("div");
+  modal.id = "optionPreviewModal";
+  modal.className = "modal option-preview-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="modal-content option-preview-content">
+      <button class="modal-close option-preview-close" aria-label="Close">&times;</button>
+      <div class="option-preview-image-wrap">
+        <img src="" alt="Option Preview" class="option-preview-img">
+      </div>
+      <div class="option-preview-info">
+        <h3 class="option-preview-title"></h3>
+        <div class="option-preview-meta">
+          <p class="option-preview-price"></p>
+          <span class="option-preview-stock-label">OUT OF STOCK</span>
+        </div>
+        <p class="option-preview-status">This option is currently unavailable</p>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeOptionPreviewModal();
+  });
+
+  modal.querySelector(".option-preview-close").addEventListener("click", closeOptionPreviewModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeOptionPreviewModal();
+  });
+}
+
+function openOptionPreviewModal(option, fallbackPrice = null) {
+  if (!document.getElementById("optionPreviewModal")) initOptionPreviewModal();
+  const m = document.getElementById("optionPreviewModal");
+  const img = m.querySelector(".option-preview-img");
+  const title = m.querySelector(".option-preview-title");
+  const price = m.querySelector(".option-preview-price");
+  
+  img.src = option.image || "";
+  img.alt = option.name || "Option Preview";
+  title.textContent = option.name || "";
+  const displayPrice =
+    option.price !== undefined && option.price !== null
+      ? option.price
+      : fallbackPrice;
+  price.textContent = displayPrice !== undefined && displayPrice !== null ? `$${displayPrice}` : "";
+  
+  m.setAttribute("aria-hidden", "false");
+}
+
+function closeOptionPreviewModal() {
+  const m = document.getElementById("optionPreviewModal");
+  if (!m) return;
+  m.setAttribute("aria-hidden", "true");
+}
+
 const productData = {
   keyboards,
   mice,
@@ -1018,7 +1079,11 @@ function createOptionCard(product, option, onSelect) {
     });
   } else {
     optionElement.setAttribute("aria-disabled", "true");
-    optionElement.addEventListener("click", (e) => e.preventDefault());
+    optionElement.style.cursor = "pointer";
+    optionElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      openOptionPreviewModal(option, product.price);
+    });
   }
 
   const priceHTML =
