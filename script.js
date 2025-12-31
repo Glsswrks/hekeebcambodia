@@ -1203,7 +1203,7 @@ function createOptionCard(product, option, onSelect) {
   const priceHTML =
     option.price !== undefined
       ? `<span class="option-price">$${option.price}</span>`
-      : "";
+      : `<span class="option-price">$${product.price}</span>`;
   optionElement.innerHTML = `
     <div class="option-image-wrap">
       <img src="${option.image}" alt="${option.name}" loading="lazy">
