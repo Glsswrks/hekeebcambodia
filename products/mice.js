@@ -73,9 +73,9 @@ export const mice = [
   },
   {
     id: "atkf1pro",
-    title: "ATK Blazing Sky F1 Pro",
+    title: "ATK Blazing Sky F1 SE",
     short: "45-Gram Wireless Gaming Mouse with 8K Polling Rate, PAW3950 Sensor",
-    price: 80,
+    price: 70,
     layout: "45g",
     available: false,
     isNew: false,
@@ -88,13 +88,16 @@ export const mice = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/4.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/5.png",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/6.png",
+      "https://www.atk.store/cdn/shop/files/F1-2_07fcd364-5e20-42b6-be3d-098271023e54.jpg?v=1745389030",
+      "https://www.atk.store/cdn/shop/files/F1-1_18fb359b-c4f9-4f68-908c-eae9df01c251.jpg?v=1745389030",
+      "https://www.atk.store/cdn/shop/files/F1-5_b2dc4f16-32d5-4012-bcc2-7d319a83d1f0.jpg?v=1745389229",
     ],
     category: "mice",
     specs: {
       latency: "0.4ms",
       battery: "200-800mAh (Version Dependent)",
       coating: "Ice-feeling Coating",
-      sensor: "PAW3950",
+      sensor: "PAW3950 / PAW3950 ULTRA",
       weight: "45g ± 2g",
       pollingRate: "8K Hz",
       mcu: "Nordic 52840",
@@ -105,7 +108,18 @@ export const mice = [
       connectivity: "Wireless (2.4GHz) / Wired / Bluetooth",
       features: ["ATK HUB/Web Driver Supported"],
     },
-    options: null,
+    options: [
+      {
+        name: "Blazing Sky F1 Pro - Black",
+        available: false,
+        image: "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_Black.jpg?v=1756979076"
+      },
+      {
+        name: "Blazing Sky F1 Pro - White",
+        available: false,
+        image: "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_White.jpg?v=1756979076"
+      }
+    ]
   },
   {
     id: "vxer1se",
