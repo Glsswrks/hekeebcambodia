@@ -113,6 +113,16 @@
   color: var(--accent);
 }
 
+/* Fix toast text visibility in light mode */
+:root[data-theme="light"] .toast-container {
+  color: #000;
+}
+
+/* Fix cart item border visibility in light mode */
+:root[data-theme="light"] .cart-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 * {
   box-sizing: border-box
 }
