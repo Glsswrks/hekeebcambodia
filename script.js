@@ -1066,9 +1066,9 @@ function productLink(id) {
 
 // Constants for display limits for the index page
 const MOBILE_COLUMNS = 2;
-const DESKTOP_COLUMNS = 4;
+const DESKTOP_COLUMNS = 5;
 const INITIAL_MOBILE_LIMIT = MOBILE_COLUMNS * 2; // 4 items
-const INITIAL_DESKTOP_LIMIT = DESKTOP_COLUMNS * 2; // 8 items
+const INITIAL_DESKTOP_LIMIT = DESKTOP_COLUMNS * 2; // 10 items
 
 function getInitialLimit() {
   return window.innerWidth < 600 ? INITIAL_MOBILE_LIMIT : INITIAL_DESKTOP_LIMIT;

@@ -447,11 +447,11 @@ body {
   margin-bottom: 18px
 }
 
-/* Desktop Grid: 4 items per row */
+/* Desktop Grid: 5 items per row */
 .grid {
   display: grid;
-  /* Now set to max 4 columns, minimum size 180px */
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Now set to max 5 columns, minimum size 160px */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 18px
 }
 
