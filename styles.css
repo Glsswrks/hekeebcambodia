@@ -15,6 +15,113 @@
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
+/* Global transition system */
+:root {
+  --trans-fast: 120ms;
+  --trans: 200ms;
+  --trans-slow: 320ms;
+  --easing-std: cubic-bezier(.2,.9,.2,1);
+}
+
+/* Smooth native scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Opt-in utility classes */
+.fade-in {
+  animation: fadeIn 240ms var(--easing-std) both;
+}
+
+.slide-up {
+  animation: slideUp 260ms var(--easing-std) both;
+}
+
+/* Provide gentle transitions across interactive properties.
+   Avoid heavy layout transitions where possible. */
+*,
+*::before,
+*::after {
+  transition: background-color var(--trans) var(--easing-std),
+              color var(--trans) var(--easing-std),
+              border-color var(--trans) var(--easing-std),
+              box-shadow var(--trans) var(--easing-std),
+              transform var(--trans) var(--easing-std);
+}
+
+/* Buttons / links / inputs */
+.btn,
+a {
+  transition: transform var(--trans) var(--easing-std), box-shadow var(--trans) var(--easing-std), opacity var(--trans) var(--easing-std);
+}
+
+button:active, .btn:active, a:active {
+  transform: translateY(1px) scale(0.997);
+}
+
+input, select, textarea {
+  transition: box-shadow var(--trans) var(--easing-std), border-color var(--trans) var(--easing-std), background-color var(--trans) var(--easing-std);
+}
+
+/* Cards & images */
+.card {
+  will-change: transform, box-shadow;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card-link img,
+.card-image img {
+  transition: transform var(--trans-slow) var(--easing-std), opacity var(--trans) var(--easing-std);
+}
+
+.card:hover .card-link img {
+  transform: scale(1.03);
+}
+
+/* Modal animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes modalOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(8px) scale(0.995); }
+}
+
+.modal[aria-hidden="false"] .modal-content {
+  animation: modalIn var(--trans-slow) var(--easing-std) both;
+}
+
+.modal.closing .modal-content {
+  animation: modalOut var(--trans-slow) var(--easing-std) both;
+}
+
+/* Horizontal scroll subtle fade for wrappers */
+.horizontal-scroll-wrapper {
+  scroll-behavior: smooth;
+}
+
+.scroll-nav-btn {
+  transition: transform var(--trans) var(--easing-std), background var(--trans) var(--easing-std), border-color var(--trans) var(--easing-std);
+}
+
+.scroll-nav-btn:active { transform: scale(0.96); }
+
+
 :root[data-theme="light"] {
   --bg: #f5f7fa;
   --card: #ffffff;
@@ -37,6 +144,12 @@
 
   .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
     background: rgb(161, 161, 161);
+    border-radius: 3px;
+  }
+
+  /* Ensure options scroller thumb is visible in light mode */
+  .options-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(30, 41, 59, 0.35);
     border-radius: 3px;
   }
 
@@ -116,6 +229,16 @@
 /* Fix toast text visibility in light mode */
 :root[data-theme="light"] .toast-container {
   color: #000;
+}
+
+/* Light-mode: darker close button for modals */
+:root[data-theme="light"] .modal-close {
+  color: #1e293b;
+}
+
+:root[data-theme="light"] .image-modal-close {
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 /* Fix cart item border visibility in light mode */
@@ -939,6 +1062,7 @@ select.search-input::-ms-expand {
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  position: relative;
 }
 
 .modal-content h2 {
@@ -948,12 +1072,25 @@ select.search-input::-ms-expand {
 .modal-close {
   position: absolute;
   top: 12px;
-  right: 16px;
+  right: 12px;
   background: transparent;
   border: none;
   color: #fff;
   font-size: 22px;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 520px) {
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+  }
 }
 
 .modal-actions {
