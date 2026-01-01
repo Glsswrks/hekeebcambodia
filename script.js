@@ -1648,9 +1648,12 @@ function initCategoryPage() {
 function scrollSimilarProducts(direction) {
   // The actual scrollable container is the wrapper around the grid
   const wrapper = document.querySelector(
-    "#similarProductsSection .horizontal-scroll-wrapper"
+    ".horizontal-scroll-wrapper"
   );
-  if (!wrapper) return;
+  if (!wrapper) {
+    console.error('Scroll wrapper not found');
+    return;
+  }
 
   const card = wrapper.querySelector(".card");
   const gap = 20; // same gap as CSS

@@ -116,10 +116,12 @@ input, select, textarea {
 }
 
 .scroll-nav-btn {
-  transition: transform var(--trans) var(--easing-std), background var(--trans) var(--easing-std), border-color var(--trans) var(--easing-std);
+  transition: background var(--trans) var(--easing-std), border-color var(--trans) var(--easing-std);
 }
 
-.scroll-nav-btn:active { transform: scale(0.96); }
+.scroll-nav-btn:active { 
+  transform: translateY(calc(-50% - 10px)) scale(0.96); 
+}
 
 
 :root[data-theme="light"] {
