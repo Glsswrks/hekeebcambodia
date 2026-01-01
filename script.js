@@ -1031,6 +1031,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
+  // Wire hero button to show combined all-products listing
+  const showAllBtn = document.getElementById("showAllBtn");
+  if (showAllBtn) {
+    showAllBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showAllProductsListing();
+    });
+  }
   // Service worker and prefetching have been removed.
 });
 
@@ -1441,6 +1449,70 @@ function initIndexPage() {
       initProductSection("mousepads");
     }, 200);
   });
+}
+
+/* ---------- Combined All-Products Listing (Available / Unavailable) ---------- */
+function showAllProductsListing() {
+  const listing = document.getElementById("allProductsListing");
+  if (!listing) return;
+
+  const otherSections = document.querySelectorAll('section.products:not(#allProductsListing)');
+
+  listing.innerHTML = `
+    <div class="section-head">
+      <h2>All Products</h2>
+      <input type="text" id="allSearch" placeholder="Search all products..." class="search-input">
+    </div>
+    <div style="margin-top:16px;">
+      <h3>Available Products</h3>
+      <div id="allAvailableGrid" class="grid"></div>
+    </div>
+    <div style="margin-top:28px;">
+      <h3>Unavailable Products</h3>
+      <div id="allUnavailableGrid" class="grid"></div>
+    </div>
+    <div style="margin-top:20px;"><a href="#" id="closeAllProducts" class="back-link">← Back to shop</a></div>
+  `;
+
+  // Hide the normal product sections and show this listing
+  otherSections.forEach((s) => (s.style.display = "none"));
+  listing.style.display = "block";
+
+  const available = allProducts.filter((p) => p.available);
+  const unavailable = allProducts.filter((p) => !p.available);
+
+  renderCategoryCards(available, document.getElementById("allAvailableGrid"));
+  renderCategoryCards(unavailable, document.getElementById("allUnavailableGrid"));
+
+  const searchEl = document.getElementById("allSearch");
+  if (searchEl) {
+    searchEl.addEventListener("input", (e) => {
+      const q = (e.target.value || "").toLowerCase().trim();
+      const aFiltered = available.filter((p) =>
+        p.title.toLowerCase().includes(q) || (p.short || "").toLowerCase().includes(q) || p.id.toLowerCase().includes(q)
+      );
+      const uFiltered = unavailable.filter((p) =>
+        p.title.toLowerCase().includes(q) || (p.short || "").toLowerCase().includes(q) || p.id.toLowerCase().includes(q)
+      );
+      renderCategoryCards(aFiltered, document.getElementById("allAvailableGrid"));
+      renderCategoryCards(uFiltered, document.getElementById("allUnavailableGrid"));
+    });
+  }
+
+  const closeBtn = document.getElementById("closeAllProducts");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      listing.style.display = "none";
+      otherSections.forEach((s) => (s.style.display = ""));
+      // return focus to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // clear hash
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch(e) {}
+    });
+  }
+
+  listing.scrollIntoView({ behavior: "smooth" });
 }
 
 /* ---------- Category page: render full list (UNCHANGED) ---------- */
