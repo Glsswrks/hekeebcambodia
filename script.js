@@ -99,6 +99,8 @@ function initOptionPreviewModal() {
         </div>
       </div>
     </div>
+    <button class="option-nav option-preview-prev" aria-label="Previous option">&#8249;</button>
+    <button class="option-nav option-preview-next" aria-label="Next option">&#8250;</button>
   `;
   document.body.appendChild(modal);
 
@@ -106,7 +108,16 @@ function initOptionPreviewModal() {
     if (e.target === modal) closeOptionPreviewModal();
   });
 
-  modal.querySelector(".option-preview-close").addEventListener("click", closeOptionPreviewModal);
+  const closeBtn = modal.querySelector(".option-preview-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeOptionPreviewModal();
+    });
+    // Prevent pointer/touch handlers on the content from reacting when interacting with the close button
+    closeBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    closeBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+  }
 
   // Pre-order button inside the preview modal
   const preorderBtn = modal.querySelector("#preorderNowBtn");
@@ -138,6 +149,74 @@ function initOptionPreviewModal() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeOptionPreviewModal();
   });
+
+  // Add keyboard navigation for left/right when modal open
+  document.addEventListener("keydown", (e) => {
+    if (document.getElementById("optionPreviewModal")?.getAttribute("aria-hidden") !== "false") return;
+    if (e.key === "ArrowLeft") {
+      navigateOptionPreview(-1);
+    }
+    if (e.key === "ArrowRight") {
+      navigateOptionPreview(1);
+    }
+  });
+
+  // Touch / pointer swipe support on modal content
+  let touchStartX = 0;
+  let touchMoving = false;
+  const content = modal.querySelector('.option-preview-content');
+  if (content) {
+    // Wire up prev/next buttons to navigate options
+    const prevBtn = modal.querySelector('.option-preview-prev');
+    const nextBtn = modal.querySelector('.option-preview-next');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); navigateOptionPreview(-1); });
+      prevBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+      prevBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); navigateOptionPreview(1); });
+      nextBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+      nextBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+    }
+    content.addEventListener('touchstart', (ev) => {
+      if (ev.touches.length !== 1) return;
+      touchStartX = ev.touches[0].clientX;
+      touchMoving = true;
+    }, { passive: true });
+
+    content.addEventListener('touchmove', (ev) => {
+      if (!touchMoving || ev.touches.length !== 1) return;
+      // prevent accidental scroll when swiping horizontally
+    }, { passive: true });
+
+    content.addEventListener('touchend', (ev) => {
+      if (!touchMoving) return;
+      touchMoving = false;
+      const dx = (ev.changedTouches && ev.changedTouches[0]) ? ev.changedTouches[0].clientX - touchStartX : 0;
+      const threshold = 40; // px
+      if (dx > threshold) navigateOptionPreview(-1);
+      else if (dx < -threshold) navigateOptionPreview(1);
+    });
+
+    // Pointer (mouse) drag support
+    let ptrDown = false;
+    let ptrStartX = 0;
+    content.addEventListener('pointerdown', (ev) => {
+      ptrDown = true;
+      ptrStartX = ev.clientX;
+      content.setPointerCapture?.(ev.pointerId);
+    });
+    content.addEventListener('pointerup', (ev) => {
+      if (!ptrDown) return;
+      ptrDown = false;
+      const dx = ev.clientX - ptrStartX;
+      const threshold = 60;
+      if (dx > threshold) navigateOptionPreview(-1);
+      else if (dx < -threshold) navigateOptionPreview(1);
+    });
+    content.addEventListener('pointercancel', () => { ptrDown = false; });
+  }
 }
 
 function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
@@ -189,6 +268,24 @@ function closeOptionPreviewModal() {
       previewPreorderBtn.style.display = 'none';
     }
   }, 200); // matches CSS animation duration
+}
+
+// Navigate option preview by delta (-1 for previous, 1 for next)
+function navigateOptionPreview(delta) {
+  if (!currentOptionPreview || !currentOptionPreview.product) return;
+  const prod = currentOptionPreview.product;
+  const opts = Array.isArray(prod.options) ? prod.options : [];
+  if (!opts.length) return;
+  const current = currentOptionPreview.option;
+  let idx = opts.findIndex((o) => o === current || o.name === (current && current.name));
+  if (idx === -1) idx = 0;
+  let newIdx = idx + delta;
+  if (newIdx < 0) newIdx = opts.length - 1;
+  if (newIdx >= opts.length) newIdx = 0;
+  const nextOpt = opts[newIdx];
+  if (nextOpt) {
+    openOptionPreviewModal(nextOpt, prod.price, prod);
+  }
 }
 
 const productData = {

@@ -1265,6 +1265,59 @@ select.search-input::-ms-expand {
   text-align: center;
 }
 
+/* Prev/Next buttons inside option preview modal */
+.option-preview-modal .option-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  /* Neutral base that's visible in dark mode; light theme will override below */
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.option-preview-modal .option-preview-prev { left: 8px; }
+.option-preview-modal .option-preview-next { right: 8px; }
+
+/* Make sure buttons never vanish off-screen on very small devices */
+@media (max-width: 420px) {
+  .option-preview-modal .option-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    left: 6px; right: 6px;
+  }
+  .option-preview-modal .option-preview-prev { left: 6px; }
+  .option-preview-modal .option-preview-next { right: 6px; }
+  .option-preview-modal .modal-content { max-width: calc(100% - 48px); }
+}
+
+/* On larger screens place nav buttons outside the dialog to use extra space */
+@media (min-width: 900px) {
+  .option-preview-modal .option-nav {
+    /* keep vertically centered */
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+  }
+  /* Calculate the gap from the viewport edges to the modal content (modal-content max-width:360px) */
+  .option-preview-modal .option-preview-prev {
+    left: calc((100% - 360px) / 2 - 56px);
+  }
+  .option-preview-modal .option-preview-next {
+    right: calc((100% - 360px) / 2 - 56px);
+  }
+}
+
 .option-preview-title {
   margin: 0 0 8px 0;
   font-size: 1.15rem;
@@ -2600,4 +2653,28 @@ select.search-input::-ms-expand {
   transform: translateY(-1px);
   box-shadow: 0 12px 30px rgba(2,4,6,0.18);
   color: #000;
+}
+
+/* Theme overrides: light theme should use a light button with dark icon/text */
+:root[data-theme="light"] .option-preview-modal .option-nav {
+  background: rgba(255,255,255,0.95);
+  color: #0b0d10;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 24px rgba(12,20,32,0.06);
+}
+
+:root[data-theme="light"] .option-preview-modal .option-nav:hover {
+  background: rgba(255,255,255,1);
+}
+
+/* Slightly stronger contrast for dark theme */
+:root:not([data-theme="light"]) .option-preview-modal .option-nav {
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 26px rgba(2,6,12,0.6);
+}
+
+:root:not([data-theme="light"]) .option-preview-modal .option-nav:hover {
+  background: rgba(255,255,255,0.06);
 }
