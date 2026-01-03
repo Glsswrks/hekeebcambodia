@@ -33,7 +33,7 @@ export const mice = [
       pollingRate: "8K Hz",
       mcu: "Jiangmeng CX52860 / Nordic 52840 / Nordic 54L15",
       dpi: "50 - 42000 (Version Dependent)",
-      switches:
+      switch:
         "Honor Mechanical Micro Swicth / Omron Micro Optical Switch / Custom Kaihua Switch",
       connectivity: "Wireless (2.4GHz) / Wired",
       features: [
@@ -104,7 +104,7 @@ export const mice = [
       trackingSpeed: "750 IPS",
       dpi: "36000",
       acceleration: "70G",
-      switches: "Omron Optical Switches",
+      switch: "Omron Optical Switches",
       connectivity: "Wireless (2.4GHz) / Wired / Bluetooth",
       features: ["ATK HUB/Web Driver Supported"],
     },
@@ -119,6 +119,67 @@ export const mice = [
         available: false,
         image: "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_White.jpg?v=1756979076"
       }
+    ]
+  },
+  {
+    id: "attacksharkR3",
+    title: "ATTACK SHARK R3",
+    short: "ATTACK SHARK R3, Magnesium Alloy Gaming Mouse 8K",
+    price: 80,
+    layout: "46g",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    sellerRating: 6.5,
+    images: [
+      "https://attackshark.com/cdn/shop/files/2adaa317ba69f670f4d1eb501b6c4457_77f70c58-dbdc-4845-b4e1-19f3dc8e40d5.png?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/9_8b15d863-25c9-4864-87d2-24835ba5d4a1.jpg?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/5_7c63b76b-f3a3-4507-b436-5e816408fa44.jpg?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/2_b3afafc6-723d-4668-b887-25e2999d91eb.jpg?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/3_1c0d203a-ca34-4ee6-8cf5-f44f61ccd514.jpg?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/83c1bc164a2861ecc083568a0b017ba0.png?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/83c1bc164a2861ecc083568a0b017ba0_1a0ecd38-b038-42d0-9390-d07fe8c398aa.png?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/6_1.png?v=1737168023&width=800",
+      "https://attackshark.com/cdn/shop/files/1_58f55721-c300-4efa-b772-08c2b244a2eb.jpg?v=1737167973&width=800",
+      "https://attackshark.com/cdn/shop/files/7_f0e5b018-a63e-4cb2-a090-c480098e1d36.png?v=1737168023&width=800"
+    ],
+    category: "mice",
+    specs: {
+      latency: "0.1ms",
+      // battery: "200-800mAh (Version Dependent)",
+      // coating: "Ice-feeling Coating",
+      sensor: "PAW3395",
+      weight: "46g ± 2g",
+      pollingRate: "8K Hz",
+      // mcu: "Nordic 52840",
+      trackingSpeed: "650 IPS",
+      dpi: "26000",
+      acceleration: "50G",
+      switch: "KAILH GM 8.0 BLACK MAMBA SWITCH",
+      connectivity: "Wireless (2.4GHz) / Wired / Bluetooth",
+      features: ["Magnesium Alloy", "Web Driver Supported"],
+    },
+    options: [
+      {
+        name: "Attack Shark R3 - Purple Blue",
+        available: false,
+        image: "https://attackshark.com/cdn/shop/files/7_e7020d5a-14d8-4f73-b1b3-3bf90a565766.jpg?v=1752039923&width=800"
+      },
+      {
+        name: "Attack Shark R3 - Black",
+        available: false,
+        image: "https://attackshark.com/cdn/shop/files/6_64e3fbed-0685-4cff-8650-13bf45b17a80.jpg?v=1752039923&width=800"
+      },
+      {
+        name: "Attack Shark R3 - White",
+        available: false,
+        image: "https://attackshark.com/cdn/shop/files/5_4fae3359-5720-47b0-ae41-45f226d12c87.jpg?v=1752039923&width=800"
+      },
+      {
+        name: "Attack Shark R3 - Grey",
+        available: false,
+        image: "https://attackshark.com/cdn/shop/files/8_bc08ecdb-8413-4288-8de5-fc7937dfc7ea.jpg?v=1752039923&width=800"
+      },
     ]
   },
   {
@@ -150,7 +211,7 @@ export const mice = [
       trackingSpeed: "400 IPS",
       dpi: "18000",
       acceleration: "40G",
-      switches: "Huano/IceBerry (varies)",
+      switch: "Huano / IceBerry (varies)",
       connectivity: "Tri-Mode: 2.4G / Bluetooth 5.3 / Wired Type-C",
       battery: "520mAh / 250mAh (model dependent)",
       features: ["Web-Driver Customization"],
@@ -193,7 +254,7 @@ export const mice = [
       trackingSpeed: "750 IPS",
       dpi: "30000",
       acceleration: "50G",
-      switches: "Omron Optical Switches",
+      switch: "Omron Optical Switches",
       connectivity: "Wireless (2.4GHz) / Wired (Type-C)",
       features: ["Symmetrical Shape (Small/Medium)", "Web-Based Aurora Driver"],
     },
@@ -259,7 +320,7 @@ export const mice = [
       trackingSpeed: "750 IPS",
       dpi: "30000",
       acceleration: "50g",
-      switches: "Omron Optical Switches",
+      switch: "Omron Optical Switches",
       connectivity: "Wireless / Wired",
       features: ["Web-Based Driver", "Yellow Color Available"],
     },
