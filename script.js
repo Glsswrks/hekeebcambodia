@@ -2175,6 +2175,12 @@ function createCarousel(images) {
   btnRight.setAttribute("aria-label", "Next image");
   btnRight.innerHTML = "&#9654;";
 
+  // Defensive: ensure pointer/touch events on these buttons aren't swallowed by other handlers
+  btnLeft.addEventListener('pointerdown', (e) => { e.stopPropagation(); });
+  btnRight.addEventListener('pointerdown', (e) => { e.stopPropagation(); });
+  btnLeft.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+  btnRight.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+
   const dots = document.createElement("div");
   dots.className = "carousel-dots";
   images.forEach((_, i) => {

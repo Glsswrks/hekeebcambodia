@@ -2678,3 +2678,20 @@ select.search-input::-ms-expand {
 :root:not([data-theme="light"]) .option-preview-modal .option-nav:hover {
   background: rgba(255,255,255,0.06);
 }
+
+/* Hide nav buttons on small screens; keep swipe gestures as the primary navigation */
+@media (max-width: 720px) {
+  .option-preview-modal .option-nav {
+    display: none !important;
+  }
+}
+
+/* Fix active state so carousel buttons stay vertically centered when pressed */
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.997);
+}
+
+/* Keep option nav centered on active press */
+.option-preview-modal .option-nav:active {
+  transform: translateY(-50%) scale(0.98);
+}
