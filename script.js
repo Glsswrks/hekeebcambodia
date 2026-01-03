@@ -12,6 +12,9 @@ let selectedPreorderOption = null;
 // Track the product/option currently shown in the option preview modal
 let currentOptionPreview = null;
 
+// Image modal gallery state for preview navigation
+let imageModalGallery = [];
+let imageModalIndex = 0;
 // Unregister any lingering service workers and clear caches from previous setup
 (async function cleanupOldServiceWorker() {
   if ('serviceWorker' in navigator) {
@@ -56,14 +59,73 @@ function initImageModal() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeImageModal();
   });
+
+  // Touch / pointer swipe support on modal content
+  let touchStartX = 0;
+  let touchMoving = false;
+  const content = modal.querySelector('.image-modal-content');
+  if (content) {
+    content.addEventListener('touchstart', (ev) => {
+      if (ev.touches.length !== 1) return;
+      // Ignore gestures that start on the close button
+      if (ev.target.closest && ev.target.closest('.image-modal-close')) return;
+      touchStartX = ev.touches[0].clientX;
+      touchMoving = true;
+    }, { passive: true });
+
+    content.addEventListener('touchend', (ev) => {
+      if (!touchMoving) return;
+      touchMoving = false;
+      const dx = (ev.changedTouches && ev.changedTouches[0]) ? ev.changedTouches[0].clientX - touchStartX : 0;
+      const threshold = 40; // px
+      if (dx > threshold) navigateImageModal(-1);
+      else if (dx < -threshold) navigateImageModal(1);
+    });
+
+    // Pointer (mouse) drag support for desktop
+    let ptrDown = false;
+    let ptrStartX = 0;
+    content.addEventListener('pointerdown', (ev) => {
+      // Ignore pointer interactions that originate from the close button
+      if (ev.target.closest && ev.target.closest('.image-modal-close')) return;
+      ptrDown = true;
+      ptrStartX = ev.clientX;
+      content.setPointerCapture?.(ev.pointerId);
+    });
+    content.addEventListener('pointerup', (ev) => {
+      if (!ptrDown) return;
+      ptrDown = false;
+      const dx = ev.clientX - ptrStartX;
+      const threshold = 60;
+      if (dx > threshold) navigateImageModal(-1);
+      else if (dx < -threshold) navigateImageModal(1);
+    });
+    content.addEventListener('pointercancel', () => { ptrDown = false; });
+  }
 }
 
 function openImageModal(src) {
+  // Backwards-compatible single-src opener
+  openImageModalWithGallery([src || ""], 0);
+}
+
+function openImageModalWithGallery(images, startIndex = 0) {
   if (!document.getElementById("imageModal")) initImageModal();
   const m = document.getElementById("imageModal");
   const img = m.querySelector(".image-modal-img");
-  img.src = src || "";
+  if (!Array.isArray(images)) images = [String(images)];
+  imageModalGallery = images.slice();
+  imageModalIndex = Math.max(0, Math.min(startIndex || 0, imageModalGallery.length - 1));
+  img.src = imageModalGallery[imageModalIndex] || "";
   m.setAttribute("aria-hidden", "false");
+}
+
+function navigateImageModal(delta) {
+  const m = document.getElementById("imageModal");
+  if (!m || !imageModalGallery || !imageModalGallery.length) return;
+  imageModalIndex = (imageModalIndex + delta + imageModalGallery.length) % imageModalGallery.length;
+  const img = m.querySelector(".image-modal-img");
+  if (img) img.src = imageModalGallery[imageModalIndex] || "";
 }
 
 function closeImageModal() {
@@ -2161,7 +2223,7 @@ function createCarousel(images) {
     img.alt = `Product image ${i + 1}`;
     img.loading = "lazy";
     img.style.cursor = "zoom-in";
-    img.addEventListener("click", () => openImageModal(src));
+    img.addEventListener("click", () => openImageModalWithGallery(images, i));
     slide.appendChild(img);
     track.appendChild(slide);
   });
