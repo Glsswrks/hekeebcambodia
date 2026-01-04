@@ -211,7 +211,6 @@ export const keyboards = [
         "Wired Connection",
         "Proprietary MCR original height profile",
         "16 Millions Color RGB Backlit",
-        ""
       ],
     },
     options: null,
@@ -343,7 +342,7 @@ export const keyboards = [
     available: false,
     isNew: false,
     lowStock: false,
-    sellerRating: 7.5,
+    sellerRating: 7,
     images: [
       "https://halleffectkeyboard.com/wp-content/uploads/2025/08/1-12.jpg",
       "https://www.atk.store/cdn/shop/files/68RX_-_PC__02.jpg?v=1764137347&width=2000",
