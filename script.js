@@ -426,11 +426,22 @@ function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
   // store current previewed product/option for the pre-order button
   currentOptionPreview = { product: product, option: option };
 
-  // Ensure preorder button is shown and enabled
+  // Ensure preorder button is shown, enabled and has a fresh click handler
   const previewPreorderBtn = m.querySelector("#preorderNowBtn");
   if (previewPreorderBtn) {
-    previewPreorderBtn.disabled = false;
-    previewPreorderBtn.style.display = "";
+    // Replace the button node to remove any stale listeners, then attach a new one
+    const freshBtn = previewPreorderBtn.cloneNode(true);
+    previewPreorderBtn.parentNode.replaceChild(freshBtn, previewPreorderBtn);
+    freshBtn.disabled = false;
+    freshBtn.style.display = "";
+
+    freshBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      PreOrderList.addItem(product, option, freshBtn);
+      closeOptionPreviewModal();
+      showToast(`Added ${product.title} (${option.name}) to pre-order list`);
+    });
   }
 
   m.setAttribute("aria-hidden", "false");
@@ -996,7 +1007,7 @@ const Cart = {
     return stored ? JSON.parse(stored) : [];
   },
 
-  addItem: function (product, option) {
+  addItem: function (product, option, sourceElement) {
     const items = this.getItems();
     // Create a unique cart item
     const newItem = {
@@ -1012,6 +1023,11 @@ const Cart = {
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
     showToast(`Added ${newItem.title} to cart`);
+
+    // Trigger flying animation when source element provided
+    if (sourceElement) {
+      animateToCart(newItem.image, sourceElement);
+    }
   },
 
   removeItem: function (index) {
@@ -1190,6 +1206,46 @@ function animateToPreorder(imageUrl, sourceElement) {
   }, 300);
 
   // Remove element after animation
+  setTimeout(() => {
+    flyingEl.remove();
+  }, 800);
+}
+
+// Animate item flying to cart button/hamburger (used for Add to Cart)
+function animateToCart(imageUrl, sourceElement) {
+  const isMobile = window.innerWidth <= 768;
+  // On mobile, fly into the hamburger button for a single consolidated target
+  const target = isMobile
+    ? document.getElementById("hamburgerBtn")
+    : document.getElementById("cartToggle");
+
+  if (!target || !sourceElement) return;
+
+  const flyingEl = document.createElement("img");
+  flyingEl.src = imageUrl;
+  flyingEl.className = "flying-preorder-item";
+
+  const sourceRect = sourceElement.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+
+  flyingEl.style.left = sourceRect.left + sourceRect.width / 2 - 30 + "px";
+  flyingEl.style.top = sourceRect.top + sourceRect.height / 2 - 30 + "px";
+
+  const deltaX =
+    targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
+  const deltaY =
+    targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
+
+  flyingEl.style.setProperty("--fly-x", deltaX + "px");
+  flyingEl.style.setProperty("--fly-y", deltaY + "px");
+
+  document.body.appendChild(flyingEl);
+
+  target.style.transform = "scale(1.15)";
+  setTimeout(() => {
+    target.style.transform = "";
+  }, 300);
+
   setTimeout(() => {
     flyingEl.remove();
   }, 800);
@@ -1443,6 +1499,13 @@ document.addEventListener("DOMContentLoaded", () => {
     hamburgerBtn?.setAttribute("aria-expanded", "true");
     mobileNav?.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    // Subtle scale feedback when opening mobile nav
+    if (hamburgerBtn) {
+      hamburgerBtn.style.transform = "scale(1.06)";
+      setTimeout(() => {
+        hamburgerBtn.style.transform = "";
+      }, 180);
+    }
   }
 
   function closeMobileNav() {
@@ -2110,10 +2173,6 @@ function initCategoryPage() {
   container.innerHTML = `
         <div class="section-head">
             <h2 id="categoryTitle">${capitalizedName}</h2>
-        <input type="text" id="categorySearch" placeholder="Search all ${categoryName}..." class="search-input">
-        <select id="categoryFilter" class="search-input" style="margin-top:8px;">
-          <option value="">All</option>
-        </select>
         </div>
         <div id="categoryGrid" class="grid"></div>
         <div style="margin-top:28px;">
@@ -2441,7 +2500,7 @@ function renderProductDetail(product) {
 
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          Cart.addItem(product, selectedOption);
+          Cart.addItem(product, selectedOption, newBtn);
         });
       } else {
         addToCartBtn.classList.add("locked");
