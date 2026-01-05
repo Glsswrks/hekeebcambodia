@@ -233,6 +233,38 @@
       </div>
     </div>
 
+    <!-- Cart Option Selection Modal -->
+    <div id="cartOptionModal" class="modal" aria-hidden="true">
+      <div class="modal-content selection-modal">
+        <button class="modal-close" id="closeCartOptionBtn"
+          aria-label="Close">&times;</button>
+
+        <div class="modal-header-detailed">
+          <span class="modal-subtitle">Add to Cart</span>
+          <h2 id="cartModalTitle">Select an Option</h2>
+          <p class="modal-description">Choose your preferred variation to add to cart.</p>
+        </div>
+
+        <div id="cartOptionList" class="options-grid-modern"></div>
+
+        <div class="modal-footer-sticky">
+          <div class="selection-summary" id="cartSelectionSummary">
+            <span class="summary-label">Selected:</span>
+            <span class="summary-value" id="cartSelectedOptionName">None</span>
+          </div>
+          <div class="modal-actions-row">
+            <button id="cancelCartOptionBtn"
+              class="btn secondary-ghost">Cancel</button>
+            <button id="confirmCartOptionBtn" class="btn add-to-cart"
+              disabled>
+              <span>Add to Cart</span>
+              <i class="icon-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="preorderOptionModal" class="modal" aria-hidden="true">
       <div class="modal-content selection-modal">
         <button class="modal-close" id="closePreorderOptionBtn"

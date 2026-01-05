@@ -12,6 +12,10 @@ let selectedPreorderOption = null;
 // Track the product/option currently shown in the option preview modal
 let currentOptionPreview = null;
 
+// Cart option modal state
+let currentProductForCart = null;
+let selectedCartOption = null;
+
 // Image modal gallery state for preview navigation
 let imageModalGallery = [];
 let imageModalIndex = 0;
@@ -222,9 +226,6 @@ function initOptionPreviewModal() {
           <span class="option-preview-stock-label">OUT OF STOCK</span>
         </div>
         <p class="option-preview-status">This option is currently unavailable</p>
-        <div style="margin-top:12px;">
-          <button id="preorderNowBtn" class="btn pre-order">Pre-order</button>
-        </div>
       </div>
     </div>
     <button class="option-nav option-preview-prev" aria-label="Previous option">&#8249;</button>
@@ -246,49 +247,6 @@ function initOptionPreviewModal() {
     closeBtn.addEventListener("pointerdown", (e) => e.stopPropagation());
     closeBtn.addEventListener("touchstart", (e) => e.stopPropagation(), {
       passive: true,
-    });
-  }
-
-  // Pre-order button inside the preview modal
-  const preorderBtn = modal.querySelector("#preorderNowBtn");
-  if (preorderBtn) {
-    preorderBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (
-        currentOptionPreview &&
-        currentOptionPreview.product &&
-        currentOptionPreview.option
-      ) {
-        PreOrderList.addItem(
-          currentOptionPreview.product,
-          currentOptionPreview.option,
-          preorderBtn
-        );
-        closeOptionPreviewModal();
-        showToast(
-          `Added ${currentOptionPreview.product.title} (${currentOptionPreview.option.name}) to pre-order list`
-        );
-        return;
-      }
-
-      // Fallback: try to locate the parent product by matching option name
-      if (currentOptionPreview && currentOptionPreview.option) {
-        const optName = currentOptionPreview.option.name;
-        const prod = allProducts.find(
-          (p) =>
-            Array.isArray(p.options) &&
-            p.options.some((o) => o.name === optName)
-        );
-        if (prod) {
-          PreOrderList.addItem(prod, currentOptionPreview.option, preorderBtn);
-          closeOptionPreviewModal();
-          showToast(
-            `Added ${prod.title} (${currentOptionPreview.option.name}) to pre-order list`
-          );
-        }
-      }
     });
   }
 
@@ -344,6 +302,8 @@ function initOptionPreviewModal() {
       "touchstart",
       (ev) => {
         if (ev.touches.length !== 1) return;
+        // Don't start swipe tracking if touching a button or interactive element
+        if (ev.target.closest("button, a, input, [role='button']")) return;
         touchStartX = ev.touches[0].clientX;
         touchMoving = true;
       },
@@ -375,6 +335,8 @@ function initOptionPreviewModal() {
     let ptrDown = false;
     let ptrStartX = 0;
     content.addEventListener("pointerdown", (ev) => {
+      // Don't capture pointer if clicking on a button or interactive element
+      if (ev.target.closest("button, a, input, [role='button']")) return;
       ptrDown = true;
       ptrStartX = ev.clientX;
       content.setPointerCapture?.(ev.pointerId);
@@ -410,6 +372,8 @@ function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
   const img = m.querySelector(".option-preview-img");
   const title = m.querySelector(".option-preview-title");
   const price = m.querySelector(".option-preview-price");
+  const stockLabel = m.querySelector(".option-preview-stock-label");
+  const statusText = m.querySelector(".option-preview-status");
 
   img.src = option.image || "";
   img.alt = option.name || "Option Preview";
@@ -423,26 +387,25 @@ function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
       ? `$${displayPrice}`
       : "";
 
-  // store current previewed product/option for the pre-order button
-  currentOptionPreview = { product: product, option: option };
-
-  // Ensure preorder button is shown, enabled and has a fresh click handler
-  const previewPreorderBtn = m.querySelector("#preorderNowBtn");
-  if (previewPreorderBtn) {
-    // Replace the button node to remove any stale listeners, then attach a new one
-    const freshBtn = previewPreorderBtn.cloneNode(true);
-    previewPreorderBtn.parentNode.replaceChild(freshBtn, previewPreorderBtn);
-    freshBtn.disabled = false;
-    freshBtn.style.display = "";
-
-    freshBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      PreOrderList.addItem(product, option, freshBtn);
-      closeOptionPreviewModal();
-      showToast(`Added ${product.title} (${option.name}) to pre-order list`);
-    });
+  // Update stock label and status based on availability
+  if (option.available) {
+    if (stockLabel) {
+      stockLabel.textContent = "AVAILABLE";
+      stockLabel.classList.remove("out-of-stock");
+      stockLabel.classList.add("in-stock");
+    }
+    if (statusText) statusText.textContent = "This option is currently available.";
+  } else {
+    if (stockLabel) {
+      stockLabel.textContent = "OUT OF STOCK";
+      stockLabel.classList.remove("in-stock");
+      stockLabel.classList.add("out-of-stock");
+    }
+    if (statusText) statusText.textContent = "This option is currently unavailable.";
   }
+
+  // store current previewed product/option for navigation
+  currentOptionPreview = { product: product, option: option };
 
   m.setAttribute("aria-hidden", "false");
 }
@@ -468,11 +431,6 @@ function closeOptionPreviewModal() {
 
       // clear preview tracking
       currentOptionPreview = null;
-      const previewPreorderBtn = m.querySelector("#preorderNowBtn");
-      if (previewPreorderBtn) {
-        previewPreorderBtn.disabled = true;
-        previewPreorderBtn.style.display = "none";
-      }
     }
     optionPreviewCloseTimeout = null;
   }, 200); // matches CSS animation duration
@@ -947,7 +905,65 @@ function openComparisonResultModal() {
   }
 }
 
-function populatePreorderOptions(product) {
+// Populate cart option modal with only available options
+function populateCartOptions(product) {
+  const optionList = document.getElementById("cartOptionList");
+  const confirmBtn = document.getElementById("confirmCartOptionBtn");
+  const summaryName = document.getElementById("cartSelectedOptionName");
+  const modalTitle = document.getElementById("cartModalTitle");
+
+  if (!optionList) return;
+
+  optionList.innerHTML = "";
+  selectedCartOption = null;
+  if (confirmBtn) confirmBtn.disabled = true;
+  if (summaryName) summaryName.textContent = "Please select...";
+  if (modalTitle) modalTitle.textContent = product.title;
+
+  // Only show available options
+  const availableOptions = product.options.filter((opt) => opt.available);
+
+  availableOptions.forEach((option) => {
+    const optionElement = document.createElement("button");
+    optionElement.className = "product-option";
+    optionElement.type = "button";
+
+    const priceHTML =
+      option.price !== undefined
+        ? `<span class="option-price">$${option.price}</span>`
+        : `<span class="option-price">$${product.price}</span>`;
+
+    optionElement.innerHTML = `
+      <div class="option-image-wrap">
+        <img src="${option.image}" alt="${option.name}" loading="lazy">
+        ${priceHTML}
+      </div>
+      <div class="option-text">
+        <h4 class="option-title">${option.name}</h4>
+      </div>
+    `;
+
+    optionElement.addEventListener("click", () => {
+      optionList
+        .querySelectorAll(".product-option")
+        .forEach((opt) => opt.classList.remove("active-option"));
+      optionElement.classList.add("active-option");
+
+      selectedCartOption = option;
+      if (confirmBtn) confirmBtn.disabled = false;
+      if (summaryName) summaryName.textContent = option.name;
+    });
+
+    optionList.appendChild(optionElement);
+  });
+
+  // Auto-select if only one option available
+  if (availableOptions.length === 1) {
+    optionList.firstElementChild.click();
+  }
+}
+
+function populatePreorderOptions(product, onlyUnavailable = false) {
   const optionList = document.getElementById("preorderOptionList");
   const confirmBtn = document.getElementById("confirmPreorderOptionBtn");
   const summaryName = document.getElementById("selectedOptionName");
@@ -962,7 +978,12 @@ function populatePreorderOptions(product) {
 
   if (modalTitle) modalTitle.textContent = product.title;
 
-  product.options.forEach((option, index) => {
+  // Filter options based on the onlyUnavailable flag
+  const optionsToShow = onlyUnavailable 
+    ? product.options.filter(opt => !opt.available)
+    : product.options;
+
+  optionsToShow.forEach((option, index) => {
     const optionElement = document.createElement("button");
     optionElement.className = "product-option";
     optionElement.type = "button";
@@ -994,7 +1015,7 @@ function populatePreorderOptions(product) {
   });
 
   // Auto-select if only one option exists
-  if (product.options.length === 1) {
+  if (optionsToShow.length === 1) {
     optionList.firstElementChild.click();
   }
 }
@@ -1009,32 +1030,52 @@ const Cart = {
 
   addItem: function (product, option, sourceElement) {
     const items = this.getItems();
-    // Create a unique cart item
-    const newItem = {
-      id: product.id,
-      title: product.title,
-      price: option ? option.price || product.price : product.price, // Handle option price override
-      optionName: option ? option.name : null,
-      image: option ? option.image : product.images[0] || "",
-      timestamp: Date.now(),
-    };
+    const price = option ? option.price || product.price : product.price;
+    const optionName = option ? option.name : null;
 
-    items.push(newItem);
+    // Look for existing matching item (same product id + option)
+    const idx = items.findIndex(
+      (it) => it.id === product.id && (it.optionName || null) === optionName
+    );
+
+    if (idx !== -1) {
+      // Increment quantity
+      items[idx].quantity = (items[idx].quantity || 1) + 1;
+    } else {
+      const newItem = {
+        id: product.id,
+        title: product.title,
+        price: price,
+        optionName: optionName,
+        image: option ? option.image : product.images[0] || "",
+        timestamp: Date.now(),
+        quantity: 1,
+      };
+      items.push(newItem);
+    }
+
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
-    showToast(`Added ${newItem.title} to cart`);
+    const title = product.title + (optionName ? ` (${optionName})` : "");
+    showToast(`Added ${title} to cart`);
 
     // Trigger flying animation when source element provided
     if (sourceElement) {
-      animateToCart(newItem.image, sourceElement);
+      animateToCart(option ? option.image : product.images[0] || "", sourceElement);
     }
   },
 
   removeItem: function (index) {
     const items = this.getItems();
-    items.splice(index, 1);
-    localStorage.setItem(this.key, JSON.stringify(items));
-    this.updateUI();
+    if (items[index]) {
+      if ((items[index].quantity || 1) > 1) {
+        items[index].quantity = (items[index].quantity || 1) - 1;
+      } else {
+        items.splice(index, 1);
+      }
+      localStorage.setItem(this.key, JSON.stringify(items));
+      this.updateUI();
+    }
   },
 
   clear: function () {
@@ -1044,7 +1085,10 @@ const Cart = {
 
   getTotal: function () {
     const items = this.getItems();
-    return items.reduce((sum, item) => sum + Number(item.price), 0);
+    return items.reduce(
+      (sum, item) => sum + Number(item.price) * (item.quantity || 1),
+      0
+    );
   },
 
   updateUI: function () {
@@ -1052,17 +1096,20 @@ const Cart = {
     const badge = document.getElementById("cartBadge");
     const badgeMobile = document.getElementById("cartBadgeMobile");
 
+    // Compute total quantity
+    const totalQty = items.reduce((s, it) => s + (it.quantity || 1), 0);
+
     // Update Badge (desktop)
     if (badge) {
-      badge.textContent = items.length;
-      if (items.length > 0) badge.classList.remove("hidden");
+      badge.textContent = totalQty;
+      if (totalQty > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
     }
 
     // Update Badge (mobile)
     if (badgeMobile) {
-      badgeMobile.textContent = items.length;
-      if (items.length > 0) badgeMobile.classList.remove("hidden");
+      badgeMobile.textContent = totalQty;
+      if (totalQty > 0) badgeMobile.classList.remove("hidden");
       else badgeMobile.classList.add("hidden");
     }
 
@@ -1082,35 +1129,53 @@ const PreOrderList = {
 
   addItem: function (product, option, sourceElement) {
     const items = this.getItems();
-    const newItem = {
-      id: product.id,
-      title: product.title,
-      price: option ? option.price || product.price : product.price,
-      optionName: option ? option.name : null,
-      image: option ? option.image : product.images[0] || "",
-      timestamp: Date.now(),
-      preorder: true,
-    };
+    const price = option ? option.price || product.price : product.price;
+    const optionName = option ? option.name : null;
 
-    items.push(newItem);
+    const idx = items.findIndex(
+      (it) => it.id === product.id && (it.optionName || null) === optionName
+    );
+
+    if (idx !== -1) {
+      items[idx].quantity = (items[idx].quantity || 1) + 1;
+    } else {
+      const newItem = {
+        id: product.id,
+        title: product.title,
+        price: price,
+        optionName: optionName,
+        image: option ? option.image : product.images[0] || "",
+        timestamp: Date.now(),
+        quantity: 1,
+        preorder: true,
+      };
+      items.push(newItem);
+    }
+
     localStorage.setItem(this.key, JSON.stringify(items));
     this.updateUI();
-    showToast(`Added ${newItem.title} to pre-order list`);
+    const title = product.title + (optionName ? ` (${optionName})` : "");
+    showToast(`Added ${title} to pre-order list`);
 
     // Trigger flying animation
     if (sourceElement) {
-      animateToPreorder(newItem.image, sourceElement);
+      animateToPreorder(option ? option.image : product.images[0] || "", sourceElement);
     }
   },
 
   removeItem: function (index) {
     const items = this.getItems();
-    items.splice(index, 1);
-    localStorage.setItem(this.key, JSON.stringify(items));
-    this.updateUI();
-
-    // IMPORTANT: Re-render the modal immediately
-    renderPreorderModal();
+    if (items[index]) {
+      if ((items[index].quantity || 1) > 1) {
+        items[index].quantity = (items[index].quantity || 1) - 1;
+      } else {
+        items.splice(index, 1);
+      }
+      localStorage.setItem(this.key, JSON.stringify(items));
+      this.updateUI();
+      // Re-render the modal immediately
+      renderPreorderModal();
+    }
   },
 
   clear: function () {
@@ -1122,18 +1187,20 @@ const PreOrderList = {
     const items = this.getItems();
     const badge = document.getElementById("preorderBadge");
     const badgeMobile = document.getElementById("preorderBadgeMobile");
+    // Compute total quantity across pre-orders
+    const totalQty = items.reduce((s, it) => s + (it.quantity || 1), 0);
 
     // Update badge (desktop)
     if (badge) {
-      badge.textContent = items.length;
-      if (items.length > 0) badge.classList.remove("hidden");
+      badge.textContent = totalQty;
+      if (totalQty > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
     }
 
     // Update badge (mobile)
     if (badgeMobile) {
-      badgeMobile.textContent = items.length;
-      if (items.length > 0) badgeMobile.classList.remove("hidden");
+      badgeMobile.textContent = totalQty;
+      if (totalQty > 0) badgeMobile.classList.remove("hidden");
       else badgeMobile.classList.add("hidden");
     }
 
@@ -1272,19 +1339,14 @@ function renderCartModal() {
       .map(
         (item, index) => `
       <li class="cart-item">
-        <img src="${
-          item.image
-        }" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
         <div class="cart-item-info">
           <span class="cart-item-title">${item.title}</span>
-          ${
-            item.optionName
-              ? `<span class="cart-item-option">${item.optionName}</span>`
-              : ""
-          }
+          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
         </div>
-        <div style="display:flex; align-items:center;">
-          <span class="cart-item-price">$${item.price}</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="cart-item-qty">x${item.quantity || 1}</span>
+          <span class="cart-item-price">$${(item.price * (item.quantity || 1)).toFixed(2)}</span>
           <button class="cart-remove-btn" data-index="${index}" aria-label="Remove">&times;</button>
         </div>
       </li>
@@ -1300,7 +1362,7 @@ function renderCartModal() {
       });
     });
 
-    totalEl.textContent = `$${Cart.getTotal()}`;
+    totalEl.textContent = `$${Cart.getTotal().toFixed(2)}`;
 
     // Generate Checkout Link
     const checkoutTelegramBtn = document.getElementById("checkoutTelegramBtn");
@@ -1309,11 +1371,11 @@ function renderCartModal() {
     if (checkoutTelegramBtn || checkoutWhatsAppBtn || copyOrderBtn) {
       let message = "Hello, I would like to place an order:\n\n";
       items.forEach((item, i) => {
-        message += `${i + 1}. ${item.title} ${
-          item.optionName ? `(${item.optionName})` : ""
-        } - $${item.price}\n`;
+        const qty = item.quantity || 1;
+        const lineTotal = (Number(item.price) * qty).toFixed(2);
+        message += `${i + 1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} x${qty} - $${lineTotal}\n`;
       });
-      message += `\nTotal: $${Cart.getTotal()}`;
+      message += `\nTotal: $${Cart.getTotal().toFixed(2)}`;
       message += "\n\nIs this available?";
 
       if (checkoutTelegramBtn) {
@@ -1407,20 +1469,15 @@ function renderPreorderModal() {
       .map(
         (item, index) => `
       <li class="cart-item">
-        <img src="${
-          item.image
-        }" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
         <div class="cart-item-info">
           <span class="cart-item-title">${item.title}</span>
-          ${
-            item.optionName
-              ? `<span class="cart-item-option">${item.optionName}</span>`
-              : ""
-          }
+          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
           <span class="preorder-label" style="color:#FF6B6B; font-size:0.8rem; font-weight:600;">PRE-ORDER</span>
         </div>
-        <div style="display:flex; align-items:center;">
-          <span class="cart-item-price">$${item.price}</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="cart-item-qty">x${item.quantity || 1}</span>
+          <span class="cart-item-price">$${(item.price * (item.quantity || 1)).toFixed(2)}</span>
           <button class="preorder-remove-btn" data-index="${index}" aria-label="Remove">&times;</button>
         </div>
       </li>
@@ -1441,16 +1498,16 @@ function renderPreorderModal() {
     if (preorderBtn) {
       let message = "Hello, I'm interested in pre-ordering these items:\n\n";
       items.forEach((item, i) => {
-        message += `${i + 1}. ${item.title} ${
-          item.optionName ? `(${item.optionName})` : ""
-        } - $${item.price}\n`;
+        const qty = item.quantity || 1;
+        const lineTotal = (Number(item.price) * qty).toFixed(2);
+        message += `${i + 1}. ${item.title} ${item.optionName ? `(${item.optionName})` : ""} x${qty} - $${lineTotal}\n`;
       });
 
       // Add deposit information
-      const total = items.reduce((sum, item) => sum + item.price, 0);
+      const total = items.reduce((sum, item) => sum + Number(item.price) * (item.quantity || 1), 0);
       const deposit = total * 0.5;
 
-      message += `\nTotal: $${total}`;
+      message += `\nTotal: $${total.toFixed(2)}`;
       message += `\n50% Deposit: $${deposit.toFixed(2)}`;
       message += "\n\nI understand the pre-order terms:";
       message += "\n• 50% deposit required";
@@ -1658,6 +1715,52 @@ document.addEventListener("DOMContentLoaded", () => {
     preorderOptionModal.addEventListener("click", (e) => {
       if (e.target === preorderOptionModal) {
         closePreorderOptionModal();
+      }
+    });
+  }
+
+  // Cart Option Modal setup
+  const cartOptionModal = document.getElementById("cartOptionModal");
+  const closeCartOptionBtn = document.getElementById("closeCartOptionBtn");
+  const cancelCartOptionBtn = document.getElementById("cancelCartOptionBtn");
+  const confirmCartOptionBtn = document.getElementById("confirmCartOptionBtn");
+
+  if (cartOptionModal) {
+    const closeCartOptionModal = () => {
+      cartOptionModal.setAttribute("aria-hidden", "true");
+      currentProductForCart = null;
+      selectedCartOption = null;
+    };
+
+    if (closeCartOptionBtn) {
+      closeCartOptionBtn.addEventListener("click", closeCartOptionModal);
+    }
+
+    if (cancelCartOptionBtn) {
+      cancelCartOptionBtn.addEventListener("click", closeCartOptionModal);
+    }
+
+    // Confirm button - add to cart
+    if (confirmCartOptionBtn) {
+      confirmCartOptionBtn.addEventListener("click", () => {
+        if (currentProductForCart && selectedCartOption) {
+          Cart.addItem(
+            currentProductForCart,
+            selectedCartOption,
+            confirmCartOptionBtn
+          );
+          closeCartOptionModal();
+          showToast(
+            `Added ${currentProductForCart.title} (${selectedCartOption.name}) to cart`
+          );
+        }
+      });
+    }
+
+    // Close modal when clicking outside
+    cartOptionModal.addEventListener("click", (e) => {
+      if (e.target === cartOptionModal) {
+        closeCartOptionModal();
       }
     });
   }
@@ -1960,6 +2063,7 @@ function createOptionCard(product, option, onSelect) {
     option.price !== undefined
       ? `<span class="option-price">$${option.price}</span>`
       : `<span class="option-price">$${product.price}</span>`;
+
   optionElement.innerHTML = `
     <div class="option-image-wrap">
       <img src="${option.image}" alt="${option.name}" loading="lazy">
@@ -1974,6 +2078,7 @@ function createOptionCard(product, option, onSelect) {
       <h4 class="option-title">${option.name}</h4>
     </div>
   `;
+
   return optionElement;
 }
 
@@ -2500,7 +2605,35 @@ function renderProductDetail(product) {
 
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          Cart.addItem(product, selectedOption, newBtn);
+          
+          // If an option is already selected, add it directly
+          if (selectedOption) {
+            Cart.addItem(product, selectedOption, newBtn);
+            return;
+          }
+          
+          // Check available options
+          const availableOptions = product.options
+            ? product.options.filter((opt) => opt.available)
+            : [];
+          
+          if (availableOptions.length === 0) {
+            // No options, add product directly
+            Cart.addItem(product, null, newBtn);
+          } else if (availableOptions.length === 1) {
+            // Only one available option, add directly
+            Cart.addItem(product, availableOptions[0], newBtn);
+          } else {
+            // Multiple available options, show selection modal
+            currentProductForCart = product;
+            selectedCartOption = null;
+            populateCartOptions(product);
+            
+            const cartOptionModal = document.getElementById("cartOptionModal");
+            if (cartOptionModal) {
+              cartOptionModal.setAttribute("aria-hidden", "false");
+            }
+          }
         });
       } else {
         addToCartBtn.classList.add("locked");
@@ -2510,15 +2643,18 @@ function renderProductDetail(product) {
       }
     }
 
-    // 5. Update Pre-order button - ONLY SHOW FOR UNAVAILABLE PRODUCTS
-    // In the updateProductDisplay function within renderProductDetail, update the pre-order button section:
+    // 5. Update Pre-order button - handle both unavailable products and mixed availability
     if (preOrderBtn) {
-      if (product.available) {
-        // If product is available, hide and disable pre-order button
+      // Check if product has mixed availability
+      const hasMixedAvailability = product.available && product.options && product.options.length > 0 &&
+        product.options.some(opt => opt.available) && product.options.some(opt => !opt.available);
+
+      if (product.available && !hasMixedAvailability) {
+        // If product is fully available with no mixed availability, hide pre-order button
         preOrderBtn.style.display = "none";
         preOrderBtn.disabled = true;
       } else {
-        // If product is not available, show and enable pre-order button
+        // Show and enable pre-order button for unavailable products or mixed availability
         preOrderBtn.style.display = "inline-block";
         preOrderBtn.classList.remove("locked");
         preOrderBtn.disabled = false;
@@ -2534,7 +2670,8 @@ function renderProductDetail(product) {
           if (product.options && product.options.length > 0) {
             currentProductForPreorder = product;
             selectedPreorderOption = null;
-            populatePreorderOptions(product);
+            // For mixed availability, only show unavailable options
+            populatePreorderOptions(product, hasMixedAvailability);
 
             // Show the option selection modal
             const preorderOptionModal = document.getElementById(
@@ -2567,11 +2704,23 @@ function renderProductDetail(product) {
   // Initial render setup
   const hasOptions = product.options && product.options.length > 0;
 
-  // MODIFIED: Show Add to Cart only for available products, Pre-order only for unavailable products
+  // Check if product has mixed availability (some options available, some not)
+  let hasMixedAvailability = false;
+  if (hasOptions && product.available) {
+    const availableCount = product.options.filter(opt => opt.available).length;
+    const unavailableCount = product.options.length - availableCount;
+    hasMixedAvailability = availableCount > 0 && unavailableCount > 0;
+  }
+
+  // MODIFIED: Show Add to Cart for available products, add Pre-Order button for mixed availability
   let actionButtonHTML = "";
   if (product.available) {
-    // Product is available - show only Add to Cart button
+    // Product is available - show Add to Cart button
     actionButtonHTML = `<button class="btn primary add-to-cart" id="addToCartBtn">Add to Cart</button>`;
+    // If has mixed availability, also show Pre-Order button for unavailable options
+    if (hasMixedAvailability) {
+      actionButtonHTML += `<button class="btn primary pre-order" id="preOrderBtn" style="margin-left:10px;">Pre-Order</button>`;
+    }
   } else {
     // Product is not available - show only Pre-order button
     actionButtonHTML = `<button class="btn primary pre-order" id="preOrderBtn">Pre-order</button>`;
@@ -2579,7 +2728,7 @@ function renderProductDetail(product) {
 
   const compareButtonHTML =
     product.category === "mice" || product.category === "keyboards"
-      ? `<button class="btn compare" id="compareBtn">Compare</button>`
+      ? `<button class="btn compare" id="compareBtn">Product Comparison</button>`
       : "";
 
   const optionsPlaceholderHTML = hasOptions
@@ -2627,12 +2776,12 @@ function renderProductDetail(product) {
                 $${product.price}
             </div>
             ${ratingBlock}
+            ${compareButtonHTML ? `<div style="margin-top:12px;">${compareButtonHTML}</div>` : ""}
             <ul class="specs">${getSpecsList(product)
               .map((s) => `<li>• ${s}</li>`)
               .join("")}</ul>
             <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
                 ${actionButtonHTML}
-                ${compareButtonHTML}
             </div>
             <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
         </div>
@@ -2920,6 +3069,7 @@ if (document.readyState === "loading") {
     )}`;
   if (telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
   if (discordMain) discordMain.textContent = DISCORD_HANDLE;
+
 
   // Check for the containers to determine which page we are on
   const indexGrid = document.getElementById("keyboardGrid");

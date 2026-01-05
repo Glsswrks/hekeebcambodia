@@ -1266,19 +1266,30 @@ body {
 }
 
 .option-preview-stock-label {
-  border: 2px solid #ef4444;
-  color: #ef4444;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.option-preview-stock-label.out-of-stock {
+  border: 2px solid #ef4444;
+  color: #ef4444;
+}
+
+.option-preview-stock-label.in-stock {
+  border: 2px solid #22c55e;
+  color: #22c55e;
 }
 
 .option-preview-info {
   padding: 20px;
   text-align: center;
+  position: relative;
+  z-index: 5;
 }
 
 /* Prev/Next buttons inside option preview modal */
