@@ -152,4 +152,74 @@ export const mousepads = [
       { name: "Pattern 38", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01gKCpHy2AqOAUdgiop_!!856998254.jpg_.webp" },
     ]
   },
+  {
+    id: "titanmousepad-esport-fps",
+    title: "Titan Kingdoms - eSport FPS Mousepad",
+    short: "Titan Kingdoms Infinite Mousepad for Esports FPS Games, Valorant, CS, and Zero-DDoS Playing",
+    price: 18,
+    layout: "450x400",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01YDVQA11GM3Wer6Pta_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01rshrrT1GM3WaBlMqm_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/381310607/O1CN01vhspGH1GM3WfPyyGs_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/381310607/O1CN017KDWCz1GM3Wf6SL7k_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01cEIY2d1GM3WfjOZbW_!!381310607.jpg_q50.jpg_.webp"
+    ],
+    category: "mousepads",
+    specs: [
+      "Natural Rubber Base",
+      "Softness: 10-15XSOFT",
+      "Cloth: Solid Color high-desnsity plain weave fiber",
+      "Fabric Craftsmanship: Huntsman spot color bleaching and dyeing",
+      "Micro prevention waterproof",
+      "Size: 450x400x",
+      "Thickness: 5mm",
+    ],
+    options: [
+      {
+        name: "Girly Pink",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN01taY11w1GM3WeUiQtD_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Hyacinth Purple",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i1/381310607/O1CN01zldmDV1GM3WeIjaXq_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Frosty Moon Blue",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN01YcK9wE1GM3Wege75f_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Mint Mambo",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN01DsqXsq1GM3Wf3C9iv_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Hermes Orange",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN01AeIGdg1GM3N2uOliR_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Dark Night Black",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i1/381310607/O1CN01NmDeM51GM3N9a4hfE_!!381310607.jpg_.webp"
+      },
+      {
+        name: "Klien Blue",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i4/381310607/O1CN01nhWkuB1GM3N48WWUQ_!!381310607.jpg_.webp"
+      },
+      {
+        name: "China Red",
+        available: false,
+        image: "https://gw.alicdn.com/bao/uploaded/i1/381310607/O1CN01uwK1Zb1GM3N8s2sed_!!381310607.jpg_.webp"
+      },
+    ]
+  },
 ];
