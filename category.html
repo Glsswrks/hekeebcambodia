@@ -13,6 +13,13 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">Keeb Cambodia</a>
+      
+      <!-- Global Search (Desktop) -->
+      <div class="global-search-wrapper desktop-only">
+        <input type="text" id="globalSearchDesktop" class="global-search-input" placeholder="Search all products..." autocomplete="off">
+        <div id="globalSearchResultsDesktop" class="global-search-results"></div>
+      </div>
+      
       <nav class="nav">
         <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
           <span class="icon">🌙</span>
@@ -27,6 +34,16 @@
       </nav>
     </div>
   </header>
+  
+  <!-- Global Search (Mobile) -->
+  <div class="global-search-mobile mobile-only">
+    <div class="container">
+      <div class="global-search-wrapper">
+        <input type="text" id="globalSearchMobile" class="global-search-input" placeholder="Search all products..." autocomplete="off">
+        <div id="globalSearchResultsMobile" class="global-search-results"></div>
+      </div>
+    </div>
+  </div>
 
   <main>
     <section id="categoryContainer" class="products container" style="padding-top: 40px;"></section>
