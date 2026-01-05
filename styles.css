@@ -1051,6 +1051,24 @@ select.search-input::-ms-expand {
 }
 
 /* new added */
+/* Locked / hidden glasspad styles */
+.badge-locked {
+  background: #6b7280;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-left: 6px;
+}
+.card.locked {
+  opacity: 0.85;
+}
+.card .locked-link {
+  pointer-events: none;
+}
+.locked-section {
+  display: none !important;
+}
 .modal[aria-hidden="false"] {
   display: flex;
 }

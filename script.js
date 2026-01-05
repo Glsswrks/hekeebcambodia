@@ -104,6 +104,27 @@ function initImageModal() {
   }
 }
 
+// Lock any mousepad products that are glass and hide the mousepads section.
+function lockAndHideGlasspadSection() {
+  if (!Array.isArray(mousepads)) return;
+  mousepads.forEach((p) => {
+    const title = (p.title || "").toLowerCase();
+    const short = (p.short || "").toLowerCase();
+    const specs = Array.isArray(p.specs) ? p.specs.join(' ').toLowerCase() : (p.specs && typeof p.specs === 'string' ? p.specs.toLowerCase() : '');
+    if (title.includes('glass') || short.includes('glass') || specs.includes('glass') || (p.layout || '').toLowerCase().includes('glass')) {
+      p.available = false;
+      p.locked = true;
+    }
+  });
+
+  const anyLocked = mousepads.some((p) => p.locked);
+  const section = document.getElementById('mousepads');
+  if (section && anyLocked) {
+    section.style.display = 'none';
+    section.classList.add('locked-section');
+  }
+}
+
 function openImageModal(src) {
   // Backwards-compatible single-src opener
   openImageModalWithGallery([src || ""], 0);
@@ -1285,6 +1306,10 @@ function createProductCard(p) {
     else if (p.lowStock)
       badgeHTML = `<span class="badge badge-low">Limited Stock</span>`;
   }
+  // Show locked badge when product is explicitly locked
+  if (p.locked) {
+    badgeHTML += `<span class="badge badge-locked">Locked</span>`;
+  }
   const availClass = p.available
     ? "availability available"
     : "availability unavailable";
@@ -1333,6 +1358,16 @@ function createProductCard(p) {
       e.preventDefault();
       openImageModal(cardImg.src);
     });
+  }
+  // If the product is locked, disable navigation and add a visual state
+  if (p.locked) {
+    const link = card.querySelector('.card-link');
+    if (link) {
+      link.removeAttribute('href');
+      link.classList.add('locked-link');
+      link.addEventListener('click', (ev) => ev.preventDefault());
+    }
+    card.classList.add('locked');
   }
   return card;
 }
@@ -1591,6 +1626,9 @@ function populateFilterSelect(categoryName, selectEl) {
 }
 
 function initIndexPage() {
+  // Lock and hide any glass mousepads before rendering sections
+  lockAndHideGlasspadSection();
+
   initProductSection("keyboards");
   initProductSection("mice");
   initProductSection("straps");
