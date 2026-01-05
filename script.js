@@ -870,12 +870,20 @@ const Cart = {
   updateUI: function () {
     const items = this.getItems();
     const badge = document.getElementById("cartBadge");
+    const badgeMobile = document.getElementById("cartBadgeMobile");
 
-    // Update Badge
+    // Update Badge (desktop)
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
+    }
+
+    // Update Badge (mobile)
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) badgeMobile.classList.remove("hidden");
+      else badgeMobile.classList.add("hidden");
     }
 
     // Update Modal Content (if open)
@@ -928,10 +936,20 @@ const PreOrderList = {
   updateUI: function () {
     const items = this.getItems();
     const badge = document.getElementById("preorderBadge");
+    const badgeMobile = document.getElementById("preorderBadgeMobile");
+    
+    // Update badge (desktop)
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) badge.classList.remove("hidden");
       else badge.classList.add("hidden");
+    }
+
+    // Update badge (mobile)
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) badgeMobile.classList.remove("hidden");
+      else badgeMobile.classList.add("hidden");
     }
 
     // Re-render the modal if it's open
@@ -1174,8 +1192,10 @@ function renderPreorderModal() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
+  const themeToggleMobile = document.getElementById("themeToggleMobile");
   const currentTheme = localStorage.getItem("theme") || "dark";
   const cartToggle = document.getElementById("cartToggle");
+  const cartToggleMobile = document.getElementById("cartToggleMobile");
   const cartModal = document.getElementById("cartModal");
   const closeCartBtn = document.getElementById("closeCartBtn");
   const clearCartBtn = document.getElementById("clearCartBtn");
@@ -1183,10 +1203,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // NEW: Pre-order elements
   const preorderLink = document.getElementById("preorderLink");
+  const preorderLinkMobile = document.getElementById("preorderLinkMobile");
   const preorderModal = document.getElementById("preorderModal");
   const closePreorderBtn = document.getElementById("closePreorderBtn");
   const clearPreordersBtn = document.getElementById("clearPreordersBtn");
   const preorderInfoBtn = document.getElementById("preorderInfoBtn");
+
+  // Mobile Nav Elements
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileNav = document.getElementById("mobileNav");
+  const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+  const mobileNavClose = document.getElementById("mobileNavClose");
+
+  // Mobile Nav Toggle Functions
+  function openMobileNav() {
+    hamburgerBtn?.classList.add("active");
+    mobileNav?.classList.add("active");
+    mobileNavOverlay?.classList.add("active");
+    hamburgerBtn?.setAttribute("aria-expanded", "true");
+    mobileNav?.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileNav() {
+    hamburgerBtn?.classList.remove("active");
+    mobileNav?.classList.remove("active");
+    mobileNavOverlay?.classList.remove("active");
+    hamburgerBtn?.setAttribute("aria-expanded", "false");
+    mobileNav?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // Mobile Nav Event Listeners
+  hamburgerBtn?.addEventListener("click", () => {
+    const isActive = mobileNav?.classList.contains("active");
+    if (isActive) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
+  });
+
+  mobileNavClose?.addEventListener("click", closeMobileNav);
+  mobileNavOverlay?.addEventListener("click", closeMobileNav);
+
+  // Close mobile nav on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileNav?.classList.contains("active")) {
+      closeMobileNav();
+    }
+  });
 
   // Compare elements
   compareEls = {
@@ -1205,24 +1271,55 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize image modal once per page
   initImageModal();
 
+  // Helper function to sync theme icon on both toggles
+  function updateThemeIcons(isLight) {
+    const icon = isLight ? "☀️" : "🌙";
+    const label = isLight ? "Light Mode" : "Dark Mode";
+    if (themeToggle) themeToggle.querySelector(".icon").textContent = icon;
+    if (themeToggleMobile) {
+      themeToggleMobile.querySelector(".icon").textContent = icon;
+      const labelEl = themeToggleMobile.querySelector(".theme-label");
+      if (labelEl) labelEl.textContent = label;
+    }
+  }
+
   // Set initial state
   if (currentTheme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    themeToggle.querySelector(".icon").textContent = "☀️";
+    updateThemeIcons(true);
   }
 
-  themeToggle.addEventListener("click", () => {
+  // Theme toggle handler for both buttons
+  function handleThemeToggle() {
     let theme = document.documentElement.getAttribute("data-theme");
     if (theme === "light") {
       document.documentElement.removeAttribute("data-theme");
-      themeToggle.querySelector(".icon").textContent = "🌙";
+      updateThemeIcons(false);
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.setAttribute("data-theme", "light");
-      themeToggle.querySelector(".icon").textContent = "☀️";
+      updateThemeIcons(true);
       localStorage.setItem("theme", "light");
     }
+  }
+
+  themeToggle?.addEventListener("click", handleThemeToggle);
+  themeToggleMobile?.addEventListener("click", handleThemeToggle);
+
+  // Mobile cart toggle - close nav and trigger cart modal
+  cartToggleMobile?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileNav();
+    cartModal?.setAttribute("aria-hidden", "false");
   });
+
+  // Mobile pre-order link - close nav and trigger preorder modal
+  preorderLinkMobile?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileNav();
+    preorderModal?.setAttribute("aria-hidden", "false");
+  });
+
   const preorderOptionModal = document.getElementById("preorderOptionModal");
   const closePreorderOptionBtn = document.getElementById(
     "closePreorderOptionBtn"
@@ -2423,7 +2520,9 @@ function syncCartBadge() {
   if (typeof Cart !== "undefined") {
     const items = Cart.getItems();
     const badge = document.getElementById("cartBadge");
+    const badgeMobile = document.getElementById("cartBadgeMobile");
 
+    // Desktop badge
     if (badge) {
       badge.textContent = items.length;
       if (items.length > 0) {
@@ -2431,6 +2530,41 @@ function syncCartBadge() {
       } else {
         badge.classList.add("hidden");
         badge.style.display = "none";
+      }
+    }
+
+    // Mobile badge
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) {
+        badgeMobile.classList.remove("hidden");
+      } else {
+        badgeMobile.classList.add("hidden");
+      }
+    }
+  }
+
+  // Also sync preorder badges
+  if (typeof PreOrderList !== "undefined") {
+    const items = PreOrderList.getItems();
+    const badge = document.getElementById("preorderBadge");
+    const badgeMobile = document.getElementById("preorderBadgeMobile");
+
+    if (badge) {
+      badge.textContent = items.length;
+      if (items.length > 0) {
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+    }
+
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) {
+        badgeMobile.classList.remove("hidden");
+      } else {
+        badgeMobile.classList.add("hidden");
       }
     }
   }

@@ -20,7 +20,14 @@
         <div id="globalSearchResultsDesktop" class="global-search-results"></div>
       </div>
       
-      <nav class="nav">
+      <!-- Mobile Header Search -->
+      <div class="global-search-wrapper mobile-header-search mobile-only">
+        <input type="text" id="globalSearchMobile" class="global-search-input" placeholder="Search..." autocomplete="off">
+        <div id="globalSearchResultsMobile" class="global-search-results"></div>
+      </div>
+      
+      <!-- Desktop Nav -->
+      <nav class="nav desktop-only">
         <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark Mode">
           <span class="icon">🌙</span>
         </button>
@@ -32,18 +39,36 @@
           🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
         </a>
       </nav>
+      
+      <!-- Mobile Hamburger Button -->
+      <button class="hamburger-btn mobile-only" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-icon"></span>
+      </button>
     </div>
   </header>
   
-  <!-- Global Search (Mobile) -->
-  <div class="global-search-mobile mobile-only">
-    <div class="container">
-      <div class="global-search-wrapper">
-        <input type="text" id="globalSearchMobile" class="global-search-input" placeholder="Search all products..." autocomplete="off">
-        <div id="globalSearchResultsMobile" class="global-search-results"></div>
-      </div>
+  <!-- Mobile Nav Menu Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
     </div>
-  </div>
+    <div class="mobile-nav-content">
+      <button id="themeToggleMobile" class="theme-btn mobile-theme-btn" aria-label="Toggle Dark Mode">
+        <span class="icon">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+      </button>
+      <a href="#" id="preorderLinkMobile" class="mobile-nav-item">
+        <span>Pre-orders</span>
+        <span id="preorderBadgeMobile" class="cart-badge hidden">0</span>
+      </a>
+      <a href="#" id="cartToggleMobile" class="mobile-nav-item">
+        <span>Cart</span>
+        <span id="cartBadgeMobile" class="cart-badge hidden">0</span>
+      </a>
+    </div>
+  </nav>
 
   <main>
     <section id="categoryContainer" class="products container" style="padding-top: 40px;"></section>
