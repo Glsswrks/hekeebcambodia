@@ -1,50 +1,52 @@
 export const mousepads = [
   {
-    id: "pulsar-yui-edition",
-    title: "Pulsar Yui Edition Glass Mousepad (Replica)",
-    short: "490x430mm Tempered Glass Mousepad - XXL Size (Aimerz Yui Edition)",
-    price: 65,
-    layout: "490x430",
-    no_info: true,
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://www.pulsar.gg/cdn/shop/files/Pulsar-Superglide-Glass-mousepad_XXL_Aimerz_Yui_main.jpg?v=1752193016",
-    ],
-    category: "mousepads",
-    specs: [
-      "Tempered Glass Surface",
-      "Size: 490x430mm",
-      "Coating + Full Coverage Primer",
-    ],
-    options: null,
-  },
-  {
-    id: "pulsar-ayane-edition",
-    title: "Pulsar Ayane Edition Glass Mousepad (Replica)",
-    short: "490x430mm Tempered Glass Mousepad - XXL Size (Ayane Edition)",
+    id: "glsswrks-glasspad-edition",
+    title: "GLSSWRKS - Tempered Glass Mousepad (Replica)",
+    short: "GLSSWRKS - Limited Edition Tempered Glass Mousepad - Replica Version",
     price: 50,
-    layout: "490x430",
+    layout: "450x400",
     no_info: true,
     available: false,
     isNew: false,
     lowStock: false,
     images: [
-      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Ayane_main.jpg?v=1712547879",
+      "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Kazemi_Render_-_04.png",
+      "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Kazemi_Render_-_03.png",
+      "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/AkarionDesk.jpg",
+      "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Hana_1.png",
+      "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Balance_45-min.png"
     ],
     category: "mousepads",
     specs: [
       "Tempered Glass Surface",
-      "Size: 490x430mm",
+      "Size: 450x400mm",
       "Full Coverage Primer",
     ],
-    options: null,
+    options: [
+      {
+        name: "GLSSWRKS - Kazemi Edition",
+        available: false,
+        price: 55,
+        image: "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Kazemi-ezgif.com-optijpeg.jpg"
+      },
+      {
+        name: "GLSSWRKS - Akari Edition",
+        available: false,
+        price: 55,
+        image: "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/akari-transparent_f76765a1-868a-4041-a635-9025191766c5.png"
+      },
+      {
+        name: "GLSSWRKS - Hana Edition",
+        available: false,
+        price: 55,
+        image: "https://cdn.shopify.com/s/files/1/0681/1202/3779/files/Hana_Regular.png"
+      }
+    ]
   },
   {
     id: "pulsar-aimerz-edition",
-    title: "Pulsar Aimerz Edition Glass Mousepad (Replica)",
-    short: "490x430mm Tempered Glass Mousepad - XXL Size (Aimerz Edition)",
+    title: "Pulsar Tempered Glass Mousepad (Replica)",
+    short: "490x430mm Tempered Glass Mousepad - XXL Size Replica Version",
     price: 50,
     layout: "490x430",
     no_info: true,
@@ -52,7 +54,8 @@ export const mousepads = [
     isNew: false,
     lowStock: false,
     images: [
-      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_main.jpg?v=1701254311",
+      "https://ausmodshop.com/cdn/shop/files/pulsarAimerz_YuiEditionimage-007.png?v=1753163863&width=1440",
+      "https://ezpctech.com.au/cdn/shop/files/2_52ac3647-bc8c-4ff0-bc36-16778510cd9f.png?v=1753692053&width=1500"
     ],
     category: "mousepads",
     specs: [
@@ -60,27 +63,93 @@ export const mousepads = [
       "Size: 490x430mm",
       "Full Coverage Primer",
     ],
-    options: null,
+    options: [
+      {
+        name: "Pulsar Aimerz Edition",
+        available: false,
+        price: 50,
+        image: "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_main.jpg?v=1701254311"
+      },
+      {
+        name: "Pulsar Yui Edition",
+        available: false,
+        price: 65,
+        image: "https://www.pulsar.gg/cdn/shop/files/Pulsar-Superglide-Glass-mousepad_XXL_Aimerz_Yui_main.jpg?v=1752193016"
+      },
+      {
+        name: "Pulsar Ayane Edition",
+        available: false,
+        price: 50,
+        image: "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Ayane_main.jpg?v=1712547879"
+      },
+      {
+        name: "Pulsar Koharu Edition",
+        available: false,
+        price: 50,
+        image: "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Koharu_main.jpg?v=1729639565"
+      },
+    ]
   },
+  // cloth pad
   {
-    id: "pulsar-koharu-edition",
-    title: "Pulsar Koharu Edition Glass Mousepad (Replica)",
-    short: "490x430mm Tempered Glass Mousepad - XXL Size (Koharu Edition)",
-    price: 50,
-    layout: "490x430",
+    id: "anime-custom_cloth-mousepad",
+    title: "Gooner / Anime Custom Cloth Mousepad",
+    short: "Anime Custom Cloth Mousepad - Smooth Surface",
+    price: 15,
+    layout: "450x400",
     no_info: true,
     available: false,
     isNew: false,
     lowStock: false,
     images: [
-      "https://www.pulsar.gg/cdn/shop/files/Pulsar_Superglide_Glass_mousepad_XXL_Aimerz_Koharu_main.jpg?v=1729639565",
+      "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01vkoiDh2AqOAUR9pft_!!856998254.jpg_.webp",
+      "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01AUiDbj2AqOAUTciEW_!!856998254.jpg_.webp",
     ],
     category: "mousepads",
     specs: [
-      "Tempered Glass Surface",
-      "Size: 490x430mm",
-      "Full Coverage Primer",
+      "Smooth Surface Cloths Pad",
+      "Size: 450x400mm",
+      "Smooth Better Control",
     ],
-    options: null,
+    options: [
+      { name: "Pattern 1", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01vkoiDh2AqOAUR9pft_!!856998254.jpg_.webp" },
+      { name: "Pattern 2", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01AUiDbj2AqOAUTciEW_!!856998254.jpg_.webp" },
+      { name: "Pattern 3", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01Lf9f0b2AqOAVs8hGX_!!856998254.jpg_.webp" },
+      { name: "Pattern 4", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01lfMrpS2AqOAVvEEmj_!!856998254.jpg_.webp" },
+      { name: "Pattern 5", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01zjxsSW2AqOAWommA8_!!856998254.jpg_.webp" },
+      { name: "Pattern 6", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01PDeMoA2AqOAUTcVmM_!!856998254.jpg_.webp" },
+      { name: "Pattern 7", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01j9f83l2AqOAOFvHas_!!856998254.jpg_.webp" },
+      { name: "Pattern 8", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN018tYw1k2AqOAUTcZwr_!!856998254.jpg_.webp" },
+      { name: "Pattern 9", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01PV0QDC2AqOAVs7h01_!!856998254.jpg_.webp" },
+      { name: "Pattern 10", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01IaDJCA2AqOATIqiuk_!!856998254.jpg_.webp" },
+      { name: "Pattern 11", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01ARmzvh2AqOAOFy29N_!!856998254.jpg_.webp" },
+      { name: "Pattern 12", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01Bv4ivy2AqOAUTdiiN_!!856998254.jpg_.webp" },
+      { name: "Pattern 13", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01eC2bUa2AqOAVT85M7_!!856998254.jpg_.webp" },
+      { name: "Pattern 14", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01zGW8Xd2AqOAUR8I9n_!!856998254.jpg_.webp" },
+      { name: "Pattern 15", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01I8q6Rm2AqOAVHg91h_!!856998254.jpg_.webp" },
+      { name: "Pattern 16", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01WLrvMP2AqOATIrjL5_!!856998254.jpg_.webp" },
+      { name: "Pattern 17", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01UwAGC42AqOAVHfk7m_!!856998254.jpg_.webp" },
+      { name: "Pattern 18", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01kqmAZm2AqOAWoud1M_!!856998254.jpg_.webp" },
+      { name: "Pattern 19", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01rofCYl2AqOAVTBqYe_!!856998254.jpg_.webp" },
+      { name: "Pattern 20", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01MNjnFU2AqOAWotYXi_!!856998254.jpg_.webp" },
+      { name: "Pattern 21", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01roSpOM2AqOAUTk630_!!856998254.jpg_.webp" },
+      { name: "Pattern 22", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01EKR2rB2AqOAVTFCZZ_!!856998254.jpg_.webp" },
+      { name: "Pattern 23", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN017KuD7R2AqOATAAASt_!!856998254.jpg_.webp" },
+      { name: "Pattern 24", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01nrZNou2AqOATABuac_!!856998254.jpg_.webp" },
+      { name: "Pattern 25", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN0143WX0B2AqOAVHke2B_!!856998254.jpg_.webp" },
+      { name: "Pattern 26", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01bBN1J42AqOAV2rGfd_!!856998254.jpg_.webp" },
+      { name: "Pattern 27", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01FfUBO02AqOAUdcxjs_!!856998254.jpg_.webp" },
+      { name: "Pattern 28", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01boRGMA2AqOAUTkIcl_!!856998254.jpg_.webp" },
+      { name: "Pattern 29", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01PfrmtY2AqOAWovAPT_!!856998254.jpg_.webp" },
+      { name: "Pattern 30", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN011Vso6r2AqOAVvOJ8f_!!856998254.jpg_.webp" },
+      { name: "Pattern 31", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i2/856998254/O1CN01b1wNl02AqOAVvPeFa_!!856998254.jpg_.webp" },
+      { name: "Pattern 32", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN01iZW2dX2AqOASWmowY_!!856998254.jpg_.webp" },
+      { name: "Pattern 33", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01SXcRoy2AqOAOG71ss_!!856998254.jpg_.webp" },
+      { name: "Pattern 34", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN012FwdIG2AqOAOG7Mgw_!!856998254.jpg_.webp" },
+      { name: "Pattern 35", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i3/856998254/O1CN016FYOC22AqOAURIcze_!!856998254.jpg_.webp" },
+      { name: "Pattern 36", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01JFZfnS2AqOASWmcYg_!!856998254.jpg_.webp" },
+      { name: "Pattern 37", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i4/856998254/O1CN01Q7dftj2AqOAUFlvAt_!!856998254.jpg_.webp" },
+      { name: "Pattern 38", available: false, price: 15, image: "https://gw.alicdn.com/bao/uploaded/i1/856998254/O1CN01gKCpHy2AqOAUdgiop_!!856998254.jpg_.webp" },
+    ]
   },
 ];
