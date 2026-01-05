@@ -784,6 +784,34 @@ function renderComparisonTable() {
     return;
   }
 
+  // Helper function to get price display with range if product has options
+  const getPriceDisplay = (product) => {
+    const basePrice = product.price;
+    if (!product.options || product.options.length === 0) {
+      return `$${basePrice}`;
+    }
+    
+    // Get all prices from options
+    const optionPrices = product.options
+      .map(opt => opt.price !== undefined ? opt.price : basePrice)
+      .filter(price => price !== undefined);
+    
+    if (optionPrices.length === 0) {
+      return `$${basePrice}`;
+    }
+    
+    const minPrice = Math.min(basePrice, ...optionPrices);
+    const maxPrice = Math.max(basePrice, ...optionPrices);
+    
+    // If all prices are the same, just show single price
+    if (minPrice === maxPrice) {
+      return `$${basePrice}`;
+    }
+    
+    // Show price range
+    return `$${minPrice}-$${maxPrice}`;
+  };
+
   compareEls.head.innerHTML = `
     <tr>
       <th>Feature</th>
@@ -806,7 +834,7 @@ function renderComparisonTable() {
           return `<img src="${cover}" alt="${p.title}" class="comparison-img">`;
         },
       },
-      { label: "Price", value: (p) => `$${p.price}` },
+      { label: "Price", value: (p) => getPriceDisplay(p) },
       {
         label: "Availability",
         value: (p) => (p.available ? "Available" : "Unavailable"),
@@ -854,7 +882,7 @@ function renderComparisonTable() {
           return `<img src="${cover}" alt="${p.title}" class="comparison-img">`;
         },
       },
-      { label: "Price", value: (p) => `$${p.price}` },
+      { label: "Price", value: (p) => getPriceDisplay(p) },
       {
         label: "Availability",
         value: (p) => (p.available ? "Available" : "Unavailable"),
