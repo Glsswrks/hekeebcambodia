@@ -78,6 +78,30 @@ export const keycaps = [
     ],
     options: null,
   },
+  { 
+  id: "Chtholly keycaps",
+    title: "Chtholly keycaps",
+    short:
+      "Wenshao Kodolite Keycaps, Anime Theme, Original Height PBT, Compatible with 60, 65, 68, 75, and 87mm Keyboards",
+    price: 18,
+    layout: "Original Height Profile",
+    available: false,
+    no_info: true,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i3/2217746793080/O1CN01pTnaHN1YcgwhJ7SLT_!!2217746793080.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i4/2217746793080/O1CN01Mx6bpo1YcgwgvG77F_!!2217746793080.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i1/2217746793080/O1CN01u12ul11YcgwgRYTvB_!!2217746793080.jpg_q50.jpg_.webp"
+    ],
+    category: "keycaps",
+    specs: [
+      "Original Height Profile",
+      "Material: PBT",
+      "Support 75% Keyboard Layouts",
+    ],
+    options: null,
+  },
   {
     id: "cyberpunk-keycap",
     title: "Side-Print Cyberpunk Keycap",
