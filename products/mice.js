@@ -1,5 +1,4 @@
 export const mice = [
-  
   {
     id: "atkf1pro",
     title: "ATK Blazing Sky F1 SE",
@@ -41,16 +40,18 @@ export const mice = [
       {
         name: "Blazing Sky F1 Pro - Black",
         available: false,
-        image: "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_Black.jpg?v=1756979076"
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_Black.jpg?v=1756979076",
       },
       {
         name: "Blazing Sky F1 Pro - White",
         available: false,
-        image: "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_White.jpg?v=1756979076"
-      }
-    ]
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_White.jpg?v=1756979076",
+      },
+    ],
   },
-   {
+  {
     id: "lamzumayax",
     title: "Lamzu Maya X 8K Wireless",
     short: "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
@@ -124,6 +125,70 @@ export const mice = [
     ],
   },
   {
+    id: "atkA9SE",
+    title: "ATK Dragonfly A9 SE",
+    short:
+      "ATK Dragonfly A9 Wireless Bluetooth Mouse, Gaming, Ergonomic, Computer & Office Tri-mode Mouse, Star Flash Edition",
+    price: 24,
+    layout: "53g + 3g / 57 + 3g",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    sellerRating: 8,
+    images: [
+      "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01BH0rr21rFJTQXVoKs_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i3/2218772325601/O1CN01vfKvWY1rFJQyLdVuf_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01Gj9ygv1rFJQzcuaQq_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01W175qh1rFJQsObkpM_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN01r9h8oH1rFJQzcxwJO_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i3/2218772325601/O1CN01T9R0Eb1rFJQy3yLXq_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN012D32eJ1rFJQzCivkO_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN0159DEfL1rFJQz1Xw9F_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01zTwgP91rFJQzCj8Et_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i4/2218772325601/O1CN01H7lP2z1rFJQxCzJSg_!!2218772325601.jpg",
+      "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN01CIlqnK1rFJQz1a9PN_!!2218772325601.webp",
+    ],
+    category: "mice",
+    specs: {
+      battery: "500-800mAh (Version Dependent)",
+      coating: "Ice-Feel Coating (A9 PLUS, A9 PRO, A9 PRO MAX, A9 ULTRA)",
+      sensor: "PAW3311 / PAW3395SE / PAW3395 / PAW3395 ULTRA/ PAW3390 ULTRA",
+      weight: "53g + 3g / 57 + 3g",
+      pollingRate: "1K / 8K Hz (Version Dependent)",
+      acceleration: "50G",
+      trackingSpeed: "750IPS",
+      mcu: "HiSilicon NearLink / Pixart / BEKEN Custom Esport / Nordic 52840",
+      dpi: "10 - 30000 (Overclockable to 40000)",
+      switch:
+        "Huanuo Blue Glow V2 / Huanuo Ice Berry Pink Dot / Omron Optical - ATK Custom Tuned Optical",
+      connectivity: "Wireless (2.4GHz) / Wired / Bluetooth",
+      features: ["ATK HUB/Web Driver Supported"],
+    },
+    options: [
+      {
+        name: "ATK A9 SE - White (1K Hz)",
+        price: 24,
+        available: false,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_White.jpg?v=1742785677",
+      },
+      {
+        name: "ATK A9 Pro - Pink (8K Hz)",
+        price: 47,
+        available: false,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_Pink.jpg?v=1742785655",
+      },
+      {
+        name: "ATK A9 ULTRA - Black (8K Hz)",
+        price: 60,
+        available: false,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_Black.jpg?v=1742785751",
+      },
+    ],
+  },
+  {
     id: "scyroxv8",
     title: "Scyrox V8",
     short:
@@ -178,7 +243,7 @@ export const mice = [
       "https://attackshark.com/cdn/shop/files/83c1bc164a2861ecc083568a0b017ba0_1a0ecd38-b038-42d0-9390-d07fe8c398aa.png?v=1737168023&width=800",
       "https://attackshark.com/cdn/shop/files/6_1.png?v=1737168023&width=800",
       "https://attackshark.com/cdn/shop/files/1_58f55721-c300-4efa-b772-08c2b244a2eb.jpg?v=1737167973&width=800",
-      "https://attackshark.com/cdn/shop/files/7_f0e5b018-a63e-4cb2-a090-c480098e1d36.png?v=1737168023&width=800"
+      "https://attackshark.com/cdn/shop/files/7_f0e5b018-a63e-4cb2-a090-c480098e1d36.png?v=1737168023&width=800",
     ],
     category: "mice",
     specs: {
@@ -200,24 +265,28 @@ export const mice = [
       {
         name: "Attack Shark R3 - Purple Blue",
         available: false,
-        image: "https://attackshark.com/cdn/shop/files/7_e7020d5a-14d8-4f73-b1b3-3bf90a565766.jpg?v=1752039923&width=800"
+        image:
+          "https://attackshark.com/cdn/shop/files/7_e7020d5a-14d8-4f73-b1b3-3bf90a565766.jpg?v=1752039923&width=800",
       },
       {
         name: "Attack Shark R3 - Black",
         available: false,
-        image: "https://attackshark.com/cdn/shop/files/6_64e3fbed-0685-4cff-8650-13bf45b17a80.jpg?v=1752039923&width=800"
+        image:
+          "https://attackshark.com/cdn/shop/files/6_64e3fbed-0685-4cff-8650-13bf45b17a80.jpg?v=1752039923&width=800",
       },
       {
         name: "Attack Shark R3 - White",
         available: false,
-        image: "https://attackshark.com/cdn/shop/files/5_4fae3359-5720-47b0-ae41-45f226d12c87.jpg?v=1752039923&width=800"
+        image:
+          "https://attackshark.com/cdn/shop/files/5_4fae3359-5720-47b0-ae41-45f226d12c87.jpg?v=1752039923&width=800",
       },
       {
         name: "Attack Shark R3 - Grey",
         available: false,
-        image: "https://attackshark.com/cdn/shop/files/8_bc08ecdb-8413-4288-8de5-fc7937dfc7ea.jpg?v=1752039923&width=800"
+        image:
+          "https://attackshark.com/cdn/shop/files/8_bc08ecdb-8413-4288-8de5-fc7937dfc7ea.jpg?v=1752039923&width=800",
       },
-    ]
+    ],
   },
   {
     id: "VGNDragonFlyF2SE",
@@ -256,9 +325,7 @@ export const mice = [
       switch:
         "Honor Mechanical Micro Swicth / Omron Micro Optical Switch / Custom Kaihua Switch",
       connectivity: "Wireless (2.4GHz) / Wired",
-      features: [
-        "Custom VHub Client / Web Driver Supported",
-      ],
+      features: ["Custom VHub Client / Web Driver Supported"],
     },
     options: [
       {
@@ -327,5 +394,4 @@ export const mice = [
     },
     options: null,
   },
- 
 ];
