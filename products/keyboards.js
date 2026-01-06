@@ -1,11 +1,54 @@
 export const keyboards = [
+  /*
+  // Keyboard Full Keyboard Object Template
+  {
+    id: "",
+    title: "",
+    short:
+      "",
+    price: 0,
+    layout: "0",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "",
+    ],
+    category: "keyboards",
+    sellerRating: 0,
+    specs: {
+      layout: "60% (61 keys)",
+      case: "",
+      keycaps: "",
+      switches: "",
+      pollingRate: "",
+      latency: "",
+      singleKeyScanRate: "",
+      precision: "",
+      fullKeyScanRate: "",
+      rtRange: "",
+      features: [
+      // + Main Features
+        "", // -> position plate of the keyboard
+        "", // -> Keyboard Dead-Zone
+        "", // -> Keyboard RGB Details
+        "", // -> Keyboard Functions
+        "", // -> Keyboard Drivers
+        "", // -> Music Rythm RGB
+        "", // -> Structure Design
+      ],
+    },
+    options: null
+  },
+
+  */
   {
     id: "atk-edge60he",
     title: "ATK EDGE60 HE ULTIMATE",
     short:
       "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
     price: 200,
-    layout: "60",
+    layout: "60%",
     available: true,
     isNew: false,
     lowStock: false,
@@ -20,34 +63,39 @@ export const keyboards = [
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-partial-transparent-keycaps.jpg",
       "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/edge60-with-transparent-keycaps.jpg",
       "https://www.atk.store/cdn/shop/files/20250623-104617.jpg?v=1750658025",
-      "https://www.atk.store/cdn/shop/files/20250623-105114.jpg?v=1750658025"
+      "https://www.atk.store/cdn/shop/files/20250623-105114.jpg?v=1750658025",
     ],
     category: "keyboards",
     sellerRating: 10,
     specs: {
-      layout: "60% (61 keys)",
+      layout: "60% (61 Keys)",
       case: "Full Aluminum CNC case",
-      keycaps: "PBT dye‑sublimation keycaps",
-      switches: "TTC RGB Magneto Switches / Gateron Jade Gaming Switches / ATK Leviatan Switches",
-      pollingRate: "8K Hz",
+      keycaps: "5 Side Dye-Sub Cherry Profile Keycaps",
+      switches:
+        "TTC RGB Magneto Switch / Gateron Jade Gaming Switch / ATK Leviatan Switch",
+      pollingRate: "8000Hz",
       latency: "0.08ms",
       singleKeyScanRate: "Extreme 256K Hz",
       precision: "0.001mm",
       fullKeyScanRate: "32K Hz N-Key",
       rtRange: "0.001 ~ 3.3mm",
       features: [
-        "Carbon Fiber / Aluminum Alloy Position Plate",
-        "Zero Dead-Zone",
-        "Super Stable Rapid-Trigger",
-        "Extreme (Frenzy Mode) RT & Step accuracy can be as low as 0.001mm",
-        "Mode Switch Physical Button",
-        "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
+        // + Main Features
+        "Aluminum Alloy Position Plate / Carbon Fiber", // -> position plate of the keyboard
+        "Zero Dead-Zone", // -> Keyboard Dead-Zone
+        "South Facing / 16.8 Million RGB", // -> Keyboard RGB Details
+        "Functions: SOCD / DKS / RT / MT / TGL / Key Remapping", // -> Keyboard Functions
+        "Dual Drivers Support", // -> Keyboard Drivers
+        "Music Rhythm RGB Support", // -> Music Rythm RGB
+        "Top Mount Design Structure", // -> Structure Design
+
+        // -> Other Features
         "Champion Preset Support",
-        "Music Rythm RGB (Ultimate Edition)",
-        "Dual Drivers Support",
-        "Optimal Structure Design",
-        "South Facing / 16.8 Million RGB",
-        "5 Side Dye-Sub Cherry Profile Keycaps",
+        "On-Board Memory Support",
+        "Physical Mode Switch Button (Profile Switch)",
+        "Extreme Mode (Frenzy Mode) RT & Step accuracy can be as low as 0.001mm",
+        "Connection: Wired",
+        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
@@ -67,635 +115,212 @@ export const keyboards = [
     ],
   },
   {
-    id: "ace68turbo",
-    title: "MCHOSE ACE68 TURBO",
+    id: "atk-rs-6",
+    title: "ATK RS-6 / RS-6 Ultra",
     short:
-      "MCHOSE Ace 68 Turbo – World's First 16K Polling Rate HE Aluminum Keyboard",
-    price: 100,
-    layout: "68",
+      "ATK RS6 Aluminum Hall Effect Keyboard - Co-Developed with Pro Player Aspas – Extreme Performance Series RS6 Hall Effect Keyboard",
+    price: 110,
+    layout: "65%",
     available: false,
     isNew: false,
     lowStock: false,
-    sellerRating: 9,
     images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Dynamic_RGB_Lightbox_with_Music_Sync_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Multi-Function_Control_Knob_and_RT_Button_on_Ace_68_Turbo.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/31.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/22.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_65_Hot-Swappable_Rapid_Trigger_Keyboard_1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/ace68turbo/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png",
+      "https://www.atk.store/cdn/shop/files/20250515-143801.jpg?v=1763534451",
+      "https://www.atk.store/cdn/shop/files/20250515-143810.jpg?v=1762246085",
+      "https://www.atk.store/cdn/shop/files/20250515-143806.jpg?v=1762246085",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__03.jpg?v=1763515384&width=2000",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__05.jpg?v=1763515386&width=2000",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__06.jpg?v=1763515375&width=2000",
+      "https://www.atk.store/cdn/shop/files/20251118-182516.jpg?v=1763515701&width=2000",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__09.jpg?v=1763515380&width=2000",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__05.jpg?v=1763515386&width=2000",
+      "https://www.atk.store/cdn/shop/files/RS6-_-PC__11.jpg?v=1763515335&width=2000",
     ],
     category: "keyboards",
+    sellerRating: 8,
     specs: {
-      layout: "65% (68 keys)",
-      case: "Full Aluminum CNC",
-      switches: "Switche Options: Polaris / Jade Pro / Mount Tai GT",
-      pollingRate: "16K / 8K Hz",
-      latency: "0.08ms / 0.06ms",
-      singleKeyScanRate: "256K Hz",
-      precision: "0.01mm",
-      rtRange: "0.1 ~ 3.4mm",
-      features: [
-        "Zero Dead-Zone",
-        "2/4 PCB Layers",
-        "Adaptive Dynamic Calibration 2.0",
-        "Electric Light-Box",
-        "3 Rapid-Trigger profile support",
-        "RT Button profile switch",
-        "Multi-Function Knob",
-        "Dual Drivers Support",
-        "16M ARGB, Music Rhythm 2.0, Aura Sync",
-        "Wired Connection",
-        "Proprietary MCR height profile",
-      ],
-    },
-    options: [
-      {
-        name: "Galaxy Orange - Polaris Switch (8K)",
-        price: 100,
-        available: false,
-        image:
-        "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800"
-      },
-      {
-        name: "Cyber Black - Polaris Switch (8K)",
-        price: 100,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800"
-      },
-      {
-        name: "Nova White - Polaris Switch (8K)",
-        price: 100,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800"
-      },
-      {
-        name: "Peachy Pink - Polaris Switch (8K)",
-        price: 100,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800"
-      },
-      {
-        name: "Berry Red - Polaris Switch (8K)",
-        price: 100,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800"
-      },
-
-      // 16K Options
-      {
-        name: "Galaxy Orange - Mount Tai Switch GT (16K)",
-        price: 130,
-        available: false,
-        image:
-        "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800"
-      },
-      {
-        name: "Cyber Black - Mount Tai Switch GT (16K)",
-        price: 130,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800"
-      },
-      {
-        name: "Nova White - Mount Tai Switch GT (16K)",
-        price: 130,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800"
-      },
-      {
-        name: "Peachy Pink - Mount Tai Switch GT (16K)",
-        price: 130,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800"
-      },
-      {
-        name: "Berry Red - Mount Tai Switch GT (16K)",
-        price: 130,
-        available: false,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800"
-      },
-    ]
-  },
-  {
-    id: "made68pro",
-    title: "MELGEEK MADE68 PRO",
-    short:
-      "The MADE68 Pro goes beyond a simple keyboard. It's a truly modular experience, engineered with wireless freedom and MelGeek HIVE",
-    price: 140,
-    layout: "68",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    sellerRating: 8.5,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_12.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_10.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_11.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_9.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/made68pro/MelGeek_MADE68_Pro_14.jpg",
-      "https://www.melgeek.com/cdn/shop/files/Made68_Pro_25.jpg?v=1757611119&width=1920",
-      "https://www.melgeek.com/cdn/shop/files/Made68_Pro_12.jpg?v=1757610785&width=1920",
-      "https://www.melgeek.com/cdn/shop/files/made84_pro_1_3.png?v=1757586215&width=1038"
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "68% (68 keys)",
-      case: "ABS + PC",
-      keycaps: "ABS Double-Shot Keycaps",
-      switches: "Hot‑swap / magnetic switches",
-      pollingRate: "8K Hz",
-      latency: "0.125ms",
-      fullKeyScanRate: "16K Hz",
-      precision: "0.01mm",
-      rtRange: "0.1 ~ 4.0mm",
-      features: [
-        "Aluminum Alloy Position Plate",
-        "N-Key Rollover Support",
-        "Zero Dead-Zone",
-        "Electric Light-Box",
-        "Functions SOCD / DKS / RT / MT / TGL / Key remapping",
-        "Wired Connection",
-        "Proprietary MCR original height profile",
-        "16 Millions Color RGB Backlit",
-      ],
-    },
-    options: null,
-  },
-  {
-    id: "iqunix-ez63",
-    title: "IQUNIX EZ63 8K Magnetic HE",
-    short: "IQUNIX EZ63 8KHz Polling Rate Magnetic Switch Gaming Keyboard",
-    price: 150,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    sellerRating: 9,
-    images: [
-      "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/ml001.de632f1c_4207f70c-d610-4e2e-b699-1d100cc38f3e.jpg?v=1718718976",
-      "https://cdn.shopify.com/s/files/1/0676/7853/5986/files/l004.a6559626_1cbfda67-2cb8-4eea-9c44-21b2c20fbc77.jpg?v=1718718976",
-      "https://m.media-amazon.com/images/I/71oXr1eldGL.jpg",
-      "https://iqunix.com/cdn/shop/articles/0347.jpg?v=1724826927",
-      "https://m.media-amazon.com/images/I/61KjyMs2WxL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71ttPO02TfL._AC_SL1500_.jpg",
-    ],
-    category: "keyboards",
-    specs: {
-      case: "Full CNC Aluminum Chassis",
-      layout: "60% (64 keys)",
+      layout: "65% (68 Keys)",
+      case: "Full Aluminum CNC Case",
+      keycaps: "Double-Shot / Dye-Sub Cherry Profile PBT",
+      switches:
+        "TTC RGB Mageneto Switch / Gateron Jade Gaming Switch / Gateron Jade Pro Switch / Ice Blade Switch / Snow Blade Switch / ATK Leviatan Switch / Gateron Jade Gaming Max",
       pollingRate: "8000Hz",
-      latency: "0.125ms",
-      singleKeyScanRate: "16K Hz",
-      fullKeyScanRate: "2K Hz - 4K Hz (Dynamic)",
-      precision: "0.05mm",
-      rtRange: "0.1 ~ 4.0mm",
+      latency: "0.08ms",
+      singleKeyScanRate: "256K Hz",
+      precision: "0.001mm",
+      fullKeyScanRate: "32K Hz N-Key",
+      rtRange: "0.001 ~ 3.3mm",
       features: [
-        "Gateron Star Trail / Jade Pro Magnetic Switches",
-        "Esports Gasket Mount Structure",
-        "Web-based Driver",
-        "Double-shot PBT Keycaps",
-        "Dimensions: 307 x 124.5 x 22mm | Weight: ~1.0kg",
+        // + Main Features
+        "Aluminum Alloy Position Plate", // -> position plate of the keyboard
+        "Zero Dead-Zone", // -> Keyboard Dead-Zone
+        "South Facing / 16.8 Million RGB", // -> Keyboard RGB Details
+        "Functions: SOCD / DKS / RT / MT / TGL / Key Remapping", // -> Keyboard Functions
+        "Dual Drivers Support", // -> Keyboard Drivers
+        "Music Rhythm RGB Support", // -> Music Rythm RGB
+        "Padding: Paron Foam + PET Film + EPDM Foam", // -> Structure Design
+
+        // -> Other Features
+        "Champion Preset Support",
+        "On-Board Memory Support",
+        "Connection: Wired",
+        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
       {
-        name: "Black / Star Trail Switches",
-        available: true,
-        image: "https://m.media-amazon.com/images/I/5191XtHTByL.jpg",
-      },
-      {
-        name: "White / Magnetic Jade Pro",
-        available: true,
-        image:
-          "https://iqunix.com/cdn/shop/files/20250310-095053.jpg?v=1742280303&width=1946",
-      },
-      {
-        name: "Pink / Pink Jade Pro",
-        available: true,
-        image:
-          "https://cdn.mwave.com.au/images/400/iqunix_ez63_pink_rgb_he_mechanical_gaming_keyboard_star_trail_switch_ac81339_62101.jpg",
-      },
-    ],
-  },
-  {
-    id: "titan68",
-    title: "TITAN68 HE (TITAN NATION)",
-    short:
-      "TITAN68 HE Peak Performance Esports Magnetic Keyboard - TRUE 8000Hz Polling Rate",
-    price: 90,
-    layout: "65",
-    available: true,
-    isNew: false,
-    lowStock: false,
-    sellerRating: 8.5,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/2.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/3.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/4.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/5.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/6.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/7.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/8.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/9.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/10.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/11.jpg",
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "65% (68 keys)",
-      case: "High-End CNC Aluminum Craftsmanship",
-      switches: "Gateron Magnetic Jade",
-      pollingRate: "8K Hz",
-      latency: "0.125ms",
-      fullKeyScanRate: "32K Hz",
-      singleKeyScanRate: "128K Hz",
-      rtRange: "0.001 ~ 3.4mm",
-      precision: "0.01mm",
-      features: [
-        "Multifunction Physical Button (Short press for RGB, long press for RT mode)",
-        "Adjustable Rapid-Trigger Stabilizer Algorithm",
-        "Functions: SOCD / DKS / RT / MT / TGL / Key remapping / Music Rhythm / Emergency Stop",
-        "PCB Nano Waterproof Technology",
-        "Aluminum Alloy Position Plate",
-        "Standard PBT / Five-sided Dye-Sub keycaps (PRO)",
-      ],
-    },
-    options: [
-      {
-        name: "TITAN68HE PURPLE THEME",
-        available: true,
-        price: 90,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/purple.png",
-      },
-      {
-        name: "TITAN68HE RED THEME",
-        available: true,
+        name: "ATK RS-6 (Black) - Gateron Jade Pro Switch",
+        available: false,
         price: 110,
         image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/titan68/red.png",
+          "https://www.atk.store/cdn/shop/files/ATK_RS6_Keyboard_Black.jpg?v=1763534451",
+      },
+      {
+        name: "ATK RS-6 (White) - Gateron Jade Pro Switch",
+        available: false,
+        price: 110,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_RS6_Keyboard_White_Shadow_Warrior.jpg?v=1763534451",
+      },
+      {
+        name: " ATK RS-6 Ultra (Aspas Edition) - TTC RGB Magneto Switch",
+        available: false,
+        price: 135,
+        image:
+          "https://www.atk.store/cdn/shop/files/20250515-143801.jpg?v=1763534451",
+      },
+      {
+        name: "ATK RS-6 Ultra (Sakura Warrior Edition) - TTC RGB Magneto Switch",
+        available: false,
+        price: 135,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_RS6_Keyboard_Sakura_Warrior.jpg?v=1763534451",
+      },
+      {
+        name: "ATK RS-6 Ultra (Pink Blade Edition) - TTC RGB Magneto Switch",
+        available: false,
+        price: 135,
+        image:
+          "https://www.atk.store/cdn/shop/files/ATK_RS6_Keyboard_Rosy_Fairy.jpg?v=1763534451",
       },
     ],
   },
   {
-    id: "atk-68rx",
-    title: "ATK 68 RX",
+    id: "mchose-ace68-turbo",
+    title: "MCHOSE ACE68 TURBO",
     short:
-      "ATK 68 RX - Meet the Forged Carbon Limited Edition, paired with Cosmic switches. Designed for a unique feel.",
-    price: 70,
-    layout: "65",
+      "Mchose ACE68 Turbo - First ever 16K Hz Polling Rate Hall Effect Keyboard with Dual Core Power",
+    price: 90,
+    layout: "65%",
     available: false,
     isNew: false,
     lowStock: false,
-    sellerRating: 7,
     images: [
-      "https://halleffectkeyboard.com/wp-content/uploads/2025/08/1-12.jpg",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__02.jpg?v=1764137347&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__07.jpg?v=1764137333&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__10.jpg?v=1764137293&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__04.jpg?v=1764137293&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__06.jpg?v=1764137256&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__05.jpg?v=1764137259&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__03.jpg?v=1764137253&width=2000",
-      "https://www.atk.store/cdn/shop/files/68RX_-_PC__08.jpg?v=1764137258&width=2000",
+      "https://www.mchose.store/cdn/shop/files/Dynamic_RGB_Lightbox_with_Music_Sync_on_Ace_68_Turbo.png?v=1761702712&width=800",
+      "https://www.mchose.store/cdn/shop/files/Multi-Function_Control_Knob_and_RT_Button_on_Ace_68_Turbo.png?v=1761702723&width=800",
+      "https://www.mchose.store/cdn/shop/files/31.png?v=1761702715&width=800",
+      "https://www.mchose.store/cdn/shop/files/Ace_68_Turbo_key_features.jpg?v=1766544101&width=2000",
+      "https://www.mchose.store/cdn/shop/files/Ace_68_turbo0.001mm_Precision.png?v=1761702674&width=1000",
+      "https://www.mchose.store/cdn/shop/files/22.png?v=1761702757&width=1000",
+      "https://www.mchose.store/cdn/shop/files/Ace_68_Turbo_Keyboard_Structure_Layers_Aluminum_Plate_Foam_PCB2.png?v=1761702906&width=1000",
+      "https://www.mchose.store/cdn/shop/files/Ace_68_Turbo_magnetic_switch_keyboard_options1226.png?v=1766752635&width=2000",
+      "https://www.mchose.store/cdn/shop/files/Ace_68_Turbo_HE_Keyboard_what_in_box.png?v=1761702702&width=1800",
     ],
     category: "keyboards",
+    sellerRating: 9,
     specs: {
       layout: "65% (68 keys)",
-      case: "Aluminum Alloy Position Plate",
-      pollingRate: "8K Hz",
-      latency: "0.08ms",
-      singleKeyScanRate: "256K",
-      fullKeyScanRate: "32K",
-      precision: "0.005mm",
+      case: "Full Aluminum CNC case",
+      keycaps: "Color-matching Cherry profile PBT keycaps",
+      switches:
+        "Mount Tai Switch GT / Polaris Switch / Gateron Jade Pro Switch",
+      pollingRate: "8000Hz - 16000Hz (Version Dependent)",
+      latency: "0.08ms - 0.06ms (Version Dependent)",
+      singleKeyScanRate: "256K Hz",
+      precision: "0.001mm",
+      fullKeyScanRate: "32K Hz",
+      rtRange: "0.001mm ~ 3.4mm",
       features: [
-        "Zero Dead-Zone",
-        "Preset Switch Physical Button (up to 3 profiles)",
-        "Super stable RT",
-        "Detachable CNC Aluminum Wrist Rest",
-        "6-Layers Flagship Padding",
-        "Adjustable Dual Stage Feet",
-        "Cherry Profile Keycaps, Frosted PC",
+        // + Main Features
+        "Aluminum Alloy Position Plate", // -> position plate of the keyboard
+        "Zero Dead-Zone", // -> Keyboard Dead-Zone
+        "South-facing RGB LED Lights - 16M ARGB - Aura Synce", // -> Keyboard RGB Details
+        "Functions: RS, SOCD, DKS, MT, TGL, Key Macros", // -> Keyboard Functions
+        "Dual Driver Support", // -> Keyboard Drivers
+        "Music Rythm Support", // -> Music Rythm RGB
+        "Internal Foam: Aluminum Alloy Positioning Plate + Sandwich Foam + Fiber Switch Pad + PET Sound-Damping Pad + Bottom Foam + PET Base Pad", // -> Structure Design
+
+        // -> Other Features
+        "Single Core MCU + Dual Core MCU Options",
+        "Four-Layers PCB (Mount Tai Switch GT Version)",
+        "On-Board Memory Support",
+        "Eletric Light Box Design",
+        "Independent Physical Button, Supports 3 Profiles",
+        "Multi-Function Control Knob",
+        "Connection: Wired",
+        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
       {
-        name: "White / Wolf Switches",
+        name: "Cyber Black - Polaris Switch (8K Hz)",
         available: false,
-        image:
-          "https://www.atk.store/cdn/shop/files/0a880f505c69d7e7d07d0e5117ab8804.jpg?v=1753930212",
+        price: 90,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
       },
       {
-        name: "Pink / Wolf Switches",
+        name: "Galaxy Orange - Polaris Switch (8K Hz)",
         available: false,
-        image:
-          "https://www.atk.store/cdn/shop/files/a41da8b0ebf45d9eef904598ea8249c9.jpg?v=1753930438",
+        price: 90,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
       },
       {
-        name: "Black / Wolf Switches",
+        name: "Nova White - Polaris Switch (8K Hz)",
         available: false,
-        image:
-          "https://www.atk.store/cdn/shop/files/ac32e9e1554198b2e59119946fb32d1c.jpg?v=1753930438",
+        price: 90,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
       },
       {
-        name: "Black - Forged Carbon Limited / Wolf Switches",
+        name: "Berry Red - Polaris Switch (8K Hz)",
         available: false,
-        image:
-          "https://www.atk.store/cdn/shop/files/20251126-142222.jpg?v=1764138160",
-      },
-    ],
-  },
-  {
-    id: "storm68",
-    title: "NZO STORM68 HE",
-    short:
-      "NZO STORM68 HE Full Aluminum CNC Shell Hall Effect Keyboard with precision 0.005mm + 256K Scanning Rate",
-    price: 75,
-    layout: "68",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    sellerRating: 7.5,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/1.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/22.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/33.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/44.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/55.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/66.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/2.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/3.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/4.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/6.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/7.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/8.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/9.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/11.jpg",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/specs.jpg",
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "68% (68 keys)",
-      case: "Full Aluminum CNC Shell",
-      pollingRate: "8K Hz",
-      singleKeyScanRate: "256K",
-      fullKeyScanRate: "32K",
-      precision: "0.005mm",
-      latency: "0.08ms",
-      rtRange: "0.005 ~ 3.3mm",
-      features: [
-        "16.7 million ARGB, 500Hz Refresh",
-        "Carbon Fiber / Aluminum Position Plate variants",
-        "PBT Double / Theme Keycaps",
-        "Functions SOCD / DKS / RT / MT / Key remapping",
-        "Web-Driver Supported (NZO GEAR HUB)",
-      ],
-    },
-    options: [
-      {
-        name: "Cyber-Yellow",
-        available: true,
-        price: 70,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/cyberpunk.png",
+        price: 90,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
       },
       {
-        name: "Ethernal Blue",
-        available: true,
-        price: 75,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/blue.png",
-      },
-      {
-        name: "Sharp Silver",
+        name: "Peachy Pink - Polaris Switch (8K Hz)",
         available: false,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/storm68/black.png",
-      },
-    ],
-  },
-  {
-    id: "neon-75-he",
-    title: "VGE NEON 75 HE",
-    short:
-      "VGE NEON 75 HE - Esports Wireless Magnetic Switch Keyboard",
-    price: 40,
-    layout: "75",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    sellerRating: 7.5,
-    images: [
-      "https://vgnlab.com/cdn/shop/files/4_e6ad2c7c-3f79-4f35-b833-2b42a978e917.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/1_edfae146-07a8-48b7-afdd-140522374b22.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/2_140f3a93-7085-4f99-99be-ab83e9f7f4b3.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/3_3a123006-d75d-4c83-945d-e8faa9f2e81a.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/5_c2f3c225-5bd0-4461-968a-fcc3d0363f66.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/6_9a62604f-91c5-4c5d-9f1c-6c0e988ab7d6.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/7_82aff3c6-814a-4b7d-9e8b-801899361176.png?v=1750326020&width=2000",
-      "https://vgnlab.com/cdn/shop/files/8_d41fe0af-f9ab-45fa-9a5c-73996703d0ff.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/10_d0bc5da1-0a79-404c-a58b-b4ca5347b76b.png?v=1750326019&width=2000",
-      "https://vgnlab.com/cdn/shop/files/11gai.png?v=1750728795&width=2000"
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "75% (81 keys)",
-      case: "Plastic Case + Aluminum Position Plate",
-      pollingRate: "Single 8K / Dual 8K (Version Dependent)",
-      singleKeyScanRate: "128K / 256K Hz (Version Dependent)",
-      fullKeyScanRate: "16K / 32K Hz (Version Dependent)",
-      precision: "0.005mm",
-      latency: "0.1ms",
-      switches: "Hulk Switch / TTC Sprite King Switch / Thanos Switch",
-      features: [
-        "Zero Dead Zone",
-        "Battery: 8000mAh (Neon Pro / Neon Ultra)",
-        "Buttom Light Position + Colorful Neon Light Strip",
-        "Music Rythm Supported (Neon HE)",
-        "Connectivity: Tri-Mode (Neon Pro / Neon Ultra)",
-        "Web-Driver Supported",
-      ],
-    },
-    options: [
-      {
-        name: "Midnight Black (HE) - Hulk Switch",
-        available: false,
-        price: 40,
-        image: "https://vgnlab.com/cdn/shop/files/VGN-Neon-he-Midnight-Black.jpg?v=1750328084"
-       },
-        {
-        name: "Lunar White (HE) - Hulk Switch",
-        available: false,
-        price: 40,
-        image: "https://vgnlab.com/cdn/shop/files/VGN-Neon-he-Elven-White.jpg?v=1750328084"
-       },
-        {
-        name: "Obsidian Black (ULTRA) - TTC Sprite King Switch",
-        available: false,
-        price: 70,
-        image: "https://vgnlab.com/cdn/shop/files/VGN-Neon-ultra-Obsidian-Black-Metal.jpg?v=1750141357"
-       },
-    ],
-  },
-  {
-    id: "aula-ag60-series",
-    title: "AULA AG60 HE Series",
-    short: "AULA AG60 Dual-Engine 8K Magnetic Switch Aluminum Keyboard",
-    price: 135,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1644.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU1R2.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU2628.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU4939.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUD64.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HU5S1.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUL44.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUSQ.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HUR53.jpg",
-      "https://www.aulastar.com/uploads/allimg/20250826/1-250R61HZ22J.jpg",
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "60% (61 keys)",
-      pollingRate: "8000Hz",
-      latency: "0.1ms",
-      singleKeyScanRate: "2304KHz Per-Key",
-      fullKeyScanRate: "256K Full Key Matrix",
-      precision: "0.001mm RT Precision",
-      features: [
-        "Adjustable Zero-Dead-Zone",
-        "Aether Magnetic Switches",
-        "Carbon Fiber Positioning Plate",
-        "CNC Anodized Aluminum Case",
-        "5-Layer Silent Noise Reduction",
-        "Twin-Star Per-key RGB (130 ARGB LEDs)",
-        "Functions: SOCD / DKS / RT / MT / TGL / Key Remapping",
-      ],
-    },
-    options: [
-      {
-        name: "AG60 Max / Warm Silver",
-        available: true,
-        image:
-          "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PT54.jpg",
-        price: 135,
+        price: 90,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
       },
       {
-        name: "AG60 Max / Racing Red",
+        name: "Cyber Black - Mount Tai Switch GT (16K Hz)",
         available: false,
-        image:
-          "https://www.aulastar.com/uploads/allimg/20250819/1-250Q9152PKU.jpg",
-        price: 150,
-      },
-    ],
-  },
-  {
-    id: "cidoo-qk61-v2",
-    title: "CIDOO QK61 V2",
-    short: "CIDOO QK61 V2 Tri-Mode VIA Programmable Gasket Mechanical Keyboard",
-    price: 40,
-    layout: "60",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3789.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3807.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3801.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3755.jpg?v=1728442680",
-      "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3760.jpg?v=1728442680",
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "60% (61 keys)",
-      features: [
-        "Tri-Mode: 2.4G / Bluetooth 5.0 / Wired USB-C",
-        "Wired Polling Rate: 1000Hz (3ms Latency)",
-        "Polling Rate: 1000Hz",
-        "VIA Programmable (QMK)",
-        "Hot-swappable PCB (3/5-pin)",
-        "CIDOO Pearl White Linear Switches (Pre-lubed)",
-        "Pre-lubed Plate-mount stabilizers",
-        "Gasket Mount with Polycarbonate Plate",
-        "3000mAh Battery",
-        "5-Layer Sound Dampening Foam",
-        "Double-shot PBT + Transparent PC Keycaps",
-        "South-facing RGB LEDs",
-      ],
-    },
-    options: [
-      {
-        name: "White Case",
-        available: true,
-        image:
-          "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3739.jpg?v=1728442680",
+        price: 130,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
       },
       {
-        name: "Black Case",
+        name: "Galaxy Orange - Mount Tai Switch GT (16K Hz)",
         available: false,
-        image:
-          "https://cdn.shopify.com/s/files/1/0691/8337/3602/files/203A3777.jpg?v=1728442680",
-      },
-    ],
-  },
-  {
-    id: "atkrs7",
-    title: "ATK RS-7",
-    short:
-      "ATK RS7 eSports Hall Effect Keyboard, Premium looking 75% keyboard with CNC Top-Case and Aluminum Position Plate",
-    price: 70,
-    layout: "75",
-    available: false,
-    isNew: false,
-    lowStock: false,
-    images: [
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/thumbnail.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/1.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/2.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/3.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/4.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/5.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/6.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/7.png",
-      "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/8.png",
-    ],
-    category: "keyboards",
-    specs: {
-      layout: "75% (81 keys)",
-      case: "CNC Top Case",
-      keycaps: "5-Sided Dye-Sub Keycaps",
-      pollingRate: "8K Hz",
-      latency: "0.3ms",
-      precision: "0.05mm - 0.02mm",
-      rtRange: "0.1 ~ 3.4mm",
-      features: [
-        "Resilient GAS Structure",
-        "4 Padding Layers",
-        "ATK V1 Stabilizer",
-        "Functions SOCD / DKS / RT / MT / TGL / Key Remapping",
-        "Mahjong-inspired HIFI Sound",
-      ],
-    },
-    options: [
-      {
-        name: "Rainbow IP, No-Backlit",
-        available: true,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/no_rgb.png",
+        price: 130,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
       },
       {
-        name: "Rainbow IP (RGB)",
+        name: "Nova White - Mount Tai Switch GT (16K Hz)",
         available: false,
-        image:
-          "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/atkrs7v1/rgb.png",
+        price: 130,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
+      },
+      {
+        name: "Berry Red - Mount Tai Switch GT (16K Hz)",
+        available: false,
+        price: 130,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
+      },
+      {
+        name: "Peachy Pink - Mount Tai Switch GT (16K Hz)",
+        available: false,
+        price: 130,
+        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
       },
     ],
   },
