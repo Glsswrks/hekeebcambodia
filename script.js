@@ -836,7 +836,7 @@ function renderComparisonTable() {
           const feats =
             p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
           return feats.length
-            ? `• ${feats.slice(0, 8).join("<br><br>• ")}`
+            ? `• ${feats.join("<br><br>• ")}`
             : "—";
         },
       },
@@ -879,7 +879,7 @@ function renderComparisonTable() {
           const feats =
             p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
           return feats.length
-            ? `• ${feats.slice(0, 8).join("<br><br>• ")}`
+            ? `• ${feats.join("<br><br>• ")}`
             : "—";
         },
       },
@@ -887,14 +887,22 @@ function renderComparisonTable() {
   }
 
   compareEls.body.innerHTML = rows
-    .map(
-      (row) => `
-        <tr>
+    .map((row) => {
+      const values = selectedProducts.map((p) => row.value(p));
+      // Check if all values are identical (and not just placeholders)
+      const allSame =
+        values.length > 1 &&
+        values.every((v) => v === values[0]) &&
+        values[0] !== "—" &&
+        !values[0].includes("<img");
+      const highlightClass = allSame ? ' class="compare-match"' : "";
+      return `
+        <tr${highlightClass}>
           <th>${row.label}</th>
-          ${selectedProducts.map((p) => `<td>${row.value(p)}</td>`).join("")}
+          ${values.map((v) => `<td>${v}</td>`).join("")}
         </tr>
-      `
-    )
+      `;
+    })
     .join("");
 }
 
@@ -1931,7 +1939,7 @@ function getSpecsList(product) {
   if (s.case) list.push(s.case);
   if (s.keycaps) list.push(s.keycaps);
   if (s.switches) list.push(s.switches);
-  if (s.pollingRate) list.push(`${s.pollingRate} Polling rate`);
+  if (s.pollingRate) list.push(`${s.pollingRate} Polling-Rate`);
   if (s.latency) list.push(`${s.latency} Latency`);
   if (s.singleKeyScanRate)
     list.push(`Single Key Scan Rate: ${s.singleKeyScanRate}`);
