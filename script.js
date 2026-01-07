@@ -1961,6 +1961,115 @@ function getSpecsList(product) {
   if (s.dimensions) list.push(s.dimensions);
   return list;
 }
+
+/* ---------- Mouse Specs Grid ---------- */
+function getMiceSpecsGrid(product) {
+  const s = product.specs || {};
+  
+  const specsData = [
+    { label: "Sensor", value: s.sensor },
+    { label: "Latency", value: s.latency },
+    { label: "Battery", value: s.battery },
+    { label: "Weight", value: s.weight },
+    { label: "Polling Rate", value: s.pollingRate },
+    { label: "Track Speed", value: s.trackingSpeed },
+    { label: "DPI", value: s.dpi },
+    { label: "Acceleration", value: s.acceleration },
+    { label: "Switch", value: s.switch },
+    { label: "Coating", value: s.coating },
+    { label: "MCU", value: s.mcu },
+    { label: "Connectivity", value: s.connectivity },
+  ];
+
+  const rows = specsData
+    .filter(spec => spec.value)
+    .map(spec => `
+      <div class="mouse-spec-row">
+        <div class="mouse-spec-label">${spec.label}</div>
+        <div class="mouse-spec-value">${spec.value}</div>
+      </div>
+    `).join('');
+
+  const featuresHTML = s.features && Array.isArray(s.features) && s.features.length > 0
+    ? `<div class="mouse-spec-features">
+        <div class="mouse-spec-features-title">Features</div>
+        <ul class="mouse-spec-features-list">
+          ${s.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+      </div>`
+    : '';
+
+  return `
+    <div class="mouse-specs-grid">
+      <div class="mouse-specs-header">
+        <span class="mouse-specs-title">Specifications</span>
+      </div>
+      <div class="mouse-specs-body">
+        ${rows}
+      </div>
+      ${featuresHTML}
+    </div>
+  `;
+}
+
+/* ---------- Keyboard Specs Grid ---------- */
+function getKeyboardSpecsGrid(product) {
+  const s = product.specs || {};
+  
+  const specsData = [
+    { label: "Layout", value: s.layout },
+    { label: "Case", value: s.case },
+    { label: "Keycaps", value: s.keycaps },
+    { label: "Switches", value: s.switches },
+    { label: "Polling Rate", value: s.pollingRate },
+    { label: "Latency", value: s.latency },
+    { label: "Single Key Scan Rate", value: s.singleKeyScanRate },
+    { label: "Full Key Scan Rate", value: s.fullKeyScanRate },
+    { label: "Precision", value: s.precision },
+    { label: "RT Range", value: s.rtRange },
+    { label: "Position Plate", value: s.positionPlate },
+    { label: "Dead Zone", value: s.deadZone },
+    { label: "RGB", value: s.rgb },
+    { label: "Functions", value: s.functions },
+    { label: "Drivers", value: s.drivers },
+    { label: "Music Rhythm", value: s.musicRhythm },
+    { label: "Structure", value: s.structure },
+    { label: "MCU", value: s.mcu },
+    { label: "Connectivity", value: s.connectivity },
+    { label: "Compatibility", value: s.compatibility },
+  ];
+
+  const rows = specsData
+    .filter(spec => spec.value)
+    .map(spec => `
+      <div class="mouse-spec-row">
+        <div class="mouse-spec-label">${spec.label}</div>
+        <div class="mouse-spec-value">${spec.value}</div>
+      </div>
+    `).join('');
+
+  const featuresHTML = s.features && Array.isArray(s.features) && s.features.length > 0
+    ? `<div class="mouse-spec-features">
+        <div class="mouse-spec-features-title">Features</div>
+        <ul class="mouse-spec-features-list">
+          ${s.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+      </div>`
+    : '';
+
+  return `
+    <div class="mouse-specs-grid">
+      <div class="mouse-specs-header">
+        <span class="mouse-specs-title">Specifications</span>
+      </div>
+      <div class="mouse-specs-body">
+        ${rows}
+      </div>
+      ${featuresHTML}
+    </div>
+  `;
+}
+
 /* ---------- Product cards ---------- */
 function createProductCard(p) {
   const card = document.createElement("div");
@@ -2776,24 +2885,33 @@ function renderProductDetail(product) {
   `;
 
   container.innerHTML = `
-        <div class="product-image"></div>
-        <div class="product-info">
-            <h1 id="productTitle">${product.title}</h1>
-            <p class="muted">${product.short}</p>
-            <div id="productPrice" style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.5rem">
-                $${product.price}
-            </div>
-            ${ratingBlock}
-            ${compareButtonHTML ? `<div style="margin-top:12px;">${compareButtonHTML}</div>` : ""}
-            <ul class="specs">${getSpecsList(product)
-              .map((s) => `<li>• ${s}</li>`)
-              .join("")}</ul>
-            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-                ${actionButtonHTML}
-            </div>
-            <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
+        <div class="product-top-section">
+          <div class="product-image"></div>
+          <div class="product-info">
+              <h1 id="productTitle">${product.title}</h1>
+              <p class="muted">${product.short}</p>
+              <div id="productPrice" style="margin-top:12px;font-weight:700;color:var(--accent);font-size:1.5rem">
+                  $${product.price}
+              </div>
+              ${ratingBlock}
+              <div class="product-buttons-container">
+                ${compareButtonHTML ? `<div class="compare-btn-row">${compareButtonHTML}</div>` : ""}
+                <div class="action-btn-row">
+                    ${actionButtonHTML}
+                </div>
+              </div>
+              <p style="margin-top:12px;color:var(--muted)">Delivery is available in: <strong>Cambodia</strong>.</p>
+          </div>
         </div>
-        ${optionsPlaceholderHTML} `;
+        ${optionsPlaceholderHTML}
+        <div class="product-specs-section">
+          ${product.category === "mice" 
+            ? getMiceSpecsGrid(product) 
+            : product.category === "keyboards"
+            ? getKeyboardSpecsGrid(product)
+            : `<ul class="specs">${getSpecsList(product).map((s) => `<li>• ${s}</li>`).join("")}</ul>`}
+        </div>
+      `;
 
   const compareBtn = container.querySelector("#compareBtn");
   if (compareBtn) {
