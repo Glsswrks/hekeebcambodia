@@ -27,6 +27,10 @@ export const keyboards = [
       precision: "",
       fullKeyScanRate: "",
       rtRange: "",
+      position_plate: "", // new variable take from the first item in features array
+      dead_zone: "",     // new variable take from the second item in features array
+      rgb_details: "",   // new variable take from the third item in features array
+      functions: "",     // new variable take from the fourth item in features array
       features: [
       // + Main Features
         "", // -> position plate of the keyboard
@@ -46,7 +50,7 @@ export const keyboards = [
     id: "atk-edge60he",
     title: "ATK EDGE60 HE ULTIMATE",
     short:
-      "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN Collaboration",
+      "ATK EDGE 60HE ULTIMATE Esports Magnetic Keyboard - LEVIATAN x WOLVES Collaboration",
     price: 200,
     layout: "60%",
     available: true,
@@ -79,24 +83,21 @@ export const keyboards = [
       precision: "0.001mm",
       fullKeyScanRate: "32K Hz N-Key",
       rtRange: "0.001 ~ 3.3mm",
+      positionPlate: "Aluminum Alloy Position Plate / Carbon Fiber",
+      deadZone: "Zero Dead-Zone",
+      rgb: "South Facing / 16.8 Million RGB",
+      functions: "SOCD / DKS / RT / MT / TGL / Key Remapping",
+      drivers: "Dual Drivers Support",
+      musicRhythm: "Music Rhythm RGB Support",
+      structure: "Top Mount Design Structure",
+      mcu: "480MHz Flagship MCU",
+      connectivity: "Wired",
+      compatibility: "Windows / MacOS / Linux",
       features: [
-        // + Main Features
-        "Aluminum Alloy Position Plate / Carbon Fiber", // -> position plate of the keyboard
-        "Zero Dead-Zone", // -> Keyboard Dead-Zone
-        "South Facing / 16.8 Million RGB", // -> Keyboard RGB Details
-        "Functions: SOCD / DKS / RT / MT / TGL / Key Remapping", // -> Keyboard Functions
-        "Dual Drivers Support", // -> Keyboard Drivers
-        "Music Rhythm RGB Support", // -> Music Rythm RGB
-        "Top Mount Design Structure", // -> Structure Design
-
-        // -> Other Features
-        "480MHz Flagship MCU",
         "Champion Preset Support",
         "On-Board Memory Support",
         "Physical Mode Switch Button (Profile Switch)",
         "Extreme Mode (Frenzy Mode) RT & Step accuracy can be as low as 0.001mm",
-        "Connection: Wired",
-        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
@@ -151,22 +152,19 @@ export const keyboards = [
       precision: "0.001mm",
       fullKeyScanRate: "32K Hz N-Key",
       rtRange: "0.001 ~ 3.3mm",
+      positionPlate: "Aluminum Alloy Position Plate",
+      deadZone: "Zero Dead-Zone",
+      rgb: "South Facing / 16.8 Million RGB",
+      functions: "SOCD / DKS / RT / MT / TGL / Key Remapping",
+      drivers: "Dual Drivers Support",
+      musicRhythm: "Music Rhythm RGB Support",
+      structure: "Padding: Paron Foam + PET Film + EPDM Foam",
+      mcu: "480MHz Flagship MCU",
+      connectivity: "Wired",
+      compatibility: "Windows / MacOS / Linux",
       features: [
-        // + Main Features
-        "Aluminum Alloy Position Plate", // -> position plate of the keyboard
-        "Zero Dead-Zone", // -> Keyboard Dead-Zone
-        "South Facing / 16.8 Million RGB", // -> Keyboard RGB Details
-        "Functions: SOCD / DKS / RT / MT / TGL / Key Remapping", // -> Keyboard Functions
-        "Dual Drivers Support", // -> Keyboard Drivers
-        "Music Rhythm RGB Support", // -> Music Rythm RGB
-        "Padding: Paron Foam + PET Film + EPDM Foam", // -> Structure Design
-
-        // -> Other Features
-        "480MHz Flagship MCU",
         "Champion Preset Support",
         "On-Board Memory Support",
-        "Connection: Wired",
-        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
@@ -242,25 +240,22 @@ export const keyboards = [
       precision: "0.001mm",
       fullKeyScanRate: "32K Hz",
       rtRange: "0.001mm ~ 3.4mm",
+      positionPlate: "Aluminum Alloy Position Plate",
+      deadZone: "Zero Dead-Zone",
+      rgb: "South-facing RGB LED Lights - 16M ARGB - Aura Sync",
+      functions: "RS, SOCD, DKS, MT, TGL, Key Macros",
+      drivers: "Dual Driver Support",
+      musicRhythm: "Music Rhythm Support",
+      structure: "Aluminum Alloy Positioning Plate + Sandwich Foam + Fiber Switch Pad + PET Sound-Damping Pad + Bottom Foam + PET Base Pad",
+      mcu: "Single Core MCU + Dual Core MCU Options",
+      connectivity: "Wired",
+      compatibility: "Windows / MacOS / Linux",
       features: [
-        // + Main Features
-        "Aluminum Alloy Position Plate", // -> position plate of the keyboard
-        "Zero Dead-Zone", // -> Keyboard Dead-Zone
-        "South-facing RGB LED Lights - 16M ARGB - Aura Synce", // -> Keyboard RGB Details
-        "Functions: RS, SOCD, DKS, MT, TGL, Key Macros", // -> Keyboard Functions
-        "Dual Driver Support", // -> Keyboard Drivers
-        "Music Rythm Support", // -> Music Rythm RGB
-        "Internal Foam: Aluminum Alloy Positioning Plate + Sandwich Foam + Fiber Switch Pad + PET Sound-Damping Pad + Bottom Foam + PET Base Pad", // -> Structure Design
-
-        // -> Other Features
-        "Single Core MCU + Dual Core MCU Options",
         "Four-Layers PCB (Mount Tai Switch GT Version)",
         "On-Board Memory Support",
-        "Eletric Light Box Design",
+        "Electric Light Box Design",
         "Independent Physical Button, Supports 3 Profiles",
         "Multi-Function Control Knob",
-        "Connection: Wired",
-        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
@@ -367,23 +362,19 @@ export const keyboards = [
       precision: "0.001mm",
       fullKeyScanRate: "32K Hz",
       rtRange: "0.001 ~ 3.4mm",
+      positionPlate: "Electrophoretic White Limited Edition Position Plate",
+      deadZone: "Zero Dead-Zone",
+      rgb: "South-facing RGB LED Lights - 16M ARGB",
+      functions: "SOCD, DKS, MPT, MT, TGL, END, Key Macros",
+      drivers: "Dual Driver Support",
+      musicRhythm: "Music Rhythm Support",
+      structure: "Electrophoretic White Limited Edition Position Board + PO Sandwich Cotton + Fiber Shaft + PET Sound-Pad + PO Base Cotton",
+      mcu: "480MHz MCU + 9 ADC Auxiliary Chips",
+      connectivity: "Wired",
+      compatibility: "Windows / MacOS / Linux",
       features: [
-        // + Main Features
-        "Electrophoretic White Limited Edition Position Board", // -> position plate of the keyboard
-        "Zero Dead-Zone", // -> Keyboard Dead-Zone
-        "South-facing RGB LED Lights - 16M ARGB", // -> Keyboard RGB Details
-        "Functions: SOCD, DKS, MPT, MT, TGL, END, Key Macros", // -> Keyboard Functions
-        "Dual Driver Support", // -> Keyboard Drivers
-        "Music Rythm Support", // -> Music Rythm RGB
-        "Internal Foam: Electrophoretic White Limited Edition Position Board + PO Sandwich Cotton + Fiber Shaft + PET Sound-Pad + PO Base Cotton", // -> Structure Design
-
-        // -> Other Features
-        // -> Other Features
-        "480MHz MCU + 9 ADC Axulitiary Chips",
         "On-Board Memory Support",
         "Independent Physical Button, Support 4 Set Of Profile Switching",
-        "Connection: Wired",
-        "Compatibility: Windows / MacOS / Linux",
       ],
     },
     options: [
