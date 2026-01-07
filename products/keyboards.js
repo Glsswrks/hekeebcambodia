@@ -90,6 +90,7 @@ export const keyboards = [
         "Top Mount Design Structure", // -> Structure Design
 
         // -> Other Features
+        "480MHz Flagship MCU",
         "Champion Preset Support",
         "On-Board Memory Support",
         "Physical Mode Switch Button (Profile Switch)",
@@ -161,6 +162,7 @@ export const keyboards = [
         "Padding: Paron Foam + PET Film + EPDM Foam", // -> Structure Design
 
         // -> Other Features
+        "480MHz Flagship MCU",
         "Champion Preset Support",
         "On-Board Memory Support",
         "Connection: Wired",
@@ -266,61 +268,148 @@ export const keyboards = [
         name: "Cyber Black - Polaris Switch (8K Hz)",
         available: false,
         price: 90,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
       },
       {
         name: "Galaxy Orange - Polaris Switch (8K Hz)",
         available: false,
         price: 90,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
       },
       {
         name: "Nova White - Polaris Switch (8K Hz)",
         available: false,
         price: 90,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
       },
       {
         name: "Berry Red - Polaris Switch (8K Hz)",
         available: false,
         price: 90,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
       },
       {
         name: "Peachy Pink - Polaris Switch (8K Hz)",
         available: false,
         price: 90,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
       },
       {
         name: "Cyber Black - Mount Tai Switch GT (16K Hz)",
         available: false,
         price: 130,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800",
       },
       {
         name: "Galaxy Orange - Mount Tai Switch GT (16K Hz)",
         available: false,
         price: 130,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800",
       },
       {
         name: "Nova White - Mount Tai Switch GT (16K Hz)",
         available: false,
         price: 130,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084123.png?v=1766641117&width=800",
       },
       {
         name: "Berry Red - Mount Tai Switch GT (16K Hz)",
         available: false,
         price: 130,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084121.png?v=1766641032&width=800",
       },
       {
         name: "Peachy Pink - Mount Tai Switch GT (16K Hz)",
         available: false,
         price: 130,
-        image: "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
+        image:
+          "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084122.png?v=1766641059&width=800",
+      },
+    ],
+  },
+  {
+    id: "titan68he-v2",
+    title: "TITAN68 HE V2",
+    short:
+      "Titan Kingdom TITAN68V2HE Magnetic Axis Keyboard Gaming Esports High-End Theme All-Aluminum Keyboard",
+    price: 200,
+    layout: "65%",
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i4/381310607/O1CN01HQZskZ1GM3W59AgJi_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i1/381310607/O1CN01bSfhnr1GM3W59B5GM_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i4/381310607/O1CN01QXJTao1GM3W5ocGdK_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01beJHbu1GM3W6fsAcU_!!381310607.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01Is4lmn1GM3WBtRX0q_!!381310607.jpg",
+      "https://img.alicdn.com/imgextra/i3/381310607/O1CN01hOjPvq1GM3WBOEAoY_!!381310607.jpg",
+    ],
+    category: "keyboards",
+    sellerRating: 7.5,
+    specs: {
+      layout: "65% (68 keys)",
+      case: "Full Aluminum CNC Case",
+      keycaps: "TITAN Custom Themed PC Keycaps",
+      switches: "Titan x Guantai Lunar Rock Magnetic Switch",
+      pollingRate: "8000Hz",
+      latency: "0.08ms",
+      singleKeyScanRate: "256K Hz",
+      precision: "0.001mm",
+      fullKeyScanRate: "32K Hz",
+      rtRange: "0.001 ~ 3.4mm",
+      features: [
+        // + Main Features
+        "Electrophoretic White Limited Edition Position Board", // -> position plate of the keyboard
+        "Zero Dead-Zone", // -> Keyboard Dead-Zone
+        "South-facing RGB LED Lights - 16M ARGB", // -> Keyboard RGB Details
+        "Functions: SOCD, DKS, MPT, MT, TGL, END, Key Macros", // -> Keyboard Functions
+        "Dual Driver Support", // -> Keyboard Drivers
+        "Music Rythm Support", // -> Music Rythm RGB
+        "Internal Foam: Electrophoretic White Limited Edition Position Board + PO Sandwich Cotton + Fiber Shaft + PET Sound-Pad + PO Base Cotton", // -> Structure Design
+
+        // -> Other Features
+        // -> Other Features
+        "480MHz MCU + 9 ADC Axulitiary Chips",
+        "On-Board Memory Support",
+        "Independent Physical Button, Support 4 Set Of Profile Switching",
+        "Connection: Wired",
+        "Compatibility: Windows / MacOS / Linux",
+      ],
+    },
+    options: [
+      {
+        name: "TITAN68 HE V2 (First Love Pink) - Lunar Rock Magnetic Switch",
+        available: false,
+        image:
+          "https://gw.alicdn.com/bao/uploaded/i1/381310607/O1CN015t9dRC1GM3W6Hsir5_!!381310607.jpg_.webp",
+      },
+      {
+        name: "TITAN68 HE V2 (Graffiti Black) - Lunar Rock Magnetic Switch",
+        available: false,
+        image:
+          "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN01hMlanu1GM3W6BduAh_!!381310607.jpg_.webp",
+      },
+      {
+        name: "TITAN68 HE V2 (Alloy White) - Lunar Rock Magnetic Switch",
+        available: false,
+        image:
+          "https://gw.alicdn.com/bao/uploaded/i4/381310607/O1CN019kDXM41GM3W5XB0Nq_!!381310607.jpg_.webp",
+      },
+      {
+        name: "TITAN68 HE V2 (Star Flash White) - Lunar Rock Magnetic Switch",
+        available: false,
+        image:
+          "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN0141FyUd1GM3W6Z83Lo_!!381310607.jpg_.webp",
       },
     ],
   },
