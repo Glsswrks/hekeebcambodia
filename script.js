@@ -1439,6 +1439,266 @@ const PreOrderList = {
   },
 };
 
+// Wishlist System
+const Wishlist = {
+  key: "keeb_wishlist_v1",
+
+  getItems: function () {
+    const stored = localStorage.getItem(this.key);
+    return stored ? JSON.parse(stored) : [];
+  },
+
+  addItem: function (product, option, sourceElement) {
+    const items = this.getItems();
+    const price = option ? option.price || product.price : product.price;
+    const optionName = option ? option.name : null;
+
+    // Check if item already exists
+    const idx = items.findIndex(
+      (it) => it.id === product.id && (it.optionName || null) === optionName
+    );
+
+    if (idx !== -1) {
+      // Already in wishlist
+      showToast(`${product.title} is already in your wishlist`);
+      return;
+    }
+
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: price,
+      optionName: optionName,
+      image: option ? option.image : product.images[0] || "",
+      timestamp: Date.now(),
+      available: option ? option.available : product.available,
+    };
+    items.push(newItem);
+
+    localStorage.setItem(this.key, JSON.stringify(items));
+    this.updateUI();
+    const title = product.title + (optionName ? ` (${optionName})` : "");
+    showToast(`Added ${title} to wishlist ❤️`);
+
+    // Trigger flying animation when source element provided
+    if (sourceElement) {
+      animateToWishlist(option ? option.image : product.images[0] || "", sourceElement);
+    }
+  },
+
+  removeItem: function (index) {
+    const items = this.getItems();
+    if (items[index]) {
+      items.splice(index, 1);
+      localStorage.setItem(this.key, JSON.stringify(items));
+      this.updateUI();
+      renderWishlistModal();
+    }
+  },
+
+  isInWishlist: function (productId, optionName = null) {
+    const items = this.getItems();
+    return items.some(
+      (it) => it.id === productId && (it.optionName || null) === optionName
+    );
+  },
+
+  toggleItem: function (product, option, sourceElement) {
+    const optionName = option ? option.name : null;
+    if (this.isInWishlist(product.id, optionName)) {
+      // Remove from wishlist
+      const items = this.getItems();
+      const idx = items.findIndex(
+        (it) => it.id === product.id && (it.optionName || null) === optionName
+      );
+      if (idx !== -1) {
+        this.removeItem(idx);
+        const title = product.title + (optionName ? ` (${optionName})` : "");
+        showToast(`Removed ${title} from wishlist`);
+      }
+    } else {
+      this.addItem(product, option, sourceElement);
+    }
+  },
+
+  clear: function () {
+    localStorage.removeItem(this.key);
+    this.updateUI();
+    renderWishlistModal();
+  },
+
+  updateUI: function () {
+    const items = this.getItems();
+    const badge = document.getElementById("wishlistBadge");
+    const badgeMobile = document.getElementById("wishlistBadgeMobile");
+
+    // Update badge (desktop)
+    if (badge) {
+      badge.textContent = items.length;
+      if (items.length > 0) badge.classList.remove("hidden");
+      else badge.classList.add("hidden");
+    }
+
+    // Update badge (mobile)
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) badgeMobile.classList.remove("hidden");
+      else badgeMobile.classList.add("hidden");
+    }
+
+    // Re-render the modal if it's open
+    if (
+      document.getElementById("wishlistModal")?.getAttribute("aria-hidden") ===
+      "false"
+    ) {
+      renderWishlistModal();
+    }
+
+    // Update wishlist buttons on the page
+    updateWishlistButtons();
+  },
+};
+
+// Update wishlist button states on page
+function updateWishlistButtons() {
+  // Update product detail page wishlist buttons
+  document.querySelectorAll("[data-wishlist-product-id]").forEach((btn) => {
+    const productId = btn.dataset.wishlistProductId;
+    const optionName = btn.dataset.wishlistOptionName || null;
+    const isInWishlist = Wishlist.isInWishlist(productId, optionName);
+    
+    if (isInWishlist) {
+      btn.classList.add("in-wishlist");
+      btn.innerHTML = btn.innerHTML.replace("Add to Wishlist", "In Wishlist ❤️");
+    } else {
+      btn.classList.remove("in-wishlist");
+      btn.innerHTML = btn.innerHTML.replace("In Wishlist ❤️", "Add to Wishlist");
+    }
+  });
+  
+  // Update card hover wishlist buttons
+  document.querySelectorAll(".wishlist-btn[data-product-id]").forEach((btn) => {
+    const productId = btn.dataset.productId;
+    const isInWishlist = Wishlist.isInWishlist(productId);
+    const svg = btn.querySelector("svg");
+    
+    if (svg) {
+      if (isInWishlist) {
+        svg.setAttribute("fill", "currentColor");
+        btn.style.color = "#ef4444";
+      } else {
+        svg.setAttribute("fill", "none");
+        btn.style.color = "";
+      }
+    }
+  });
+}
+
+// Animate item flying to wishlist button/hamburger
+function animateToWishlist(imageUrl, sourceElement) {
+  const isMobile = window.innerWidth <= 768;
+  const target = isMobile
+    ? document.getElementById("hamburgerBtn")
+    : document.getElementById("wishlistToggle");
+
+  if (!target || !sourceElement) return;
+
+  const flyingEl = document.createElement("img");
+  flyingEl.src = imageUrl;
+  flyingEl.className = "flying-preorder-item";
+
+  const sourceRect = sourceElement.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+
+  flyingEl.style.left = sourceRect.left + sourceRect.width / 2 - 30 + "px";
+  flyingEl.style.top = sourceRect.top + sourceRect.height / 2 - 30 + "px";
+
+  const deltaX =
+    targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
+  const deltaY =
+    targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
+
+  flyingEl.style.setProperty("--fly-x", deltaX + "px");
+  flyingEl.style.setProperty("--fly-y", deltaY + "px");
+
+  document.body.appendChild(flyingEl);
+
+  target.style.transform = "scale(1.15)";
+  setTimeout(() => {
+    target.style.transform = "";
+  }, 300);
+
+  setTimeout(() => {
+    flyingEl.remove();
+  }, 800);
+}
+
+// Helper: Render Wishlist Modal
+function renderWishlistModal() {
+  const items = Wishlist.getItems();
+  const listEl = document.getElementById("wishlistItemsList");
+  const emptyState = document.getElementById("wishlistEmptyState");
+  const wishlistContent = document.getElementById("wishlistContent");
+
+  if (!listEl) return;
+
+  if (items.length === 0) {
+    if (emptyState) emptyState.style.display = "block";
+    if (wishlistContent) wishlistContent.style.display = "none";
+  } else {
+    if (emptyState) emptyState.style.display = "none";
+    if (wishlistContent) wishlistContent.style.display = "block";
+
+    listEl.innerHTML = items
+      .map(
+        (item, index) => `
+      <li class="cart-item wishlist-item">
+        <img src="${item.image}" alt="thumb" style="width:40px; height:40px; object-fit:cover; border-radius:4px; margin-right:10px;">
+        <div class="cart-item-info">
+          <span class="cart-item-title">${item.title}</span>
+          ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
+          <span class="wishlist-item-availability ${item.available !== false ? 'available' : 'unavailable'}">
+            ${item.available !== false ? '✓ Available' : '✗ Unavailable'}
+          </span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="cart-item-price">$${Number(item.price).toFixed(2)}</span>
+          ${item.available !== false ? `<button class="btn wishlist-add-cart-btn" data-index="${index}" aria-label="Add to Cart">🛒</button>` : ''}
+          <button class="cart-remove-btn" data-index="${index}" aria-label="Remove">×</button>
+        </div>
+      </li>
+    `
+      )
+      .join("");
+
+    // Attach event listeners for remove buttons
+    listEl.querySelectorAll(".cart-remove-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const idx = Number(btn.dataset.index);
+        if (!Number.isNaN(idx)) Wishlist.removeItem(idx);
+      });
+    });
+
+    // Attach event listeners for add to cart buttons
+    listEl.querySelectorAll(".wishlist-add-cart-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const idx = Number(btn.dataset.index);
+        if (!Number.isNaN(idx)) {
+          const item = items[idx];
+          const product = allProducts.find((p) => p.id === item.id);
+          if (product) {
+            let option = null;
+            if (item.optionName && product.options) {
+              option = product.options.find((o) => o.name === item.optionName);
+            }
+            Cart.addItem(product, option, btn);
+          }
+        }
+      });
+    });
+  }
+}
+
 // Helper: Toast Notification
 function showToast(message) {
   const toast = document.getElementById("toast");
@@ -1899,6 +2159,16 @@ document.addEventListener("DOMContentLoaded", () => {
     preorderModal?.setAttribute("aria-hidden", "false");
   });
 
+  // Mobile wishlist toggle - close nav and trigger wishlist modal
+  const wishlistToggleMobile = document.getElementById("wishlistToggleMobile");
+  const wishlistModal = document.getElementById("wishlistModal");
+  wishlistToggleMobile?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileNav();
+    renderWishlistModal();
+    wishlistModal?.setAttribute("aria-hidden", "false");
+  });
+
   const preorderOptionModal = document.getElementById("preorderOptionModal");
   const closePreorderOptionBtn = document.getElementById(
     "closePreorderOptionBtn"
@@ -2065,6 +2335,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Wishlist modal logic
+  const wishlistToggle = document.getElementById("wishlistToggle");
+  const closeWishlistBtn = document.getElementById("closeWishlistBtn");
+  const clearWishlistBtn = document.getElementById("clearWishlistBtn");
+  const browseProductsBtn = document.getElementById("browseProductsBtn");
+  const addAllWishlistToCartBtn = document.getElementById("addAllWishlistToCartBtn");
+
+  if (wishlistToggle && wishlistModal) {
+    wishlistToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      Wishlist.updateUI();
+      renderWishlistModal();
+      wishlistModal.setAttribute("aria-hidden", "false");
+    });
+
+    // Close logic
+    const closeWishlist = () => wishlistModal.setAttribute("aria-hidden", "true");
+    if (closeWishlistBtn) closeWishlistBtn.addEventListener("click", closeWishlist);
+    if (browseProductsBtn) browseProductsBtn.addEventListener("click", closeWishlist);
+
+    wishlistModal.addEventListener("click", (e) => {
+      if (e.target === wishlistModal) closeWishlist();
+    });
+
+    // Clear Wishlist logic
+    if (clearWishlistBtn) {
+      clearWishlistBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear your wishlist?")) {
+          Wishlist.clear();
+        }
+      });
+    }
+
+    // Add all available items to cart
+    if (addAllWishlistToCartBtn) {
+      addAllWishlistToCartBtn.addEventListener("click", () => {
+        const items = Wishlist.getItems();
+        const availableItems = items.filter((item) => item.available !== false);
+        
+        if (availableItems.length === 0) {
+          showToast("No available items to add to cart");
+          return;
+        }
+
+        availableItems.forEach((item) => {
+          const product = allProducts.find((p) => p.id === item.id);
+          if (product) {
+            let option = null;
+            if (item.optionName && product.options) {
+              option = product.options.find((o) => o.name === item.optionName);
+            }
+            Cart.addItem(product, option, null);
+          }
+        });
+        
+        showToast(`Added ${availableItems.length} item(s) to cart`);
+      });
+    }
+  }
+
   // Compare modal logic
   if (compareEls.closeSelectBtn) {
     compareEls.closeSelectBtn.addEventListener(
@@ -2106,6 +2436,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   Cart.updateUI();
   PreOrderList.updateUI();
+  Wishlist.updateUI();
   // Wire hero button to show combined all-products listing
   const showAllBtn = document.getElementById("showAllBtn");
   if (showAllBtn) {
@@ -2192,119 +2523,81 @@ function getSpecsList(product) {
   return list;
 }
 
-/* ---------- Mouse Specs Grid ---------- */
+/* ---------- Mouse Specs Info Box ---------- */
 function getMiceSpecsGrid(product) {
   const s = product.specs || {};
   
-  const specsData = [
-    { label: "Sensor", value: s.sensor },
-    { label: "Latency", value: s.latency },
-    { label: "Battery", value: s.battery },
-    { label: "Weight", value: s.weight },
+  const keySpecs = [
     { label: "Polling Rate", value: s.pollingRate },
-    { label: "Track Speed", value: s.trackingSpeed },
-    { label: "DPI", value: s.dpi },
-    { label: "Acceleration", value: s.acceleration },
     { label: "Switch", value: s.switch },
-    { label: "Coating", value: s.coating },
+    { label: "Sensor", value: s.sensor },
     { label: "MCU", value: s.mcu },
-    { label: "Connectivity", value: s.connectivity },
+    { label: "DPI", value: s.dpi },
+    { label: "Track Speed", value: s.trackingSpeed },
+    { label: "Weight", value: s.weight },
+    { label: "Acceleration", value: s.acceleration },
   ];
 
-  const rows = specsData
+  const specsItems = keySpecs
     .filter(spec => spec.value)
-    .map(spec => `
-      <div class="mouse-spec-row">
-        <div class="mouse-spec-label">${spec.label}</div>
-        <div class="mouse-spec-value">${spec.value}</div>
-      </div>
-    `).join('');
-
-  const featuresHTML = s.features && Array.isArray(s.features) && s.features.length > 0
-    ? `<div class="mouse-spec-features">
-        <div class="mouse-spec-features-title">Features</div>
-        <ul class="mouse-spec-features-list">
-          ${s.features.map(f => `<li>${f}</li>`).join('')}
-        </ul>
-      </div>`
-    : '';
+    .map(spec => `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`)
+    .join('');
 
   return `
-    <div class="mouse-specs-grid collapsed">
-      <div class="mouse-specs-header" onclick="this.parentElement.classList.toggle('collapsed')">
-        <span class="mouse-specs-title">Specifications</span>
-        <span class="specs-toggle-icon">▼</span>
-      </div>
-      <div class="specs-collapsible-content">
-        <div class="specs-collapsible-inner">
-          <div class="mouse-specs-body">
-            ${rows}
-          </div>
-          ${featuresHTML}
-        </div>
+    <div class="product-specs-info-box">
+      <div class="specs-info-header">Key Specifications</div>
+      <div class="specs-info-content">
+        ${specsItems}
       </div>
     </div>
   `;
 }
 
-/* ---------- Keyboard Specs Grid ---------- */
+/* ---------- Keyboard Specs Info Box ---------- */
 function getKeyboardSpecsGrid(product) {
   const s = product.specs || {};
   
-  const specsData = [
-    { label: "Layout", value: s.layout },
-    { label: "Case", value: s.case },
-    { label: "Keycaps", value: s.keycaps },
-    { label: "Switches", value: s.switches },
+  const keySpecs = [
     { label: "Polling Rate", value: s.pollingRate },
+    { label: "Scanning-Rate", value: s.singleKeyScanRate },
     { label: "Latency", value: s.latency },
-    { label: "Single Key Scan Rate", value: s.singleKeyScanRate },
-    { label: "Full Key Scan Rate", value: s.fullKeyScanRate },
     { label: "Precision", value: s.precision },
     { label: "RT Range", value: s.rtRange },
-    { label: "Position Plate", value: s.positionPlate },
-    { label: "Dead Zone", value: s.deadZone },
-    { label: "RGB", value: s.rgb },
     { label: "Functions", value: s.functions },
-    { label: "Drivers", value: s.drivers },
-    { label: "Music Rhythm", value: s.musicRhythm },
-    { label: "Structure", value: s.structure },
-    { label: "MCU", value: s.mcu },
-    { label: "Connectivity", value: s.connectivity },
-    { label: "Compatibility", value: s.compatibility },
   ];
 
-  const rows = specsData
+  const specsItems = keySpecs
     .filter(spec => spec.value)
-    .map(spec => `
-      <div class="mouse-spec-row">
-        <div class="mouse-spec-label">${spec.label}</div>
-        <div class="mouse-spec-value">${spec.value}</div>
-      </div>
-    `).join('');
-
-  const featuresHTML = s.features && Array.isArray(s.features) && s.features.length > 0
-    ? `<div class="mouse-spec-features">
-        <div class="mouse-spec-features-title">Features</div>
-        <ul class="mouse-spec-features-list">
-          ${s.features.map(f => `<li>${f}</li>`).join('')}
-        </ul>
-      </div>`
-    : '';
+    .map(spec => `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`)
+    .join('');
 
   return `
-    <div class="mouse-specs-grid collapsed">
-      <div class="mouse-specs-header" onclick="this.parentElement.classList.toggle('collapsed')">
-        <span class="mouse-specs-title">Specifications</span>
-        <span class="specs-toggle-icon">▼</span>
+    <div class="product-specs-info-box">
+      <div class="specs-info-header">Key Specifications</div>
+      <div class="specs-info-content">
+        ${specsItems}
       </div>
-      <div class="specs-collapsible-content">
-        <div class="specs-collapsible-inner">
-          <div class="mouse-specs-body">
-            ${rows}
-          </div>
-          ${featuresHTML}
-        </div>
+    </div>
+  `;
+}
+
+/* ---------- Other Products Specs Info Box ---------- */
+function getOtherProductSpecsBox(product) {
+  const specsList = getSpecsList(product);
+  
+  if (!specsList || specsList.length === 0) {
+    return '';
+  }
+
+  const specsItems = specsList
+    .map(spec => `<div class="specs-info-item"><span class="specs-info-value">${spec}</span></div>`)
+    .join('');
+
+  return `
+    <div class="product-specs-info-box">
+      <div class="specs-info-header">Specifications</div>
+      <div class="specs-info-content">
+        ${specsItems}
       </div>
     </div>
   `;
@@ -2429,17 +2722,30 @@ function createProductCard(p) {
     });
   }
   
-  // Wishlist button event (optional functionality)
+  // Wishlist button event - use actual Wishlist system
   const wishlistBtn = card.querySelector(".wishlist-btn");
   if (wishlistBtn) {
+    // Check initial state
+    if (Wishlist.isInWishlist(p.id)) {
+      const svg = wishlistBtn.querySelector("svg");
+      if (svg) {
+        svg.setAttribute("fill", "currentColor");
+        wishlistBtn.style.color = "#ef4444";
+      }
+    }
+    
     wishlistBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      // Toggle heart fill for visual feedback
+      
+      // Toggle wishlist item
+      Wishlist.toggleItem(p, null, wishlistBtn);
+      
+      // Update visual state based on wishlist status
       const svg = wishlistBtn.querySelector("svg");
-      if (svg.getAttribute("fill") === "none") {
+      if (Wishlist.isInWishlist(p.id)) {
         svg.setAttribute("fill", "currentColor");
-        wishlistBtn.style.color = "#e74c3c";
+        wishlistBtn.style.color = "#ef4444";
       } else {
         svg.setAttribute("fill", "none");
         wishlistBtn.style.color = "";
@@ -3159,8 +3465,13 @@ function renderProductDetail(product) {
 
   const compareButtonHTML =
     product.category === "mice" || product.category === "keyboards"
-      ? `<button class="btn compare" id="compareBtn">Product Comparison</button>`
+      ? `<button class="btn compare" id="compareBtn">Compare</button>`
       : "";
+
+  // Wishlist button - available for all products
+  const wishlistBtnClass = Wishlist.isInWishlist(product.id) ? "in-wishlist" : "";
+  const wishlistBtnText = Wishlist.isInWishlist(product.id) ? "In Wishlist ❤️" : "Add to Wishlist";
+  const wishlistButtonHTML = `<button class="btn wishlist ${wishlistBtnClass}" id="wishlistBtn" data-wishlist-product-id="${product.id}">${wishlistBtnText}</button>`;
 
   const optionsPlaceholderHTML = hasOptions
     ? `<div class="product-options-container">
@@ -3209,7 +3520,17 @@ function renderProductDetail(product) {
               </div>
               ${ratingBlock}
               <div class="product-buttons-container">
-                ${compareButtonHTML ? `<div class="compare-btn-row">${compareButtonHTML}</div>` : ""}
+                <div class="compare-wishlist-row">
+                  ${compareButtonHTML}
+                  ${wishlistButtonHTML}
+                </div>
+                <div class="product-specs-section">
+                  ${product.category === "mice" 
+                    ? getMiceSpecsGrid(product) 
+                    : product.category === "keyboards"
+                    ? getKeyboardSpecsGrid(product)
+                    : getOtherProductSpecsBox(product)}
+                </div>
                 <div class="action-btn-row">
                     ${actionButtonHTML}
                 </div>
@@ -3218,13 +3539,6 @@ function renderProductDetail(product) {
           </div>
         </div>
         ${optionsPlaceholderHTML}
-        <div class="product-specs-section">
-          ${product.category === "mice" 
-            ? getMiceSpecsGrid(product) 
-            : product.category === "keyboards"
-            ? getKeyboardSpecsGrid(product)
-            : `<ul class="specs">${getSpecsList(product).map((s) => `<li>• ${s}</li>`).join("")}</ul>`}
-        </div>
       `;
 
   const compareBtn = container.querySelector("#compareBtn");
@@ -3232,6 +3546,23 @@ function renderProductDetail(product) {
     compareBtn.addEventListener("click", (e) => {
       e.preventDefault();
       openCompareSelectionModal(product.id, product.category);
+    });
+  }
+
+  // Wire up wishlist button
+  const wishlistBtn = container.querySelector("#wishlistBtn");
+  if (wishlistBtn) {
+    wishlistBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      Wishlist.toggleItem(product, null, wishlistBtn);
+      // Update button state
+      if (Wishlist.isInWishlist(product.id)) {
+        wishlistBtn.classList.add("in-wishlist");
+        wishlistBtn.textContent = "In Wishlist ❤️";
+      } else {
+        wishlistBtn.classList.remove("in-wishlist");
+        wishlistBtn.textContent = "Add to Wishlist";
+      }
     });
   }
 
@@ -3445,7 +3776,6 @@ function syncCartBadge() {
         badge.classList.remove("hidden");
       } else {
         badge.classList.add("hidden");
-        badge.style.display = "none";
       }
     }
 
@@ -3465,6 +3795,31 @@ function syncCartBadge() {
     const items = PreOrderList.getItems();
     const badge = document.getElementById("preorderBadge");
     const badgeMobile = document.getElementById("preorderBadgeMobile");
+
+    if (badge) {
+      badge.textContent = items.length;
+      if (items.length > 0) {
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+    }
+
+    if (badgeMobile) {
+      badgeMobile.textContent = items.length;
+      if (items.length > 0) {
+        badgeMobile.classList.remove("hidden");
+      } else {
+        badgeMobile.classList.add("hidden");
+      }
+    }
+  }
+
+  // Also sync wishlist badges
+  if (typeof Wishlist !== "undefined") {
+    const items = Wishlist.getItems();
+    const badge = document.getElementById("wishlistBadge");
+    const badgeMobile = document.getElementById("wishlistBadgeMobile");
 
     if (badge) {
       badge.textContent = items.length;

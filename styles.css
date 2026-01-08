@@ -1090,6 +1090,79 @@ body {
   margin-top: 0;
 }
 
+/* Product Specs Info Box - Compact Design */
+.product-specs-info-box {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 0 0 12px 0;
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.5), 0 3px 6px -2px rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+
+.specs-info-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.specs-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.specs-info-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.specs-info-label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.specs-info-value {
+  color: #fff;
+  font-weight: 400;
+}
+
+/* Light mode */
+:root[data-theme="light"] .product-specs-info-box {
+  background: var(--card);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15), 0 3px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] .specs-info-value {
+  color: #1e293b;
+}
+
+:root[data-theme="light"] .specs-info-header {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .product-specs-info-box {
+    max-width: 100%;
+    padding: 14px 16px;
+  }
+  
+  .specs-info-item {
+    font-size: 0.85rem;
+  }
+}
+
 .product-specs-section .mouse-specs-grid {
   max-width: 100%;
 }
@@ -2160,6 +2233,14 @@ body {
 
 /* ---------- Shopping Cart Styles ---------- */
 
+/* Nav Icon SVG Styling */
+.nav-icon {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  transition: stroke 0.2s ease, transform 0.2s ease;
+}
+
 /* Cart Icon in Header */
 .nav-item-cart {
   position: relative;
@@ -2176,6 +2257,10 @@ body {
 
 .nav-item-cart:hover {
   color: var(--accent);
+}
+
+.nav-item-cart:hover .nav-icon {
+  transform: scale(1.1);
 }
 
 /* Cart Badge (Red dot with number) */
@@ -4489,4 +4574,193 @@ body {
 
 :root[data-theme="light"] .quick-preview-btn-secondary:hover {
   background: rgba(0, 0, 0, 0.05);
+}
+
+/* ========== Wishlist Styles ========== */
+
+/* Wishlist Nav Item */
+.nav-item-wishlist {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.nav-item-wishlist:hover {
+  color: #ef4444;
+}
+
+.nav-item-wishlist:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+/* Wishlist Button */
+.btn.wishlist {
+  background: transparent;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn.wishlist:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.btn.wishlist.in-wishlist {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.btn.wishlist.in-wishlist:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Compare and Wishlist row */
+.compare-wishlist-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.compare-wishlist-row .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Make Compare button match Wishlist button style */
+.compare-wishlist-row .btn.compare {
+  background: transparent;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  font-weight: 400;
+}
+
+.compare-wishlist-row .btn.compare:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(124, 92, 255, 0.08);
+  box-shadow: none;
+}
+
+/* Light mode for compare in row */
+:root[data-theme="light"] .compare-wishlist-row .btn.compare {
+  border-color: #94a3b8;
+  color: #64748b;
+  background: transparent;
+  box-shadow: none;
+}
+
+:root[data-theme="light"] .compare-wishlist-row .btn.compare:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+/* Wishlist modal item styles */
+.wishlist-item-availability {
+  font-size: 0.75rem;
+  display: block;
+  margin-top: 4px;
+}
+
+.wishlist-item-availability.available {
+  color: #22c55e;
+}
+
+.wishlist-item-availability.unavailable {
+  color: #ef4444;
+}
+
+.wishlist-add-cart-btn {
+  background: var(--accent);
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.wishlist-add-cart-btn:hover {
+  background: var(--accent);
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+/* Mobile nav wishlist item */
+.mobile-nav-item[id*="wishlist"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Light mode wishlist styles */
+:root[data-theme="light"] .btn.wishlist {
+  border-color: #94a3b8;
+  color: #64748b;
+}
+
+:root[data-theme="light"] .btn.wishlist:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+:root[data-theme="light"] .btn.wishlist.in-wishlist {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+:root[data-theme="light"] .wishlist-add-cart-btn {
+  background: var(--accent);
+}
+
+/* Responsive wishlist styles */
+@media (max-width: 768px) {
+  .compare-wishlist-row {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .compare-wishlist-row .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .btn.wishlist {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
 }
