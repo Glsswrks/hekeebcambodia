@@ -2000,14 +2000,19 @@ function getMiceSpecsGrid(product) {
     : '';
 
   return `
-    <div class="mouse-specs-grid">
-      <div class="mouse-specs-header">
+    <div class="mouse-specs-grid collapsed">
+      <div class="mouse-specs-header" onclick="this.parentElement.classList.toggle('collapsed')">
         <span class="mouse-specs-title">Specifications</span>
+        <span class="specs-toggle-icon">▼</span>
       </div>
-      <div class="mouse-specs-body">
-        ${rows}
+      <div class="specs-collapsible-content">
+        <div class="specs-collapsible-inner">
+          <div class="mouse-specs-body">
+            ${rows}
+          </div>
+          ${featuresHTML}
+        </div>
       </div>
-      ${featuresHTML}
     </div>
   `;
 }
@@ -2058,14 +2063,19 @@ function getKeyboardSpecsGrid(product) {
     : '';
 
   return `
-    <div class="mouse-specs-grid">
-      <div class="mouse-specs-header">
+    <div class="mouse-specs-grid collapsed">
+      <div class="mouse-specs-header" onclick="this.parentElement.classList.toggle('collapsed')">
         <span class="mouse-specs-title">Specifications</span>
+        <span class="specs-toggle-icon">▼</span>
       </div>
-      <div class="mouse-specs-body">
-        ${rows}
+      <div class="specs-collapsible-content">
+        <div class="specs-collapsible-inner">
+          <div class="mouse-specs-body">
+            ${rows}
+          </div>
+          ${featuresHTML}
+        </div>
       </div>
-      ${featuresHTML}
     </div>
   `;
 }
@@ -2617,7 +2627,7 @@ function renderSimilarProductsSection(currentProductId) {
     }
 
     similarSection.innerHTML = `
-          <div style="margin-top:40px;margin-bottom:20px;">
+          <div style="margin-top:0;margin-bottom:20px;">
               <h2 style="font-size:1.5rem;">You May Also Like</h2>
           </div>
           <div class="horizontal-scroll-container">

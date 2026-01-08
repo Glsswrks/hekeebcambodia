@@ -867,7 +867,7 @@ body {
 /* Specs section - full width below options */
 .product-specs-section {
   width: 100%;
-  margin-top: 24px;
+  margin-top: 0;
 }
 
 .product-specs-section .mouse-specs-grid {
@@ -916,17 +916,19 @@ body {
 
 .compare-btn-row .btn.compare {
   width: 100%;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(236, 72, 153, 0.08) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.35);
   color: #fff;
   padding: 12px 16px;
   font-weight: 600;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25), 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .compare-btn-row .btn.compare:hover {
-  background: #2a2a2a;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.28) 0%, rgba(168, 85, 247, 0.20) 50%, rgba(236, 72, 153, 0.14) 100%);
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35), 0 3px 6px rgba(0, 0, 0, 0.35);
 }
 
 .action-btn-row {
@@ -944,13 +946,16 @@ body {
 
 /* Light mode adjustments for compare button */
 :root[data-theme="light"] .compare-btn-row .btn.compare {
-  background: #1e293b;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #fff;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.14) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(236, 72, 153, 0.10) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.30);
+  color: #4c1d95;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme="light"] .compare-btn-row .btn.compare:hover {
-  background: #334155;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(168, 85, 247, 0.18) 50%, rgba(236, 72, 153, 0.14) 100%);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.22), 0 2px 4px rgba(0, 0, 0, 0.10);
 }
 
 .specs {
@@ -3166,10 +3171,20 @@ body {
 .hamburger-btn {
   display: none;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
   padding: 8px;
   z-index: 50;
+  transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hamburger-btn.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.10) 50%, rgba(236, 72, 153, 0.07) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2), 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .hamburger-icon {
@@ -3209,11 +3224,13 @@ body {
 .hamburger-btn.active .hamburger-icon::before {
   top: 0;
   transform: rotate(45deg);
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
 }
 
 .hamburger-btn.active .hamburger-icon::after {
   top: 0;
   transform: rotate(-45deg);
+  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
 }
 
 /* Mobile Nav Overlay */
@@ -3460,6 +3477,20 @@ body {
   background: #1e293b;
 }
 
+:root[data-theme="light"] .hamburger-btn.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.10) 50%, rgba(236, 72, 153, 0.08) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.30);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="light"] .hamburger-btn.active .hamburger-icon::before {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+:root[data-theme="light"] .hamburger-btn.active .hamburger-icon::after {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+}
+
 /* Mobile responsive - show hamburger, hide desktop nav */
 @media (max-width: 768px) {
   .hamburger-btn {
@@ -3528,18 +3559,63 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
+/* Specs Toggle Header - Clickable dropdown style */
 .mouse-specs-header {
   padding: 16px 20px;
-  background: linear-gradient(180deg, rgba(124, 92, 255, 0.15) 0%, rgba(124, 92, 255, 0.05) 100%);
-  border-bottom: 1px solid rgba(124, 92, 255, 0.3);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(236, 72, 153, 0.08) 100%);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.mouse-specs-header:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.18) 50%, rgba(236, 72, 153, 0.12) 100%);
 }
 
 .mouse-specs-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ff4444;
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* Specs Toggle Arrow Icon */
+.specs-toggle-icon {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 8px;
+}
+
+.mouse-specs-grid.collapsed .specs-toggle-icon {
+  transform: rotate(-90deg);
+}
+
+/* Collapsible Content Wrapper */
+.specs-collapsible-content {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mouse-specs-grid.collapsed .specs-collapsible-content {
+  grid-template-rows: 0fr;
+}
+
+.specs-collapsible-inner {
+  overflow: hidden;
+}
+
+.mouse-specs-grid.collapsed .mouse-specs-header {
+  border-bottom-color: transparent;
 }
 
 .mouse-specs-body {
@@ -3618,20 +3694,32 @@ body {
 
 /* Light mode adjustments */
 :root[data-theme="light"] .mouse-specs-grid {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 0, 0, 0.10);
   box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 :root[data-theme="light"] .mouse-specs-header {
-  background: linear-gradient(180deg, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.05) 100%);
-  border-bottom: 1px solid rgba(99, 102, 241, 0.25);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.10) 50%, rgba(236, 72, 153, 0.08) 100%);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.30);
+}
+
+:root[data-theme="light"] .mouse-specs-header:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.20) 0%, rgba(168, 85, 247, 0.16) 50%, rgba(236, 72, 153, 0.12) 100%);
 }
 
 :root[data-theme="light"] .mouse-specs-title {
-  color: #dc2626;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:root[data-theme="light"] .specs-toggle-icon {
+  color: rgba(124, 58, 237, 0.6);
 }
 
 :root[data-theme="light"] .mouse-spec-row {
@@ -3639,28 +3727,34 @@ body {
 }
 
 :root[data-theme="light"] .mouse-spec-row:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(99, 102, 241, 0.04);
 }
 
 :root[data-theme="light"] .mouse-spec-label {
-  background: rgba(0, 0, 0, 0.03);
-  color: rgba(30, 41, 59, 0.7);
+  background: rgba(99, 102, 241, 0.03);
+  color: #475569;
   border-right: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 600;
 }
 
 :root[data-theme="light"] .mouse-spec-value {
   color: #1e293b;
+  background: transparent;
 }
 
 :root[data-theme="light"] .mouse-spec-features {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(99, 102, 241, 0.02);
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 :root[data-theme="light"] .mouse-spec-features-list li {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.06) 100%);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.10) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.20);
   color: #334155;
+}
+
+:root[data-theme="light"] .mouse-specs-grid.collapsed .mouse-specs-header {
+  border-bottom-color: transparent;
 }
 
 /* Mobile responsive */
