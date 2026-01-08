@@ -456,6 +456,223 @@ function navigateOptionPreview(delta) {
   }
 }
 
+/* ========== Quick Preview Modal ========== */
+let quickPreviewSelectedOption = null;
+
+function initQuickPreviewModal() {
+  if (document.getElementById("quickPreviewModal")) return;
+  
+  const modal = document.createElement("div");
+  modal.id = "quickPreviewModal";
+  modal.className = "quick-preview-modal";
+  modal.innerHTML = `
+    <div class="quick-preview-content">
+      <button class="quick-preview-close" aria-label="Close">&times;</button>
+      <div class="quick-preview-image-section">
+        <div class="quick-preview-main-image">
+          <img src="" alt="Product Image">
+        </div>
+        <div class="quick-preview-thumbnails"></div>
+      </div>
+      <div class="quick-preview-info">
+        <div class="quick-preview-badge-row"></div>
+        <h2 class="quick-preview-title"></h2>
+        <div class="quick-preview-price"></div>
+        <p class="quick-preview-desc"></p>
+        <div class="quick-preview-specs"></div>
+        <div class="quick-preview-availability"></div>
+        <div class="quick-preview-options"></div>
+        <div class="quick-preview-actions">
+          <button class="quick-preview-btn quick-preview-btn-primary" id="quickPreviewAddToCart">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            Add To Cart
+          </button>
+          <button class="quick-preview-btn quick-preview-btn-secondary" id="quickPreviewViewDetails">
+            View Full Details
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Close on backdrop click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeQuickPreviewModal();
+  });
+
+  // Close button
+  modal.querySelector(".quick-preview-close").addEventListener("click", closeQuickPreviewModal);
+
+  // Escape key to close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeQuickPreviewModal();
+    }
+  });
+}
+
+function openQuickPreviewModal(product) {
+  if (!document.getElementById("quickPreviewModal")) initQuickPreviewModal();
+  
+  const modal = document.getElementById("quickPreviewModal");
+  const mainImage = modal.querySelector(".quick-preview-main-image img");
+  const thumbnailsContainer = modal.querySelector(".quick-preview-thumbnails");
+  const badgeRow = modal.querySelector(".quick-preview-badge-row");
+  const titleEl = modal.querySelector(".quick-preview-title");
+  const priceEl = modal.querySelector(".quick-preview-price");
+  const descEl = modal.querySelector(".quick-preview-desc");
+  const specsEl = modal.querySelector(".quick-preview-specs");
+  const availabilityEl = modal.querySelector(".quick-preview-availability");
+  const optionsEl = modal.querySelector(".quick-preview-options");
+  const addToCartBtn = modal.querySelector("#quickPreviewAddToCart");
+  const viewDetailsBtn = modal.querySelector("#quickPreviewViewDetails");
+
+  // Reset selected option
+  quickPreviewSelectedOption = null;
+
+  // Set main image
+  const images = Array.isArray(product.images) ? product.images : [];
+  mainImage.src = images[0] || "";
+
+  // Build thumbnails
+  thumbnailsContainer.innerHTML = images.slice(0, 6).map((img, idx) => `
+    <div class="quick-preview-thumb ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+      <img src="${img}" alt="Thumbnail ${idx + 1}">
+    </div>
+  `).join("");
+
+  // Thumbnail click handlers
+  thumbnailsContainer.querySelectorAll(".quick-preview-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      thumbnailsContainer.querySelectorAll(".quick-preview-thumb").forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+      mainImage.src = images[parseInt(thumb.dataset.index)] || "";
+    });
+  });
+
+  // Badges
+  let badges = [];
+  if (product.isNew) badges.push('<span class="quick-preview-badge new">New</span>');
+  if (product.lowStock && product.available) badges.push('<span class="quick-preview-badge low-stock">Low Stock</span>');
+  if (!product.available) badges.push('<span class="quick-preview-badge out-of-stock">Out of Stock</span>');
+  badgeRow.innerHTML = badges.join("");
+
+  // Title and price
+  titleEl.textContent = product.title || "";
+  priceEl.textContent = `$${product.price || 0}`;
+
+  // Description
+  descEl.textContent = product.short || "";
+
+  // Specs - show a few key specs
+  const specsList = [];
+  if (product.layout) specsList.push(product.layout);
+  if (product.specs) {
+    if (product.specs.switches) specsList.push(product.specs.switches.split("/")[0].trim());
+    if (product.specs.pollingRate) specsList.push(product.specs.pollingRate);
+    if (product.specs.connectivity) specsList.push(product.specs.connectivity);
+  }
+  specsEl.innerHTML = specsList.slice(0, 4).map(spec => 
+    `<span class="quick-preview-spec">${spec}</span>`
+  ).join("");
+
+  // Availability
+  availabilityEl.className = `quick-preview-availability ${product.available ? 'available' : 'unavailable'}`;
+  availabilityEl.innerHTML = product.available 
+    ? `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Available`
+    : `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Unavailable`;
+
+  // Options
+  if (product.options && product.options.length > 0) {
+    const availableOptions = product.options.filter(opt => opt.available !== false);
+    if (availableOptions.length > 0) {
+      quickPreviewSelectedOption = availableOptions[0]; // Auto-select first available
+    }
+
+    optionsEl.innerHTML = `
+      <span class="quick-preview-options-label">Options:</span>
+      <div class="quick-preview-options-list">
+        ${product.options.map((opt, idx) => `
+          <button class="quick-preview-option ${opt.available === false ? 'unavailable' : ''} ${quickPreviewSelectedOption === opt ? 'active' : ''}" 
+                  data-option-index="${idx}" 
+                  ${opt.available === false ? 'disabled' : ''}>
+            ${opt.name.length > 30 ? opt.name.substring(0, 30) + '...' : opt.name}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    // Option click handlers
+    optionsEl.querySelectorAll(".quick-preview-option:not(.unavailable)").forEach(optBtn => {
+      optBtn.addEventListener("click", () => {
+        optionsEl.querySelectorAll(".quick-preview-option").forEach(b => b.classList.remove("active"));
+        optBtn.classList.add("active");
+        const optIdx = parseInt(optBtn.dataset.optionIndex);
+        quickPreviewSelectedOption = product.options[optIdx];
+        
+        // Update image if option has one
+        if (quickPreviewSelectedOption && quickPreviewSelectedOption.image) {
+          mainImage.src = quickPreviewSelectedOption.image;
+        }
+        
+        // Update price if option has different price
+        if (quickPreviewSelectedOption && quickPreviewSelectedOption.price) {
+          priceEl.textContent = `$${quickPreviewSelectedOption.price}`;
+        } else {
+          priceEl.textContent = `$${product.price || 0}`;
+        }
+      });
+    });
+  } else {
+    optionsEl.innerHTML = "";
+  }
+
+  // Add to Cart button
+  if (product.available) {
+    addToCartBtn.disabled = false;
+    addToCartBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+      </svg>
+      Add To Cart
+    `;
+    addToCartBtn.onclick = () => {
+      Cart.addItem(product, quickPreviewSelectedOption, addToCartBtn);
+      closeQuickPreviewModal();
+    };
+  } else {
+    addToCartBtn.disabled = true;
+    addToCartBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+      Unavailable
+    `;
+    addToCartBtn.onclick = null;
+  }
+
+  // View Details button
+  viewDetailsBtn.onclick = () => {
+    closeQuickPreviewModal();
+    window.location.href = productLink(product.id);
+  };
+
+  // Show modal
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeQuickPreviewModal() {
+  const modal = document.getElementById("quickPreviewModal");
+  if (!modal) return;
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+  quickPreviewSelectedOption = null;
+}
+
 const productData = {
   keyboards,
   mice,
@@ -1602,6 +1819,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Floating header: toggle glass/transparent state when scrolling
+  (function setupFloatingHeader() {
+    const headerEl = document.querySelector('.site-header');
+    if (!headerEl) return;
+    const onScrollHeader = () => {
+      if (window.scrollY > 20) headerEl.classList.add('scrolled');
+      else headerEl.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScrollHeader, { passive: true });
+    // initial state
+    onScrollHeader();
+  })();
+
   // Compare elements
   compareEls = {
     selectModal: document.getElementById("compareSelectModal"),
@@ -2112,12 +2342,34 @@ function createProductCard(p) {
     no_info = `<div class="specs-inline muted"></div>`;
   }
 
+  // Determine if add to cart should be locked
+  const addToCartLocked = !p.available;
+
   card.innerHTML = `
     <div class="card-image">
       <a class="card-link" href="${href}">
         <img src="${cover}" alt="${p.title}">
       </a>
       ${badgeHTML} <span class="${priceBadgeClass}">$${p.price}</span>
+      <div class="card-image-overlay">
+        <button class="card-overlay-btn quick-view-btn" title="Quick View" data-product-id="${p.id}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </button>
+        <button class="card-overlay-btn wishlist-btn" title="Add to Wishlist" data-product-id="${p.id}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </button>
+      </div>
+      <button class="card-add-to-cart${addToCartLocked ? ' locked' : ''}" data-product-id="${p.id}" ${addToCartLocked ? 'disabled' : ''}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        ${addToCartLocked ? 'Unavailable' : 'Add To Cart'}
+      </button>
     </div>
     <div class="card-body">
       <h4 class="card-title">
@@ -2143,6 +2395,58 @@ function createProductCard(p) {
       openImageModal(cardImg.src);
     });
   }
+  
+  // Quick View button event - opens quick preview modal
+  const quickViewBtn = card.querySelector(".quick-view-btn");
+  if (quickViewBtn) {
+    quickViewBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openQuickPreviewModal(p);
+    });
+  }
+  
+  // Add to Cart button event
+  const addToCartBtn = card.querySelector(".card-add-to-cart");
+  if (addToCartBtn && p.available) {
+    addToCartBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Find the first available option
+      let firstAvailableOption = null;
+      if (p.options && Array.isArray(p.options)) {
+        firstAvailableOption = p.options.find(opt => opt.available !== false);
+      }
+      
+      // Add to cart with the first available option
+      if (firstAvailableOption) {
+        Cart.addItem(p, firstAvailableOption, addToCartBtn);
+      } else {
+        // No options or all options unavailable, add product without option
+        Cart.addItem(p, null, addToCartBtn);
+      }
+    });
+  }
+  
+  // Wishlist button event (optional functionality)
+  const wishlistBtn = card.querySelector(".wishlist-btn");
+  if (wishlistBtn) {
+    wishlistBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Toggle heart fill for visual feedback
+      const svg = wishlistBtn.querySelector("svg");
+      if (svg.getAttribute("fill") === "none") {
+        svg.setAttribute("fill", "currentColor");
+        wishlistBtn.style.color = "#e74c3c";
+      } else {
+        svg.setAttribute("fill", "none");
+        wishlistBtn.style.color = "";
+      }
+    });
+  }
+  
   // If the product is locked, disable navigation and add a visual state
   if (p.locked) {
     const link = card.querySelector(".card-link");

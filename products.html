@@ -40,12 +40,12 @@
             aria-label="Toggle Dark Mode">
             <span class="icon">🌙</span>
           </button>
+          <a href="#" id="cartToggle" class="nav-item-cart">
+            🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
+          </a>
           <a href="#" id="preorderLink" class="nav-item-preorder">
             Pre-orders
             <span id="preorderBadge" class="cart-badge hidden">0</span>
-          </a>
-          <a href="#" id="cartToggle" class="nav-item-cart">
-            🛒 <span id="cartBadge" class="cart-badge hidden">0</span>
           </a>
         </nav>
 
@@ -101,8 +101,11 @@
           </div>
 
           <div class="about-contact">
-            <h4>Connect With Us</h4>
-            <p>For custom builds, support, or inquiries:</p>
+            <h4>INFO & SUPPORT</h4>
+            <div class="contact-info-list">
+              <p><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> kazemiglsswrks@gmail.com</p>
+              <p><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"></circle><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"></path></svg> Samdach Sothearos Blvd (3), Near Aeon-1, Phnom Penh (Pickup Only)</p>
+            </div>
             <div class="contact-button-group">
               <a href="#" id="whatsappMain" target="_blank"
                 class="btn contact-card whatsapp">
@@ -257,7 +260,8 @@
         <div class="modal-header-detailed">
           <span class="modal-subtitle">Add to Cart</span>
           <h2 id="cartModalTitle">Select an Option</h2>
-          <p class="modal-description">Choose your preferred variation to add to cart.</p>
+          <p class="modal-description">Choose your preferred variation to add to
+            cart.</p>
         </div>
 
         <div id="cartOptionList" class="options-grid-modern"></div>
