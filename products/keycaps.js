@@ -151,4 +151,123 @@ export const keycaps = [
     ],
     options: null,
   },
+  {
+    id: "shinobu-keycap",
+    title: "Demon Slayer - Shinobu Keycaps",
+    short:
+      "Meow Peripherals Demon Slayer Shinobu Kocho Anime Merchandise 2D PBT Keyboard with Front and Side Printed Backlit Keycaps",
+    price: 25,
+    layout: "Cherry - Original Profile",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i1/2213765950443/O1CN01ONCCfn1F8wX72vDcA_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01iMRRN51F8wX5MGNim_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01WsX4qP1F8wX78Iqho_!!2213765950443.jpg_q50.jpg_.webp"
+    ],
+    category: "keycaps",
+    specs: [
+      "Cherry Original Height Profile",
+      "Material: PBT",
+      "122 Keys",
+    ],
+    options: null,
+  },
+  {
+    id: "mitsuri-keycap",
+    title: "Demon Slayer - Mitsuri Keycaps",
+    short:
+      "Meow Peripherals Demon Slayer Kanroji Mitsuri Anime Merchandise 2D PBT Keyboard with Front and Side Printed Keycaps",
+    price: 25,
+    layout: "Cherry - Original Profile",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i3/2213765950443/O1CN01B7A4131F8wX0YqAc7_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01DYSykC1F8wX79qDdF_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i1/2213765950443/O1CN01iJyiPH1F8wX6fOWEH_!!2213765950443.jpg_q50.jpg_.webp"
+    ],
+    category: "keycaps",
+    specs: [
+      "Cherry Original Height Profile",
+      "Material: PBT",
+      "122 Keys",
+    ],
+    options: null,
+  },
+  {
+    id: "reze-keycap",
+    title: "Chainsaw Man - Reze Keycaps",
+    short:
+      "Meow Peripherals Chainsaw Man Reze Anime Merchandise 2D PBT Keyboard with Front and Side Printed Backlit Keycaps",
+    price: 25,
+    layout: "Cherry - Original Profile",
+    no_info: true,
+    available: false,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01dj4Z8U1F8wWuQbHRa_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i1/2213765950443/O1CN01UBTPT31F8wWvn0AW4_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01HKIzhP1F8wWvTU7fW_!!2213765950443.jpg_q50.jpg_.webp"
+    ],
+    category: "keycaps",
+    specs: [
+      "Cherry Original Height Profile",
+      "Material: PBT",
+      "122 Keys",
+    ],
+    options: null,
+  },
+  {
+    id: "rei-ayanami-keycap",
+    title: "Rei Ayanami Keycaps",
+    short: "Meow Peripherals EVA Rei Ayanami Game Anime Merchandise 2D PBT Keyboard with Front and Side Printed Backlit Keycaps",
+    price: 25,
+    layout: "Cherry - Original Profile",
+    available: false,
+    no_info: true,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01p8KMTQ1F8wWRduOCA_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i2/2213765950443/O1CN01jg3bSB1F8wV0moZKI_!!2213765950443.jpg_q50.jpg_.webp",
+      "https://img.alicdn.com/imgextra/i3/2213765950443/O1CN01Nd0GLR1F8wV0mmcno_!!2213765950443.jpg_q50.jpg_.webp",
+    ],
+    category: "keycaps",
+    specs: [
+      "Cherry Original Height Profile",
+      "Material: PBT",
+      "122 Keys",
+    ],
+    options: null,
+  },
 ];
+/*
+// -> Keycaps template
+  {
+    id: "",
+    title: "",
+    short: "",
+    price: 25,
+    layout: "Cherry - Original Profile",
+    available: false,
+    no_info: true,
+    isNew: false,
+    lowStock: false,
+    images: [
+      "",
+    ],
+    category: "keycaps",
+    specs: [
+      "Cherry Original Height Profile",
+      "Material: PBT",
+      "122 Keys",
+    ],
+    options: null,
+  },
+*/

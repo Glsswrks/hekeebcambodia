@@ -31,15 +31,15 @@ export const keyboards = [
       dead_zone: "",     // new variable take from the second item in features array
       rgb_details: "",   // new variable take from the third item in features array
       functions: "",     // new variable take from the fourth item in features array
+      drivers: "Dual Drivers Support",
+      musicRhythm: "Music Rhythm RGB Support",
+      structure: "",
+      mcu: "",
+      connectivity: "Wired",
+      compatibility: "Windows / MacOS / Linux",
       features: [
       // + Main Features
-        "", // -> position plate of the keyboard
-        "", // -> Keyboard Dead-Zone
-        "", // -> Keyboard RGB Details
-        "", // -> Keyboard Functions
-        "", // -> Keyboard Drivers
-        "", // -> Music Rythm RGB
-        "", // -> Structure Design
+        "", 
       ],
     },
     options: null
