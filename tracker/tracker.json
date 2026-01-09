@@ -1,0 +1,113 @@
+{
+  "tracker": [
+    {
+      "tracking_id": "KC-2026-001",
+      "client_name": "Sokha Chan",
+      "client_phone": "+855 12 345 678",
+      "client_address": "Street 271, BKK1, Phnom Penh, Cambodia",
+      "delivery_status": "out_for_delivery",
+      "products_ordered": [
+        { 
+          "name": "TITAN68 HE V2", 
+          "option": "Graffiti Black", 
+          "quantity": 1, 
+          "price": 200
+        }
+      ],
+      "products_preordered": [],
+      "order_date": "2026-01-05",
+      "estimated_delivery": "2026-01-10",
+      "total_price": 200,
+      "status_history": [
+        { "status": "out_for_delivery", "date": "2026-01-05", "note": "Package ready for delivery" }
+      ]
+    },
+    {
+      "tracking_id": "KC-2026-002",
+      "client_name": "Vanny Keo",
+      "client_phone": "+855 77 888 999",
+      "client_address": "Toul Kork, Phnom Penh, Cambodia",
+      "delivery_status": "in_transit",
+      "products_ordered": [
+        { 
+          "name": "ATK RS-6 / RS-6 Ultra", 
+          "option": "Sakura Warrior Edition", 
+          "quantity": 1, 
+          "price": 135
+        },
+        { 
+          "name": "MCHOSE ACE68 TURBO", 
+          "option": null, 
+          "quantity": 1, 
+          "price": 90
+        }
+      ],
+      "products_preordered": [],
+      "order_date": "2026-01-06",
+      "estimated_delivery": "2026-01-11",
+      "total_price": 225,
+      "status_history": [
+        { "status": "out_for_delivery", "date": "2026-01-06", "note": "Package ready for delivery" },
+        { "status": "in_transit", "date": "2026-01-08", "note": "Package is being delivered" }
+      ]
+    },
+    {
+      "tracking_id": "KC-2026-003",
+      "client_name": "Dara Pich",
+      "client_phone": "+855 96 111 222",
+      "client_address": "Sen Sok, Phnom Penh, Cambodia",
+      "delivery_status": "delivered",
+      "products_ordered": [
+        { 
+          "name": "ATK EDGE60 HE ULTIMATE", 
+          "option": null, 
+          "quantity": 1, 
+          "price": 200
+        }
+      ],
+      "products_preordered": [],
+      "order_date": "2026-01-02",
+      "estimated_delivery": "2026-01-07",
+      "delivered_date": "2026-01-07",
+      "total_price": 200,
+      "status_history": [
+        { "status": "out_for_delivery", "date": "2026-01-02", "note": "Package ready for delivery" },
+        { "status": "in_transit", "date": "2026-01-04", "note": "Package is being delivered" },
+        { "status": "delivered", "date": "2026-01-07", "note": "Package has arrived" }
+      ]
+    }
+  ],
+
+  
+  "_comment": [
+    {
+      "tracking_id": "KC-2026-002",
+      "client_name": "Vanny Keo",
+      "client_phone": "+855 77 888 999",
+      "client_address": "Toul Kork, Phnom Penh, Cambodia",
+      "delivery_status": "in_transit",
+      "products_ordered": [
+        { 
+          "name": "ATK RS-6 / RS-6 Ultra", 
+          "option": "Sakura Warrior Edition", 
+          "quantity": 1, 
+          "price": 135
+        },
+        { 
+          "name": "MCHOSE ACE68 TURBO", 
+          "option": null, 
+          "quantity": 1, 
+          "price": 90
+        }
+      ],
+      "products_preordered": [],
+      "order_date": "2026-01-06",
+      "estimated_delivery": "2026-01-11",
+      "total_price": 225,
+      "status_history": [
+        { "status": "out_for_delivery", "date": "2026-01-06", "note": "Package ready for delivery" },
+        { "status": "in_transit", "date": "2026-01-08", "note": "Package is being delivered" }
+      ]
+    }
+  ]
+}
