@@ -48,6 +48,9 @@
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 4H18C19.1046 4 20 4.89543 20 6V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V6C4 4.89543 4.89543 4 6 4H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.5 10.5C12.5 11.8807 11.3807 13 10 13C8.61929 13 7.5 11.8807 7.5 10.5C7.5 9.11929 10 6 10 6C10 6 12.5 9.11929 12.5 10.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 14.5C16.5 15.8807 15.3807 17 14 17C12.6193 17 11.5 15.8807 11.5 14.5C11.5 13.1193 14 10 14 10C14 10 16.5 13.1193 16.5 14.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span id="wishlistBadge" class="cart-badge hidden">0</span>
           </a>
+          <a href="#" id="trackerToggle" class="nav-item-tracker" aria-label="Track Delivery">
+            <svg class="nav-icon" viewBox="0 0 80.593 80.593" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M79.276,26.333H59.464l-4.985-8.635c-0.378-0.651-1.074-1.053-1.836-1.053H28.998l-5.985-10.37 c-0.377-0.653-1.076-1.054-1.836-1.054H2.121c-1.168,0-2.121,0.953-2.121,2.122c0,1.168,0.953,2.121,2.121,2.121h17.818 l5.986,10.372c0.377,0.651,1.076,1.052,1.836,1.052h23.644l4.984,8.634c0.378,0.653,1.078,1.054,1.837,1.054h17.91l-0.002,22.24 H60.848c-0.926-5.357-5.593-9.437-11.224-9.437c-5.632,0-10.297,4.08-11.224,9.437H24.556c-0.927-5.357-5.593-9.437-11.225-9.437 c-6.294,0-11.412,5.117-11.412,11.41c0,6.293,5.118,11.409,11.412,11.409c5.631,0,10.296-4.077,11.225-9.435H38.4 c0.927,5.357,5.592,9.435,11.224,9.435c5.631,0,10.297-4.078,11.224-9.435h14.286c1.168,0,2.121-0.952,2.121-2.121l0.002-26.481 c0-0.563-0.224-1.104-0.623-1.501C76.234,26.561,75.713,26.333,79.276,26.333z M13.331,61.882c-3.962,0-7.17-3.212-7.17-7.168 c0-3.958,3.208-7.168,7.17-7.168c3.957,0,7.166,3.21,7.166,7.168C20.497,58.67,17.288,61.882,13.331,61.882z M49.624,61.882 c-3.96,0-7.167-3.212-7.167-7.168c0-3.958,3.207-7.168,7.167-7.168c3.958,0,7.167,3.21,7.167,7.168 C56.791,58.67,53.582,61.882,49.624,61.882z"/></svg>
+          </a>
           <a href="#" id="preorderLink" class="nav-item-preorder">
             Pre-orders
             <span id="preorderBadge" class="cart-badge hidden">0</span>
@@ -79,6 +82,9 @@
         <a href="#" id="wishlistToggleMobile" class="mobile-nav-item">
           <span>❤️ Wishlist</span>
           <span id="wishlistBadgeMobile" class="cart-badge hidden">0</span>
+        </a>
+        <a href="#" id="trackerToggleMobile" class="mobile-nav-item">
+          <span>📦 Track Delivery</span>
         </a>
         <a href="#" id="preorderLinkMobile" class="mobile-nav-item">
           <span>Pre-orders</span>
@@ -438,6 +444,86 @@
               <button id="clearWishlistBtn" class="btn"
                 style="font-size:0.9rem; padding: 8px;">Clear Wishlist</button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Tracker Modal -->
+      <div id="trackerModal" class="modal" aria-hidden="true">
+        <div class="modal-content tracker-modal-content">
+          <button class="modal-close" id="closeTrackerBtn" aria-label="Close">&times;</button>
+          <div class="tracker-header">
+            <h2>📦 Track Your Delivery</h2>
+            <p class="tracker-subtitle">Enter your tracking ID to check delivery status</p>
+          </div>
+          
+          <div class="tracker-search-box">
+            <input type="text" id="trackerSearchInput" class="tracker-input" placeholder="Enter tracking ID (e.g., KC-2026-001)" autocomplete="off">
+            <button id="trackerSearchBtn" class="btn primary tracker-search-btn">Track</button>
+          </div>
+
+          <div id="trackerEmptyState" class="tracker-empty-state">
+            <div class="tracker-empty-icon">🔍</div>
+            <p>Enter your tracking ID above to view delivery status</p>
+          </div>
+
+          <div id="trackerResult" class="tracker-result" style="display: none;">
+            <div class="tracker-info-card">
+              <div class="tracker-info-header">
+                <span class="tracker-id"></span>
+                <span class="tracker-status-badge"></span>
+              </div>
+              
+              <div class="tracker-progress">
+                <div class="tracker-progress-line">
+                  <div class="tracker-progress-fill"></div>
+                </div>
+                <div class="tracker-progress-dots">
+                  <div class="tracker-dot" data-step="1">
+                    <div class="dot-circle"></div>
+                    <span class="dot-label">Out for Delivery</span>
+                  </div>
+                  <div class="tracker-dot" data-step="2">
+                    <div class="dot-circle"></div>
+                    <span class="dot-label">In Transit</span>
+                  </div>
+                  <div class="tracker-dot" data-step="3">
+                    <div class="dot-circle"></div>
+                    <span class="dot-label">Delivered</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tracker-details">
+                <div class="tracker-detail-row">
+                  <span class="detail-label">Recipient</span>
+                  <span class="detail-value tracker-recipient"></span>
+                </div>
+                <div class="tracker-detail-row">
+                  <span class="detail-label">Address</span>
+                  <span class="detail-value tracker-address"></span>
+                </div>
+                <div class="tracker-detail-row">
+                  <span class="detail-label">Order Date</span>
+                  <span class="detail-value tracker-order-date"></span>
+                </div>
+                <div class="tracker-detail-row">
+                  <span class="detail-label">Est. Delivery</span>
+                  <span class="detail-value tracker-est-delivery"></span>
+                </div>
+              </div>
+
+              <div class="tracker-products">
+                <h4>Items in Package</h4>
+                <ul class="tracker-products-list"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="trackerNotFound" class="tracker-not-found" style="display: none;">
+            <div class="tracker-not-found-icon">❌</div>
+            <p>No delivery found with this tracking ID</p>
+            <small>Please check your tracking ID and try again</small>
           </div>
         </div>
       </div>

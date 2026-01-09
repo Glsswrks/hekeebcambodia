@@ -2169,6 +2169,314 @@ document.addEventListener("DOMContentLoaded", () => {
     wishlistModal?.setAttribute("aria-hidden", "false");
   });
 
+  // ========== Delivery Tracker System ==========
+  const trackerModal = document.getElementById("trackerModal");
+  const trackerToggle = document.getElementById("trackerToggle");
+  const trackerToggleMobile = document.getElementById("trackerToggleMobile");
+  const closeTrackerBtn = document.getElementById("closeTrackerBtn");
+  const trackerSearchInput = document.getElementById("trackerSearchInput");
+  const trackerSearchBtn = document.getElementById("trackerSearchBtn");
+  const trackerEmptyState = document.getElementById("trackerEmptyState");
+  const trackerResult = document.getElementById("trackerResult");
+  const trackerNotFound = document.getElementById("trackerNotFound");
+
+  // Tracker data storage
+  let trackerData = null;
+
+  // Load tracker data from JSON
+  async function loadTrackerData() {
+    if (trackerData) return trackerData;
+    try {
+      const response = await fetch("./tracker/tracker.json");
+      if (!response.ok) throw new Error("Failed to load tracker data");
+      trackerData = await response.json();
+      return trackerData;
+    } catch (error) {
+      console.error("Error loading tracker data:", error);
+      return { tracker: [] };
+    }
+  }
+
+  // Search for tracking info
+  async function searchTracking(trackingId) {
+    const data = await loadTrackerData();
+    const normalizedId = trackingId.trim().toUpperCase();
+    return data.tracker.find(
+      (item) => item.tracking_id.toUpperCase() === normalizedId
+    );
+  }
+
+  // Get progress percentage based on status
+  function getProgressPercent(status) {
+    switch (status) {
+      case "out_for_delivery":
+        return 0;
+      case "in_transit":
+        return 50;
+      case "delivered":
+        return 100;
+      default:
+        return 0;
+    }
+  }
+
+  // Get status step number
+  function getStatusStep(status) {
+    switch (status) {
+      case "out_for_delivery":
+        return 1;
+      case "in_transit":
+        return 2;
+      case "delivered":
+        return 3;
+      default:
+        return 0;
+    }
+  }
+
+  // Format date
+  function formatTrackerDate(dateStr) {
+    if (!dateStr) return "N/A";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
+
+  // Get status badge text
+  function getStatusBadgeText(status) {
+    switch (status) {
+      case "out_for_delivery":
+        return "Out for Delivery";
+      case "in_transit":
+        return "In Transit";
+      case "delivered":
+        return "Delivered";
+      default:
+        return "Unknown";
+    }
+  }
+
+  // Get product image from allProducts based on product name and option
+  function getProductImage(productName, optionName) {
+    // Find product by title (case-insensitive partial match)
+    const product = allProducts.find(p => 
+      p.title.toLowerCase().includes(productName.toLowerCase()) ||
+      productName.toLowerCase().includes(p.title.toLowerCase())
+    );
+    
+    if (!product) return null;
+    
+    // If there's an option, try to find matching option image
+    if (optionName && product.options) {
+      const matchedOption = product.options.find(opt => 
+        opt.name.toLowerCase().includes(optionName.toLowerCase()) ||
+        optionName.toLowerCase().includes(opt.name.toLowerCase())
+      );
+      if (matchedOption?.image) {
+        return matchedOption.image;
+      }
+    }
+    
+    // Fallback to product's first image
+    return product.images?.[0] || null;
+  }
+
+  // Render tracking result
+  function renderTrackerResult(tracking) {
+    if (!tracking) {
+      trackerEmptyState.style.display = "none";
+      trackerResult.style.display = "none";
+      trackerNotFound.style.display = "block";
+      return;
+    }
+
+    trackerEmptyState.style.display = "none";
+    trackerNotFound.style.display = "none";
+    trackerResult.style.display = "block";
+
+    // Update tracking ID
+    const trackerId = trackerResult.querySelector(".tracker-id");
+    if (trackerId) trackerId.textContent = tracking.tracking_id;
+
+    // Update status badge
+    const statusBadge = trackerResult.querySelector(".tracker-status-badge");
+    if (statusBadge) {
+      statusBadge.textContent = getStatusBadgeText(tracking.delivery_status);
+      statusBadge.className = `tracker-status-badge ${tracking.delivery_status.replace(/_/g, "-")}`;
+    }
+
+    // Update progress bar
+    const progressFill = trackerResult.querySelector(".tracker-progress-fill");
+    const progressPercent = getProgressPercent(tracking.delivery_status);
+    if (progressFill) {
+      progressFill.style.width = `${progressPercent}%`;
+    }
+
+    // Update progress dots
+    const currentStep = getStatusStep(tracking.delivery_status);
+    const dots = trackerResult.querySelectorAll(".tracker-dot");
+    dots.forEach((dot) => {
+      const step = parseInt(dot.dataset.step);
+      dot.classList.remove("active", "current");
+      if (step < currentStep) {
+        dot.classList.add("active");
+      } else if (step === currentStep) {
+        if (tracking.delivery_status === "delivered") {
+          dot.classList.add("active");
+        } else {
+          dot.classList.add("current");
+        }
+      }
+    });
+
+    // Update details
+    const recipient = trackerResult.querySelector(".tracker-recipient");
+    const address = trackerResult.querySelector(".tracker-address");
+    const orderDate = trackerResult.querySelector(".tracker-order-date");
+    const estDelivery = trackerResult.querySelector(".tracker-est-delivery");
+
+    if (recipient) recipient.textContent = tracking.client_name || "N/A";
+    if (address) address.textContent = tracking.client_address || "N/A";
+    if (orderDate) orderDate.textContent = formatTrackerDate(tracking.order_date);
+    if (estDelivery) {
+      if (tracking.delivery_status === "delivered" && tracking.delivered_date) {
+        estDelivery.textContent = `Delivered on ${formatTrackerDate(tracking.delivered_date)}`;
+        estDelivery.style.color = "#10b981";
+      } else {
+        estDelivery.textContent = formatTrackerDate(tracking.estimated_delivery);
+        estDelivery.style.color = "";
+      }
+    }
+
+    // Update products list
+    const productsList = trackerResult.querySelector(".tracker-products-list");
+    if (productsList && tracking.products_ordered) {
+      let productsHTML = tracking.products_ordered
+        .map(
+          (item) => {
+            const displayName = item.option || item.name;
+            const baseName = item.option ? item.name : null;
+            const price = item.price ? `$${item.price}` : '';
+            
+            // Auto-fetch image from allProducts
+            const imageUrl = getProductImage(item.name, item.option);
+            
+            return `
+        <li class="tracker-product-card">
+          ${imageUrl ? `<img src="${imageUrl}" alt="${item.name}" class="tracker-product-img" loading="lazy" onerror="this.style.display='none'">` : ''}
+          <div class="tracker-product-info">
+            <div class="tracker-product-name">${displayName}</div>
+            ${baseName ? `<div class="tracker-product-base">${baseName}</div>` : ''}
+          </div>
+          <div class="tracker-product-meta">
+            ${price ? `<span class="tracker-product-price">${price}</span>` : ''}
+            <span class="tracker-product-qty">x${item.quantity || 1}</span>
+          </div>
+        </li>
+      `;
+          }
+        )
+        .join("");
+      
+      // Add total price
+      if (tracking.total_price) {
+        productsHTML += `
+          <div class="tracker-order-total">
+            <span class="tracker-total-label">Total</span>
+            <span class="tracker-total-amount">$${tracking.total_price}</span>
+          </div>
+        `;
+      }
+      
+      productsList.innerHTML = productsHTML;
+    }
+  }
+
+  // Handle search
+  async function handleTrackerSearch() {
+    const trackingId = trackerSearchInput?.value.trim();
+    if (!trackingId) {
+      showToast("Please enter a tracking ID");
+      return;
+    }
+
+    trackerSearchBtn.disabled = true;
+    trackerSearchBtn.textContent = "Searching...";
+
+    try {
+      const result = await searchTracking(trackingId);
+      renderTrackerResult(result);
+    } catch (error) {
+      console.error("Tracker search error:", error);
+      trackerEmptyState.style.display = "none";
+      trackerResult.style.display = "none";
+      trackerNotFound.style.display = "block";
+    } finally {
+      trackerSearchBtn.disabled = false;
+      trackerSearchBtn.textContent = "Track";
+    }
+  }
+
+  // Reset tracker modal state
+  function resetTrackerModal() {
+    if (trackerSearchInput) trackerSearchInput.value = "";
+    if (trackerEmptyState) trackerEmptyState.style.display = "block";
+    if (trackerResult) trackerResult.style.display = "none";
+    if (trackerNotFound) trackerNotFound.style.display = "none";
+  }
+
+  // Open tracker modal
+  function openTrackerModal() {
+    resetTrackerModal();
+    trackerModal?.setAttribute("aria-hidden", "false");
+    // Focus on input after a small delay for animation
+    setTimeout(() => trackerSearchInput?.focus(), 100);
+  }
+
+  // Close tracker modal
+  function closeTrackerModal() {
+    trackerModal?.setAttribute("aria-hidden", "true");
+  }
+
+  // Event listeners for tracker
+  trackerToggle?.addEventListener("click", (e) => {
+    e.preventDefault();
+    openTrackerModal();
+  });
+
+  trackerToggleMobile?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileNav();
+    openTrackerModal();
+  });
+
+  closeTrackerBtn?.addEventListener("click", closeTrackerModal);
+
+  trackerModal?.addEventListener("click", (e) => {
+    if (e.target === trackerModal) closeTrackerModal();
+  });
+
+  trackerSearchBtn?.addEventListener("click", handleTrackerSearch);
+
+  trackerSearchInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleTrackerSearch();
+    }
+  });
+
+  // Close tracker modal on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && trackerModal?.getAttribute("aria-hidden") === "false") {
+      closeTrackerModal();
+    }
+  });
+
+  // Pre-load tracker data in background
+  loadTrackerData();
+
   const preorderOptionModal = document.getElementById("preorderOptionModal");
   const closePreorderOptionBtn = document.getElementById(
     "closePreorderOptionBtn"
