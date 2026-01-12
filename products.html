@@ -48,10 +48,11 @@
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 4H18C19.1046 4 20 4.89543 20 6V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V6C4 4.89543 4.89543 4 6 4H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.5 10.5C12.5 11.8807 11.3807 13 10 13C8.61929 13 7.5 11.8807 7.5 10.5C7.5 9.11929 10 6 10 6C10 6 12.5 9.11929 12.5 10.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 14.5C16.5 15.8807 15.3807 17 14 17C12.6193 17 11.5 15.8807 11.5 14.5C11.5 13.1193 14 10 14 10C14 10 16.5 13.1193 16.5 14.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span id="wishlistBadge" class="cart-badge hidden">0</span>
           </a>
-          <a href="#" id="preorderLink" class="nav-item-preorder">
-            Pre-orders
-            <span id="preorderBadge" class="cart-badge hidden">0</span>
-          </a>
+          <!-- Desktop Hamburger Button -->
+          <button class="hamburger-btn desktop-hamburger" id="desktopHamburgerBtn"
+            aria-label="Open menu" aria-expanded="false">
+            <span class="hamburger-icon"></span>
+          </button>
         </nav>
 
         <!-- Mobile Hamburger Button -->
@@ -77,8 +78,11 @@
           <span class="theme-label">Dark Mode</span>
         </button>
         <a href="#" id="wishlistToggleMobile" class="mobile-nav-item">
-          <span>❤️ Wishlist</span>
+          <span>Wishlist</span>
           <span id="wishlistBadgeMobile" class="cart-badge hidden">0</span>
+        </a>
+        <a href="#" id="trackerToggleMobile" class="mobile-nav-item">
+          <span>Track Delivery</span>
         </a>
         <a href="#" id="preorderLinkMobile" class="mobile-nav-item">
           <span>Pre-orders</span>
@@ -91,6 +95,33 @@
       </div>
     </nav>
 
+    <!-- Desktop Side Panel Overlay -->
+    <div class="desktop-panel-overlay" id="desktopPanelOverlay"></div>
+    <aside class="desktop-side-panel" id="desktopSidePanel" aria-hidden="true">
+      <div class="desktop-panel-header">
+        <span class="desktop-panel-title">Keeb Cambodia - Menu</span>
+        <button class="desktop-panel-close" id="desktopPanelClose"
+          aria-label="Close panel">&times;</button>
+      </div>
+      <div class="desktop-panel-content">
+        <a href="#" id="trackerToggleDesktop" class="desktop-panel-item">
+          <svg class="panel-item-icon" viewBox="0 0 80.593 80.593" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M79.276,26.333H59.464l-4.985-8.635c-0.378-0.651-1.074-1.053-1.836-1.053H28.998l-5.985-10.37 c-0.377-0.653-1.076-1.054-1.836-1.054H2.121c-1.168,0-2.121,0.953-2.121,2.122c0,1.168,0.953,2.121,2.121,2.121h17.818 l5.986,10.372c0.377,0.651,1.076,1.052,1.836,1.052h23.644l4.984,8.634c0.378,0.653,1.078,1.054,1.837,1.054h17.91l-0.002,22.24 H60.848c-0.926-5.357-5.593-9.437-11.224-9.437c-5.632,0-10.297,4.08-11.224,9.437H24.556c-0.927-5.357-5.593-9.437-11.225-9.437 c-6.294,0-11.412,5.117-11.412,11.41c0,6.293,5.118,11.409,11.412,11.409c5.631,0,10.296-4.077,11.225-9.435H38.4 c0.927,5.357,5.592,9.435,11.224,9.435c5.631,0,10.297-4.078,11.224-9.435h14.286c1.168,0,2.121-0.952,2.121-2.121l0.002-26.481 c0-0.563-0.224-1.104-0.623-1.501C76.234,26.561,75.713,26.333,79.276,26.333z M13.331,61.882c-3.962,0-7.17-3.212-7.17-7.168 c0-3.958,3.208-7.168,7.17-7.168c3.957,0,7.166,3.21,7.166,7.168C20.497,58.67,17.288,61.882,13.331,61.882z M49.624,61.882 c-3.96,0-7.167-3.212-7.167-7.168c0-3.958,3.207-7.168,7.167-7.168c3.958,0,7.167,3.21,7.167,7.168 C56.791,58.67,53.582,61.882,49.624,61.882z"/></svg>
+          <span>Track Delivery</span>
+        </a>
+        <a href="#" id="preorderLinkDesktop" class="desktop-panel-item">
+          <svg class="panel-item-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span>Pre-orders</span>
+          <span id="preorderBadgeDesktop" class="cart-badge hidden">0</span>
+        </a>
+        <div class="desktop-panel-divider"></div>
+        <a href="#" id="eventsPromoDesktop" class="desktop-panel-item promo-item">
+          <svg class="panel-item-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Events & Promos</span>
+          <span class="new-badge">NEW</span>
+        </a>
+      </div>
+    </aside>
+
     <main class="product-page">
       <div id="productContainer" class="product-grid">
       </div>
@@ -98,39 +129,54 @@
       <section id="similarProductsSection" class="products container"></section>
     </main>
 
-    <section id="about" class="about-full-wide">
-      <div class="container about-content-box">
-        <div class="about-grid">
-          <div class="about-text">
-            <h3>About Keeb Cambodia</h3>
-            <p>We bring premium custom keyboards and HE keyboards at affordable
-              prices. Our products are tested for
-              quality, priced below the market, and guaranteed to meet your
-              expectations.</p>
+    <section id="about" class="about-section-modern">
+      <div class="container">
+        <div class="about-wrapper">
+          <!-- About Text Card -->
+          <div class="about-card about-intro">
+            <div class="about-card-glow"></div>
+            <div class="about-card-content">
+              <span class="about-label">About Us</span>
+              <h3>Keeb Cambodia</h3>
+              <p>We bring premium custom keyboards and HE keyboards at affordable prices. Our products are tested for quality, priced below the market, and guaranteed to meet your expectations.</p>
+            </div>
           </div>
 
-          <div class="about-contact">
-            <h4>INFO & SUPPORT</h4>
-            <div class="contact-info-list">
-              <p><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> kazemiglsswrks@gmail.com</p>
-              <p><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"></circle><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"></path></svg> Samdach Sothearos Blvd (3), Near Aeon-1, Phnom Penh (Pickup Only)</p>
+          <!-- Contact Cards Row -->
+          <div class="contact-cards-row">
+            <!-- Email Card -->
+            <div class="contact-mini-card">
+              <div class="contact-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div class="contact-mini-info">
+                <span class="contact-mini-label">Email</span>
+                <span class="contact-mini-value">kazemiglsswrks@gmail.com</span>
+              </div>
             </div>
-            <div class="contact-button-group">
-              <a href="#" id="whatsappMain" target="_blank"
-                class="btn contact-card whatsapp">
-                <div class="contact-label">
-                  <span>WhatsApp</span>
-                  <small>Chat with us</small>
-                </div>
-              </a>
-              <a href="#" id="telegramMain" target="_blank"
-                class="btn contact-card telegram">
-                <div class="contact-label">
-                  <span>Telegram</span>
-                  <small>@glsswrksGG</small>
-                </div>
-              </a>
+
+            <!-- Location Card -->
+            <div class="contact-mini-card">
+              <div class="contact-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact-mini-info">
+                <span class="contact-mini-label">Pickup Location</span>
+                <span class="contact-mini-value">264 Street 69 BT, Phnom Penh</span>
+              </div>
             </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-links-modern">
+            <a href="#" id="whatsappMain" target="_blank" class="social-link-btn whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+            <a href="#" id="telegramMain" target="_blank" class="social-link-btn telegram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <span>Telegram</span>
+            </a>
           </div>
         </div>
       </div>
@@ -371,7 +417,7 @@
       <div class="modal-content" style="max-width: 500px;">
         <button class="modal-close" id="closeWishlistBtn"
           aria-label="Close">&times;</button>
-        <h2>❤️ Your Wishlist</h2>
+        <h2>Your Wishlist</h2>
 
         <div id="wishlistEmptyState"
           style="display:none; padding: 20px 0; color: var(--muted);">
@@ -389,6 +435,43 @@
             <button id="clearWishlistBtn" class="btn"
               style="font-size:0.9rem; padding: 8px;">Clear Wishlist</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Popup Modal -->
+    <div id="welcomePopup" class="welcome-popup-overlay" aria-hidden="true">
+      <div class="welcome-popup">
+        <button class="welcome-popup-close" id="welcomePopupClose" aria-label="Close">×</button>
+        
+        <!-- Left Side - Image/Branding -->
+        <div class="welcome-popup-image">
+          <img src="https://www.atk.store/cdn/shop/files/ATK_Edge_60_Description_Desktop-01_b0f1ad3d-2cbd-40b1-8ed5-fa2654c631f1.jpg?v=1750545635&width=1880" alt="Keeb Cambodia" class="popup-brand-image">
+        </div>
+        
+        <!-- Right Side - Content -->
+        <div class="welcome-popup-content">
+            <h2>WELCOME TO KEEB-CAMBODIA</h2>
+          <p class="welcome-popup-desc">Stay ahead with our latest product updated, exclusive deals, and gaming insights!</p>
+          <p class="welcome-popup-offer">Subscribe now to unlock your special offer.<br><span class="highlight">Limited time only, don't let this pass by!</span></p>
+          
+          <form class="welcome-popup-form" id="welcomePopupForm">
+            <input type="email" id="welcomeEmail" placeholder="enter your email address" required>
+            <button type="submit" class="welcome-submit-btn">SUBMIT</button>
+          </form>
+          
+          <div class="welcome-popup-social">
+            <a href="#" class="popup-social-icon" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="popup-social-icon" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" class="popup-social-icon" aria-label="TikTok"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+            <a href="#" class="popup-social-icon" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            <a href="#" class="popup-social-icon" aria-label="Telegram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+          </div>
+          
+          <label class="welcome-popup-dismiss">
+            <input type="checkbox" id="welcomePopupDismiss">
+            <span>No, Thanks</span>
+          </label>
         </div>
       </div>
     </div>

@@ -1412,10 +1412,11 @@ const PreOrderList = {
     const items = this.getItems();
     const badge = document.getElementById("preorderBadge");
     const badgeMobile = document.getElementById("preorderBadgeMobile");
+    const badgeDesktop = document.getElementById("preorderBadgeDesktop");
     // Compute total quantity across pre-orders
     const totalQty = items.reduce((s, it) => s + (it.quantity || 1), 0);
 
-    // Update badge (desktop)
+    // Update badge (desktop nav - removed, now in panel)
     if (badge) {
       badge.textContent = totalQty;
       if (totalQty > 0) badge.classList.remove("hidden");
@@ -1427,6 +1428,13 @@ const PreOrderList = {
       badgeMobile.textContent = totalQty;
       if (totalQty > 0) badgeMobile.classList.remove("hidden");
       else badgeMobile.classList.add("hidden");
+    }
+
+    // Update badge (desktop panel)
+    if (badgeDesktop) {
+      badgeDesktop.textContent = totalQty;
+      if (totalQty > 0) badgeDesktop.classList.remove("hidden");
+      else badgeDesktop.classList.add("hidden");
     }
 
     // Re-render the modal if it's open
@@ -2079,6 +2087,149 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ========== Desktop Side Panel ==========
+  const desktopHamburgerBtn = document.getElementById("desktopHamburgerBtn");
+  const desktopSidePanel = document.getElementById("desktopSidePanel");
+  const desktopPanelOverlay = document.getElementById("desktopPanelOverlay");
+  const desktopPanelClose = document.getElementById("desktopPanelClose");
+
+  function openDesktopPanel() {
+    desktopHamburgerBtn?.classList.add("active");
+    desktopSidePanel?.classList.add("active");
+    desktopPanelOverlay?.classList.add("active");
+    desktopHamburgerBtn?.setAttribute("aria-expanded", "true");
+    desktopSidePanel?.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    // Subtle scale feedback
+    if (desktopHamburgerBtn) {
+      desktopHamburgerBtn.style.transform = "scale(1.06)";
+      setTimeout(() => {
+        desktopHamburgerBtn.style.transform = "";
+      }, 180);
+    }
+  }
+
+  function closeDesktopPanel() {
+    desktopHamburgerBtn?.classList.remove("active");
+    desktopSidePanel?.classList.remove("active");
+    desktopPanelOverlay?.classList.remove("active");
+    desktopHamburgerBtn?.setAttribute("aria-expanded", "false");
+    desktopSidePanel?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // Desktop Panel Event Listeners
+  desktopHamburgerBtn?.addEventListener("click", () => {
+    const isActive = desktopSidePanel?.classList.contains("active");
+    if (isActive) {
+      closeDesktopPanel();
+    } else {
+      openDesktopPanel();
+    }
+  });
+
+  desktopPanelClose?.addEventListener("click", closeDesktopPanel);
+  desktopPanelOverlay?.addEventListener("click", closeDesktopPanel);
+
+  // Close desktop panel on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && desktopSidePanel?.classList.contains("active")) {
+      closeDesktopPanel();
+    }
+  });
+
+  // Desktop panel item handlers
+  const trackerToggleDesktop = document.getElementById("trackerToggleDesktop");
+  const preorderLinkDesktop = document.getElementById("preorderLinkDesktop");
+
+  trackerToggleDesktop?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeDesktopPanel();
+    // Small delay for smooth panel close before modal open
+    setTimeout(() => {
+      const trackerModal = document.getElementById("trackerModal");
+      trackerModal?.setAttribute("aria-hidden", "false");
+    }, 150);
+  });
+
+  preorderLinkDesktop?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeDesktopPanel();
+    setTimeout(() => {
+      renderPreorderModal();
+      const preorderModal = document.getElementById("preorderModal");
+      preorderModal?.setAttribute("aria-hidden", "false");
+    }, 150);
+  });
+
+  // ========== Events & Promos Button ==========
+  const eventsPromoDesktop = document.getElementById("eventsPromoDesktop");
+  eventsPromoDesktop?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeDesktopPanel();
+    setTimeout(() => {
+      openWelcomePopup();
+    }, 150);
+  });
+
+  // ========== Welcome Popup ==========
+  const welcomePopup = document.getElementById("welcomePopup");
+  const welcomePopupClose = document.getElementById("welcomePopupClose");
+  const welcomePopupForm = document.getElementById("welcomePopupForm");
+  const welcomePopupDismiss = document.getElementById("welcomePopupDismiss");
+
+  function openWelcomePopup() {
+    welcomePopup?.classList.add("active");
+    welcomePopup?.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeWelcomePopup() {
+    welcomePopup?.classList.remove("active");
+    welcomePopup?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    
+    // If "No, Thanks" is checked, don't show again this session
+    if (welcomePopupDismiss?.checked) {
+      sessionStorage.setItem("welcomePopupDismissed", "true");
+    }
+  }
+
+  // Close popup handlers
+  welcomePopupClose?.addEventListener("click", closeWelcomePopup);
+  welcomePopup?.addEventListener("click", (e) => {
+    if (e.target === welcomePopup) closeWelcomePopup();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && welcomePopup?.classList.contains("active")) {
+      closeWelcomePopup();
+    }
+  });
+
+  // Form submission
+  welcomePopupForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("welcomeEmail")?.value;
+    if (email) {
+      // Show success toast
+      showToast("🎉 Thanks for subscribing!");
+      closeWelcomePopup();
+      // Mark as subscribed so it won't show again
+      localStorage.setItem("welcomePopupSubscribed", "true");
+    }
+  });
+
+  // Show popup on page load after a delay (only if not dismissed/subscribed)
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const isDismissed = sessionStorage.getItem("welcomePopupDismissed");
+      const isSubscribed = localStorage.getItem("welcomePopupSubscribed");
+      if (!isDismissed && !isSubscribed && welcomePopup) {
+        openWelcomePopup();
+      }
+    }, 1500); // Show after 1.5 seconds
+  });
+
   // Floating header: toggle glass/transparent state when scrolling
   (function setupFloatingHeader() {
     const headerEl = document.querySelector('.site-header');
@@ -2614,7 +2765,10 @@ document.addEventListener("DOMContentLoaded", () => {
       renderPreorderModal();
       preorderModal.setAttribute("aria-hidden", "false");
     });
+  }
 
+  // Pre-order modal close and clear handlers (independent of preorderLink)
+  if (preorderModal) {
     if (closePreorderBtn) {
       closePreorderBtn.addEventListener("click", () => {
         preorderModal.setAttribute("aria-hidden", "true");
@@ -4103,6 +4257,7 @@ function syncCartBadge() {
     const items = PreOrderList.getItems();
     const badge = document.getElementById("preorderBadge");
     const badgeMobile = document.getElementById("preorderBadgeMobile");
+    const badgeDesktop = document.getElementById("preorderBadgeDesktop");
 
     if (badge) {
       badge.textContent = items.length;
@@ -4119,6 +4274,15 @@ function syncCartBadge() {
         badgeMobile.classList.remove("hidden");
       } else {
         badgeMobile.classList.add("hidden");
+      }
+    }
+
+    if (badgeDesktop) {
+      badgeDesktop.textContent = items.length;
+      if (items.length > 0) {
+        badgeDesktop.classList.remove("hidden");
+      } else {
+        badgeDesktop.classList.add("hidden");
       }
     }
   }
