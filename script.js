@@ -2212,7 +2212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("welcomeEmail")?.value;
     if (email) {
       // Show success toast
-      showToast("🎉 Thanks for subscribing!");
+      showToast("Thanks for subscribing!");
       closeWelcomePopup();
       // Mark as subscribed so it won't show again
       localStorage.setItem("welcomePopupSubscribed", "true");
