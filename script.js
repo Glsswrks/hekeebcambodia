@@ -1,7 +1,11 @@
-import { keyboards } from "./products/keyboards.js";
-import { mice } from "./products/mice.js";
-import { keycaps } from "./products/keycaps.js";
-import { mousepads } from "./products/mousepads.js";
+// Product data - loaded from JSON files
+let keyboards = [];
+let mice = [];
+let keycaps = [];
+let mousepads = [];
+
+// Popup event config - loaded from config.json
+let popupConfig = null;
 
 const CONTACT_WHATSAPP_NUMBER = "85514975307";
 const TELEGRAM_HANDLE = "glsswrksGG";
@@ -19,6 +23,69 @@ let selectedCartOption = null;
 // Image modal gallery state for preview navigation
 let imageModalGallery = [];
 let imageModalIndex = 0;
+
+// Load products from JSON files
+async function loadProductsFromJSON() {
+  try {
+    const [keyboardsRes, miceRes, keycapsRes, mousepadsRes] = await Promise.all([
+      fetch("./products/json/keyboards.json"),
+      fetch("./products/json/mice.json"),
+      fetch("./products/json/keycaps.json"),
+      fetch("./products/json/mousepads.json"),
+    ]);
+
+    if (keyboardsRes.ok) {
+      const data = await keyboardsRes.json();
+      keyboards = data.keyboards || [];
+    }
+    if (miceRes.ok) {
+      const data = await miceRes.json();
+      mice = data.mice || [];
+    }
+    if (keycapsRes.ok) {
+      const data = await keycapsRes.json();
+      keycaps = data.keycaps || [];
+    }
+    if (mousepadsRes.ok) {
+      const data = await mousepadsRes.json();
+      mousepads = data.mousepads || [];
+    }
+
+    // Update productData and allProducts after loading
+    productData.keyboards = keyboards;
+    productData.mice = mice;
+    productData.keycaps = keycaps;
+    productData.mousepads = mousepads;
+    
+    // Rebuild allProducts array
+    allProducts.length = 0;
+    allProducts.push(...keyboards, ...mice, ...keycaps, ...mousepads);
+
+    console.log("Products loaded from JSON:", {
+      keyboards: keyboards.length,
+      mice: mice.length,
+      keycaps: keycaps.length,
+      mousepads: mousepads.length,
+    });
+  } catch (error) {
+    console.error("Error loading products from JSON:", error);
+  }
+}
+
+// Load popup config from config.json
+async function loadPopupConfig() {
+  try {
+    const response = await fetch("./config.json");
+    if (response.ok) {
+      const config = await response.json();
+      popupConfig = config.popupEvent || null;
+      console.log("Popup config loaded:", popupConfig);
+    }
+  } catch (error) {
+    console.error("Error loading popup config:", error);
+    popupConfig = null;
+  }
+}
 // Unregister any lingering service workers and clear caches from previous setup
 (async function cleanupOldServiceWorker() {
   if ("serviceWorker" in navigator) {
@@ -673,14 +740,14 @@ function closeQuickPreviewModal() {
   quickPreviewSelectedOption = null;
 }
 
-const productData = {
+let productData = {
   keyboards,
   mice,
   keycaps,
   mousepads,
 };
 
-const allProducts = [...keyboards, ...mice, ...keycaps, ...mousepads];
+let allProducts = [...keyboards, ...mice, ...keycaps, ...mousepads];
 
 /* ========== Global Search Feature ========== */
 function initGlobalSearch() {
@@ -2162,11 +2229,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 150);
   });
 
-  // ========== Events & Promos Button ==========
+  // ========== Events & Promos Button (Desktop) ==========
   const eventsPromoDesktop = document.getElementById("eventsPromoDesktop");
   eventsPromoDesktop?.addEventListener("click", (e) => {
     e.preventDefault();
     closeDesktopPanel();
+    setTimeout(() => {
+      openWelcomePopup();
+    }, 150);
+  });
+
+  // ========== Events & Promos Button (Mobile) ==========
+  const eventsPromoMobile = document.getElementById("eventsPromoMobile");
+  eventsPromoMobile?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileNav();
     setTimeout(() => {
       openWelcomePopup();
     }, 150);
@@ -2178,7 +2255,56 @@ document.addEventListener("DOMContentLoaded", () => {
   const welcomePopupForm = document.getElementById("welcomePopupForm");
   const welcomePopupDismiss = document.getElementById("welcomePopupDismiss");
 
+  // Update popup content from config
+  function updatePopupFromConfig() {
+    if (!popupConfig || !welcomePopup) return;
+    
+    const popupImage = welcomePopup.querySelector(".popup-brand-image");
+    const popupTitle = welcomePopup.querySelector(".welcome-popup-content h2");
+    const popupDesc = welcomePopup.querySelector(".welcome-popup-desc");
+    const popupOffer = welcomePopup.querySelector(".welcome-popup-offer");
+    const popupHighlight = welcomePopup.querySelector(".welcome-popup-offer .highlight");
+
+    if (popupImage && popupConfig.imageUrl) {
+      popupImage.src = popupConfig.imageUrl;
+    }
+    if (popupTitle && popupConfig.title) {
+      popupTitle.textContent = popupConfig.title;
+    }
+    if (popupDesc && popupConfig.description) {
+      popupDesc.textContent = popupConfig.description;
+    }
+    if (popupOffer && popupConfig.offer) {
+      // Update offer text while preserving highlight span
+      const highlightSpan = popupOffer.querySelector(".highlight");
+      if (highlightSpan && popupConfig.highlight) {
+        popupOffer.innerHTML = `${popupConfig.offer}<br><span class="highlight">${popupConfig.highlight}</span>`;
+      } else {
+        popupOffer.textContent = popupConfig.offer;
+      }
+    }
+
+    // Update social links if provided
+    if (popupConfig.socialLinks) {
+      const socialContainer = welcomePopup.querySelector(".welcome-popup-social");
+      if (socialContainer) {
+        const links = socialContainer.querySelectorAll(".popup-social-icon");
+        links.forEach(link => {
+          const label = link.getAttribute("aria-label")?.toLowerCase();
+          if (label && popupConfig.socialLinks[label]) {
+            link.href = popupConfig.socialLinks[label];
+          }
+        });
+      }
+    }
+  }
+
   function openWelcomePopup() {
+    // Check if popup is enabled in config
+    if (popupConfig && popupConfig.enabled === false) {
+      return;
+    }
+    updatePopupFromConfig();
     welcomePopup?.classList.add("active");
     welcomePopup?.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -2219,15 +2345,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Show popup on page load after a delay (only if not dismissed/subscribed)
+  // Show popup on page load after a delay (only if not dismissed/subscribed and enabled in config)
   window.addEventListener("load", () => {
+    // Check if popup should show on load from config
+    const shouldShowOnLoad = popupConfig ? popupConfig.showOnLoad !== false : true;
+    const showDelay = popupConfig?.showDelay || 1500;
+    
+    if (!shouldShowOnLoad) return;
+    
     setTimeout(() => {
       const isDismissed = sessionStorage.getItem("welcomePopupDismissed");
       const isSubscribed = localStorage.getItem("welcomePopupSubscribed");
-      if (!isDismissed && !isSubscribed && welcomePopup) {
+      const isEnabled = popupConfig ? popupConfig.enabled !== false : true;
+      
+      if (!isDismissed && !isSubscribed && welcomePopup && isEnabled) {
         openWelcomePopup();
       }
-    }, 1500); // Show after 1.5 seconds
+    }, showDelay);
   });
 
   // Floating header: toggle glass/transparent state when scrolling
@@ -4320,8 +4454,11 @@ if (document.readyState === "loading") {
   syncCartBadge();
 }
 
-/* ---------- Page init (UNCHANGED) ---------- */
-(function init() {
+/* ---------- Page init ---------- */
+(async function init() {
+  // Load products from JSON files and popup config first
+  await Promise.all([loadProductsFromJSON(), loadPopupConfig()]);
+
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
   // Contact links initialization (for modal)

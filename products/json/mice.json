@@ -1,0 +1,390 @@
+{
+  "mice": [
+    {
+      "id": "atkf1pro",
+      "title": "ATK Blazing Sky F1 SE",
+      "short": "45-Gram Wireless Gaming Mouse with 8K Polling Rate, PAW3950 Sensor",
+      "price": 70,
+      "layout": "45g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 9.5,
+      "images": [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/4.png",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/5.png",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/blazingF1pro/6.png",
+        "https://www.atk.store/cdn/shop/files/F1-2_07fcd364-5e20-42b6-be3d-098271023e54.jpg?v=1745389030",
+        "https://www.atk.store/cdn/shop/files/F1-1_18fb359b-c4f9-4f68-908c-eae9df01c251.jpg?v=1745389030",
+        "https://www.atk.store/cdn/shop/files/F1-5_b2dc4f16-32d5-4012-bcc2-7d319a83d1f0.jpg?v=1745389229"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "0.4ms",
+        "battery": "200-800mAh (Version Dependent)",
+        "coating": "Ice-feeling Coating",
+        "sensor": "PAW3950 / PAW3950 ULTRA",
+        "weight": "45g ± 2g",
+        "pollingRate": "8K Hz",
+        "mcu": "Nordic 52840",
+        "trackingSpeed": "750 IPS",
+        "dpi": "36000",
+        "acceleration": "70G",
+        "switch": "Omron Optical Switches",
+        "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
+        "features": [
+          "ATK HUB/Web Driver Supported"
+        ]
+      },
+      "options": [
+        {
+          "name": "Blazing Sky F1 Pro - Black",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_Black.jpg?v=1756979076"
+        },
+        {
+          "name": "Blazing Sky F1 Pro - White",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ATK_Blazing_Sky_F1_Extreme_White.jpg?v=1756979076"
+        }
+      ]
+    },
+    {
+      "id": "lamzumayax",
+      "title": "Lamzu Maya X 8K Wireless",
+      "short": "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
+      "price": 120,
+      "layout": "47g",
+      "available": false,
+      "isNew": false,
+      "lowStock": true,
+      "sellerRating": 9.5,
+      "images": [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/4.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/5.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/6.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/7.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/8.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/9.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/11.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/12.jpg"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "0.5ms / -0.8ms (8K Hz Polling Rate)",
+        "battery": "300mAh",
+        "coating": "Matte Dry Grip Coating",
+        "sensor": "PixArt 3950",
+        "weight": "47g",
+        "pollingRate": "8K Hz",
+        "mcu": "Nordic 52840",
+        "trackingSpeed": "750 IPS",
+        "dpi": "30000",
+        "acceleration": "50G",
+        "switch": "Omron Optical Switches",
+        "connectivity": "Wireless (2.4GHz) / Wired (Type-C)",
+        "features": [
+          "Symmetrical Shape (Small/Medium)",
+          "Web-Based Aurora Driver"
+        ]
+      },
+      "options": [
+        {
+          "name": "Purple Shadow",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg"
+        },
+        {
+          "name": "Light Pink",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg"
+        },
+        {
+          "name": "Charcoal Black",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/black.jpg"
+        },
+        {
+          "name": "White",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/white.jpg"
+        },
+        {
+          "name": "Cloud Gray",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/cloud.jpg"
+        }
+      ]
+    },
+    {
+      "id": "atkA9SE",
+      "title": "ATK Dragonfly A9 SE",
+      "short": "ATK Dragonfly A9 Wireless Bluetooth Mouse, Gaming, Ergonomic, Computer & Office Tri-mode Mouse, Star Flash Edition",
+      "price": 24,
+      "layout": "53g + 3g / 57 + 3g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 8,
+      "images": [
+        "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01BH0rr21rFJTQXVoKs_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i3/2218772325601/O1CN01vfKvWY1rFJQyLdVuf_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01Gj9ygv1rFJQzcuaQq_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01W175qh1rFJQsObkpM_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN01r9h8oH1rFJQzcxwJO_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i3/2218772325601/O1CN01T9R0Eb1rFJQy3yLXq_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN012D32eJ1rFJQzCivkO_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN0159DEfL1rFJQz1Xw9F_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i1/2218772325601/O1CN01zTwgP91rFJQzCj8Et_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i4/2218772325601/O1CN01H7lP2z1rFJQxCzJSg_!!2218772325601.jpg",
+        "https://img.alicdn.com/imgextra/i2/2218772325601/O1CN01CIlqnK1rFJQz1a9PN_!!2218772325601.webp"
+      ],
+      "category": "mice",
+      "specs": {
+        "battery": "500-800mAh (Version Dependent)",
+        "coating": "Ice-Feel Coating (A9 PLUS, A9 PRO, A9 PRO MAX, A9 ULTRA)",
+        "sensor": "PAW3311 / PAW3395SE / PAW3395 / PAW3395 ULTRA/ PAW3390 ULTRA",
+        "weight": "53g + 3g / 57 + 3g",
+        "pollingRate": "1K / 8K Hz (Version Dependent)",
+        "acceleration": "50G",
+        "trackingSpeed": "750IPS",
+        "mcu": "HiSilicon NearLink / Pixart / BEKEN Custom Esport / Nordic 52840",
+        "dpi": "10 - 30000 (Overclockable to 40000)",
+        "switch": "Huanuo Blue Glow V2 / Huanuo Ice Berry Pink Dot / Omron Optical - ATK Custom Tuned Optical",
+        "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
+        "features": [
+          "ATK HUB/Web Driver Supported"
+        ]
+      },
+      "options": [
+        {
+          "name": "ATK A9 SE - White (1K Hz)",
+          "price": 24,
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_White.jpg?v=1742785677"
+        },
+        {
+          "name": "ATK A9 Pro - Pink (8K Hz)",
+          "price": 47,
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_Pink.jpg?v=1742785655"
+        },
+        {
+          "name": "ATK A9 ULTRA - Black (8K Hz)",
+          "price": 60,
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ATK_Dragonfly_A9_Black.jpg?v=1742785751"
+        }
+      ]
+    },
+    {
+      "id": "scyroxv8",
+      "title": "Scyrox V8",
+      "short": "36-Gram Ultra-Lightweight Wireless Gaming Mouse with 8K Polling Rate",
+      "price": 60,
+      "layout": "36g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "images": [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/20.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/30.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/scyroxv8/40.jpg"
+      ],
+      "category": "mice",
+      "sellerRating": 8,
+      "specs": {
+        "battery": "250mAh",
+        "coating": "Matte Dry Coating",
+        "latency": "1.3ms - 0.4ms",
+        "sensor": "PAW3950",
+        "weight": "36g",
+        "pollingRate": "8K Hz",
+        "mcu": "Nordic 52840",
+        "trackingSpeed": "750 IPS",
+        "dpi": "30000",
+        "acceleration": "50g",
+        "switch": "Omron Optical Switches",
+        "connectivity": "Wireless / Wired",
+        "features": [
+          "Web-Based Driver",
+          "Yellow Color Available"
+        ]
+      },
+      "options": null
+    },
+    {
+      "id": "attacksharkR3",
+      "title": "ATTACK SHARK R3",
+      "short": "ATTACK SHARK R3, Magnesium Alloy Gaming Mouse 8K",
+      "price": 80,
+      "layout": "46g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 6.5,
+      "images": [
+        "https://attackshark.com/cdn/shop/files/2adaa317ba69f670f4d1eb501b6c4457_77f70c58-dbdc-4845-b4e1-19f3dc8e40d5.png?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/9_8b15d863-25c9-4864-87d2-24835ba5d4a1.jpg?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/5_7c63b76b-f3a3-4507-b436-5e816408fa44.jpg?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/2_b3afafc6-723d-4668-b887-25e2999d91eb.jpg?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/3_1c0d203a-ca34-4ee6-8cf5-f44f61ccd514.jpg?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/83c1bc164a2861ecc083568a0b017ba0.png?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/83c1bc164a2861ecc083568a0b017ba0_1a0ecd38-b038-42d0-9390-d07fe8c398aa.png?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/6_1.png?v=1737168023&width=800",
+        "https://attackshark.com/cdn/shop/files/1_58f55721-c300-4efa-b772-08c2b244a2eb.jpg?v=1737167973&width=800",
+        "https://attackshark.com/cdn/shop/files/7_f0e5b018-a63e-4cb2-a090-c480098e1d36.png?v=1737168023&width=800"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "0.1ms",
+        "sensor": "PAW3395",
+        "weight": "46g ± 2g",
+        "pollingRate": "8K Hz",
+        "trackingSpeed": "650 IPS",
+        "dpi": "26000",
+        "acceleration": "50G",
+        "switch": "KAILH GM 8.0 BLACK MAMBA SWITCH",
+        "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
+        "features": [
+          "Magnesium Alloy",
+          "Web Driver Supported"
+        ]
+      },
+      "options": [
+        {
+          "name": "Attack Shark R3 - Purple Blue",
+          "available": false,
+          "image": "https://attackshark.com/cdn/shop/files/7_e7020d5a-14d8-4f73-b1b3-3bf90a565766.jpg?v=1752039923&width=800"
+        },
+        {
+          "name": "Attack Shark R3 - Black",
+          "available": false,
+          "image": "https://attackshark.com/cdn/shop/files/6_64e3fbed-0685-4cff-8650-13bf45b17a80.jpg?v=1752039923&width=800"
+        },
+        {
+          "name": "Attack Shark R3 - White",
+          "available": false,
+          "image": "https://attackshark.com/cdn/shop/files/5_4fae3359-5720-47b0-ae41-45f226d12c87.jpg?v=1752039923&width=800"
+        },
+        {
+          "name": "Attack Shark R3 - Grey",
+          "available": false,
+          "image": "https://attackshark.com/cdn/shop/files/8_bc08ecdb-8413-4288-8de5-fc7937dfc7ea.jpg?v=1752039923&width=800"
+        }
+      ]
+    },
+    {
+      "id": "VGNDragonFlyF2SE",
+      "title": "VGN Dragonfly F2 Series",
+      "short": "Lightweight Wireless Gaming Dual 8K Reporting Rate Mouse",
+      "price": 40,
+      "layout": "50g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 8.5,
+      "images": [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/1.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/4.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/5.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/7.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/8.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/9.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/10.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/11.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/12.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/13.jpg"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "0.4ms / 0.175ms",
+        "battery": "500-800mAh (Version Dependent)",
+        "coating": "Fine Skin-Like Coating",
+        "sensor": "PAW3395 / PAW3950 / PAW3395 Extreme",
+        "weight": "55g ± 2g",
+        "pollingRate": "8K Hz",
+        "mcu": "Jiangmeng CX52860 / Nordic 52840 / Nordic 54L15",
+        "dpi": "50 - 42000 (Version Dependent)",
+        "switch": "Honor Mechanical Micro Swicth / Omron Micro Optical Switch / Custom Kaihua Switch",
+        "connectivity": "Wireless (2.4GHz) / Wired",
+        "features": [
+          "Custom VHub Client / Web Driver Supported"
+        ]
+      },
+      "options": [
+        {
+          "name": "Pink- Pro Max",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/pink.jpg",
+          "price": 40
+        },
+        {
+          "name": "Green - Pro Max",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/green.jpg",
+          "price": 40
+        },
+        {
+          "name": "Black - Pro Max",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/black.jpg",
+          "price": 40
+        },
+        {
+          "name": "White - Pro Max",
+          "available": false,
+          "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/white.jpg",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "id": "vxer1se",
+      "title": "VXE R1 SE (Dragonfly R1 SE)",
+      "short": "51-Gram Lightweight Tri-Mode Wireless Gaming Mouse",
+      "price": 35,
+      "layout": "51g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 7,
+      "images": [
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/1.png",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/2.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/3.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/4.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/5.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/6.jpg",
+        "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vxer1se/7.jpg"
+      ],
+      "category": "mice",
+      "specs": {
+        "battery": "520mAh / 250mAh (model dependent)",
+        "sensor": "PAW3395 SE",
+        "weight": "51g",
+        "pollingRate": "Up to 2K Hz",
+        "chipset": "Nordic/BEKEN",
+        "trackingSpeed": "400 IPS",
+        "dpi": "18000",
+        "acceleration": "40G",
+        "switch": "Huano / IceBerry (varies)",
+        "connectivity": "Tri-Mode: 2.4G / Bluetooth 5.3 / Wired Type-C",
+        "features": [
+          "Web-Driver Customization"
+        ]
+      },
+      "options": null
+    }
+  ]
+}

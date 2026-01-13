@@ -5900,6 +5900,24 @@ body {
   border-color: rgba(139, 92, 246, 0.4);
 }
 
+/* Mobile Promo Item Styling */
+.mobile-nav-item.promo-item {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.08) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 8px;
+  margin-top: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-nav-item.promo-item:hover,
+.mobile-nav-item.promo-item:active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.15) 100%);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
 /* NEW Badge */
 .new-badge {
   font-size: 0.6rem;
@@ -5925,6 +5943,15 @@ body {
 }
 
 :root[data-theme="light"] .desktop-panel-item.promo-item:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+}
+
+:root[data-theme="light"] .mobile-nav-item.promo-item {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.05) 100%);
+}
+
+:root[data-theme="light"] .mobile-nav-item.promo-item:hover,
+:root[data-theme="light"] .mobile-nav-item.promo-item:active {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
 }
 
