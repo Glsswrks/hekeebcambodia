@@ -45,11 +45,14 @@ void logRequest(const std::string& endpoint, const std::string& method, const st
 
 // Set CORS headers for all responses
 void setCorsHeaders(httplib::Response& res) {
-    // Allow requests from any origin (for development)
-    // In production, replace "*" with your GitHub Pages domain
+    // SECURITY WARNING: Using "*" allows any origin to access this API.
+    // For production, replace "*" with your specific GitHub Pages domain:
+    // Example: "https://your-username.github.io"
+    // This prevents unauthorized sites from making requests to your backend.
     res.set_header("Access-Control-Allow-Origin", "*");
-    res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.set_header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
+    // Only allow methods that the frontend actually uses
+    res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.set_header("Access-Control-Allow-Headers", "Content-Type, Accept");
     res.set_header("Access-Control-Max-Age", "86400");
 }
 

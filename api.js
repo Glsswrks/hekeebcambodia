@@ -24,7 +24,10 @@ const API_CONFIG = {
   },
   
   // Request timeout in milliseconds
-  timeout: 10000
+  timeout: 10000,
+  
+  // Pre-order deposit percentage (50% = 0.5)
+  preorderDepositPercentage: 0.5
 };
 
 /**
@@ -167,12 +170,13 @@ const BackendAPI = {
    * @returns {Promise<Object>} Response from backend
    */
   submitPreorder: async function(preorderItems, customerInfo = {}) {
+    const depositRate = API_CONFIG.preorderDepositPercentage;
     const payload = {
       type: "preorder",
       timestamp: new Date().toISOString(),
       items: preorderItems,
       customer: customerInfo,
-      depositRequired: preorderItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1) * 0.5), 0)
+      depositRequired: preorderItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1) * depositRate), 0)
     };
     
     return await this.post(API_CONFIG.endpoints.preorder, payload);

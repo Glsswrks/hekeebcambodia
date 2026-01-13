@@ -1486,8 +1486,9 @@ const PreOrderList = {
     }
 
     // Send pre-order update to backend (non-blocking)
+    // Note: Customer info is optional and collected separately during checkout
     if (typeof BackendAPI !== "undefined") {
-      BackendAPI.submitPreorder(this.getItems()).catch(() => {});
+      BackendAPI.submitPreorder(this.getItems(), {}).catch(() => {});
     }
   },
 
