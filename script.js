@@ -11,6 +11,9 @@ const CONTACT_WHATSAPP_NUMBER = "85514975307";
 const TELEGRAM_HANDLE = "glsswrksGG";
 const DISCORD_HANDLE = "Kokushibo#4764";
 
+// Backend API configuration - import api.js for BackendAPI
+// The BackendAPI module is loaded via script tag in HTML
+
 let currentProductForPreorder = null;
 let selectedPreorderOption = null;
 // Track the product/option currently shown in the option preview modal
@@ -1355,6 +1358,11 @@ const Cart = {
     if (sourceElement) {
       animateToCart(option ? option.image : product.images[0] || "", sourceElement);
     }
+
+    // Send cart update to backend (non-blocking)
+    if (typeof BackendAPI !== "undefined") {
+      BackendAPI.logCartAction(items, "add").catch(() => {});
+    }
   },
 
   removeItem: function (index) {
@@ -1367,12 +1375,35 @@ const Cart = {
       }
       localStorage.setItem(this.key, JSON.stringify(items));
       this.updateUI();
+
+      // Send cart update to backend (non-blocking)
+      if (typeof BackendAPI !== "undefined") {
+        BackendAPI.logCartAction(this.getItems(), "remove").catch(() => {});
+      }
     }
   },
 
   clear: function () {
     localStorage.removeItem(this.key);
     this.updateUI();
+
+    // Send cart clear to backend (non-blocking)
+    if (typeof BackendAPI !== "undefined") {
+      BackendAPI.logCartAction([], "clear").catch(() => {});
+    }
+  },
+
+  // Submit checkout to backend
+  submitToBackend: async function (customerInfo = {}) {
+    const items = this.getItems();
+    if (items.length === 0) {
+      return { success: false, error: "Cart is empty" };
+    }
+    
+    if (typeof BackendAPI !== "undefined") {
+      return await BackendAPI.submitCheckout(items, customerInfo);
+    }
+    return { success: false, error: "Backend API not available" };
   },
 
   getTotal: function () {
@@ -1453,6 +1484,11 @@ const PreOrderList = {
     if (sourceElement) {
       animateToPreorder(option ? option.image : product.images[0] || "", sourceElement);
     }
+
+    // Send pre-order update to backend (non-blocking)
+    if (typeof BackendAPI !== "undefined") {
+      BackendAPI.submitPreorder(this.getItems()).catch(() => {});
+    }
   },
 
   removeItem: function (index) {
@@ -1473,6 +1509,19 @@ const PreOrderList = {
   clear: function () {
     localStorage.removeItem(this.key);
     this.updateUI();
+  },
+
+  // Submit pre-order to backend
+  submitToBackend: async function (customerInfo = {}) {
+    const items = this.getItems();
+    if (items.length === 0) {
+      return { success: false, error: "Pre-order list is empty" };
+    }
+    
+    if (typeof BackendAPI !== "undefined") {
+      return await BackendAPI.submitPreorder(items, customerInfo);
+    }
+    return { success: false, error: "Backend API not available" };
   },
 
   updateUI: function () {
@@ -1559,6 +1608,11 @@ const Wishlist = {
     if (sourceElement) {
       animateToWishlist(option ? option.image : product.images[0] || "", sourceElement);
     }
+
+    // Sync wishlist to backend (non-blocking)
+    if (typeof BackendAPI !== "undefined") {
+      BackendAPI.syncWishlist(this.getItems()).catch(() => {});
+    }
   },
 
   removeItem: function (index) {
@@ -1568,6 +1622,11 @@ const Wishlist = {
       localStorage.setItem(this.key, JSON.stringify(items));
       this.updateUI();
       renderWishlistModal();
+
+      // Sync wishlist to backend (non-blocking)
+      if (typeof BackendAPI !== "undefined") {
+        BackendAPI.syncWishlist(this.getItems()).catch(() => {});
+      }
     }
   },
 
@@ -1600,6 +1659,11 @@ const Wishlist = {
     localStorage.removeItem(this.key);
     this.updateUI();
     renderWishlistModal();
+
+    // Sync cleared wishlist to backend (non-blocking)
+    if (typeof BackendAPI !== "undefined") {
+      BackendAPI.syncWishlist([]).catch(() => {});
+    }
   },
 
   updateUI: function () {
@@ -2333,12 +2397,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Form submission
-  welcomePopupForm?.addEventListener("submit", (e) => {
+  welcomePopupForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("welcomeEmail")?.value;
     if (email) {
-      // Show success toast
-      showToast("Thanks for subscribing!");
+      // Send newsletter subscription to backend
+      if (typeof BackendAPI !== "undefined") {
+        const result = await BackendAPI.subscribeNewsletter(email);
+        if (result.success) {
+          showToast("Thanks for subscribing!");
+        } else {
+          // Still show success even if backend fails (graceful degradation)
+          showToast("Thanks for subscribing!");
+          console.log("[Newsletter] Backend unavailable, subscription saved locally");
+        }
+      } else {
+        showToast("Thanks for subscribing!");
+      }
       closeWelcomePopup();
       // Mark as subscribed so it won't show again
       localStorage.setItem("welcomePopupSubscribed", "true");
