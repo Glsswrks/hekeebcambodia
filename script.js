@@ -11,8 +11,7 @@ const CONTACT_WHATSAPP_NUMBER = "85514975307";
 const TELEGRAM_HANDLE = "glsswrksGG";
 const DISCORD_HANDLE = "Kokushibo#4764";
 
-// Backend API configuration - import api.js for BackendAPI
-// The BackendAPI module is loaded via script tag in HTML
+// Backend removed: frontend-only, no external API client
 
 let currentProductForPreorder = null;
 let selectedPreorderOption = null;
@@ -78,7 +77,7 @@ async function loadProductsFromJSON() {
 // Load popup config from config.json
 async function loadPopupConfig() {
   try {
-    const response = await fetch("./config.json");
+    const response = await fetch("./products/json/config.json");
     if (response.ok) {
       const config = await response.json();
       popupConfig = config.popupEvent || null;
@@ -1359,10 +1358,7 @@ const Cart = {
       animateToCart(option ? option.image : product.images[0] || "", sourceElement);
     }
 
-    // Send cart update to backend (non-blocking)
-    if (typeof BackendAPI !== "undefined") {
-      BackendAPI.logCartAction(items, "add").catch(() => {});
-    }
+    // Backend removed: no remote logging
   },
 
   removeItem: function (index) {
@@ -1376,10 +1372,7 @@ const Cart = {
       localStorage.setItem(this.key, JSON.stringify(items));
       this.updateUI();
 
-      // Send cart update to backend (non-blocking)
-      if (typeof BackendAPI !== "undefined") {
-        BackendAPI.logCartAction(this.getItems(), "remove").catch(() => {});
-      }
+      // Backend removed: no remote logging
     }
   },
 
@@ -1387,10 +1380,7 @@ const Cart = {
     localStorage.removeItem(this.key);
     this.updateUI();
 
-    // Send cart clear to backend (non-blocking)
-    if (typeof BackendAPI !== "undefined") {
-      BackendAPI.logCartAction([], "clear").catch(() => {});
-    }
+    // Backend removed: no remote logging
   },
 
   // Submit checkout to backend
@@ -1400,10 +1390,8 @@ const Cart = {
       return { success: false, error: "Cart is empty" };
     }
     
-    if (typeof BackendAPI !== "undefined") {
-      return await BackendAPI.submitCheckout(items, customerInfo);
-    }
-    return { success: false, error: "Backend API not available" };
+    // Backend removed: checkout to backend is not available
+    return { success: false, error: "No backend configured" };
   },
 
   getTotal: function () {
@@ -1485,11 +1473,7 @@ const PreOrderList = {
       animateToPreorder(option ? option.image : product.images[0] || "", sourceElement);
     }
 
-    // Send pre-order update to backend (non-blocking)
-    // Note: Customer info is optional and collected separately during checkout
-    if (typeof BackendAPI !== "undefined") {
-      BackendAPI.submitPreorder(this.getItems(), {}).catch(() => {});
-    }
+    // Backend removed: no remote pre-order sync
   },
 
   removeItem: function (index) {
@@ -1519,10 +1503,8 @@ const PreOrderList = {
       return { success: false, error: "Pre-order list is empty" };
     }
     
-    if (typeof BackendAPI !== "undefined") {
-      return await BackendAPI.submitPreorder(items, customerInfo);
-    }
-    return { success: false, error: "Backend API not available" };
+    // Backend removed: pre-order submission to backend is not available
+    return { success: false, error: "No backend configured" };
   },
 
   updateUI: function () {
@@ -1610,10 +1592,7 @@ const Wishlist = {
       animateToWishlist(option ? option.image : product.images[0] || "", sourceElement);
     }
 
-    // Sync wishlist to backend (non-blocking)
-    if (typeof BackendAPI !== "undefined") {
-      BackendAPI.syncWishlist(this.getItems()).catch(() => {});
-    }
+    // Backend removed: wishlist sync disabled
   },
 
   removeItem: function (index) {
@@ -1624,10 +1603,7 @@ const Wishlist = {
       this.updateUI();
       renderWishlistModal();
 
-      // Sync wishlist to backend (non-blocking)
-      if (typeof BackendAPI !== "undefined") {
-        BackendAPI.syncWishlist(this.getItems()).catch(() => {});
-      }
+      // Backend removed: wishlist sync disabled
     }
   },
 
@@ -1661,10 +1637,7 @@ const Wishlist = {
     this.updateUI();
     renderWishlistModal();
 
-    // Sync cleared wishlist to backend (non-blocking)
-    if (typeof BackendAPI !== "undefined") {
-      BackendAPI.syncWishlist([]).catch(() => {});
-    }
+    // Backend removed: wishlist sync disabled
   },
 
   updateUI: function () {
@@ -2402,19 +2375,15 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const email = document.getElementById("welcomeEmail")?.value;
     if (email) {
-      // Send newsletter subscription to backend
-      if (typeof BackendAPI !== "undefined") {
-        const result = await BackendAPI.subscribeNewsletter(email);
-        if (result.success) {
-          showToast("Thanks for subscribing!");
-        } else {
-          // Still show success even if backend fails (graceful degradation)
-          showToast("Thanks for subscribing!");
-          console.log("[Newsletter] Backend unavailable, subscription saved locally");
-        }
-      } else {
-        showToast("Thanks for subscribing!");
+      // Frontend-only subscription: save locally and show thank you
+      try {
+        const subs = JSON.parse(localStorage.getItem("newsletter_subs") || "[]");
+        subs.push({ email: email, ts: Date.now() });
+        localStorage.setItem("newsletter_subs", JSON.stringify(subs));
+      } catch (e) {
+        // ignore storage errors
       }
+      showToast("Thanks for subscribing!");
       closeWelcomePopup();
       // Mark as subscribed so it won't show again
       localStorage.setItem("welcomePopupSubscribed", "true");

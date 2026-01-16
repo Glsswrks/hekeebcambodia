@@ -1,0 +1,19 @@
+{
+  "popupEvent": {
+    "enabled": true,
+    "imageUrl": "https://www.atk.store/cdn/shop/files/ATK_Edge_60_Description_Desktop-01_b0f1ad3d-2cbd-40b1-8ed5-fa2654c631f1.jpg?v=1750545635&width=1880",
+    "title": "WELCOME TO KEEB-CAMBODIA",
+    "description": "Stay ahead with our latest product updated, exclusive deals, and gaming insights!",
+    "offer": "Subscribe now to unlock your special offer.",
+    "highlight": "Limited time only, don't let this pass by!",
+    "showOnLoad": true,
+    "showDelay": 1500,
+    "socialLinks": {
+      "facebook": "#",
+      "instagram": "#",
+      "tiktok": "#",
+      "youtube": "#",
+      "telegram": "#"
+    }
+  }
+}

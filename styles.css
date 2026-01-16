@@ -3822,7 +3822,8 @@ body {
   height: 2px;
   background: var(--muted);
   position: relative;
-  transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background;
+  transition: background 160ms cubic-bezier(.2,.9,.2,1);
 }
 
 .hamburger-icon::before,
@@ -3833,8 +3834,8 @@ body {
   width: 24px;
   height: 2px;
   background: var(--muted);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, top;
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), top 180ms cubic-bezier(.2,.9,.2,1);
 }
 
 .hamburger-icon::before {
@@ -5686,7 +5687,7 @@ body {
 .desktop-side-panel {
   position: fixed;
   top: 0;
-  right: -320px;
+  right: 0;
   width: 300px;
   height: 100vh;
   /* 90% transparent with 30% blur - Dark mode */
@@ -5699,18 +5700,15 @@ body {
   flex-direction: column;
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.3),
     -2px 0 8px rgba(0, 0, 0, 0.15);
-  transition: right 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-    transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-    opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  transform: translateX(20px);
+  transform: translateX(100%);
   opacity: 0;
+  will-change: transform;
+  transition: transform 260ms cubic-bezier(.16, .84, .3, 1), opacity 200ms ease;
 }
 
 .desktop-side-panel.active {
-  right: 0;
   transform: translateX(0);
   opacity: 1;
-  animation: desktopPanelEnter 0.5s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 
 @keyframes desktopPanelEnter {
@@ -5808,8 +5806,9 @@ body {
   font-size: 0.95rem;
   font-weight: 500;
   opacity: 0;
-  transform: translateX(30px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(18px);
+  will-change: transform, opacity;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
 }
 
 .desktop-side-panel.active .desktop-panel-item {
