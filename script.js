@@ -3258,23 +3258,11 @@ function createProductCard(p) {
   if (p.locked) {
     badgeHTML += `<span class="badge badge-locked">Locked</span>`;
   }
-  const availClass = p.available
-    ? "availability available"
-    : "availability unavailable";
-  const availText = p.available ? "Available" : "Unavailable";
-  const href = productLink(p.id);
-  const cover = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
-  const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
-  const firstSpec = getSpecsList(p)[0] || "";
-  let no_info = `<div class="specs-inline muted">${p.layout} • ${firstSpec}</div>`;
-  if (p.no_info !== undefined && p.no_info === true) {
-    no_info = `<div class="specs-inline muted">${p.layout}</div>`;
-  }
 
-  // For mouse products, remove weight and switch text from the inline specs
-  if (p.category === "mice") {
-    no_info = `<div class="specs-inline muted"></div>`;
-  }
+  const href = productLink(p.id);
+  // Ensure default image is valid
+  const defaultImage = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+  const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
 
   // Determine if add to cart should be locked
   const addToCartLocked = !p.available;
@@ -3282,9 +3270,9 @@ function createProductCard(p) {
   card.innerHTML = `
     <div class="card-image">
       <a class="card-link" href="${href}">
-        <img src="${cover}" alt="${p.title}">
+        <img src="${defaultImage}" alt="${p.title}" class="main-img">
       </a>
-      ${badgeHTML} <span class="${priceBadgeClass}">$${p.price}</span>
+      ${badgeHTML}
       <div class="card-image-overlay">
         <button class="card-overlay-btn quick-view-btn" title="Quick View" data-product-id="${p.id}">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -3312,25 +3300,115 @@ function createProductCard(p) {
       <p class="muted card-desc">
         <a href="${href}" style="text-decoration: none; color: inherit;">${p.short}</a>
       </p>
-      <div class="card-footer">
-        ${no_info}
-        <div class="availability-wrap">
-          <span class="${availClass}">${availText}</span>
+      <div class="card-footer-row">
+        <div class="card-options">
+          <!-- Options will be injected here -->
+        </div>
+        <div class="card-price-container">
+           <span class="${priceBadgeClass}">$${p.price}</span>
         </div>
       </div>
     </div>
   `;
-  // Attach image click to open lightbox (prevent link navigation when clicking image)
-  const cardImg = card.querySelector(".card-image img");
-  if (cardImg) {
-    cardImg.style.cursor = "zoom-in";
-    cardImg.addEventListener("click", (e) => {
+
+  // --- Logic for Options Dots ---
+  const optionsContainer = card.querySelector(".card-options");
+  const mainImg = card.querySelector(".main-img");
+
+  if (p.options && p.options.length > 0) {
+    // If more than 3 options exist, show 2 dots + counter.
+    // If exactly 3, just show 3 dots?
+    // User requested max 2 dots. If consistent: 2 dots + counter (if > 2)
+    // Let's implement strict max 2 dots + counter logic.
+    
+    const limit = 2;
+    const hasMore = p.options.length > limit;
+    const renderLimit = hasMore ? limit : p.options.length;
+
+    p.options.slice(0, renderLimit).forEach((opt, index) => {
+      if (!opt.image) return;
+
+      const dot = document.createElement("div");
+      dot.className = "option-dot";
+      dot.setAttribute("role", "button");
+      dot.setAttribute("aria-label", `Select option ${opt.name}`);
+      dot.title = opt.name;
+      
+      const img = document.createElement("img");
+      img.src = opt.image;
+      img.alt = opt.name;
+      
+      dot.appendChild(img);
+      optionsContainer.appendChild(dot);
+
+      // Click event for swapping main image
+      dot.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Check if this dot is already active
+        const isActive = dot.classList.contains("active");
+
+        // Remove active class from all dots
+        const allDots = optionsContainer.querySelectorAll(".option-dot");
+        allDots.forEach(d => d.classList.remove("active"));
+
+        if (isActive) {
+          // If already active, un-click (revert to default)
+          mainImg.src = defaultImage;
+        } else {
+          // Activate this dot and swap image
+          dot.classList.add("active");
+          mainImg.src = opt.image;
+        }
+      });
+    });
+
+    // Add counter dot if limited
+    if (hasMore) {
+      const remaining = p.options.length - renderLimit;
+      const counter = document.createElement("div");
+      counter.className = "option-more-count";
+      counter.textContent = `+${remaining}`;
+      counter.title = `${remaining} more options available`;
+      optionsContainer.appendChild(counter);
+    }
+
+  } else {
+    // No options case: Quick View button
+    optionsContainer.innerHTML = `
+      <button class="btn-slim-quick-view" title="Quick View" data-product-id="${p.id}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        Quick View
+      </button>
+    `;
+    
+    // Attach event to this new slim button
+    const slimBtn = optionsContainer.querySelector(".btn-slim-quick-view");
+    if (slimBtn) {
+      slimBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openQuickPreviewModal(p);
+      });
+    }
+  }
+
+  // --- End Option Logic ---
+
+  // Attach image click to open lightbox
+  if (mainImg) {
+    mainImg.style.cursor = "zoom-in";
+    mainImg.addEventListener("click", (e) => {
       e.preventDefault();
-      openImageModal(cardImg.src);
+      openImageModal(mainImg.src);
     });
   }
   
-  // Quick View button event - opens quick preview modal
+  // Quick View button event
   const quickViewBtn = card.querySelector(".quick-view-btn");
   if (quickViewBtn) {
     quickViewBtn.addEventListener("click", (e) => {
@@ -3347,26 +3425,20 @@ function createProductCard(p) {
       e.preventDefault();
       e.stopPropagation();
       
-      // Find the first available option
+      // Attempt to pick selected option if logic supported later, 
+      // for now defaulting to first available as before
       let firstAvailableOption = null;
       if (p.options && Array.isArray(p.options)) {
         firstAvailableOption = p.options.find(opt => opt.available !== false);
       }
       
-      // Add to cart with the first available option
-      if (firstAvailableOption) {
-        Cart.addItem(p, firstAvailableOption, addToCartBtn);
-      } else {
-        // No options or all options unavailable, add product without option
-        Cart.addItem(p, null, addToCartBtn);
-      }
+      Cart.addItem(p, firstAvailableOption, addToCartBtn);
     });
   }
   
-  // Wishlist button event - use actual Wishlist system
+  // Wishlist button event
   const wishlistBtn = card.querySelector(".wishlist-btn");
   if (wishlistBtn) {
-    // Check initial state
     if (Wishlist.isInWishlist(p.id)) {
       const svg = wishlistBtn.querySelector("svg");
       if (svg) {
@@ -3378,11 +3450,7 @@ function createProductCard(p) {
     wishlistBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      
-      // Toggle wishlist item
       Wishlist.toggleItem(p, null, wishlistBtn);
-      
-      // Update visual state based on wishlist status
       const svg = wishlistBtn.querySelector("svg");
       if (Wishlist.isInWishlist(p.id)) {
         svg.setAttribute("fill", "currentColor");
@@ -3394,7 +3462,6 @@ function createProductCard(p) {
     });
   }
   
-  // If the product is locked, disable navigation and add a visual state
   if (p.locked) {
     const link = card.querySelector(".card-link");
     if (link) {

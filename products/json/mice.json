@@ -219,7 +219,23 @@
           "Yellow Color Available"
         ]
       },
-      "options": null
+      "options": [
+        {
+          "name": "Scyrox V8 - Black",
+          "available": false,
+          "image": "https://scyrox.com/cdn/shop/files/0_d59d95f4-0b1f-42eb-bc9d-567e79247c1c.png?v=1718777516&width=600"
+        },
+        {
+          "name": "Scyrox V8 - Yellow",
+          "available": false,
+          "image": "https://scyrox.com/cdn/shop/files/0_91d5a242-0ae8-4d5c-b4e3-1e6eadc84e98.png?v=1718777516&width=600"
+        },
+        {
+          "name": "Scyrox V8 - White",
+          "available": false,
+          "image": "https://scyrox.com/cdn/shop/files/0_f7b6d91e-dd4b-4776-b047-be6f750d211a.png?v=1718777516&width=600"
+        }
+      ]
     },
     {
       "id": "attacksharkR3",
