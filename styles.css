@@ -7,15 +7,14 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --card: #f8f9fa;
-  --muted: #64748b;
+  --bg: #0b0d10;
+  --card: #0f1114;
+  --muted: #9aa3b2;
   --accent: #7c5cff;
-  --glass: rgba(0, 0, 0, 0.03);
+  --glass: rgba(255, 255, 255, 0.03);
   --max-width: 1100px;
-  --hero-shadow: rgba(0, 0, 0, 0.15);
+  --hero-shadow: rgba(255, 255, 255, 0.15);
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  color: #0f172a;
 }
 
 /* Global transition system */
@@ -324,8 +323,8 @@ input, select, textarea {
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  color: #1e293b;
+  background: linear-gradient(180deg, #050607 0%, #0b0d10 100%);
+  color: #e6eef8;
   line-height: 1.45
 }
 
@@ -1119,45 +1118,7 @@ body {
   transition: left 0.7s ease 0.1s;
 }
 
-/* Card Seller Review - Compact star rating for keyboards/mice */
-.card-seller-review {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.7rem;
-}
 
-.card-star-rating {
-  position: relative;
-  display: inline-block;
-  font-size: 0.7rem;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.card-star-bg {
-  color: rgba(255, 255, 255, 0.15);
-}
-
-.card-star-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  color: #fbbf24;
-  white-space: nowrap;
-}
-
-.card-star-rating.no-rating .card-star-fill {
-  color: rgba(255, 255, 255, 0.15);
-}
-
-.card-rating-score {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
-}
 
 /* Remove/Hide Add to Cart on Hover */
 .card-add-to-cart {
@@ -6725,17 +6686,4 @@ body {
   }
 }
 
-/* Mobile optimization for card seller review */
-@media (max-width: 600px) {
-  .card-seller-review {
-    font-size: 0.65rem;
-  }
-  
-  .card-star-rating {
-    font-size: 0.65rem;
-  }
-  
-  .card-rating-score {
-    font-size: 0.65rem;
-  }
-}
+
