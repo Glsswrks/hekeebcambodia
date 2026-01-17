@@ -3311,26 +3311,67 @@ function createProductCard(p) {
     </div>
   `;
 
-  // --- Logic for Seller Review (for keyboards/mice) or Quick View ---
+  // --- Logic for Options Dots ---
   const optionsContainer = card.querySelector(".card-options");
   const mainImg = card.querySelector(".main-img");
 
-  // Show seller review for keyboards and mice
-  if (p.category === "keyboards" || p.category === "mice") {
-    const hasRating = p.sellerRating !== undefined && p.sellerRating !== null && !Number.isNaN(Number(p.sellerRating));
-    const score = hasRating ? Number(p.sellerRating) : 0;
-    
-    optionsContainer.innerHTML = `
-      <div class="card-seller-review">
-        <div class="card-star-rating ${hasRating ? '' : 'no-rating'}" data-score="${score}">
-          <span class="card-star-bg">★★★★★</span>
-          <span class="card-star-fill" style="width:${hasRating ? (score / 10) * 100 : 0}%">★★★★★</span>
-        </div>
-        <span class="card-rating-score">${hasRating ? score.toFixed(1) : 'N/A'}</span>
-      </div>
-    `;
+  if (p.options && p.options.length > 0) {
+    // Limit to 2 dots max, show counter if more exist
+    const limit = 2;
+    const hasMore = p.options.length > limit;
+    const renderLimit = hasMore ? limit : p.options.length;
+
+    p.options.slice(0, renderLimit).forEach((opt, index) => {
+      if (!opt.image) return;
+
+      const dot = document.createElement("div");
+      dot.className = "option-dot";
+      dot.setAttribute("role", "button");
+      dot.setAttribute("aria-label", `Select option ${opt.name}`);
+      dot.title = opt.name;
+      
+      const img = document.createElement("img");
+      img.src = opt.image;
+      img.alt = opt.name;
+      
+      dot.appendChild(img);
+      optionsContainer.appendChild(dot);
+
+      // Click event for swapping main image
+      dot.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Check if this dot is already active
+        const isActive = dot.classList.contains("active");
+
+        // Remove active class from all dots
+        const allDots = optionsContainer.querySelectorAll(".option-dot");
+        allDots.forEach(d => d.classList.remove("active"));
+
+        if (isActive) {
+          // If already active, un-click (revert to default)
+          mainImg.src = defaultImage;
+        } else {
+          // Activate this dot and swap image
+          dot.classList.add("active");
+          mainImg.src = opt.image;
+        }
+      });
+    });
+
+    // Add counter dot if limited
+    if (hasMore) {
+      const remaining = p.options.length - renderLimit;
+      const counter = document.createElement("div");
+      counter.className = "option-more-count";
+      counter.textContent = `+${remaining}`;
+      counter.title = `${remaining} more options available`;
+      optionsContainer.appendChild(counter);
+    }
+
   } else {
-    // For other categories: Quick View button
+    // No options case: Quick View button
     optionsContainer.innerHTML = `
       <button class="btn-slim-quick-view" title="Quick View" data-product-id="${p.id}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
