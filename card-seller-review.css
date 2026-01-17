@@ -1,0 +1,54 @@
+/* Card Seller Review - Compact star rating for keyboards/mice */
+.card-seller-review {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+}
+
+.card-star-rating {
+  position: relative;
+  display: inline-block;
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.card-star-bg {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.card-star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #fbbf24;
+  white-space: nowrap;
+}
+
+.card-star-rating.no-rating .card-star-fill {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.card-rating-score {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .card-seller-review {
+    font-size: 0.65rem;
+  }
+  
+  .card-star-rating {
+    font-size: 0.65rem;
+  }
+  
+  .card-rating-score {
+    font-size: 0.65rem;
+  }
+}

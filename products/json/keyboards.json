@@ -329,6 +329,75 @@
           "image": "https://gw.alicdn.com/bao/uploaded/i2/381310607/O1CN0141FyUd1GM3W6Z83Lo_!!381310607.jpg_.webp"
         }
       ]
+    },
+    {
+      "id": "madlight60he",
+      "title": "MADLIGHT 60HE",
+      "short": "MADLIGHT 60HE Full Aluminum CNC Body with Holy Case appearance design",
+      "price": 70,
+      "layout": "60%",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "images": [
+        "https://madlionskeyboard.com/wp-content/uploads/2025/06/MAD-light-60-HE-3.jpg",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-02_0b0c7449-b0c3-4e3a-9dab-c7e1529bad4b.jpg?v=1752042458&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-03_e02d7d33-48bd-4642-be5c-8efbe51df913.jpg?v=1752042460&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-04_eff51933-df95-47b6-9416-ea2e43f421f9.jpg?v=1752042468&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-05_e7c7606d-b7a2-4a0a-aad8-d2a19c9ce304.jpg?v=1752042473&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-06_58f041b1-d111-4690-aa05-8a8a88927843.jpg?v=1752042537&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-06_58f041b1-d111-4690-aa05-8a8a88927843.jpg?v=1752042537&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-07_465e6ab9-b7d3-412e-ad90-7d0fb1e567fe.jpg?v=1752042801&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-08_1d9cc358-22cb-4e97-ade4-32cc32fd0410.jpg?v=1752042832&width=2000",
+        "https://f.gg/cdn/shop/files/MAD_Light60_HE_Description_Desktop-01_cefbdb25-f247-409a-9032-e88bcfdc1ad7.jpg?v=1752042457&width=2000"
+      ],
+      "category": "keyboards",
+      "sellerRating": 7.5,
+      "specs": {
+        "layout": "60% (61 keys)",
+        "case": "Full Aluminum CNC Case",
+        "keycaps": "Height Translucent Keycaps",
+        "switches": "Huano Apocalypse Magnetic",
+        "pollingRate": "8000Hz",
+        "latency": "0.125ms",
+        "singleKeyScanRate": "128K Hz",
+        "precision": "0.001mm",
+        "fullKeyScanRate": "",
+        "rtRange": "0.001 ~ 3.5mm",
+        "positionPlate": "Aluminum Alloy Position Plate",
+        "deadZone": "Zero Dead-Zone",
+        "rgb": "Buttom Mount-Light Position - 16M RGB",
+        "functions": "SOCD, RS, DKS, MT, TGL, Key Macros",
+        "drivers": "Dual Driver Support",
+        "musicRhythm": "",
+        "structure": "Electrophoretic White Limited Edition Position Board + PO Sandwich Cotton + Fiber Shaft + PET Sound-Pad + PO Base Cotton",
+        "mcu": "480MHz MCU + 9 ADC Auxiliary Chips",
+        "connectivity": "Wired",
+        "compatibility": "Windows / MacOS / Linux",
+        "features": null
+      },
+      "options": [
+        {
+          "name": "MADLIGHT 60HE - Electroplating Powder PinkRed",
+          "available": false,
+          "image": "https://f.gg/cdn/shop/files/a0cbfa7f7c0aba7bd8e9333cdb207d37_197af4f4-02ba-4a67-8c4a-88c0f181e2b1.jpg?v=1753176771&width=800"
+        },
+        {
+          "name": "MADLIGHT 60HE - Red",
+          "available": false,
+          "image": "https://f.gg/cdn/shop/files/9ea0f129fd42ba62cb24210c1d5e8482.jpg?v=1753176771&width=800"
+        },
+        {
+          "name": "MADLIGHT 60HE - Black",
+          "available": false,
+          "image": "https://f.gg/cdn/shop/files/99c7e51061e49e36424a34db3ea7509d.jpg?v=1753176771&width=800"
+        },
+        {
+          "name": "MADLIGHT 60HE - White",
+          "available": false,
+          "image": "https://f.gg/cdn/shop/files/35cd84a076804504459d0c821fd4b6af.jpg?v=1753176771&width=800"
+        }
+      ]
     }
   ]
 }
