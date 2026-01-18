@@ -525,6 +525,109 @@ function navigateOptionPreview(delta) {
   }
 }
 
+/* ========== Add To Cart Modal (Multi-Option) ========== */
+let currentAddToCartProduct = null;
+let selectedAddToCartOption = null;
+
+function initAddToCartModal() {
+  if (document.getElementById("addToCartModal")) return;
+  const modal = document.createElement("div");
+  modal.id = "addToCartModal";
+  modal.className = "modal add-to-cart-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="modal-content add-to-cart-content">
+      <button class="modal-close add-to-cart-close" aria-label="Close">&times;</button>
+      <h3 class="add-to-cart-title">Select Option</h3>
+      <p class="add-to-cart-subtitle">Please select a variation:</p>
+      <div class="add-to-cart-options-grid"></div>
+      <button class="btn btn-primary add-to-cart-confirm" disabled>
+        Add to Cart
+      </button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Close handlers
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeAddToCartModal();
+  });
+  modal.querySelector(".add-to-cart-close").addEventListener("click", closeAddToCartModal);
+
+  // Confirm Handler
+  const confirmBtn = modal.querySelector(".add-to-cart-confirm");
+  confirmBtn.addEventListener("click", () => {
+    if (currentAddToCartProduct && selectedAddToCartOption) {
+        Cart.addItem(currentAddToCartProduct, selectedAddToCartOption, confirmBtn);
+        closeAddToCartModal();
+    }
+  });
+}
+
+function openAddToCartModal(product) {
+    if (!document.getElementById("addToCartModal")) initAddToCartModal();
+    const modal = document.getElementById("addToCartModal");
+    const grid = modal.querySelector(".add-to-cart-options-grid");
+    const confirmBtn = modal.querySelector(".add-to-cart-confirm");
+    
+    currentAddToCartProduct = product;
+    selectedAddToCartOption = null;
+    confirmBtn.disabled = true;
+    confirmBtn.classList.add("disabled");
+
+    // Populate Options
+    grid.innerHTML = "";
+    // Filter generic options if needed, assuming all options in array are valid variants
+    const availableOptions = product.options ? product.options.filter(o => o.available !== false) : [];
+    
+    if(availableOptions.length === 0) {
+        grid.innerHTML = "<p>No options available.</p>";
+        return;
+    }
+
+    availableOptions.forEach(opt => {
+        const el = document.createElement("div");
+        el.className = "add-to-cart-option-card";
+        
+        // Use option image or product main image
+        const imgSrc = opt.image || (product.images && product.images[0]) || "";
+        
+        el.innerHTML = `
+            <div class="atc-opt-img-wrap">
+               <img src="${imgSrc}" alt="${opt.name}">
+            </div>
+            <span class="atc-opt-name">${opt.name}</span>
+            ${opt.price ? `<span class="atc-opt-price">$${opt.price}</span>` : ''}
+        `;
+        
+        el.addEventListener("click", () => {
+            grid.querySelectorAll(".add-to-cart-option-card").forEach(c => c.classList.remove("selected"));
+            el.classList.add("selected");
+            selectedAddToCartOption = opt;
+            confirmBtn.disabled = false;
+            confirmBtn.classList.remove("disabled");
+        });
+        grid.appendChild(el);
+    });
+
+    modal.setAttribute("aria-hidden", "false");
+}
+
+function closeAddToCartModal() {
+    const modal = document.getElementById("addToCartModal");
+    if(modal) {
+        modal.classList.add("closing");
+        setTimeout(() => {
+            if(modal.classList.contains("closing")) {
+                modal.setAttribute("aria-hidden", "true");
+                modal.classList.remove("closing");
+            }
+        }, 200);
+    }
+    selectedAddToCartOption = null;
+    currentAddToCartProduct = null;
+}
+
 /* ========== Quick Preview Modal ========== */
 let quickPreviewSelectedOption = null;
 
@@ -2124,7 +2227,7 @@ function renderPreorderModal() {
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const themeToggleMobile = document.getElementById("themeToggleMobile");
-  const currentTheme = localStorage.getItem("theme") || "dark";
+  const currentTheme = localStorage.getItem("theme") || "light";
   const cartToggle = document.getElementById("cartToggle");
   const cartToggleMobile = document.getElementById("cartToggleMobile");
   const cartModal = document.getElementById("cartModal");
@@ -2455,6 +2558,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (currentTheme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
     updateThemeIcons(true);
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    updateThemeIcons(false);
   }
 
   // Theme toggle handler for both buttons
@@ -3270,7 +3376,7 @@ function createProductCard(p) {
   card.innerHTML = `
     <div class="card-image">
       <a class="card-link" href="${href}">
-        <img src="${defaultImage}" alt="${p.title}" class="main-img">
+        <img src="${defaultImage}" alt="${p.title}" class="main-img" loading="lazy">
       </a>
       ${badgeHTML}
       <div class="card-image-overlay">
@@ -3311,88 +3417,77 @@ function createProductCard(p) {
     </div>
   `;
 
-  // --- Logic for Options Dots ---
+  // --- Logic for Options / Action Buttons ---
   const optionsContainer = card.querySelector(".card-options");
   const mainImg = card.querySelector(".main-img");
+  
+  // Clear existing content
+  optionsContainer.innerHTML = "";
 
-  if (p.options && p.options.length > 0) {
-    // Limit to 2 dots max, show counter if more exist
-    const limit = 2;
-    const hasMore = p.options.length > limit;
-    const renderLimit = hasMore ? limit : p.options.length;
+  // Helper to create button
+  const createActionBtn = (text, typeClass, onClick) => {
+     const btn = document.createElement("button");
+     // Use 'btn' + typeClass. 'btn-sm' for smaller card size if needed, but user said "match Add to Cart".
+     // We'll use a specific class for card resizing needs.
+     btn.className = `btn action-btn ${typeClass}`; 
+     btn.textContent = text;
+     btn.addEventListener("click", onClick);
+     return btn;
+  };
 
-    p.options.slice(0, renderLimit).forEach((opt, index) => {
-      if (!opt.image) return;
+  // Determine availability (Product available OR at least one option available)
+  const hasOptions = p.options && p.options.length > 0;
+  const anyOptionAvailable = hasOptions && p.options.some(o => o.available !== false);
+  const isAvailable = p.available || anyOptionAvailable;
 
-      const dot = document.createElement("div");
-      dot.className = "option-dot";
-      dot.setAttribute("role", "button");
-      dot.setAttribute("aria-label", `Select option ${opt.name}`);
-      dot.title = opt.name;
+  if (isAvailable) {
+      // Add to Cart
+      const availableOptions = hasOptions ? p.options.filter(o => o.available !== false) : [];
       
-      const img = document.createElement("img");
-      img.src = opt.image;
-      img.alt = opt.name;
-      
-      dot.appendChild(img);
-      optionsContainer.appendChild(dot);
-
-      // Click event for swapping main image
-      dot.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Check if this dot is already active
-        const isActive = dot.classList.contains("active");
-
-        // Remove active class from all dots
-        const allDots = optionsContainer.querySelectorAll(".option-dot");
-        allDots.forEach(d => d.classList.remove("active"));
-
-        if (isActive) {
-          // If already active, un-click (revert to default)
-          mainImg.src = defaultImage;
-        } else {
-          // Activate this dot and swap image
-          dot.classList.add("active");
-          mainImg.src = opt.image;
-        }
+      const btn = createActionBtn("Add to Cart", "add-to-cart", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (availableOptions.length > 1) {
+              // Open Modal
+              openAddToCartModal(p);
+          } else {
+              // Add directly (Single option or No options)
+              // If single option, pass it. If no options (standard product), pass null.
+              const opt = availableOptions.length === 1 ? availableOptions[0] : null;
+              Cart.addItem(p, opt, btn);
+          }
       });
-    });
-
-    // Add counter dot if limited
-    if (hasMore) {
-      const remaining = p.options.length - renderLimit;
-      const counter = document.createElement("div");
-      counter.className = "option-more-count";
-      counter.textContent = `+${remaining}`;
-      counter.title = `${remaining} more options available`;
-      optionsContainer.appendChild(counter);
-    }
-
+      optionsContainer.appendChild(btn);
   } else {
-    // No options case: Quick View button
-    optionsContainer.innerHTML = `
-      <button class="btn-slim-quick-view" title="Quick View" data-product-id="${p.id}">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-        Quick View
-      </button>
-    `;
-    
-    // Attach event to this new slim button
-    const slimBtn = optionsContainer.querySelector(".btn-slim-quick-view");
-    if (slimBtn) {
-      slimBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        openQuickPreviewModal(p);
+      // Pre-Order
+      const btn = createActionBtn("Pre-Order", "pre-order", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (hasOptions) {
+             // Set global state for the modal
+             if (typeof currentProductForPreorder !== 'undefined') currentProductForPreorder = p;
+             if (typeof selectedPreorderOption !== 'undefined') selectedPreorderOption = null;
+             
+             // Use global functionality to populate options
+             // Passing 'false' to show all options since product is unavailable
+             if(typeof populatePreorderOptions === 'function') {
+                 populatePreorderOptions(p, false); 
+                 
+                 const modal = document.getElementById("preorderOptionModal");
+                 if(modal) modal.setAttribute("aria-hidden", "false");
+             }
+          } else {
+             // Direct add to pre-order list
+             if (typeof PreOrderList !== 'undefined') {
+                 PreOrderList.addItem(p, null, btn);
+             }
+          }
       });
-    }
+      optionsContainer.appendChild(btn);
   }
-
+  
   // --- End Option Logic ---
 
   // Attach image click to open lightbox
