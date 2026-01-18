@@ -60,7 +60,7 @@
         },
         {
           "name": "WOLVES Edition - TTC RGB Magneto Switches",
-          "available": false,
+          "available": true,
           "price": 229,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/wolves.jpg"
         }
@@ -154,7 +154,7 @@
       "short": "Mchose ACE68 Turbo - First ever 16K Hz Polling Rate Hall Effect Keyboard with Dual Core Power",
       "price": 90,
       "layout": "65%",
-      "available": false,
+      "available": true,
       "isNew": false,
       "lowStock": false,
       "images": [
@@ -202,13 +202,13 @@
       "options": [
         {
           "name": "Cyber Black - Polaris Switch (8K Hz)",
-          "available": false,
+          "available": true,
           "price": 90,
           "image": "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084120.png?v=1766641151&width=800"
         },
         {
           "name": "Galaxy Orange - Polaris Switch (8K Hz)",
-          "available": false,
+          "available": true,
           "price": 90,
           "image": "https://www.mchose.store/cdn/shop/files/mchose-official-mchose-ace-68-turbo-full-aluminum-esports-hall-effect-keyboard-1213084119.png?v=1766641090&width=800"
         },
