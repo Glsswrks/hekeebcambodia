@@ -3367,7 +3367,37 @@ function createProductCard(p) {
 
   const href = productLink(p.id);
   // Ensure default image is valid
-  const defaultImage = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+  let defaultImage = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+
+  // modify default image for some keyboard product
+  if (p.category == "keyboards") {
+    if (p.id == "atk-edge60he")
+      defaultImage = p.options[0].image;
+    else if (p.id == "atk-rs-6")
+      defaultImage = "https://www.atk.store/cdn/shop/files/ATK_RS6_Ultra_ATK_x_ASPAS.jpg?v=1763534451";
+    else if (p.id == "mchose-ace68-turbo")
+      defaultImage = p.options[0].image;
+    else if (p.id == "madlight60he")
+      defaultImage = p.options[0].image;
+    else if (p.id == "titan68he-v2")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/titan68v2.png?raw=true";
+  } else if (p.category == "mice"){
+    if (p.id == "lamzumayax")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/lamzuMayaX.png?raw=true";
+    else if (p.id == "atkf1pro")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkf1.png?raw=true";
+    else if (p.id == "scyroxv8")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/scyroxv8.png?raw=true";
+    else if (p.id == "atkA9SE")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkA9.png?raw=true";
+    else if (p.id == "attacksharkR3")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/attacksharkr3.png?raw=true";
+    else if (p.id == "vgnF2SE")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vgnF2.png?raw=true";
+    else if (p.id == "vxer1se")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vxeR1.png?raw=true";
+  }
+
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
 
   // Determine if add to cart should be locked
