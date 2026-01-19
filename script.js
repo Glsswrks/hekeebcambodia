@@ -3401,8 +3401,19 @@ function createProductCard(p) {
     else if (p.id == "atk_ghost")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
     else if (p.id == "atk-x1-v2-series")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_sky_x1v2.png?raw=true";
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_x1v2.png?raw=true";
   }
+
+  // check if the product has an options that are different price.
+  let modified_price = p.price, str_modified_price;
+  if (p.options && p.options.length > 1) {
+    p.options.forEach(option => {
+      if (option.price > p.price) {
+        modified_price = option.price;
+      }
+    });
+  }
+  str_modified_price = (modified_price == p.price ? `` : `-${modified_price}`);
 
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
 
@@ -3447,7 +3458,7 @@ function createProductCard(p) {
           <!-- Options will be injected here -->
         </div>
         <div class="card-price-container">
-           <span class="${priceBadgeClass}">$${p.price}</span>
+           <span class="${priceBadgeClass}">$${p.price}${str_modified_price}</span>
         </div>
       </div>
     </div>
@@ -3471,6 +3482,8 @@ function createProductCard(p) {
      return btn;
   };
 
+  // add to cart
+  // select
   // Determine availability (Product available OR at least one option available)
   const hasOptions = p.options && p.options.length > 0;
   const anyOptionAvailable = hasOptions && p.options.some(o => o.available !== false);
@@ -3480,7 +3493,7 @@ function createProductCard(p) {
       // Add to Cart
       const availableOptions = hasOptions ? p.options.filter(o => o.available !== false) : [];
       
-      const btn = createActionBtn("Add to Cart", "add-to-cart", (e) => {
+      const btn = createActionBtn("Add To Cart", "add-to-cart", (e) => {
           e.preventDefault();
           e.stopPropagation();
           
