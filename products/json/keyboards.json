@@ -398,6 +398,76 @@
           "image": "https://f.gg/cdn/shop/files/35cd84a076804504459d0c821fd4b6af.jpg?v=1753176771&width=800"
         }
       ]
+    },
+    {
+      "id": "atk68rx",
+      "title": "ATK 68 RX",
+      "short": "ATK 68 RX eSports Hall Effect Keyboard - Meet the Forged Carbon Limited Edition, paired with Cosmic switches. Designed for a unique feel.",
+      "price": 70,
+      "layout": "65%",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "images": [
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__01.jpg?v=1764137371&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__03.jpg?v=1764137253&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__04.jpg?v=1764137293&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__05.jpg?v=1764137259&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__07.jpg?v=1764137333&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__08.jpg?v=1764137258&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__09.jpg?v=1764137271&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__10.jpg?v=1764137293&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__11.jpg?v=1764137221&width=2000",
+        "https://www.atk.store/cdn/shop/files/68RX_-_PC__12.jpg?v=1764137272&width=2000"
+      ],
+      "category": "keyboards",
+      "sellerRating": 7.5,
+      "specs": {
+        "layout": "65% (68 keys)",
+        "case": "Plastic",
+        "keycaps": "Cherry Profile, Frosted PC",
+        "switches": "Wolf Switch / Primordial Switch / Cosmic Switch",
+        "pollingRate": "8000Hz",
+        "latency": "0.08ms",
+        "singleKeyScanRate": "256K Hz",
+        "precision": "0.001mm",
+        "fullKeyScanRate": "32K Hz N-Key",
+        "rtRange": "0.005 ~ 3.3mm",
+        "positionPlate": "Aluminum Alloy Position Plate",
+        "deadZone": "Zero Dead-Zone",
+        "rgb": "South-Facing - 16.8M RGB - 22 Presets",
+        "functions": "SOCD, RS, DKS, MT, TGL, Key Macros",
+        "drivers": "Dual Driver Support",
+        "musicRhythm": "",
+        "structure": "Silicon Base Pad + Paron Foam + EPDM Foam + PET Film + IXPE Pad + Silicon Plate Form",
+        "mcu": "480MHz MCU",
+        "connectivity": "Wired",
+        "compatibility": "Windows / MacOS / Linux",
+        "features": null
+      },
+      "options": [
+        {
+          "name": "ATK 68 RX eSports - Black (Wolf Switch)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/ac32e9e1554198b2e59119946fb32d1c.jpg?v=1753930438"
+        },
+        {
+          "name": "ATK 68 RX eSports - White (Wolf Switch)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/0a880f505c69d7e7d07d0e5117ab8804.jpg?v=1753930212"
+        },
+        {
+          "name": "ATK 68 RX eSports - Pink (Wolf Switch)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/a41da8b0ebf45d9eef904598ea8249c9.jpg?v=1753930438"
+        },
+        {
+          "name": "ATK 68 RX eSports - Black (Forged Carbon Limited Edition - Cosmic Switch)",
+          "available": false,
+          "price": 90,
+          "image": "https://www.atk.store/cdn/shop/files/20251126-142222.jpg?v=1764138160"
+        }
+      ]
     }
   ]
 }

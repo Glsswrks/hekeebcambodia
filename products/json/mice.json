@@ -36,7 +36,7 @@
         "switch": "Omron Optical Switches",
         "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
         "features": [
-          "ATK HUB/Web Driver Supported"
+          "ATK HUB / Web Driver Supported"
         ]
       },
       "options": [
@@ -124,6 +124,84 @@
       ]
     },
     {
+      "id": "atk_ghost",
+      "title": "ATK Blazing Sky GHOST",
+      "short": "ATK Blazing Sky GHOST Hallow Carbon - Hollowed-out design with carbon fiber composite materials delivers unmatched build quality and feel. Based on the X1 shape with a smaller size, Optimized fit for medium-to-small hands across all grip styles.",
+      "price": 70,
+      "layout": "53g + 3g / 57 + 3g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 10,
+      "images": [
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__01.jpg?v=1768181095&width=2000",
+        "https://www.atk.store/cdn/shop/files/ghost-pc-2.jpg?v=1768558767&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__03.jpg?v=1768181087&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__04.jpg?v=1768181096&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__07.jpg?v=1768181079&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__08.jpg?v=1768181082&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__10.jpg?v=1768181089&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__11.jpg?v=1768181076&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__13.jpg?v=1768181094&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__15.jpg?v=1768181088&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__16.jpg?v=1768181081&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-Ghost_-PC__17.jpg?v=1768181087&width=2000"
+      ],
+      "category": "mice",
+      "specs": {
+        "battery": "300mAh",
+        "coating": "All-New Nano Coating",
+        "sensor": "PAW3950 ULTRA",
+        "weight": "48+3g",
+        "pollingRate": "8K Hz",
+        "latency": "0.163ms End-To-End Latency",
+        "acceleration": "50G",
+        "trackingSpeed": "750IPS",
+        "mcu": "Nordic 54L15 / Nordic 54H20",
+        "dpi": "10 - 30000 (Overclockable to 42000)",
+        "switch": "ATK Custom Optical Switches / ATK Light Blade Mechanical Switches",
+        "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
+        "features": [
+          "ATK HUB / Web Driver Supported"
+        ]
+      },
+      "options": [
+        {
+          "name": "ATK Blazing Sky GHOST - Red (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_e0268ebf-2aad-4313-bfca-227348bf5074.jpg?v=1768203286"
+        },
+        {
+          "name": "ATK Blazing Sky GHOST - Black (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_9207a22b-fff4-4701-b3ac-0090dfd22d21.jpg?v=1767954873"
+        },
+        {
+          "name": "ATK Blazing Sky GHOST - White (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_e4fd74f1-87bd-49da-8e4b-f34fbd0bb003.jpg?v=1768203286"
+        },
+        {
+          "name": "ATK Blazing Sky GHOST - Purple (Extreme Edition)",
+          "available": false,
+          "price": 100,
+          "image": "https://www.atk.store/cdn/shop/files/1500_db4d672c-ccaa-46b8-ad4b-b136cbd724f1.jpg?v=1768203286"
+        },
+        {
+          "name": "ATK Blazing Sky GHOST - Black (Extreme Edition)",
+          "available": false,
+          "price": 100,
+          "image": "https://www.atk.store/cdn/shop/files/1500_9207a22b-fff4-4701-b3ac-0090dfd22d21.jpg?v=1767954873"
+        },
+        {
+          "name": "ATK Blazing Sky GHOST - White (Extreme Edition)",
+          "available": false,
+          "price": 100,
+          "image": "https://www.atk.store/cdn/shop/files/1500_e4fd74f1-87bd-49da-8e4b-f34fbd0bb003.jpg?v=1768203286"
+        }
+      ]
+    },
+    {
       "id": "atkA9SE",
       "title": "ATK Dragonfly A9 SE",
       "short": "ATK Dragonfly A9 Wireless Bluetooth Mouse, Gaming, Ergonomic, Computer & Office Tri-mode Mouse, Star Flash Edition",
@@ -160,7 +238,7 @@
         "switch": "Huanuo Blue Glow V2 / Huanuo Ice Berry Pink Dot / Omron Optical - ATK Custom Tuned Optical",
         "connectivity": "Wireless (2.4GHz) / Wired / Bluetooth",
         "features": [
-          "ATK HUB/Web Driver Supported"
+          "ATK HUB / Web Driver Supported"
         ]
       },
       "options": [
