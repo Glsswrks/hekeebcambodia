@@ -128,19 +128,40 @@
     </aside>
 
     <main>
-      <section class="hero">
-        <div class="hero-bg-overlay"></div>
-        <div class="container hero-inner">
-          <div class="hero-text">
-            <h1>Choose Your Favorite Mechanical / Hall Effect Keyboard</h1>
-            <p>We build custom keyboards that match your style and performance
-              needs. From Hall-Effect (HE) keyboards to
-              switches, keycaps, and accessories, we focus on quality, speed,
-              and a great typing experience—fully
-              customized for you.</p>
-            <a href="#all-products" id="showAllBtn" class="btn primary">See
-              Available Items</a>
+      <section class="hero-slider" id="heroSlider">
+        <div class="slider-wrapper" id="sliderWrapper">
+          <!-- Slide 1 -->
+          <div class="slide active">
+            <div class="slide-bg" style="--bg-desktop: url('https://cdn.shopify.com/s/files/1/0846/5727/5175/files/4-1_6b8aacab-68f9-46c1-98c7-ac5b0877c5e5.png?v=1761702065&width=2000'); --bg-mobile: url('https://cdn.shopify.com/s/files/1/0846/5727/5175/files/Mchose_A7X_Ultra_Mouse_2.png?v=1761701910&width=400%20400w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/Mchose_A7X_Ultra_Mouse_2.png?v=1761701910&width=600%20600w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/Mchose_A7X_Ultra_Mouse_2.png?v=1761701910&width=800%20800w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/Mchose_A7X_Ultra_Mouse_2.png?v=1761701910&width=1000%201000w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/Mchose_A7X_Ultra_Mouse_2.png?v=1761701910&width=1200%201200w');"></div>
+            <div class="container slide-content">
+              <div class="slide-text-box">
+                <p class="slide-specs">PAW3950 TI Sensor | 8K Polling Rate | Realtek Chipset | Magnesium Alloy Shell</p>
+                <h1 class="slide-title">MCHOSE A7X Ultra</h1>
+                <a href="#mice" class="slide-btn">Shop Now</a>
+              </div>
+            </div>
           </div>
+          <!-- Slide 2 -->
+          <div class="slide">
+            <div class="slide-bg" style="--bg-desktop: url('https://cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner.png?v=1761702981&width=2000'); --bg-mobile: url('https://cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner_h5.png?v=1761702969&width=400%20400w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner_h5.png?v=1761702969&width=600%20600w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner_h5.png?v=1761702969&width=800%20800w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner_h5.png?v=1761702969&width=1000%201000w,%20//cdn.shopify.com/s/files/1/0846/5727/5175/files/MCHOSE_Ace_68_Turbo_banner_h5.png?v=1761702969&width=1200%201200w');"></div>
+            <div class="container slide-content">
+              <div class="slide-text-box">
+                <p class="slide-specs">16K Polling Rate | Full Aluminum Body | 0.06ms Ultra-Low Latency | Rapid Trigger</p>
+                <h1 class="slide-title">Ace 68 Turbo</h1>
+                <a href="#shop" class="slide-btn">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Navigation Zones (Invisible or subtle) -->
+        <div class="slider-nav-zone prev-zone" id="sliderPrevBtn" aria-label="Previous Slide"></div>
+        <div class="slider-nav-zone next-zone" id="sliderNextBtn" aria-label="Next Slide"></div>
+
+        <!-- Indicators -->
+        <div class="slider-indicators" id="sliderIndicators">
+          <span class="indicator active" data-slide="0"></span>
+          <span class="indicator" data-slide="1"></span>
         </div>
       </section>
 

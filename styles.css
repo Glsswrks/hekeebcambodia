@@ -6893,3 +6893,291 @@ body {
     box-shadow: none !important;
 }
 
+/* =========================================
+   HERO SLIDER STYLES
+   ========================================= */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 65vh;
+  min-height: 500px;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.slide-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-desktop);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 6s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .slide-bg {
+    background-image: var(--bg-mobile);
+  }
+}
+
+.slide.active .slide-bg {
+  transform: scale(1.05); /* Slight Ken Burns effect */
+}
+
+/* Slide Content Styling */
+.slide-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  color: #fff;
+}
+
+.slide-text-box {
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  /* Removed 0.3s delay to sync with image transition */
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.active .slide-text-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-specs {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.9);
+}
+
+.slide-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.slide-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.slide-btn:hover {
+  transform: scale(1.05);
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Sliding Transition Classes (Managed by JS) */
+.slide.slide-next-enter {
+  transform: translateX(100%);
+  opacity: 1;
+  visibility: visible;
+  z-index: 3;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.slide-next-enter-active {
+  transform: translateX(0);
+}
+
+.slide.slide-next-exit {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.slide-next-exit-active {
+  transform: translateX(-100%);
+}
+
+.slide.slide-prev-enter {
+  transform: translateX(-100%);
+  opacity: 1;
+  visibility: visible;
+  z-index: 3;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.slide-prev-enter-active {
+  transform: translateX(0);
+}
+
+.slide.slide-prev-exit {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.slide-prev-exit-active {
+  transform: translateX(100%);
+}
+
+
+/* Navigation Zones */
+.slider-nav-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Visual feedback on hover */
+  background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slider-nav-zone:hover {
+  opacity: 1;
+}
+
+.prev-zone {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 100%);
+}
+
+.next-zone {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.3) 0%, transparent 100%);
+}
+
+/* Add arrows inside zones for better UX */
+.slider-nav-zone::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-top: 3px solid rgba(255,255,255,0.7);
+  border-right: 3px solid rgba(255,255,255,0.7);
+  display: block;
+}
+
+.prev-zone::after {
+  transform: rotate(-135deg);
+  margin-left: 20px;
+}
+
+.next-zone::after {
+  transform: rotate(45deg);
+  margin-right: 20px;
+}
+
+
+/* Indicators */
+.slider-indicators {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 20;
+}
+
+.indicator {
+  width: 40px;
+  height: 4px; /* Bars instead of dots for modern look */
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.indicator.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--accent);
+  /* Optional: Loading bar animation if desired */
+  /* animation: progress 5s linear forwards; */
+}
+
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .slide-bg {
+    background-position: center;
+  }
+  
+  .slider-nav-zone {
+    width: 15%;
+    opacity: 0; /* Hidden on mobile to avoid blocking content? Or maybe just keep tap targets */
+  }
+
+  .slide-specs {
+    font-size: 0.75rem;
+  }
+
+  .slide-btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+

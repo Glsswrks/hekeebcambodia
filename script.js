@@ -4752,3 +4752,144 @@ if (document.readyState === "loading") {
     renderProductDetail(product);
   }
 })();
+
+/* =========================================
+   HERO SLIDER LOGIC
+   ========================================= */
+function initHeroSlider() {
+  const slider = document.getElementById('heroSlider');
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.slide');
+  const prevBtn = document.getElementById('sliderPrevBtn');
+  const nextBtn = document.getElementById('sliderNextBtn');
+  const indicators = document.getElementById('sliderIndicators');
+  const indicatorSpans = indicators ? indicators.querySelectorAll('.indicator') : [];
+  
+  let currentSlide = 0;
+  let isAnimating = false;
+  let autoSlideInterval;
+  const slideDuration = 6000; // 6 seconds per slide
+
+  function goToSlide(index, direction = 'next') {
+    if (isAnimating || index === currentSlide) return;
+    isAnimating = true;
+
+    const activeSlide = slides[currentSlide];
+    const nextSlide = slides[index];
+
+    // Add classes for transition
+    if (direction === 'next') {
+      activeSlide.classList.add('slide-next-exit');
+      nextSlide.classList.add('slide-next-enter');
+      
+      // Force reflow
+      void nextSlide.offsetWidth;
+      
+      activeSlide.classList.add('slide-next-exit-active');
+      nextSlide.classList.add('slide-next-enter-active');
+    } else {
+      activeSlide.classList.add('slide-prev-exit');
+      nextSlide.classList.add('slide-prev-enter');
+      
+      void nextSlide.offsetWidth;
+      
+      activeSlide.classList.add('slide-prev-exit-active');
+      nextSlide.classList.add('slide-prev-enter-active');
+    }
+
+    // Update indicators
+    if (indicators) {
+      indicatorSpans.forEach(ind => ind.classList.remove('active'));
+      if(indicatorSpans[index]) indicatorSpans[index].classList.add('active');
+    }
+
+    // Cleanup after transition
+    setTimeout(() => {
+      activeSlide.classList.remove('active', 'slide-next-exit', 'slide-next-exit-active', 'slide-prev-exit', 'slide-prev-exit-active');
+      nextSlide.classList.remove('slide-next-enter', 'slide-next-enter-active', 'slide-prev-enter', 'slide-prev-enter-active');
+      nextSlide.classList.add('active');
+      
+      currentSlide = index;
+      isAnimating = false;
+    }, 800); // Wait for transition to finish
+  }
+
+  function nextSlide() {
+    let nextIndex = (currentSlide + 1) % slides.length;
+    goToSlide(nextIndex, 'next');
+  }
+
+  function prevSlide() {
+    let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+    goToSlide(prevIndex, 'prev');
+  }
+
+  // Event Listeners
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      nextSlide();
+      startAutoSlide();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      prevSlide();
+      startAutoSlide();
+    });
+  }
+
+  if (indicators) {
+    indicatorSpans.forEach((ind, i) => {
+      ind.addEventListener('click', () => {
+        stopAutoSlide();
+        if (i > currentSlide) goToSlide(i, 'next');
+        else if (i < currentSlide) goToSlide(i, 'prev');
+        startAutoSlide();
+      });
+    });
+  }
+
+  // Auto Slide
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(nextSlide, slideDuration);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
+  }
+
+  // Touch Support (Swipe)
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoSlide();
+  }, {passive: true});
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+    startAutoSlide();
+  }, {passive: true});
+
+  function handleSwipe() {
+    if (touchEndX < touchStartX - 50) nextSlide();
+    if (touchEndX > touchStartX + 50) prevSlide();
+  }
+
+  // Start
+  startAutoSlide();
+}
+
+// Call init functionality
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroSlider);
+} else {
+  initHeroSlider();
+}
