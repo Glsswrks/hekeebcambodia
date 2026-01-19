@@ -97,27 +97,27 @@
       },
       "options": [
         {
-          "name": "Purple Shadow",
+          "name": "Lamzu Maya X 8K - Purple Shadow",
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/purple.jpg"
         },
         {
-          "name": "Light Pink",
+          "name": "Lamzu Maya X 8K - Light Pink",
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/pink.jpg"
         },
         {
-          "name": "Charcoal Black",
+          "name": "Lamzu Maya X 8K - Charcoal Black",
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/black.jpg"
         },
         {
-          "name": "White",
+          "name": "Lamzu Maya X 8K - White",
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/white.jpg"
         },
         {
-          "name": "Cloud Gray",
+          "name": "Lamzu Maya X 8K - Cloud Gray",
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/mayaX/cloud.jpg"
         }
@@ -198,6 +198,68 @@
           "available": false,
           "price": 100,
           "image": "https://www.atk.store/cdn/shop/files/1500_e4fd74f1-87bd-49da-8e4b-f34fbd0bb003.jpg?v=1768203286"
+        }
+      ]
+    },
+    {
+      "id": "mchose-a7x",
+      "title": "MCHOSE A7X ULTRA",
+      "short": "The A7X Ultra is built with a large magnesium alloy shell and an open-bottom design, offering exceptional strength and rigidity. Weighing just 53g, it provides featherlight control, precise handling, and comfort during extended gaming sessions.",
+      "price": 95,
+      "layout": "53g",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "sellerRating": 9.5,
+      "images": [
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_11.png?v=1761701977&width=1000",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_7.png?v=1761701954&width=1000",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_3.png?v=1761701917&width=1000",
+        "https://www.mchose.store/cdn/shop/files/Realtek_Flagship_Chipset_cc987730-529a-41bb-a5f9-40c1aa600719.png?v=1761702019&width=1000",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_4.png?v=1761701997&width=1000",
+        "https://www.mchose.store/cdn/shop/files/A7X_Ultra_1_b9fede2c-ec58-4180-98ff-4a4b41734b06.png?v=1761702031&width=600",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_17.png?v=1761701898&width=600",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_16.png?v=1761702036&width=600",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_9.png?v=1761701905&width=600",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse_12.png?v=1761701959&width=600",
+        "https://www.mchose.store/cdn/shop/files/Mchose_A7X_Ultra_Mouse-3.png?v=1761702047&width=1000"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "",
+        "battery": "500mAh",
+        "coating": "ICEFLOW Glacier Coating",
+        "sensor": "PAW 3950 Ti",
+        "weight": "53g(± 2g)",
+        "pollingRate": "8K",
+        "mcu": "Realtek Chipset",
+        "trackingSpeed": "750 IPS",
+        "dpi": "42,000 DPI",
+        "acceleration": "50G",
+        "switch": "Omron Optical Micro Switch (70 Million Cycles)",
+        "connectivity": "Tri-mode (Type-C Cable / 2.4G Hz / Wireless)",
+        "features": [
+          "TOPSPEED Wireless Technology",
+          "Self-developed M HUB (Web Driver / App Driver)",
+          "TTC Gold Wheel Encoder",
+          "Package Includes: Glass Mouse Feet, Custom Pouch, Sturdy Case"
+        ]
+      },
+      "options": [
+        {
+          "name": "A7X Ultra - Black",
+          "available": false,
+          "image": "https://www.mchose.store/cdn/shop/files/mchose-official-mouse-black-mchose-a7x-ultra-magnesium-alloy-wireless-gaming-mouse-1200359829.png?v=1764064671&width=800"
+        },
+        {
+          "name": "A7X Ultra - White",
+          "available": false,
+          "image": "https://www.mchose.store/cdn/shop/files/mchose-official-mouse-white-mchose-a7x-ultra-magnesium-alloy-wireless-gaming-mouse-1200359828.jpg?v=1764064431&width=800"
+        },
+        {
+          "name": "A7X Ultra - Rose Red",
+          "available": false,
+          "image": "https://www.mchose.store/cdn/shop/files/mchose-official-mouse-rose-red-mchose-a7x-ultra-magnesium-alloy-wireless-gaming-mouse-1200359900.png?v=1764064797&width=800"
         }
       ]
     },

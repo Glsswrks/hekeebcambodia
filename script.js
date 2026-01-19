@@ -3402,6 +3402,8 @@ function createProductCard(p) {
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
     else if (p.id == "atk-x1-v2-series")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_x1v2.png?raw=true";
+    else if (p.id == "mchose-a7x")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/mchose_a7x.png?raw=true";
   }
 
   // check if the product has an options that are different price.
