@@ -3381,6 +3381,8 @@ function createProductCard(p) {
       defaultImage = p.options[0].image;
     else if (p.id == "titan68he-v2")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/titan68v2.png?raw=true";
+    else if (p.id == "atk68rx")
+      defaultImage = p.options[3].image;
   } else if (p.category == "mice"){
     if (p.id == "lamzumayax")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/lamzuMayaX.png?raw=true";
@@ -3396,6 +3398,8 @@ function createProductCard(p) {
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vgnF2.png?raw=true";
     else if (p.id == "vxer1se")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vxeR1.png?raw=true";
+    else if (p.id == "atk_ghost")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
   }
 
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
@@ -4150,6 +4154,8 @@ function renderProductDetail(product) {
         ];
       }
     }
+    // change new image to default array of an image
+    newImages = defaultImages;
     imagesContainer.innerHTML = "";
     const carousel = createCarousel(newImages);
     imagesContainer.appendChild(carousel);
