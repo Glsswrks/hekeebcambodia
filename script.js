@@ -972,6 +972,14 @@ function renderSearchResults(results, container, query) {
       const href = productLink(product.id);
       const category = product.category || "product";
 
+      let price_display = `$${product.price}`;
+      // loop the product option if product has options
+      product.options?.forEach((option) => {
+        if (option.price && option.price > product.price) {
+          price_display = `$${product.price}-${option.price}`;
+        }
+      });
+
       return `
       <a href="${href}" class="search-result-item" tabindex="0">
         <img src="${image}" alt="${
@@ -984,7 +992,7 @@ function renderSearchResults(results, container, query) {
           )}</p>
           <div class="search-result-meta">
             <span class="search-result-category">${category}</span>
-            <span class="search-result-price">$${product.price}</span>
+            <span class="search-result-price">${price_display}</span>
           </div>
         </div>
       </a>
