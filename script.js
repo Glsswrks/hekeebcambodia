@@ -3400,6 +3400,8 @@ function createProductCard(p) {
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vxeR1.png?raw=true";
     else if (p.id == "atk_ghost")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
+    else if (p.id == "atk-x1-v2-series")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_sky_x1v2.png?raw=true";
   }
 
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";

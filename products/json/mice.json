@@ -54,7 +54,7 @@
     },
     {
       "id": "lamzumayax",
-      "title": "Lamzu Maya X 8K Wireless",
+      "title": "Lamzu Maya X 8K",
       "short": "47-Gram Symmetrical Gaming Mouse with 8K Polling Rate",
       "price": 120,
       "layout": "47g",
@@ -440,6 +440,102 @@
           "available": false,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/vgndragonflyF2/white.jpg",
           "price": 40
+        }
+      ]
+    },
+    {
+      "id": "atk-x1-v2-series",
+      "title": "ATK Blazing Sky X1 V2",
+      "short": "ATK Blazing Sky X1 V2 - All-round design, newly upgraded with the Nordic 54 MCU, 800mAh battery, all-new Nano Coating, and more. Available in signature colors to craft your ultimate esports experience.",
+      "price": 45,
+      "layout": "54g",
+      "available": false,
+      "isNew": true,
+      "lowStock": false,
+      "sellerRating": 8.5,
+      "images": [
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__01.jpg?v=1761557091&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__02.jpg?v=1761557091&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__03.jpg?v=1761557077&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__04.jpg?v=1761557093&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__06.jpg?v=1761557075&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__07.jpg?v=1761557068&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__08.jpg?v=1761557075&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__09.jpg?v=1761557097&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__10.jpg?v=1761557075&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__11.jpg?v=1761557065&width=2000",
+        "https://www.atk.store/cdn/shop/files/ATK-_-X1-V2_-PC__13.jpg?v=1761557030&width=2000"
+      ],
+      "category": "mice",
+      "specs": {
+        "latency": "0.181ms / 0.163ms",
+        "battery": "800mAh",
+        "coating": "All-New Nano Coating",
+        "sensor": "PAW3395 Ultra / PAW3950 Ultra",
+        "weight": "55±2g / 54±2g",
+        "pollingRate": "8K",
+        "mcu": "Nordic 54L15 / Nordic 54H20",
+        "trackingSpeed": "650IPS / 750IPS",
+        "dpi": "10 - 30000 (42000 Overclock)",
+        "acceleration": "50G",
+        "switch": "ATK Lightblade Mechanical / ATK Custom Optical / ATK SwiftLight Optical",
+        "connectivity": "Wired / Wireless (2.4GHz)",
+        "features": [
+          "ATK Self-Developed Nordic 54 Series ApexShark MAX Mouse Solution",
+          "Dimensions: 127 x 64 x 40 mm (Medium to Large Hands)",
+          "TTC Gold Scroll Wheel",
+          "Battery Life: 800+ Hours / 265+ Hours (1000Hz)",
+          "Dongle: All-New 8K Nano / All-New GEM 8K"
+        ]
+      },
+      "options": [
+        {
+          "name": "ATK Blazing Sky X1 V2 - White (Ultra Max Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_3eca182d-0712-4225-9941-b3573028fa2d.jpg?v=1761555299",
+          "price": 45
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Black (Ultra Max Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_778d99f5-4910-4793-bda8-2cf478ab6b97.jpg?v=1761555256",
+          "price": 45
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - White (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_3eca182d-0712-4225-9941-b3573028fa2d.jpg?v=1761555299",
+          "price": 65
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Black (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_778d99f5-4910-4793-bda8-2cf478ab6b97.jpg?v=1761555256",
+          "price": 65
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Metallic Red (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_64959b4f-7619-4791-bbb7-a00d33002d35.jpg?v=1761562312",
+          "price": 65
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Metallic Silver (Ultimate Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_0500658e-0f18-4b51-a380-7697554ea959.jpg?v=1761562103",
+          "price": 65
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Metallic Red (Extreme Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_64959b4f-7619-4791-bbb7-a00d33002d35.jpg?v=1761562312",
+          "price": 90
+        },
+        {
+          "name": "ATK Blazing Sky X1 V2 - Metallic Purple (Extreme Edition)",
+          "available": false,
+          "image": "https://www.atk.store/cdn/shop/files/1500_e2ec32c7-2828-46be-a3dc-0d5370e39f49.jpg?v=1761562312",
+          "price": 90
         }
       ]
     },
