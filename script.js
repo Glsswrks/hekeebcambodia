@@ -4130,6 +4130,53 @@ function renderSimilarProductsSection(currentProductId) {
 }
 
 /* ---------- Modified renderProductDetail to conditionally show pre-order button ---------- */
+
+function getAdvancedFeaturesHTML(product) {
+  // Only show this section for keyboards
+  if (product.category !== "keyboards") return "";
+
+  return `
+    <section class="advanced-features">
+      <!-- Row 1: 4-in-1 DKS -->
+      <div class="feature-row">
+        <div class="feature-media">
+          <!-- Placeholder URL, will be replaced with .gif later -->
+          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_4.gif?v=1760009981&width=600" alt="4-in-1 DKS Visual">
+        </div>
+        <div class="feature-content">
+          <h3>4-in-1 DKS</h3>
+          <p>Thanks to Dynamic Keystrokes (DKS), you can now assign up to 4 distinct actions per key based on press depth. For example, a light press moves your character, a deeper press makes them run, and releasing the key can trigger additional commands. This layered control allows you to execute a series of complex actions with ease.</p>
+          <small>*DKS is disabled by default. You can enable and make changes within the Keyboard Driver.</small>
+        </div>
+      </div>
+
+      <!-- Row 2: SOCD -->
+      <div class="feature-row">
+        <div class="feature-media">
+          <!-- Placeholder URL, will be replaced with .gif later -->
+          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_3.gif?v=1760009982&width=600" alt="SOCD Visual">
+        </div>
+        <div class="feature-content">
+          <h3>SOCD</h3>
+          <p>Optimized for competitive games like Valorant, guarantees seamless direction changes by prioritizing the last key input. For simultaneous presses, the deeper keystroke takes immediate priority, automatically canceling the lighter press to ensure absolute movement accuracy.</p>
+        </div>
+      </div>
+
+      <!-- Row 3: Adjustable Actuation (Reversed Layout) -->
+      <div class="feature-row reverse">
+        <div class="feature-media">
+          <!-- Placeholder URL, will be replaced with .gif later -->
+          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600" alt="Adjustable Actuation Visual">
+        </div>
+        <div class="feature-content">
+          <h3>Adjustable Actuation</h3>
+          <p>Adjustable Actuation allows you to customize exactly how deep a key must be pressed to register an input. Powered by Hall Effect magnetic sensors, you can digitally set the sensitivity of every key—ranging from a 0.1mm "hair-trigger" for lightning-fast gaming responses to a deeper 4.0mm press for more deliberate, typo-free typing. This eliminates the physical limitations of traditional switches, giving you total control over the speed and precision of your keyboard to match your specific playstyle or workflow.</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function renderProductDetail(product) {
   const container = document.getElementById("productContainer");
   if (!container) return;
@@ -4400,6 +4447,7 @@ function renderProductDetail(product) {
           </div>
         </div>
         ${optionsPlaceholderHTML}
+        ${getAdvancedFeaturesHTML(product)}
       `;
 
   const compareBtn = container.querySelector("#compareBtn");
