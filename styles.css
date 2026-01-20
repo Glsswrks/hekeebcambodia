@@ -397,22 +397,6 @@ body {
 }
 
 :root[data-theme="light"] .site-header.scrolled {
-  /* Adjustable visual parameters:
-     - To change blur amount: edit the `blur(...)` value below.
-     - To change transparency: adjust the alpha values in the `rgba(255,255,255,alpha)` stops.
-     - To change shadow depth (deeper but compact): tweak the box-shadow's vertical offset and blur radius.
-
-     Example presets (uncomment to try):
-     /* Stronger blur, slightly less transparent */
-     /* backdrop-filter: blur(10px) saturate(125%);
-        background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.25));
-        box-shadow: 0 12px 20px rgba(2,6,23,0.18); */
-
-     /* Ultra-transparent, minimal blur */
-     /* backdrop-filter: blur(2px) saturate(105%);
-        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
-        box-shadow: 0 4px 8px rgba(2,6,23,0.06); */
-
   backdrop-filter: blur(4px) saturate(110%);
   /* very transparent so page content shows through */
   background: linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.12));

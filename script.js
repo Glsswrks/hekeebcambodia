@@ -973,7 +973,6 @@ function renderSearchResults(results, container, query) {
       const category = product.category || "product";
 
       let price_display = `$${product.price}`;
-      // loop the product option if product has options
       product.options?.forEach((option) => {
         if (option.price && option.price > product.price) {
           price_display = `$${product.price}-${option.price}`;
@@ -4154,7 +4153,7 @@ function renderProductDetail(product) {
     // 1. Update Title and Option Name
     if (titleEl) {
       if (selectedOption) {
-        titleEl.innerHTML = `${product.title} <span class="option-name-display">(${selectedOption.name})</span>`;
+        titleEl.innerHTML = `${product.title} <span class="option-name-display">- ${selectedOption.name}</span>`;
       } else {
         titleEl.innerHTML = product.title;
       }

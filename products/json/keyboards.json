@@ -331,6 +331,96 @@
       ]
     },
     {
+      "id": "littlebee-made68",
+      "title": "MELGEEK MADE68 Pro / Ultra",
+      "short": "The MADE68 Pro+ puts you in the creator's seat. Its core philosophy, embodied in the name \"MADE,\" is brought to life through a modular assembly design. This innovative feature allows for effortless case combinations, giving you the freedom to craft a keyboard that perfectly matches your personal style. It's a high-performance magnetic keyboard with advanced customization that transforms a mass-produced product into a playful, versatile masterpiece. With the MADE68 Pro+, you're not just a user-you're the artist, building an experience that is uniquely your own.",
+      "price": 150,
+      "layout": "65%",
+      "available": false,
+      "isNew": false,
+      "lowStock": false,
+      "images": [
+        "https://www.melgeek.com/cdn/shop/files/made68pro_2.jpg?v=1763224758&width=1000",
+        "https://www.melgeek.com/cdn/shop/files/made68pro_6.jpg?v=1763224758&width=1217",
+        "https://www.melgeek.com/cdn/shop/files/Made68_ultra_jelly_pink_1_c8af860a-3861-480f-bd7b-ecae41bace14.png?v=1762314554&width=1920",
+        "https://www.melgeek.com/cdn/shop/files/Made68_ultra_jelly_pink_3_fcf33622-1355-456b-bd1f-25dbbb99fa93.png?v=1762314554&width=1920",
+        "https://www.melgeek.com/cdn/shop/files/made68ultra_8.jpg?v=1763190303&width=1217",
+        "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro.jpg?v=1762270292&width=1400",
+        "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro_9.png?v=1762307360&width=1400",
+        "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro_1_07177c18-6882-46f0-85df-315c5b2b7268.png?v=1762270375&width=678",
+        "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro.png?v=1762270402&width=678",
+        "https://cdn.shopify.com/s/files/1/0078/2863/5712/files/Button_Mapping.png?v=1767509252",
+        "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Ultra_19.png?v=1761272008&width=1400"
+        
+      ],
+      "category": "keyboards",
+      "sellerRating": 10,
+      "specs": {
+        "layout": "65% (68 keys)",
+        "case": "ABS + PC / Aluminum (Ultra Version)",
+        "keycaps": "PC transparent keycaps / PBT double-shot keycaps",
+        "switches": "TTC RGB Sacred Heart Magnetic Switch ",
+        "pollingRate": "8000Hz",
+        "latency": "0.125ms",
+        "singleKeyScanRate": "16K Hz",
+        "precision": "0.001mm",
+        "fullKeyScanRate": "16K Hz",
+        "rtRange": "0.001 ~ 3.4mm",
+        "positionPlate": "Aluminum Alloy Position Plate",
+        "deadZone": "Zero Dead-Zone",
+        "rgb": "",
+        "functions": "SOCD, RS, DKS, MT, TGL, Key Macros",
+        "drivers": "Dual Driver Support",
+        "musicRhythm": "",
+        "structure": "5-layer acoustic optimization (integrated switch pad, inter-switch silicone, dual-layer Poron dampening mats, bottom silicone, Poron sound-absorbing mat) / Sound Dampening: 4-layer acoustic optimization (integrated switch pad, inter-switch silicone, dual-layer Poron dampening mat, bottom Poron dampening mat)",
+        "mcu": "480MHz MCU",
+        "connectivity": "Wired",
+        "compatibility": "Windows / MacOS / Linux",
+        "features": [
+          "Electric Light Box Design",
+          "On-Board Memory Support"
+        ]
+      },
+      "options": [
+        {
+          "name": "MELGEEK MADE68 Pro Plus - Phantom Grey",
+          "price": 150,
+          "image": "https://www.melgeek.com/cdn/shop/files/made68pro_2.jpg?v=1763224758&width=1000",
+          "available": false
+        },
+        {
+          "name": "MELGEEK MADE68 Pro Plus - Pink",
+          "price": 150,
+          "image": "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro_2.jpg?v=1767174995&width=1000",
+          "available": false
+        },
+        {
+          "name": "MELGEEK MADE68 Pro Plus - Purple",
+          "price": 150,
+          "image": "https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Pro_9.jpg?v=1767174995&width=1000",
+          "available": false
+        },
+        {
+          "name": "MELGEEK MADE68 ULTRA PLUS - Pink",
+          "price": 190,
+          "image": "https://www.melgeek.com/cdn/shop/files/made68ultra_1.jpg?v=1763190303&width=2000",
+          "available": false
+        },
+        {
+          "name": "MELGEEK MADE68 ULTRA PLUS - Black",
+          "price": 190,
+          "image": "https://www.melgeek.com/cdn/shop/files/MADE68_Ultra_Black_2edce362-0921-4c1d-906c-4c0b56c3e832.jpg?v=1765528965&width=1000",
+          "available": false
+        },
+        {
+          "name": "MELGEEK MADE68 ULTRA PLUS - Red",
+          "price": 190,
+          "image": "https://www.melgeek.com/cdn/shop/files/MADE68_Ultra_Red_2f39a905-c833-439e-9bf2-a150270f4c84.jpg?v=1765528948&width=1000",
+          "available": false
+        }
+      ]
+    },
+    {
       "id": "madlight60he",
       "title": "MADLIGHT 60HE",
       "short": "MADLIGHT 60HE Full Aluminum CNC Body with Holy Case appearance design",
