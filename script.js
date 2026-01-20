@@ -3390,6 +3390,8 @@ function createProductCard(p) {
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/titan68v2.png?raw=true";
     else if (p.id == "atk68rx")
       defaultImage = p.options[3].image;
+    else if (p.id == "littlebee-made68")
+      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/made68pro_2.png?raw=true";
   } else if (p.category == "mice"){
     if (p.id == "lamzumayax")
       defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/lamzuMayaX.png?raw=true";
