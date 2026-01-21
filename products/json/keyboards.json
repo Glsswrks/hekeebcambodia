@@ -54,12 +54,12 @@
       },
       "options": [
         {
-          "name": "LEVIANTAN Edition - TTC RGB Magneto Switches",
+          "name": "ATK EDGE60 ULTIMATE - LEVIANTAN Edition (TTC RGB Magneto Switch)",
           "available": true,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/leviatan.jpg"
         },
         {
-          "name": "WOLVES Edition - TTC RGB Magneto Switches",
+          "name": "ATK EDGE60 ULTIMATE - WOLVES Edition (TTC RGB Magneto Switch)",
           "available": true,
           "price": 229,
           "image": "https://raw.githubusercontent.com/Glsswrks/hekeebcambodia/main/images/edge60/wolves.jpg"
@@ -333,7 +333,7 @@
     {
       "id": "littlebee-made68",
       "title": "MELGEEK MADE68 Pro / Ultra",
-      "short": "The MADE68 Pro+ puts you in the creator's seat. Its core philosophy, embodied in the name \"MADE,\" is brought to life through a modular assembly design. This innovative feature allows for effortless case combinations, giving you the freedom to craft a keyboard that perfectly matches your personal style. It's a high-performance magnetic keyboard with advanced customization that transforms a mass-produced product into a playful, versatile masterpiece. With the MADE68 Pro+, you're not just a user-you're the artist, building an experience that is uniquely your own.",
+      "short": "The MADE68 Pro+ puts you in the creator's seat. Its core philosophy, embodied in the name \"MADE,\" is brought to life through a modular assembly design. This innovative feature allows for effortless case combinations, giving you the freedom to craft a keyboard that perfectly matches your personal style.",
       "price": 150,
       "layout": "65%",
       "available": false,
