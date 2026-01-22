@@ -4271,30 +4271,24 @@ function imageInjectionFix(url) {
 function getAdvancedFeaturesHTML(product) {
   // Only show this section for keyboards
   if (product.category !== "keyboards") return "";
-  let html = `<section class="advanced-features">
+  /*
 
+  
   <!-- Feature Image Component (No Text) -->
       <div class="feature-row media-only">
-        ${getFeatureMediaHTML((product.images.length > 2 ? product.images[2] : ""), "Wide Feature Visual")}
+        ${getFeatureMediaHTML((product.options ? product.options[1].image : product.images[0]), "Wide Feature Visual")}
       </div>
-
-<!-- Row 1: 4-in-1 DKS -->
-      <div class="feature-row">
-        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_4.gif?v=1760009981&width=600", "4-in-1 DKS Visual")}
+      */
+  let html = `<section class="advanced-features">
+      
+      <div class="feature-row reverse">
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600", "Adjustable Actuation Visual")}
         <div class="feature-content">
-          <h3>4-in-1 DKS</h3>
-          <p>Thanks to Dynamic Keystrokes (DKS), you can now assign up to 4 distinct actions per key based on press depth. For example, a light press moves your character, a deeper press makes them run, and releasing the key can trigger additional commands. This layered control allows you to execute a series of complex actions with ease.</p>
-          <small>*DKS is disabled by default. You can enable and make changes within the Keyboard Driver.</small>
+          <h3>Adjustable Actuation</h3>
+          <p>Adjustable Actuation allows you to customize exactly how deep a key must be pressed to register an input. Powered by Hall Effect magnetic sensors, you can digitally set the sensitivity of every key—ranging from a 0.1mm "hair-trigger" for lightning-fast gaming responses to a deeper 4.0mm press for more deliberate, typo-free typing. This eliminates the physical limitations of traditional switches, giving you total control over the speed and precision of your keyboard to match your specific playstyle or workflow.</p>
         </div>
       </div>
 
-      <!-- Feature Image Component (No Text) -->
-      <div class="feature-row media-only">
-        ${getFeatureMediaHTML((product.images.length > 4 ? product.images[4] : ""), "Wide Feature Visual")}
-         ${getFeatureMediaHTML((product.images.length > 6 ? product.images[6] : ""), "Wide Feature Visual")}
-      </div>
-
-      <!-- Row 2: SOCD -->
       <div class="feature-row">
         ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_3.gif?v=1760009982&width=600", "SOCD Visual")}
         <div class="feature-content">
@@ -4303,12 +4297,12 @@ function getAdvancedFeaturesHTML(product) {
         </div>
       </div>
 
-      <!-- Row 3: Adjustable Actuation (Reversed Layout) -->
-      <div class="feature-row reverse">
-        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600", "Adjustable Actuation Visual")}
+      <div class="feature-row">
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_4.gif?v=1760009981&width=600", "4-in-1 DKS Visual")}
         <div class="feature-content">
-          <h3>Adjustable Actuation</h3>
-          <p>Adjustable Actuation allows you to customize exactly how deep a key must be pressed to register an input. Powered by Hall Effect magnetic sensors, you can digitally set the sensitivity of every key—ranging from a 0.1mm "hair-trigger" for lightning-fast gaming responses to a deeper 4.0mm press for more deliberate, typo-free typing. This eliminates the physical limitations of traditional switches, giving you total control over the speed and precision of your keyboard to match your specific playstyle or workflow.</p>
+          <h3>4-in-1 DKS</h3>
+          <p>Thanks to Dynamic Keystrokes (DKS), you can now assign up to 4 distinct actions per key based on press depth. For example, a light press moves your character, a deeper press makes them run, and releasing the key can trigger additional commands. This layered control allows you to execute a series of complex actions with ease.</p>
+          <small>*DKS is disabled by default. You can enable and make changes within the Keyboard Driver.</small>
         </div>
       </div>
 
