@@ -29,12 +29,14 @@ let imageModalIndex = 0;
 // Load products from JSON files
 async function loadProductsFromJSON() {
   try {
-    const [keyboardsRes, miceRes, keycapsRes, mousepadsRes] = await Promise.all([
-      fetch("./products/json/keyboards.json"),
-      fetch("./products/json/mice.json"),
-      fetch("./products/json/keycaps.json"),
-      fetch("./products/json/mousepads.json"),
-    ]);
+    const [keyboardsRes, miceRes, keycapsRes, mousepadsRes] = await Promise.all(
+      [
+        fetch("./products/json/keyboards.json"),
+        fetch("./products/json/mice.json"),
+        fetch("./products/json/keycaps.json"),
+        fetch("./products/json/mousepads.json"),
+      ],
+    );
 
     if (keyboardsRes.ok) {
       const data = await keyboardsRes.json();
@@ -58,7 +60,7 @@ async function loadProductsFromJSON() {
     productData.mice = mice;
     productData.keycaps = keycaps;
     productData.mousepads = mousepads;
-    
+
     // Rebuild allProducts array
     allProducts.length = 0;
     allProducts.push(...keyboards, ...mice, ...keycaps, ...mousepads);
@@ -148,7 +150,7 @@ function initImageModal() {
         touchStartX = ev.touches[0].clientX;
         touchMoving = true;
       },
-      { passive: true }
+      { passive: true },
     );
 
     content.addEventListener("touchend", (ev) => {
@@ -196,8 +198,8 @@ function lockAndHideGlasspadSection() {
     const specs = Array.isArray(p.specs)
       ? p.specs.join(" ").toLowerCase()
       : p.specs && typeof p.specs === "string"
-      ? p.specs.toLowerCase()
-      : "";
+        ? p.specs.toLowerCase()
+        : "";
     if (
       title.includes("glass") ||
       short.includes("glass") ||
@@ -251,7 +253,7 @@ function openImageModalWithGallery(images, startIndex = 0) {
   imageModalGallery = images.slice();
   imageModalIndex = Math.max(
     0,
-    Math.min(startIndex || 0, imageModalGallery.length - 1)
+    Math.min(startIndex || 0, imageModalGallery.length - 1),
   );
   img.src = imageModalGallery[imageModalIndex] || "";
   m.setAttribute("aria-hidden", "false");
@@ -376,7 +378,7 @@ function initOptionPreviewModal() {
         touchStartX = ev.touches[0].clientX;
         touchMoving = true;
       },
-      { passive: true }
+      { passive: true },
     );
 
     content.addEventListener(
@@ -385,7 +387,7 @@ function initOptionPreviewModal() {
         if (!touchMoving || ev.touches.length !== 1) return;
         // prevent accidental scroll when swiping horizontally
       },
-      { passive: true }
+      { passive: true },
     );
 
     content.addEventListener("touchend", (ev) => {
@@ -463,14 +465,16 @@ function openOptionPreviewModal(option, fallbackPrice = null, product = null) {
       stockLabel.classList.remove("out-of-stock");
       stockLabel.classList.add("in-stock");
     }
-    if (statusText) statusText.textContent = "This option is currently available.";
+    if (statusText)
+      statusText.textContent = "This option is currently available.";
   } else {
     if (stockLabel) {
       stockLabel.textContent = "OUT OF STOCK";
       stockLabel.classList.remove("in-stock");
       stockLabel.classList.add("out-of-stock");
     }
-    if (statusText) statusText.textContent = "This option is currently unavailable.";
+    if (statusText)
+      statusText.textContent = "This option is currently unavailable.";
   }
 
   // store current previewed product/option for navigation
@@ -513,7 +517,7 @@ function navigateOptionPreview(delta) {
   if (!opts.length) return;
   const current = currentOptionPreview.option;
   let idx = opts.findIndex(
-    (o) => o === current || o.name === (current && current.name)
+    (o) => o === current || o.name === (current && current.name),
   );
   if (idx === -1) idx = 0;
   let newIdx = idx + delta;
@@ -552,80 +556,90 @@ function initAddToCartModal() {
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeAddToCartModal();
   });
-  modal.querySelector(".add-to-cart-close").addEventListener("click", closeAddToCartModal);
+  modal
+    .querySelector(".add-to-cart-close")
+    .addEventListener("click", closeAddToCartModal);
 
   // Confirm Handler
   const confirmBtn = modal.querySelector(".add-to-cart-confirm");
   confirmBtn.addEventListener("click", () => {
     if (currentAddToCartProduct && selectedAddToCartOption) {
-        Cart.addItem(currentAddToCartProduct, selectedAddToCartOption, confirmBtn);
-        closeAddToCartModal();
+      Cart.addItem(
+        currentAddToCartProduct,
+        selectedAddToCartOption,
+        confirmBtn,
+      );
+      closeAddToCartModal();
     }
   });
 }
 
 function openAddToCartModal(product) {
-    if (!document.getElementById("addToCartModal")) initAddToCartModal();
-    const modal = document.getElementById("addToCartModal");
-    const grid = modal.querySelector(".add-to-cart-options-grid");
-    const confirmBtn = modal.querySelector(".add-to-cart-confirm");
-    
-    currentAddToCartProduct = product;
-    selectedAddToCartOption = null;
-    confirmBtn.disabled = true;
-    confirmBtn.classList.add("disabled");
+  if (!document.getElementById("addToCartModal")) initAddToCartModal();
+  const modal = document.getElementById("addToCartModal");
+  const grid = modal.querySelector(".add-to-cart-options-grid");
+  const confirmBtn = modal.querySelector(".add-to-cart-confirm");
 
-    // Populate Options
-    grid.innerHTML = "";
-    // Filter generic options if needed, assuming all options in array are valid variants
-    const availableOptions = product.options ? product.options.filter(o => o.available !== false) : [];
-    
-    if(availableOptions.length === 0) {
-        grid.innerHTML = "<p>No options available.</p>";
-        return;
-    }
+  currentAddToCartProduct = product;
+  selectedAddToCartOption = null;
+  confirmBtn.disabled = true;
+  confirmBtn.classList.add("disabled");
 
-    availableOptions.forEach(opt => {
-        const el = document.createElement("div");
-        el.className = "add-to-cart-option-card";
-        
-        // Use option image or product main image
-        const imgSrc = opt.image || (product.images && product.images[0]) || "";
-        
-        el.innerHTML = `
+  // Populate Options
+  grid.innerHTML = "";
+  // Filter generic options if needed, assuming all options in array are valid variants
+  const availableOptions = product.options
+    ? product.options.filter((o) => o.available !== false)
+    : [];
+
+  if (availableOptions.length === 0) {
+    grid.innerHTML = "<p>No options available.</p>";
+    return;
+  }
+
+  availableOptions.forEach((opt) => {
+    const el = document.createElement("div");
+    el.className = "add-to-cart-option-card";
+
+    // Use option image or product main image
+    const imgSrc = opt.image || (product.images && product.images[0]) || "";
+
+    el.innerHTML = `
             <div class="atc-opt-img-wrap">
                <img src="${imgSrc}" alt="${opt.name}">
             </div>
             <span class="atc-opt-name">${opt.name}</span>
-            ${opt.price ? `<span class="atc-opt-price">$${opt.price}</span>` : ''}
+            ${opt.price ? `<span class="atc-opt-price">$${opt.price}</span>` : ""}
         `;
-        
-        el.addEventListener("click", () => {
-            grid.querySelectorAll(".add-to-cart-option-card").forEach(c => c.classList.remove("selected"));
-            el.classList.add("selected");
-            selectedAddToCartOption = opt;
-            confirmBtn.disabled = false;
-            confirmBtn.classList.remove("disabled");
-        });
-        grid.appendChild(el);
-    });
 
-    modal.setAttribute("aria-hidden", "false");
+    el.addEventListener("click", () => {
+      grid
+        .querySelectorAll(".add-to-cart-option-card")
+        .forEach((c) => c.classList.remove("selected"));
+      el.classList.add("selected");
+      selectedAddToCartOption = opt;
+      confirmBtn.disabled = false;
+      confirmBtn.classList.remove("disabled");
+    });
+    grid.appendChild(el);
+  });
+
+  modal.setAttribute("aria-hidden", "false");
 }
 
 function closeAddToCartModal() {
-    const modal = document.getElementById("addToCartModal");
-    if(modal) {
-        modal.classList.add("closing");
-        setTimeout(() => {
-            if(modal.classList.contains("closing")) {
-                modal.setAttribute("aria-hidden", "true");
-                modal.classList.remove("closing");
-            }
-        }, 200);
-    }
-    selectedAddToCartOption = null;
-    currentAddToCartProduct = null;
+  const modal = document.getElementById("addToCartModal");
+  if (modal) {
+    modal.classList.add("closing");
+    setTimeout(() => {
+      if (modal.classList.contains("closing")) {
+        modal.setAttribute("aria-hidden", "true");
+        modal.classList.remove("closing");
+      }
+    }, 200);
+  }
+  selectedAddToCartOption = null;
+  currentAddToCartProduct = null;
 }
 
 /* ========== Quick Preview Modal ========== */
@@ -633,7 +647,7 @@ let quickPreviewSelectedOption = null;
 
 function initQuickPreviewModal() {
   if (document.getElementById("quickPreviewModal")) return;
-  
+
   const modal = document.createElement("div");
   modal.id = "quickPreviewModal";
   modal.className = "quick-preview-modal";
@@ -676,7 +690,9 @@ function initQuickPreviewModal() {
   });
 
   // Close button
-  modal.querySelector(".quick-preview-close").addEventListener("click", closeQuickPreviewModal);
+  modal
+    .querySelector(".quick-preview-close")
+    .addEventListener("click", closeQuickPreviewModal);
 
   // Escape key to close
   document.addEventListener("keydown", (e) => {
@@ -688,7 +704,7 @@ function initQuickPreviewModal() {
 
 function openQuickPreviewModal(product) {
   if (!document.getElementById("quickPreviewModal")) initQuickPreviewModal();
-  
+
   const modal = document.getElementById("quickPreviewModal");
   const mainImage = modal.querySelector(".quick-preview-main-image img");
   const thumbnailsContainer = modal.querySelector(".quick-preview-thumbnails");
@@ -710,26 +726,40 @@ function openQuickPreviewModal(product) {
   mainImage.src = images[0] || "";
 
   // Build thumbnails
-  thumbnailsContainer.innerHTML = images.slice(0, 6).map((img, idx) => `
-    <div class="quick-preview-thumb ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+  thumbnailsContainer.innerHTML = images
+    .slice(0, 6)
+    .map(
+      (img, idx) => `
+    <div class="quick-preview-thumb ${idx === 0 ? "active" : ""}" data-index="${idx}">
       <img src="${img}" alt="Thumbnail ${idx + 1}">
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   // Thumbnail click handlers
-  thumbnailsContainer.querySelectorAll(".quick-preview-thumb").forEach(thumb => {
-    thumb.addEventListener("click", () => {
-      thumbnailsContainer.querySelectorAll(".quick-preview-thumb").forEach(t => t.classList.remove("active"));
-      thumb.classList.add("active");
-      mainImage.src = images[parseInt(thumb.dataset.index)] || "";
+  thumbnailsContainer
+    .querySelectorAll(".quick-preview-thumb")
+    .forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        thumbnailsContainer
+          .querySelectorAll(".quick-preview-thumb")
+          .forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+        mainImage.src = images[parseInt(thumb.dataset.index)] || "";
+      });
     });
-  });
 
   // Badges
   let badges = [];
-  if (product.isNew) badges.push('<span class="quick-preview-badge new">New</span>');
-  if (product.lowStock && product.available) badges.push('<span class="quick-preview-badge low-stock">Low Stock</span>');
-  if (!product.available) badges.push('<span class="quick-preview-badge out-of-stock">Out of Stock</span>');
+  if (product.isNew)
+    badges.push('<span class="quick-preview-badge new">New</span>');
+  if (product.lowStock && product.available)
+    badges.push('<span class="quick-preview-badge low-stock">Low Stock</span>');
+  if (!product.available)
+    badges.push(
+      '<span class="quick-preview-badge out-of-stock">Out of Stock</span>',
+    );
   badgeRow.innerHTML = badges.join("");
 
   // Title and price
@@ -743,23 +773,27 @@ function openQuickPreviewModal(product) {
   const specsList = [];
   if (product.layout) specsList.push(product.layout);
   if (product.specs) {
-    if (product.specs.switches) specsList.push(product.specs.switches.split("/")[0].trim());
+    if (product.specs.switches)
+      specsList.push(product.specs.switches.split("/")[0].trim());
     if (product.specs.pollingRate) specsList.push(product.specs.pollingRate);
     if (product.specs.connectivity) specsList.push(product.specs.connectivity);
   }
-  specsEl.innerHTML = specsList.slice(0, 4).map(spec => 
-    `<span class="quick-preview-spec">${spec}</span>`
-  ).join("");
+  specsEl.innerHTML = specsList
+    .slice(0, 4)
+    .map((spec) => `<span class="quick-preview-spec">${spec}</span>`)
+    .join("");
 
   // Availability
-  availabilityEl.className = `quick-preview-availability ${product.available ? 'available' : 'unavailable'}`;
-  availabilityEl.innerHTML = product.available 
+  availabilityEl.className = `quick-preview-availability ${product.available ? "available" : "unavailable"}`;
+  availabilityEl.innerHTML = product.available
     ? `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Available`
     : `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Unavailable`;
 
   // Options
   if (product.options && product.options.length > 0) {
-    const availableOptions = product.options.filter(opt => opt.available !== false);
+    const availableOptions = product.options.filter(
+      (opt) => opt.available !== false,
+    );
     if (availableOptions.length > 0) {
       quickPreviewSelectedOption = availableOptions[0]; // Auto-select first available
     }
@@ -767,37 +801,45 @@ function openQuickPreviewModal(product) {
     optionsEl.innerHTML = `
       <span class="quick-preview-options-label">Options:</span>
       <div class="quick-preview-options-list">
-        ${product.options.map((opt, idx) => `
-          <button class="quick-preview-option ${opt.available === false ? 'unavailable' : ''} ${quickPreviewSelectedOption === opt ? 'active' : ''}" 
+        ${product.options
+          .map(
+            (opt, idx) => `
+          <button class="quick-preview-option ${opt.available === false ? "unavailable" : ""} ${quickPreviewSelectedOption === opt ? "active" : ""}" 
                   data-option-index="${idx}" 
-                  ${opt.available === false ? 'disabled' : ''}>
-            ${opt.name.length > 30 ? opt.name.substring(0, 30) + '...' : opt.name}
+                  ${opt.available === false ? "disabled" : ""}>
+            ${opt.name.length > 30 ? opt.name.substring(0, 30) + "..." : opt.name}
           </button>
-        `).join("")}
+        `,
+          )
+          .join("")}
       </div>
     `;
 
     // Option click handlers
-    optionsEl.querySelectorAll(".quick-preview-option:not(.unavailable)").forEach(optBtn => {
-      optBtn.addEventListener("click", () => {
-        optionsEl.querySelectorAll(".quick-preview-option").forEach(b => b.classList.remove("active"));
-        optBtn.classList.add("active");
-        const optIdx = parseInt(optBtn.dataset.optionIndex);
-        quickPreviewSelectedOption = product.options[optIdx];
-        
-        // Update image if option has one
-        if (quickPreviewSelectedOption && quickPreviewSelectedOption.image) {
-          mainImage.src = quickPreviewSelectedOption.image;
-        }
-        
-        // Update price if option has different price
-        if (quickPreviewSelectedOption && quickPreviewSelectedOption.price) {
-          priceEl.textContent = `$${quickPreviewSelectedOption.price}`;
-        } else {
-          priceEl.textContent = `$${product.price || 0}`;
-        }
+    optionsEl
+      .querySelectorAll(".quick-preview-option:not(.unavailable)")
+      .forEach((optBtn) => {
+        optBtn.addEventListener("click", () => {
+          optionsEl
+            .querySelectorAll(".quick-preview-option")
+            .forEach((b) => b.classList.remove("active"));
+          optBtn.classList.add("active");
+          const optIdx = parseInt(optBtn.dataset.optionIndex);
+          quickPreviewSelectedOption = product.options[optIdx];
+
+          // Update image if option has one
+          if (quickPreviewSelectedOption && quickPreviewSelectedOption.image) {
+            mainImage.src = quickPreviewSelectedOption.image;
+          }
+
+          // Update price if option has different price
+          if (quickPreviewSelectedOption && quickPreviewSelectedOption.price) {
+            priceEl.textContent = `$${quickPreviewSelectedOption.price}`;
+          } else {
+            priceEl.textContent = `$${product.price || 0}`;
+          }
+        });
       });
-    });
   } else {
     optionsEl.innerHTML = "";
   }
@@ -919,7 +961,7 @@ function setupSearchInput(input, resultsContainer) {
   input.addEventListener("keydown", (e) => {
     const items = resultsContainer.querySelectorAll(".search-result-item");
     const activeItem = resultsContainer.querySelector(
-      ".search-result-item:focus"
+      ".search-result-item:focus",
     );
 
     if (e.key === "ArrowDown") {
@@ -982,12 +1024,12 @@ function renderSearchResults(results, container, query) {
       return `
       <a href="${href}" class="search-result-item" tabindex="0">
         <img src="${image}" alt="${
-        product.title
-      }" class="search-result-img" loading="lazy">
+          product.title
+        }" class="search-result-img" loading="lazy">
         <div class="search-result-info">
           <p class="search-result-title">${highlightMatch(
             product.title,
-            query
+            query,
           )}</p>
           <div class="search-result-meta">
             <span class="search-result-category">${category}</span>
@@ -1006,7 +1048,7 @@ function highlightMatch(text, query) {
   if (!query) return text;
   const regex = new RegExp(
     `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-    "gi"
+    "gi",
   );
   return text.replace(regex, "<mark>$1</mark>");
 }
@@ -1155,24 +1197,24 @@ function renderComparisonTable() {
     if (!product.options || product.options.length === 0) {
       return `$${basePrice}`;
     }
-    
+
     // Get all prices from options
     const optionPrices = product.options
-      .map(opt => opt.price !== undefined ? opt.price : basePrice)
-      .filter(price => price !== undefined);
-    
+      .map((opt) => (opt.price !== undefined ? opt.price : basePrice))
+      .filter((price) => price !== undefined);
+
     if (optionPrices.length === 0) {
       return `$${basePrice}`;
     }
-    
+
     const minPrice = Math.min(basePrice, ...optionPrices);
     const maxPrice = Math.max(basePrice, ...optionPrices);
-    
+
     // If all prices are the same, just show single price
     if (minPrice === maxPrice) {
       return `$${basePrice}`;
     }
-    
+
     // Show price range
     return `$${minPrice}-$${maxPrice}`;
   };
@@ -1185,7 +1227,7 @@ function renderComparisonTable() {
   `;
 
   const isMouseComparison = selectedProducts.every(
-    (p) => p.category === "mice"
+    (p) => p.category === "mice",
   );
 
   let rows;
@@ -1231,9 +1273,7 @@ function renderComparisonTable() {
         value: (p) => {
           const feats =
             p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
-          return feats.length
-            ? `• ${feats.join("<br><br>• ")}`
-            : "—";
+          return feats.length ? `• ${feats.join("<br><br>• ")}` : "—";
         },
       },
     ];
@@ -1274,9 +1314,7 @@ function renderComparisonTable() {
         value: (p) => {
           const feats =
             p.specs && Array.isArray(p.specs.features) ? p.specs.features : [];
-          return feats.length
-            ? `• ${feats.join("<br><br>• ")}`
-            : "—";
+          return feats.length ? `• ${feats.join("<br><br>• ")}` : "—";
         },
       },
     ];
@@ -1383,8 +1421,8 @@ function populatePreorderOptions(product, onlyUnavailable = false) {
   if (modalTitle) modalTitle.textContent = product.title;
 
   // Filter options based on the onlyUnavailable flag
-  const optionsToShow = onlyUnavailable 
-    ? product.options.filter(opt => !opt.available)
+  const optionsToShow = onlyUnavailable
+    ? product.options.filter((opt) => !opt.available)
     : product.options;
 
   optionsToShow.forEach((option, index) => {
@@ -1439,7 +1477,7 @@ const Cart = {
 
     // Look for existing matching item (same product id + option)
     const idx = items.findIndex(
-      (it) => it.id === product.id && (it.optionName || null) === optionName
+      (it) => it.id === product.id && (it.optionName || null) === optionName,
     );
 
     if (idx !== -1) {
@@ -1465,7 +1503,10 @@ const Cart = {
 
     // Trigger flying animation when source element provided
     if (sourceElement) {
-      animateToCart(option ? option.image : product.images[0] || "", sourceElement);
+      animateToCart(
+        option ? option.image : product.images[0] || "",
+        sourceElement,
+      );
     }
 
     // Backend removed: no remote logging
@@ -1499,7 +1540,7 @@ const Cart = {
     if (items.length === 0) {
       return { success: false, error: "Cart is empty" };
     }
-    
+
     // Backend removed: checkout to backend is not available
     return { success: false, error: "No backend configured" };
   },
@@ -1508,7 +1549,7 @@ const Cart = {
     const items = this.getItems();
     return items.reduce(
       (sum, item) => sum + Number(item.price) * (item.quantity || 1),
-      0
+      0,
     );
   },
 
@@ -1554,7 +1595,7 @@ const PreOrderList = {
     const optionName = option ? option.name : null;
 
     const idx = items.findIndex(
-      (it) => it.id === product.id && (it.optionName || null) === optionName
+      (it) => it.id === product.id && (it.optionName || null) === optionName,
     );
 
     if (idx !== -1) {
@@ -1580,7 +1621,10 @@ const PreOrderList = {
 
     // Trigger flying animation
     if (sourceElement) {
-      animateToPreorder(option ? option.image : product.images[0] || "", sourceElement);
+      animateToPreorder(
+        option ? option.image : product.images[0] || "",
+        sourceElement,
+      );
     }
 
     // Backend removed: no remote pre-order sync
@@ -1612,7 +1656,7 @@ const PreOrderList = {
     if (items.length === 0) {
       return { success: false, error: "Pre-order list is empty" };
     }
-    
+
     // Backend removed: pre-order submission to backend is not available
     return { success: false, error: "No backend configured" };
   },
@@ -1672,7 +1716,7 @@ const Wishlist = {
 
     // Check if item already exists
     const idx = items.findIndex(
-      (it) => it.id === product.id && (it.optionName || null) === optionName
+      (it) => it.id === product.id && (it.optionName || null) === optionName,
     );
 
     if (idx !== -1) {
@@ -1699,7 +1743,10 @@ const Wishlist = {
 
     // Trigger flying animation when source element provided
     if (sourceElement) {
-      animateToWishlist(option ? option.image : product.images[0] || "", sourceElement);
+      animateToWishlist(
+        option ? option.image : product.images[0] || "",
+        sourceElement,
+      );
     }
 
     // Backend removed: wishlist sync disabled
@@ -1720,7 +1767,7 @@ const Wishlist = {
   isInWishlist: function (productId, optionName = null) {
     const items = this.getItems();
     return items.some(
-      (it) => it.id === productId && (it.optionName || null) === optionName
+      (it) => it.id === productId && (it.optionName || null) === optionName,
     );
   },
 
@@ -1730,7 +1777,7 @@ const Wishlist = {
       // Remove from wishlist
       const items = this.getItems();
       const idx = items.findIndex(
-        (it) => it.id === product.id && (it.optionName || null) === optionName
+        (it) => it.id === product.id && (it.optionName || null) === optionName,
       );
       if (idx !== -1) {
         this.removeItem(idx);
@@ -1789,22 +1836,28 @@ function updateWishlistButtons() {
     const productId = btn.dataset.wishlistProductId;
     const optionName = btn.dataset.wishlistOptionName || null;
     const isInWishlist = Wishlist.isInWishlist(productId, optionName);
-    
+
     if (isInWishlist) {
       btn.classList.add("in-wishlist");
-      btn.innerHTML = btn.innerHTML.replace("Add to Wishlist", "In Wishlist ❤️");
+      btn.innerHTML = btn.innerHTML.replace(
+        "Add to Wishlist",
+        "In Wishlist ❤️",
+      );
     } else {
       btn.classList.remove("in-wishlist");
-      btn.innerHTML = btn.innerHTML.replace("In Wishlist ❤️", "Add to Wishlist");
+      btn.innerHTML = btn.innerHTML.replace(
+        "In Wishlist ❤️",
+        "Add to Wishlist",
+      );
     }
   });
-  
+
   // Update card hover wishlist buttons
   document.querySelectorAll(".wishlist-btn[data-product-id]").forEach((btn) => {
     const productId = btn.dataset.productId;
     const isInWishlist = Wishlist.isInWishlist(productId);
     const svg = btn.querySelector("svg");
-    
+
     if (svg) {
       if (isInWishlist) {
         svg.setAttribute("fill", "currentColor");
@@ -1837,9 +1890,13 @@ function animateToWishlist(imageUrl, sourceElement) {
   flyingEl.style.top = sourceRect.top + sourceRect.height / 2 - 30 + "px";
 
   const deltaX =
-    targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
+    targetRect.left +
+    targetRect.width / 2 -
+    (sourceRect.left + sourceRect.width / 2);
   const deltaY =
-    targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
+    targetRect.top +
+    targetRect.height / 2 -
+    (sourceRect.top + sourceRect.height / 2);
 
   flyingEl.style.setProperty("--fly-x", deltaX + "px");
   flyingEl.style.setProperty("--fly-y", deltaY + "px");
@@ -1880,17 +1937,17 @@ function renderWishlistModal() {
         <div class="cart-item-info">
           <span class="cart-item-title">${item.title}</span>
           ${item.optionName ? `<span class="cart-item-option">${item.optionName}</span>` : ""}
-          <span class="wishlist-item-availability ${item.available !== false ? 'available' : 'unavailable'}">
-            ${item.available !== false ? '✓ Available' : '✗ Unavailable'}
+          <span class="wishlist-item-availability ${item.available !== false ? "available" : "unavailable"}">
+            ${item.available !== false ? "✓ Available" : "✗ Unavailable"}
           </span>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
           <span class="cart-item-price">$${Number(item.price).toFixed(2)}</span>
-          ${item.available !== false ? `<button class="btn wishlist-add-cart-btn" data-index="${index}" aria-label="Add to Cart">🛒</button>` : ''}
+          ${item.available !== false ? `<button class="btn wishlist-add-cart-btn" data-index="${index}" aria-label="Add to Cart">🛒</button>` : ""}
           <button class="cart-remove-btn" data-index="${index}" aria-label="Remove">×</button>
         </div>
       </li>
-    `
+    `,
       )
       .join("");
 
@@ -2007,9 +2064,13 @@ function animateToCart(imageUrl, sourceElement) {
   flyingEl.style.top = sourceRect.top + sourceRect.height / 2 - 30 + "px";
 
   const deltaX =
-    targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
+    targetRect.left +
+    targetRect.width / 2 -
+    (sourceRect.left + sourceRect.width / 2);
   const deltaY =
-    targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
+    targetRect.top +
+    targetRect.height / 2 -
+    (sourceRect.top + sourceRect.height / 2);
 
   flyingEl.style.setProperty("--fly-x", deltaX + "px");
   flyingEl.style.setProperty("--fly-y", deltaY + "px");
@@ -2058,7 +2119,7 @@ function renderCartModal() {
           <button class="cart-remove-btn" data-index="${index}" aria-label="Remove">&times;</button>
         </div>
       </li>
-    `
+    `,
       )
       .join("");
 
@@ -2088,7 +2149,7 @@ function renderCartModal() {
 
       if (checkoutTelegramBtn) {
         checkoutTelegramBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
-          message
+          message,
         )}`;
         checkoutTelegramBtn.dataset.message = message;
       }
@@ -2096,7 +2157,7 @@ function renderCartModal() {
       if (checkoutWhatsAppBtn) {
         const phone = CONTACT_WHATSAPP_NUMBER.replace(/\D/g, "");
         checkoutWhatsAppBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(
-          message
+          message,
         )}`;
         checkoutWhatsAppBtn.dataset.message = message;
       }
@@ -2189,7 +2250,7 @@ function renderPreorderModal() {
           <button class="preorder-remove-btn" data-index="${index}" aria-label="Remove">&times;</button>
         </div>
       </li>
-    `
+    `,
       )
       .join("");
 
@@ -2212,7 +2273,10 @@ function renderPreorderModal() {
       });
 
       // Add deposit information
-      const total = items.reduce((sum, item) => sum + Number(item.price) * (item.quantity || 1), 0);
+      const total = items.reduce(
+        (sum, item) => sum + Number(item.price) * (item.quantity || 1),
+        0,
+      );
       const deposit = total * 0.5;
 
       message += `\nTotal: $${total.toFixed(2)}`;
@@ -2225,7 +2289,7 @@ function renderPreorderModal() {
       message += "\n\nI'd like to proceed with the deposit.";
 
       preorderBtn.href = `https://t.me/${TELEGRAM_HANDLE}?text=${encodeURIComponent(
-        message
+        message,
       )}`;
     }
   }
@@ -2406,12 +2470,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Update popup content from config
   function updatePopupFromConfig() {
     if (!popupConfig || !welcomePopup) return;
-    
+
     const popupImage = welcomePopup.querySelector(".popup-brand-image");
     const popupTitle = welcomePopup.querySelector(".welcome-popup-content h2");
     const popupDesc = welcomePopup.querySelector(".welcome-popup-desc");
     const popupOffer = welcomePopup.querySelector(".welcome-popup-offer");
-    const popupHighlight = welcomePopup.querySelector(".welcome-popup-offer .highlight");
+    const popupHighlight = welcomePopup.querySelector(
+      ".welcome-popup-offer .highlight",
+    );
 
     if (popupImage && popupConfig.imageUrl) {
       popupImage.src = popupConfig.imageUrl;
@@ -2434,10 +2500,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update social links if provided
     if (popupConfig.socialLinks) {
-      const socialContainer = welcomePopup.querySelector(".welcome-popup-social");
+      const socialContainer = welcomePopup.querySelector(
+        ".welcome-popup-social",
+      );
       if (socialContainer) {
         const links = socialContainer.querySelectorAll(".popup-social-icon");
-        links.forEach(link => {
+        links.forEach((link) => {
           const label = link.getAttribute("aria-label")?.toLowerCase();
           if (label && popupConfig.socialLinks[label]) {
             link.href = popupConfig.socialLinks[label];
@@ -2462,7 +2530,7 @@ document.addEventListener("DOMContentLoaded", () => {
     welcomePopup?.classList.remove("active");
     welcomePopup?.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
-    
+
     // If "No, Thanks" is checked, don't show again this session
     if (welcomePopupDismiss?.checked) {
       sessionStorage.setItem("welcomePopupDismissed", "true");
@@ -2487,7 +2555,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (email) {
       // Frontend-only subscription: save locally and show thank you
       try {
-        const subs = JSON.parse(localStorage.getItem("newsletter_subs") || "[]");
+        const subs = JSON.parse(
+          localStorage.getItem("newsletter_subs") || "[]",
+        );
         subs.push({ email: email, ts: Date.now() });
         localStorage.setItem("newsletter_subs", JSON.stringify(subs));
       } catch (e) {
@@ -2503,16 +2573,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show popup on page load after a delay (only if not dismissed/subscribed and enabled in config)
   window.addEventListener("load", () => {
     // Check if popup should show on load from config
-    const shouldShowOnLoad = popupConfig ? popupConfig.showOnLoad !== false : true;
+    const shouldShowOnLoad = popupConfig
+      ? popupConfig.showOnLoad !== false
+      : true;
     const showDelay = popupConfig?.showDelay || 1500;
-    
+
     if (!shouldShowOnLoad) return;
-    
+
     setTimeout(() => {
       const isDismissed = sessionStorage.getItem("welcomePopupDismissed");
       const isSubscribed = localStorage.getItem("welcomePopupSubscribed");
       const isEnabled = popupConfig ? popupConfig.enabled !== false : true;
-      
+
       if (!isDismissed && !isSubscribed && welcomePopup && isEnabled) {
         openWelcomePopup();
       }
@@ -2521,13 +2593,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Floating header: toggle glass/transparent state when scrolling
   (function setupFloatingHeader() {
-    const headerEl = document.querySelector('.site-header');
+    const headerEl = document.querySelector(".site-header");
     if (!headerEl) return;
     const onScrollHeader = () => {
-      if (window.scrollY > 20) headerEl.classList.add('scrolled');
-      else headerEl.classList.remove('scrolled');
+      if (window.scrollY > 20) headerEl.classList.add("scrolled");
+      else headerEl.classList.remove("scrolled");
     };
-    window.addEventListener('scroll', onScrollHeader, { passive: true });
+    window.addEventListener("scroll", onScrollHeader, { passive: true });
     // initial state
     onScrollHeader();
   })();
@@ -2645,7 +2717,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = await loadTrackerData();
     const normalizedId = trackingId.trim().toUpperCase();
     return data.tracker.find(
-      (item) => item.tracking_id.toUpperCase() === normalizedId
+      (item) => item.tracking_id.toUpperCase() === normalizedId,
     );
   }
 
@@ -2705,24 +2777,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get product image from allProducts based on product name and option
   function getProductImage(productName, optionName) {
     // Find product by title (case-insensitive partial match)
-    const product = allProducts.find(p => 
-      p.title.toLowerCase().includes(productName.toLowerCase()) ||
-      productName.toLowerCase().includes(p.title.toLowerCase())
+    const product = allProducts.find(
+      (p) =>
+        p.title.toLowerCase().includes(productName.toLowerCase()) ||
+        productName.toLowerCase().includes(p.title.toLowerCase()),
     );
-    
+
     if (!product) return null;
-    
+
     // If there's an option, try to find matching option image
     if (optionName && product.options) {
-      const matchedOption = product.options.find(opt => 
-        opt.name.toLowerCase().includes(optionName.toLowerCase()) ||
-        optionName.toLowerCase().includes(opt.name.toLowerCase())
+      const matchedOption = product.options.find(
+        (opt) =>
+          opt.name.toLowerCase().includes(optionName.toLowerCase()) ||
+          optionName.toLowerCase().includes(opt.name.toLowerCase()),
       );
       if (matchedOption?.image) {
         return matchedOption.image;
       }
     }
-    
+
     // Fallback to product's first image
     return product.images?.[0] || null;
   }
@@ -2783,13 +2857,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (recipient) recipient.textContent = tracking.client_name || "N/A";
     if (address) address.textContent = tracking.client_address || "N/A";
-    if (orderDate) orderDate.textContent = formatTrackerDate(tracking.order_date);
+    if (orderDate)
+      orderDate.textContent = formatTrackerDate(tracking.order_date);
     if (estDelivery) {
       if (tracking.delivery_status === "delivered" && tracking.delivered_date) {
         estDelivery.textContent = `Delivered on ${formatTrackerDate(tracking.delivered_date)}`;
         estDelivery.style.color = "#10b981";
       } else {
-        estDelivery.textContent = formatTrackerDate(tracking.estimated_delivery);
+        estDelivery.textContent = formatTrackerDate(
+          tracking.estimated_delivery,
+        );
         estDelivery.style.color = "";
       }
     }
@@ -2798,32 +2875,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const productsList = trackerResult.querySelector(".tracker-products-list");
     if (productsList && tracking.products_ordered) {
       let productsHTML = tracking.products_ordered
-        .map(
-          (item) => {
-            const displayName = item.option || item.name;
-            const baseName = item.option ? item.name : null;
-            const price = item.price ? `$${item.price}` : '';
-            
-            // Auto-fetch image from allProducts
-            const imageUrl = getProductImage(item.name, item.option);
-            
-            return `
+        .map((item) => {
+          const displayName = item.option || item.name;
+          const baseName = item.option ? item.name : null;
+          const price = item.price ? `$${item.price}` : "";
+
+          // Auto-fetch image from allProducts
+          const imageUrl = getProductImage(item.name, item.option);
+
+          return `
         <li class="tracker-product-card">
-          ${imageUrl ? `<img src="${imageUrl}" alt="${item.name}" class="tracker-product-img" loading="lazy" onerror="this.style.display='none'">` : ''}
+          ${imageUrl ? `<img src="${imageUrl}" alt="${item.name}" class="tracker-product-img" loading="lazy" onerror="this.style.display='none'">` : ""}
           <div class="tracker-product-info">
             <div class="tracker-product-name">${displayName}</div>
-            ${baseName ? `<div class="tracker-product-base">${baseName}</div>` : ''}
+            ${baseName ? `<div class="tracker-product-base">${baseName}</div>` : ""}
           </div>
           <div class="tracker-product-meta">
-            ${price ? `<span class="tracker-product-price">${price}</span>` : ''}
+            ${price ? `<span class="tracker-product-price">${price}</span>` : ""}
             <span class="tracker-product-qty">x${item.quantity || 1}</span>
           </div>
         </li>
       `;
-          }
-        )
+        })
         .join("");
-      
+
       // Add total price
       if (tracking.total_price) {
         productsHTML += `
@@ -2833,7 +2908,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         `;
       }
-      
+
       productsList.innerHTML = productsHTML;
     }
   }
@@ -2912,7 +2987,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Close tracker modal on Escape key
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && trackerModal?.getAttribute("aria-hidden") === "false") {
+    if (
+      e.key === "Escape" &&
+      trackerModal?.getAttribute("aria-hidden") === "false"
+    ) {
       closeTrackerModal();
     }
   });
@@ -2922,13 +3000,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const preorderOptionModal = document.getElementById("preorderOptionModal");
   const closePreorderOptionBtn = document.getElementById(
-    "closePreorderOptionBtn"
+    "closePreorderOptionBtn",
   );
   const cancelPreorderOptionBtn = document.getElementById(
-    "cancelPreorderOptionBtn"
+    "cancelPreorderOptionBtn",
   );
   const confirmPreorderOptionBtn = document.getElementById(
-    "confirmPreorderOptionBtn"
+    "confirmPreorderOptionBtn",
   );
 
   if (preorderOptionModal) {
@@ -2942,14 +3020,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (closePreorderOptionBtn) {
       closePreorderOptionBtn.addEventListener(
         "click",
-        closePreorderOptionModal
+        closePreorderOptionModal,
       );
     }
 
     if (cancelPreorderOptionBtn) {
       cancelPreorderOptionBtn.addEventListener(
         "click",
-        closePreorderOptionModal
+        closePreorderOptionModal,
       );
     }
 
@@ -2960,11 +3038,11 @@ document.addEventListener("DOMContentLoaded", () => {
           PreOrderList.addItem(
             currentProductForPreorder,
             selectedPreorderOption,
-            confirmPreorderOptionBtn
+            confirmPreorderOptionBtn,
           );
           closePreorderOptionModal();
           showToast(
-            `Added ${currentProductForPreorder.title} (${selectedPreorderOption.name}) to pre-orders`
+            `Added ${currentProductForPreorder.title} (${selectedPreorderOption.name}) to pre-orders`,
           );
         }
       });
@@ -3006,11 +3084,11 @@ document.addEventListener("DOMContentLoaded", () => {
           Cart.addItem(
             currentProductForCart,
             selectedCartOption,
-            confirmCartOptionBtn
+            confirmCartOptionBtn,
           );
           closeCartOptionModal();
           showToast(
-            `Added ${currentProductForCart.title} (${selectedCartOption.name}) to cart`
+            `Added ${currentProductForCart.title} (${selectedCartOption.name}) to cart`,
           );
         }
       });
@@ -3094,7 +3172,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeWishlistBtn = document.getElementById("closeWishlistBtn");
   const clearWishlistBtn = document.getElementById("clearWishlistBtn");
   const browseProductsBtn = document.getElementById("browseProductsBtn");
-  const addAllWishlistToCartBtn = document.getElementById("addAllWishlistToCartBtn");
+  const addAllWishlistToCartBtn = document.getElementById(
+    "addAllWishlistToCartBtn",
+  );
 
   if (wishlistToggle && wishlistModal) {
     wishlistToggle.addEventListener("click", (e) => {
@@ -3105,9 +3185,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Close logic
-    const closeWishlist = () => wishlistModal.setAttribute("aria-hidden", "true");
-    if (closeWishlistBtn) closeWishlistBtn.addEventListener("click", closeWishlist);
-    if (browseProductsBtn) browseProductsBtn.addEventListener("click", closeWishlist);
+    const closeWishlist = () =>
+      wishlistModal.setAttribute("aria-hidden", "true");
+    if (closeWishlistBtn)
+      closeWishlistBtn.addEventListener("click", closeWishlist);
+    if (browseProductsBtn)
+      browseProductsBtn.addEventListener("click", closeWishlist);
 
     wishlistModal.addEventListener("click", (e) => {
       if (e.target === wishlistModal) closeWishlist();
@@ -3127,7 +3210,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addAllWishlistToCartBtn.addEventListener("click", () => {
         const items = Wishlist.getItems();
         const availableItems = items.filter((item) => item.available !== false);
-        
+
         if (availableItems.length === 0) {
           showToast("No available items to add to cart");
           return;
@@ -3143,7 +3226,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Cart.addItem(product, option, null);
           }
         });
-        
+
         showToast(`Added ${availableItems.length} item(s) to cart`);
       });
     }
@@ -3153,7 +3236,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (compareEls.closeSelectBtn) {
     compareEls.closeSelectBtn.addEventListener(
       "click",
-      closeCompareSelectionModal
+      closeCompareSelectionModal,
     );
   }
   if (compareEls.selectModal) {
@@ -3178,7 +3261,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (compareEls.closeResultBtn) {
     compareEls.closeResultBtn.addEventListener(
       "click",
-      closeComparisonResultModal
+      closeComparisonResultModal,
     );
   }
   if (compareEls.resultModal) {
@@ -3205,7 +3288,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function whatsappLink(product) {
   const base = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(/\D/g, "")}`;
   const text = encodeURIComponent(
-    `Hi, I'm interested in ${product.title}. Is it available?`
+    `Hi, I'm interested in ${product.title}. Is it available?`,
   );
   return `${base}?text=${text}`;
 }
@@ -3280,7 +3363,7 @@ function getSpecsList(product) {
 /* ---------- Mouse Specs Info Box ---------- */
 function getMiceSpecsGrid(product) {
   const s = product.specs || {};
-  
+
   const keySpecs = [
     { label: "Polling Rate", value: s.pollingRate },
     { label: "Switch", value: s.switch },
@@ -3293,9 +3376,12 @@ function getMiceSpecsGrid(product) {
   ];
 
   const specsItems = keySpecs
-    .filter(spec => spec.value)
-    .map(spec => `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`)
-    .join('');
+    .filter((spec) => spec.value)
+    .map(
+      (spec) =>
+        `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`,
+    )
+    .join("");
 
   return `
     <div class="product-specs-info-box">
@@ -3310,7 +3396,7 @@ function getMiceSpecsGrid(product) {
 /* ---------- Keyboard Specs Info Box ---------- */
 function getKeyboardSpecsGrid(product) {
   const s = product.specs || {};
-  
+
   const keySpecs = [
     { label: "Polling Rate", value: s.pollingRate },
     { label: "Scanning-Rate", value: s.singleKeyScanRate },
@@ -3321,9 +3407,12 @@ function getKeyboardSpecsGrid(product) {
   ];
 
   const specsItems = keySpecs
-    .filter(spec => spec.value)
-    .map(spec => `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`)
-    .join('');
+    .filter((spec) => spec.value)
+    .map(
+      (spec) =>
+        `<div class="specs-info-item"><span class="specs-info-label">${spec.label}:</span> <span class="specs-info-value">${spec.value}</span></div>`,
+    )
+    .join("");
 
   return `
     <div class="product-specs-info-box">
@@ -3338,14 +3427,17 @@ function getKeyboardSpecsGrid(product) {
 /* ---------- Other Products Specs Info Box ---------- */
 function getOtherProductSpecsBox(product) {
   const specsList = getSpecsList(product);
-  
+
   if (!specsList || specsList.length === 0) {
-    return '';
+    return "";
   }
 
   const specsItems = specsList
-    .map(spec => `<div class="specs-info-item"><span class="specs-info-value">${spec}</span></div>`)
-    .join('');
+    .map(
+      (spec) =>
+        `<div class="specs-info-item"><span class="specs-info-value">${spec}</span></div>`,
+    )
+    .join("");
 
   return `
     <div class="product-specs-info-box">
@@ -3374,57 +3466,68 @@ function createProductCard(p) {
 
   const href = productLink(p.id);
   // Ensure default image is valid
-  let defaultImage = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+  let defaultImage =
+    Array.isArray(p.images) && p.images.length ? p.images[0] : "";
 
   // modify default image for some keyboard product
   if (p.category == "keyboards") {
-    if (p.id == "atk-edge60he")
-      defaultImage = p.options[0].image;
+    if (p.id == "atk-edge60he") defaultImage = p.options[0].image;
     else if (p.id == "atk-rs-6")
-      defaultImage = "https://www.atk.store/cdn/shop/files/ATK_RS6_Ultra_ATK_x_ASPAS.jpg?v=1763534451";
-    else if (p.id == "mchose-ace68-turbo")
-      defaultImage = p.options[0].image;
-    else if (p.id == "madlight60he")
-      defaultImage = p.options[0].image;
+      defaultImage =
+        "https://www.atk.store/cdn/shop/files/ATK_RS6_Ultra_ATK_x_ASPAS.jpg?v=1763534451";
+    else if (p.id == "mchose-ace68-turbo") defaultImage = p.options[0].image;
+    else if (p.id == "madlight60he") defaultImage = p.options[0].image;
     else if (p.id == "titan68he-v2")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/titan68v2.png?raw=true";
-    else if (p.id == "atk68rx")
-      defaultImage = p.options[3].image;
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/titan68v2.png?raw=true";
+    else if (p.id == "atk68rx") defaultImage = p.options[3].image;
     else if (p.id == "littlebee-made68")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/made68pro_2.png?raw=true";
-  } else if (p.category == "mice"){
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/made68pro_2.png?raw=true";
+  } else if (p.category == "mice") {
     if (p.id == "lamzumayax")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/lamzuMayaX.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/lamzuMayaX.png?raw=true";
     else if (p.id == "atkf1pro")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkf1.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkf1.png?raw=true";
     else if (p.id == "scyroxv8")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/scyroxv8.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/scyroxv8.png?raw=true";
     else if (p.id == "atkA9SE")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkA9.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atkA9.png?raw=true";
     else if (p.id == "attacksharkR3")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/attacksharkr3.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/attacksharkr3.png?raw=true";
     else if (p.id == "vgnF2SE")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vgnF2.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vgnF2.png?raw=true";
     else if (p.id == "vxer1se")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vxeR1.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/vxeR1.png?raw=true";
     else if (p.id == "atk_ghost")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_ghost.png?raw=true";
     else if (p.id == "atk-x1-v2-series")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_x1v2.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/atk_blazing_x1v2.png?raw=true";
     else if (p.id == "mchose-a7x")
-      defaultImage = "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/mchose_a7x.png?raw=true";
+      defaultImage =
+        "https://github.com/Glsswrks/hekeebcambodia/blob/main/thumbnail/mchose_a7x.png?raw=true";
   }
 
   // check if the product has an options that are different price.
-  let modified_price = p.price, str_modified_price;
+  let modified_price = p.price,
+    str_modified_price;
   if (p.options && p.options.length > 1) {
-    p.options.forEach(option => {
+    p.options.forEach((option) => {
       if (option.price > p.price) {
         modified_price = option.price;
       }
     });
   }
-  str_modified_price = (modified_price == p.price ? `` : `-${modified_price}`);
+  str_modified_price = modified_price == p.price ? `` : `-${modified_price}`;
 
   const priceBadgeClass = p.available ? "price-badge in-stock" : "price-badge";
 
@@ -3450,11 +3553,11 @@ function createProductCard(p) {
           </svg>
         </button>
       </div>
-      <button class="card-add-to-cart${addToCartLocked ? ' locked' : ''}" data-product-id="${p.id}" ${addToCartLocked ? 'disabled' : ''}>
+      <button class="card-add-to-cart${addToCartLocked ? " locked" : ""}" data-product-id="${p.id}" ${addToCartLocked ? "disabled" : ""}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
         </svg>
-        ${addToCartLocked ? 'Unavailable' : 'Add To Cart'}
+        ${addToCartLocked ? "Unavailable" : "Add To Cart"}
       </button>
     </div>
     <div class="card-body">
@@ -3478,76 +3581,81 @@ function createProductCard(p) {
   // --- Logic for Options / Action Buttons ---
   const optionsContainer = card.querySelector(".card-options");
   const mainImg = card.querySelector(".main-img");
-  
+
   // Clear existing content
   optionsContainer.innerHTML = "";
 
   // Helper to create button
   const createActionBtn = (text, typeClass, onClick) => {
-     const btn = document.createElement("button");
-     // Use 'btn' + typeClass. 'btn-sm' for smaller card size if needed, but user said "match Add to Cart".
-     // We'll use a specific class for card resizing needs.
-     btn.className = `btn action-btn ${typeClass}`; 
-     btn.textContent = text;
-     btn.addEventListener("click", onClick);
-     return btn;
+    const btn = document.createElement("button");
+    // Use 'btn' + typeClass. 'btn-sm' for smaller card size if needed, but user said "match Add to Cart".
+    // We'll use a specific class for card resizing needs.
+    btn.className = `btn action-btn ${typeClass}`;
+    btn.textContent = text;
+    btn.addEventListener("click", onClick);
+    return btn;
   };
 
   // add to cart
   // select
   // Determine availability (Product available OR at least one option available)
   const hasOptions = p.options && p.options.length > 0;
-  const anyOptionAvailable = hasOptions && p.options.some(o => o.available !== false);
+  const anyOptionAvailable =
+    hasOptions && p.options.some((o) => o.available !== false);
   const isAvailable = p.available || anyOptionAvailable;
 
   if (isAvailable) {
-      // Add to Cart
-      const availableOptions = hasOptions ? p.options.filter(o => o.available !== false) : [];
-      
-      const btn = createActionBtn("Add To Cart", "add-to-cart", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          if (availableOptions.length > 1) {
-              // Open Modal
-              openAddToCartModal(p);
-          } else {
-              // Add directly (Single option or No options)
-              // If single option, pass it. If no options (standard product), pass null.
-              const opt = availableOptions.length === 1 ? availableOptions[0] : null;
-              Cart.addItem(p, opt, btn);
-          }
-      });
-      optionsContainer.appendChild(btn);
+    // Add to Cart
+    const availableOptions = hasOptions
+      ? p.options.filter((o) => o.available !== false)
+      : [];
+
+    const btn = createActionBtn("Add To Cart", "add-to-cart", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (availableOptions.length > 1) {
+        // Open Modal
+        openAddToCartModal(p);
+      } else {
+        // Add directly (Single option or No options)
+        // If single option, pass it. If no options (standard product), pass null.
+        const opt = availableOptions.length === 1 ? availableOptions[0] : null;
+        Cart.addItem(p, opt, btn);
+      }
+    });
+    optionsContainer.appendChild(btn);
   } else {
-      // Pre-Order
-      const btn = createActionBtn("Pre-Order", "pre-order", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          if (hasOptions) {
-             // Set global state for the modal
-             if (typeof currentProductForPreorder !== 'undefined') currentProductForPreorder = p;
-             if (typeof selectedPreorderOption !== 'undefined') selectedPreorderOption = null;
-             
-             // Use global functionality to populate options
-             // Passing 'false' to show all options since product is unavailable
-             if(typeof populatePreorderOptions === 'function') {
-                 populatePreorderOptions(p, false); 
-                 
-                 const modal = document.getElementById("preorderOptionModal");
-                 if(modal) modal.setAttribute("aria-hidden", "false");
-             }
-          } else {
-             // Direct add to pre-order list
-             if (typeof PreOrderList !== 'undefined') {
-                 PreOrderList.addItem(p, null, btn);
-             }
-          }
-      });
-      optionsContainer.appendChild(btn);
+    // Pre-Order
+    const btn = createActionBtn("Pre-Order", "pre-order", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (hasOptions) {
+        // Set global state for the modal
+        if (typeof currentProductForPreorder !== "undefined")
+          currentProductForPreorder = p;
+        if (typeof selectedPreorderOption !== "undefined")
+          selectedPreorderOption = null;
+
+        // Use global functionality to populate options
+        // Passing 'false' to show all options since product is unavailable
+        if (typeof populatePreorderOptions === "function") {
+          populatePreorderOptions(p, false);
+
+          const modal = document.getElementById("preorderOptionModal");
+          if (modal) modal.setAttribute("aria-hidden", "false");
+        }
+      } else {
+        // Direct add to pre-order list
+        if (typeof PreOrderList !== "undefined") {
+          PreOrderList.addItem(p, null, btn);
+        }
+      }
+    });
+    optionsContainer.appendChild(btn);
   }
-  
+
   // --- End Option Logic ---
 
   // Attach image click to open lightbox
@@ -3558,7 +3666,7 @@ function createProductCard(p) {
       openImageModal(mainImg.src);
     });
   }
-  
+
   // Quick View button event
   const quickViewBtn = card.querySelector(".quick-view-btn");
   if (quickViewBtn) {
@@ -3568,25 +3676,25 @@ function createProductCard(p) {
       openQuickPreviewModal(p);
     });
   }
-  
+
   // Add to Cart button event
   const addToCartBtn = card.querySelector(".card-add-to-cart");
   if (addToCartBtn && p.available) {
     addToCartBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      
-      // Attempt to pick selected option if logic supported later, 
+
+      // Attempt to pick selected option if logic supported later,
       // for now defaulting to first available as before
       let firstAvailableOption = null;
       if (p.options && Array.isArray(p.options)) {
-        firstAvailableOption = p.options.find(opt => opt.available !== false);
+        firstAvailableOption = p.options.find((opt) => opt.available !== false);
       }
-      
+
       Cart.addItem(p, firstAvailableOption, addToCartBtn);
     });
   }
-  
+
   // Wishlist button event
   const wishlistBtn = card.querySelector(".wishlist-btn");
   if (wishlistBtn) {
@@ -3597,7 +3705,7 @@ function createProductCard(p) {
         wishlistBtn.style.color = "#ef4444";
       }
     }
-    
+
     wishlistBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -3612,7 +3720,7 @@ function createProductCard(p) {
       }
     });
   }
-  
+
   if (p.locked) {
     const link = card.querySelector(".card-link");
     if (link) {
@@ -3632,7 +3740,7 @@ function createOptionCard(product, option, onSelect) {
       opt.available = false;
     });
   const optionElement = document.createElement(
-    product.available ? (option.available ? "button" : "div") : "div"
+    product.available ? (option.available ? "button" : "div") : "div",
   );
   optionElement.className =
     "product-option" +
@@ -3769,7 +3877,7 @@ function showAllProductsListing() {
   if (!listing) return;
 
   const otherSections = document.querySelectorAll(
-    "section.products:not(#allProductsListing)"
+    "section.products:not(#allProductsListing)",
   );
 
   listing.innerHTML = `
@@ -3797,7 +3905,7 @@ function showAllProductsListing() {
   renderCategoryCards(available, document.getElementById("allAvailableGrid"));
   renderCategoryCards(
     unavailable,
-    document.getElementById("allUnavailableGrid")
+    document.getElementById("allUnavailableGrid"),
   );
 
   const closeBtn = document.getElementById("closeAllProducts");
@@ -3813,7 +3921,7 @@ function showAllProductsListing() {
         history.replaceState(
           null,
           "",
-          window.location.pathname + window.location.search
+          window.location.pathname + window.location.search,
         );
       } catch (e) {}
     });
@@ -3933,12 +4041,12 @@ function initCategoryPage() {
           } else if (val.startsWith("rating:")) {
             const r = Number(val.split(":")[1]) || 0;
             filtered = filtered.filter(
-              (p) => (Number(p.sellerRating) || 0) >= r
+              (p) => (Number(p.sellerRating) || 0) >= r,
             );
           } else if (val.startsWith("avail:")) {
             const a = val.split(":")[1];
             filtered = filtered.filter((p) =>
-              a === "available" ? !!p.available : !p.available
+              a === "available" ? !!p.available : !p.available,
             );
           }
         }
@@ -3987,7 +4095,7 @@ function initCategoryPage() {
           } else if (val.startsWith("rating:")) {
             const r = Number(val.split(":")[1]) || 0;
             filtered = filtered.filter(
-              (p) => (Number(p.sellerRating) || 0) >= r
+              (p) => (Number(p.sellerRating) || 0) >= r,
             );
           }
         }
@@ -4129,20 +4237,50 @@ function renderSimilarProductsSection(currentProductId) {
   }
 }
 
+/* ---------- Helper to generate feature media (image/s) ---------- */
+function getFeatureMediaHTML(images, alt = "Feature Visual") {
+  if (!images) return "";
+  const imageList = Array.isArray(images) ? images : [images];
+  const isMulti = imageList.length > 1;
+
+  const imagesHTML = imageList
+    .map((src) => {
+      const isVideo = src.match(/\.(mp4|webm|mov|ogg)(?:\?|$)/i);
+      if (isVideo) {
+        return `<video src="${src}" autoplay loop muted playsinline loading="lazy"></video>`;
+      }
+      return `<img src="${src}" alt="${alt}" loading="lazy">`;
+    })
+    .join("");
+
+  return `<div class="feature-media${isMulti ? " multi" : ""}">${imagesHTML}</div>`;
+}
+
+function imageInjectionFix(url) {
+  let html = `
+  <!-- Feature Image Component (No Text) -->
+      <div class="feature-row media-only">
+        ${getFeatureMediaHTML(url, "Wide Feature Visual")}
+      </div>
+  `;
+  return html;
+}
+
 /* ---------- Modified renderProductDetail to conditionally show pre-order button ---------- */
 
 function getAdvancedFeaturesHTML(product) {
   // Only show this section for keyboards
   if (product.category !== "keyboards") return "";
+  let html = `<section class="advanced-features">
 
-  return `
-    <section class="advanced-features">
-      <!-- Row 1: 4-in-1 DKS -->
+  <!-- Feature Image Component (No Text) -->
+      <div class="feature-row media-only">
+        ${getFeatureMediaHTML((product.images.length > 2 ? product.images[2] : ""), "Wide Feature Visual")}
+      </div>
+
+<!-- Row 1: 4-in-1 DKS -->
       <div class="feature-row">
-        <div class="feature-media">
-          <!-- Placeholder URL, will be replaced with .gif later -->
-          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_4.gif?v=1760009981&width=600" alt="4-in-1 DKS Visual">
-        </div>
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_4.gif?v=1760009981&width=600", "4-in-1 DKS Visual")}
         <div class="feature-content">
           <h3>4-in-1 DKS</h3>
           <p>Thanks to Dynamic Keystrokes (DKS), you can now assign up to 4 distinct actions per key based on press depth. For example, a light press moves your character, a deeper press makes them run, and releasing the key can trigger additional commands. This layered control allows you to execute a series of complex actions with ease.</p>
@@ -4150,12 +4288,15 @@ function getAdvancedFeaturesHTML(product) {
         </div>
       </div>
 
+      <!-- Feature Image Component (No Text) -->
+      <div class="feature-row media-only">
+        ${getFeatureMediaHTML((product.images.length > 4 ? product.images[4] : ""), "Wide Feature Visual")}
+         ${getFeatureMediaHTML((product.images.length > 6 ? product.images[6] : ""), "Wide Feature Visual")}
+      </div>
+
       <!-- Row 2: SOCD -->
       <div class="feature-row">
-        <div class="feature-media">
-          <!-- Placeholder URL, will be replaced with .gif later -->
-          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_3.gif?v=1760009982&width=600" alt="SOCD Visual">
-        </div>
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_3.gif?v=1760009982&width=600", "SOCD Visual")}
         <div class="feature-content">
           <h3>SOCD</h3>
           <p>Optimized for competitive games like Valorant, guarantees seamless direction changes by prioritizing the last key input. For simultaneous presses, the deeper keystroke takes immediate priority, automatically canceling the lighter press to ensure absolute movement accuracy.</p>
@@ -4164,17 +4305,22 @@ function getAdvancedFeaturesHTML(product) {
 
       <!-- Row 3: Adjustable Actuation (Reversed Layout) -->
       <div class="feature-row reverse">
-        <div class="feature-media">
-          <!-- Placeholder URL, will be replaced with .gif later -->
-          <img src="https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600" alt="Adjustable Actuation Visual">
-        </div>
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600", "Adjustable Actuation Visual")}
         <div class="feature-content">
           <h3>Adjustable Actuation</h3>
           <p>Adjustable Actuation allows you to customize exactly how deep a key must be pressed to register an input. Powered by Hall Effect magnetic sensors, you can digitally set the sensitivity of every key—ranging from a 0.1mm "hair-trigger" for lightning-fast gaming responses to a deeper 4.0mm press for more deliberate, typo-free typing. This eliminates the physical limitations of traditional switches, giving you total control over the speed and precision of your keyboard to match your specific playstyle or workflow.</p>
         </div>
       </div>
-    </section>
+
+      ${product.id == "littlebee-made68" ? `
+        <!-- Feature Image Component (No Text) -->
+      <div class="feature-row media-only">
+        ${getFeatureMediaHTML((product.images[product.images.length - 1]), "Wide Feature Visual")}
+      </div>
+        ` : ``}
+      </section>
   `;
+  return html;
 }
 
 function renderProductDetail(product) {
@@ -4250,18 +4396,18 @@ function renderProductDetail(product) {
 
         newBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          
+
           // If an option is already selected, add it directly
           if (selectedOption) {
             Cart.addItem(product, selectedOption, newBtn);
             return;
           }
-          
+
           // Check available options
           const availableOptions = product.options
             ? product.options.filter((opt) => opt.available)
             : [];
-          
+
           if (availableOptions.length === 0) {
             // No options, add product directly
             Cart.addItem(product, null, newBtn);
@@ -4273,7 +4419,7 @@ function renderProductDetail(product) {
             currentProductForCart = product;
             selectedCartOption = null;
             populateCartOptions(product);
-            
+
             const cartOptionModal = document.getElementById("cartOptionModal");
             if (cartOptionModal) {
               cartOptionModal.setAttribute("aria-hidden", "false");
@@ -4291,8 +4437,12 @@ function renderProductDetail(product) {
     // 5. Update Pre-order button - handle both unavailable products and mixed availability
     if (preOrderBtn) {
       // Check if product has mixed availability
-      const hasMixedAvailability = product.available && product.options && product.options.length > 0 &&
-        product.options.some(opt => opt.available) && product.options.some(opt => !opt.available);
+      const hasMixedAvailability =
+        product.available &&
+        product.options &&
+        product.options.length > 0 &&
+        product.options.some((opt) => opt.available) &&
+        product.options.some((opt) => !opt.available);
 
       if (product.available && !hasMixedAvailability) {
         // If product is fully available with no mixed availability, hide pre-order button
@@ -4320,7 +4470,7 @@ function renderProductDetail(product) {
 
             // Show the option selection modal
             const preorderOptionModal = document.getElementById(
-              "preorderOptionModal"
+              "preorderOptionModal",
             );
             if (preorderOptionModal) {
               preorderOptionModal.setAttribute("aria-hidden", "false");
@@ -4352,7 +4502,9 @@ function renderProductDetail(product) {
   // Check if product has mixed availability (some options available, some not)
   let hasMixedAvailability = false;
   if (hasOptions && product.available) {
-    const availableCount = product.options.filter(opt => opt.available).length;
+    const availableCount = product.options.filter(
+      (opt) => opt.available,
+    ).length;
     const unavailableCount = product.options.length - availableCount;
     hasMixedAvailability = availableCount > 0 && unavailableCount > 0;
   }
@@ -4377,8 +4529,12 @@ function renderProductDetail(product) {
       : "";
 
   // Wishlist button - available for all products
-  const wishlistBtnClass = Wishlist.isInWishlist(product.id) ? "in-wishlist" : "";
-  const wishlistBtnText = Wishlist.isInWishlist(product.id) ? "In Wishlist ❤️" : "Add to Wishlist";
+  const wishlistBtnClass = Wishlist.isInWishlist(product.id)
+    ? "in-wishlist"
+    : "";
+  const wishlistBtnText = Wishlist.isInWishlist(product.id)
+    ? "In Wishlist ❤️"
+    : "Add to Wishlist";
   const wishlistButtonHTML = `<button class="btn wishlist ${wishlistBtnClass}" id="wishlistBtn" data-wishlist-product-id="${product.id}">${wishlistBtnText}</button>`;
 
   const optionsPlaceholderHTML = hasOptions
@@ -4433,11 +4589,13 @@ function renderProductDetail(product) {
                   ${wishlistButtonHTML}
                 </div>
                 <div class="product-specs-section">
-                  ${product.category === "mice" 
-                    ? getMiceSpecsGrid(product) 
-                    : product.category === "keyboards"
-                    ? getKeyboardSpecsGrid(product)
-                    : getOtherProductSpecsBox(product)}
+                  ${
+                    product.category === "mice"
+                      ? getMiceSpecsGrid(product)
+                      : product.category === "keyboards"
+                        ? getKeyboardSpecsGrid(product)
+                        : getOtherProductSpecsBox(product)
+                  }
                 </div>
                 <div class="action-btn-row">
                     ${actionButtonHTML}
@@ -4480,7 +4638,7 @@ function renderProductDetail(product) {
     const optionsGrid = document.getElementById("optionsGrid");
     product.options.forEach((option) => {
       optionsGrid.appendChild(
-        createOptionCard(product, option, (opt) => updateProductDisplay(opt))
+        createOptionCard(product, option, (opt) => updateProductDisplay(opt)),
       );
     });
 
@@ -4534,14 +4692,14 @@ function createCarousel(images) {
     (e) => {
       e.stopPropagation();
     },
-    { passive: true }
+    { passive: true },
   );
   btnRight.addEventListener(
     "touchstart",
     (e) => {
       e.stopPropagation();
     },
-    { passive: true }
+    { passive: true },
   );
 
   const dots = document.createElement("div");
@@ -4603,7 +4761,7 @@ function createCarousel(images) {
       startX = e.touches[0].clientX;
       track.style.transition = "none";
     },
-    { passive: true }
+    { passive: true },
   );
 
   track.addEventListener(
@@ -4613,7 +4771,7 @@ function createCarousel(images) {
       const dx = e.touches[0].clientX - startX;
       track.style.transform = `translateX(${currentTranslate + dx}px)`;
     },
-    { passive: true }
+    { passive: true },
   );
 
   track.addEventListener("touchend", (e) => {
@@ -4782,11 +4940,10 @@ if (document.readyState === "loading") {
   if (whatsappMain)
     whatsappMain.href = `https://wa.me/${CONTACT_WHATSAPP_NUMBER.replace(
       /\D/g,
-      ""
+      "",
     )}`;
   if (telegramMain) telegramMain.href = `https://t.me/${TELEGRAM_HANDLE}`;
   if (discordMain) discordMain.textContent = DISCORD_HANDLE;
-
 
   // Check for the containers to determine which page we are on
   const indexGrid = document.getElementById("keyboardGrid");
@@ -4814,21 +4971,23 @@ if (document.readyState === "loading") {
    HERO SLIDER LOGIC
    ========================================= */
 function initHeroSlider() {
-  const slider = document.getElementById('heroSlider');
+  const slider = document.getElementById("heroSlider");
   if (!slider) return;
 
-  const slides = slider.querySelectorAll('.slide');
-  const prevBtn = document.getElementById('sliderPrevBtn');
-  const nextBtn = document.getElementById('sliderNextBtn');
-  const indicators = document.getElementById('sliderIndicators');
-  const indicatorSpans = indicators ? indicators.querySelectorAll('.indicator') : [];
-  
+  const slides = slider.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("sliderPrevBtn");
+  const nextBtn = document.getElementById("sliderNextBtn");
+  const indicators = document.getElementById("sliderIndicators");
+  const indicatorSpans = indicators
+    ? indicators.querySelectorAll(".indicator")
+    : [];
+
   let currentSlide = 0;
   let isAnimating = false;
   let autoSlideInterval;
   const slideDuration = 6000; // 6 seconds per slide
 
-  function goToSlide(index, direction = 'next') {
+  function goToSlide(index, direction = "next") {
     if (isAnimating || index === currentSlide) return;
     isAnimating = true;
 
@@ -4836,37 +4995,48 @@ function initHeroSlider() {
     const nextSlide = slides[index];
 
     // Add classes for transition
-    if (direction === 'next') {
-      activeSlide.classList.add('slide-next-exit');
-      nextSlide.classList.add('slide-next-enter');
-      
+    if (direction === "next") {
+      activeSlide.classList.add("slide-next-exit");
+      nextSlide.classList.add("slide-next-enter");
+
       // Force reflow
       void nextSlide.offsetWidth;
-      
-      activeSlide.classList.add('slide-next-exit-active');
-      nextSlide.classList.add('slide-next-enter-active');
+
+      activeSlide.classList.add("slide-next-exit-active");
+      nextSlide.classList.add("slide-next-enter-active");
     } else {
-      activeSlide.classList.add('slide-prev-exit');
-      nextSlide.classList.add('slide-prev-enter');
-      
+      activeSlide.classList.add("slide-prev-exit");
+      nextSlide.classList.add("slide-prev-enter");
+
       void nextSlide.offsetWidth;
-      
-      activeSlide.classList.add('slide-prev-exit-active');
-      nextSlide.classList.add('slide-prev-enter-active');
+
+      activeSlide.classList.add("slide-prev-exit-active");
+      nextSlide.classList.add("slide-prev-enter-active");
     }
 
     // Update indicators
     if (indicators) {
-      indicatorSpans.forEach(ind => ind.classList.remove('active'));
-      if(indicatorSpans[index]) indicatorSpans[index].classList.add('active');
+      indicatorSpans.forEach((ind) => ind.classList.remove("active"));
+      if (indicatorSpans[index]) indicatorSpans[index].classList.add("active");
     }
 
     // Cleanup after transition
     setTimeout(() => {
-      activeSlide.classList.remove('active', 'slide-next-exit', 'slide-next-exit-active', 'slide-prev-exit', 'slide-prev-exit-active');
-      nextSlide.classList.remove('slide-next-enter', 'slide-next-enter-active', 'slide-prev-enter', 'slide-prev-enter-active');
-      nextSlide.classList.add('active');
-      
+      activeSlide.classList.remove(
+        "active",
+        "slide-next-exit",
+        "slide-next-exit-active",
+        "slide-prev-exit",
+        "slide-prev-exit-active",
+      );
+      nextSlide.classList.remove(
+        "slide-next-enter",
+        "slide-next-enter-active",
+        "slide-prev-enter",
+        "slide-prev-enter-active",
+      );
+      nextSlide.classList.add("active");
+
       currentSlide = index;
       isAnimating = false;
     }, 800); // Wait for transition to finish
@@ -4874,17 +5044,17 @@ function initHeroSlider() {
 
   function nextSlide() {
     let nextIndex = (currentSlide + 1) % slides.length;
-    goToSlide(nextIndex, 'next');
+    goToSlide(nextIndex, "next");
   }
 
   function prevSlide() {
     let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-    goToSlide(prevIndex, 'prev');
+    goToSlide(prevIndex, "prev");
   }
 
   // Event Listeners
   if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
+    nextBtn.addEventListener("click", () => {
       stopAutoSlide();
       nextSlide();
       startAutoSlide();
@@ -4892,7 +5062,7 @@ function initHeroSlider() {
   }
 
   if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
+    prevBtn.addEventListener("click", () => {
       stopAutoSlide();
       prevSlide();
       startAutoSlide();
@@ -4901,10 +5071,10 @@ function initHeroSlider() {
 
   if (indicators) {
     indicatorSpans.forEach((ind, i) => {
-      ind.addEventListener('click', () => {
+      ind.addEventListener("click", () => {
         stopAutoSlide();
-        if (i > currentSlide) goToSlide(i, 'next');
-        else if (i < currentSlide) goToSlide(i, 'prev');
+        if (i > currentSlide) goToSlide(i, "next");
+        else if (i < currentSlide) goToSlide(i, "prev");
         startAutoSlide();
       });
     });
@@ -4924,16 +5094,24 @@ function initHeroSlider() {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  slider.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-    stopAutoSlide();
-  }, {passive: true});
+  slider.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoSlide();
+    },
+    { passive: true },
+  );
 
-  slider.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-    startAutoSlide();
-  }, {passive: true});
+  slider.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoSlide();
+    },
+    { passive: true },
+  );
 
   function handleSwipe() {
     if (touchEndX < touchStartX - 50) nextSlide();
@@ -4945,8 +5123,8 @@ function initHeroSlider() {
 }
 
 // Call init functionality
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHeroSlider);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initHeroSlider);
 } else {
   initHeroSlider();
 }

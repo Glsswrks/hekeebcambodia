@@ -7203,6 +7203,21 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+.feature-media.multi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.feature-row.media-only {
+  display: block;
+}
+
+.feature-row.media-only .feature-media {
+  width: 100%;
+}
+
 :root[data-theme="light"] .feature-media img {
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
