@@ -4270,17 +4270,13 @@ function imageInjectionFix(url) {
 
 function getAdvancedFeaturesHTML(product) {
   // Only show this section for keyboards
-  if (product.category !== "keyboards") return "";
-  /*
+  if (product.category !== "keyboards" || product.id != "littlebee-made68")
+     return "";
 
-  
-  <!-- Feature Image Component (No Text) -->
-      <div class="feature-row media-only">
-        ${getFeatureMediaHTML((product.options ? product.options[1].image : product.images[0]), "Wide Feature Visual")}
-      </div>
-      */
   let html = `<section class="advanced-features">
-      
+
+      ${imageInjectionFix(product.images[3])}
+
       <div class="feature-row reverse">
         ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_1.gif?v=1760008838&width=600", "Adjustable Actuation Visual")}
         <div class="feature-content">
@@ -4289,11 +4285,33 @@ function getAdvancedFeaturesHTML(product) {
         </div>
       </div>
 
+      ${imageInjectionFix(product.images[2])}
+
       <div class="feature-row">
         ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/made68_ultra_jelly_pink_3.gif?v=1760009982&width=600", "SOCD Visual")}
         <div class="feature-content">
           <h3>SOCD</h3>
           <p>Optimized for competitive games like Valorant, guarantees seamless direction changes by prioritizing the last key input. For simultaneous presses, the deeper keystroke takes immediate priority, automatically canceling the lighter press to ensure absolute movement accuracy.</p>
+        </div>
+      </div>
+
+      <div class="feature-row media-only">
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Ultra_8.png?v=1761905288&width=1578", "Wide Feature Visual")}
+      </div>
+
+      <div class="feature-row reverse">
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Ultra_Jelly_Pink_2.png?v=1761046904&width=800", "0.01mm RT Accuracy Visual")}
+       <div class="feature-content">
+          <h3>0.01mm RT Accuracy</h3>
+          <p>Unlike other keyboards that struggle with mid-stroke instability and accidental disconnects, the MelGeek MADE68 Ultra+ is engineered for a flawless gaming experience. Our exclusive 0.01mm bottom-actuation algorithm eliminates the “unresponsive” feel of other designs, ensuring every keypress is stable and reliable.</p>
+         </div>
+      </div>
+
+      <div class="feature-row reverse">
+        ${getFeatureMediaHTML("https://www.melgeek.com/cdn/shop/files/MelGeek_MADE68_Ultra_Jelly_Pink_3.png?v=1761047008&width=791", "0.125ms Ultra-Low Latency Visual")}
+        <div class="feature-content">
+          <h3>0.125ms Ultra-Low Latency</h3>
+          <p>Ever miss a shot because your keyboard couldn’t keep up?MelGeek MADE68 Ultra delivers true 8K polling +16K scanning-with every key tuned to a consistent 0.125ms response. No guesswork. No uneven input. Just total control.</p>
         </div>
       </div>
 
@@ -4305,6 +4323,8 @@ function getAdvancedFeaturesHTML(product) {
           <small>*DKS is disabled by default. You can enable and make changes within the Keyboard Driver.</small>
         </div>
       </div>
+
+      ${imageInjectionFix("https://www.melgeek.com/cdn/shop/files/Made68_ultra_jelly_pink_4_e30e419f-cd27-4ba9-a77e-74076ee36ecb.png?v=1762314554&width=1920")}
 
       ${product.id == "littlebee-made68" ? `
         <!-- Feature Image Component (No Text) -->
